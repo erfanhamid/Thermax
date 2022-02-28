@@ -1,0 +1,562 @@
+﻿@model BEEERP.Models.ViewModel.Sales.Dealer.DPRVModel
+@using BEEERP.Models.CommonInformation
+@{
+    ViewBag.Title = "DPREntry";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<h3 style="text-align:center">Dealer Payment Receive (DPR) Entry</h3>
+<form id="report" , target="_blank">
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h5 class="box-title">DPR Details</h5>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.RPID, new { @class = "col-md-4 control-label " })
+                                            <div class="input-group input-group-sm" style="padding-right:15px;padding-left:14px;">
+                                                @Html.TextBoxFor(m => m.RPID, new { @class = "form-control enterTab "@*, @Value = ViewBag.RPID*@})
+                                                @Html.ValidationMessageFor(m => m.RPID)
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-primary" id="search" style="min-width: 50px">Search</button>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.CustomerID, new { @class = "col-md-4 control-label " })
+                                            <div class="input-group input-group-sm" style="padding-right:15px;padding-left:14px;">
+                                                @Html.TextBoxFor(m => m.CustomerID, new { @class = "form-control enterTab " })
+
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-primary" id="go" style="min-width: 20px">Go</button>
+                                                </span>
+                                            </div>
+                                            <div class="col-md-4"></div>
+                                            <div class="col-sm-8">
+                                                @Html.ValidationMessageFor(m => m.CustomerID)
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.CustomerName, new { @class = "col-md-4 control-label" })
+                                            <div class="input-group col-md-8" style="padding-right:15px;padding-left:14px;">
+                                                @Html.TextBoxFor(m => m.CustomerName, new { @class = "form-control enterTab", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.CustomerName)
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.DepotID, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.DepotID, (IEnumerable<SelectListItem>)ViewBag.Depot, new { @class = "enterTab form-control select2 " })
+                                                @Html.ValidationMessageFor(m => m.DepotID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Zone, new { @class = "col-md-4 control-label" })
+                                            <div class="input-group col-md-8" style="padding-right:15px;padding-left:14px;">
+                                                @Html.TextBoxFor(m => m.Zone, new { @class = "form-control enterTab", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.Zone)
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Area, new { @class = "col-md-4 control-label" })
+                                            <div class=" col-md-8">
+                                                @Html.TextBoxFor(m => m.Area, new { @class = "form-control enterTab", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.Area)
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.TDate, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 date input-group" style="padding-right:15px;padding-left:14px;">
+                                                @Html.TextBoxFor(m => m.TDate, new { @class = "enterTab form-control date ", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Due, "A/C Balance", new { @class = "col-md-4 control-label" })
+                                            <div class=" col-md-8">
+                                                @Html.TextBoxFor(m => m.Due, new { @class = "form-control enterTab", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.Due)
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="box">
+                            @*<div class="box-header with-border box-head-back">
+                <h3 class="box-title">Dealer Information</h3>
+            </div>*@
+                            <div class="box-body">
+                                <div class="loader" id="loader"></div>
+                                <div class="col-md-12">
+
+                                    <div class="col-md-4">
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.AccountID, "Receive A/C", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.AccountID, (IEnumerable<SelectListItem>)ViewBag.Account, new { @class = "form-control  select2", })
+                                                @Html.ValidationMessageFor(m => m.AccountID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.RefNo, new { @class = "col-md-4 control-label" })
+                                            <div class="input-group col-md-8" style="padding-right:15px;padding-left:14px;">
+                                                @Html.TextBoxFor(m => m.RefNo, new { @class = "form-control enterTab" })
+                                                @Html.ValidationMessageFor(m => m.RefNo)
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Description, new { @class = "col-md-4 control-label" })
+                                            <div class="input-group col-md-8" style="padding-right:15px;padding-left:14px;">
+                                                @Html.TextAreaFor(m => m.Description, new { @class = "form-control enterTab" })
+                                                @Html.ValidationMessageFor(m => m.Description)
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.ReceiveAmt, new { @class = "col-md-4 control-label" })
+                                            <div class="input-group col-md-8" style="padding-right:15px;padding-left:14px;">
+                                                @Html.TextBoxFor(m => m.ReceiveAmt, new { @class = "form-control enterTab", @type = "number" })
+                                                @Html.ValidationMessageFor(m => m.ReceiveAmt, "", new { @style = "color: red" })
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.BankCharges, new { @class = "col-md-4 control-label" })
+                                            <div class="input-group col-md-8" style="padding-right:15px;padding-left:14px;">
+                                                @Html.TextBoxFor(m => m.BankCharges, new { @class = "form-control enterTab", @type = "number" })
+                                                @Html.ValidationMessageFor(m => m.BankCharges, "", new { @style = "color: red" })
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.NetAmount, new { @class = "col-md-4 control-label" })
+                                            <div class="input-group col-md-8" style="padding-right:15px;padding-left:14px;">
+                                                @Html.TextBoxFor(m => m.NetAmount, new { @class = "form-control enterTab", @type = "number", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.NetAmount, "", new { @style = "color: red" })
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background-color:white; ">
+                            <div class="form-group">
+                                <div class="col-md-12" style="text-align:center;">
+                                    <input type="button" value="Save" id="save" class="btn btn-primary" style="padding-left:20px;" />
+                                    <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                    @{
+                                        if (HttpContext.Current.User.IsInRole("Admin"))
+                                        {
+                                            <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                                            <input type="button" name="delete" id="delete" value="Delete" class="btn btn-primary" />
+                                        }
+                                    }
+                                    <input type="button" value="Print" id="print" class="btn btn-primary" style="min-width:100px" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@section scripts{
+    <script src="~/Scripts/SalesModule/DPRInputFocus.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#update").hide();
+            $("#delete").hide();
+            $("#print").hide();
+            $("#DepotID").val(@ViewBag.DepotId).change();
+
+        });
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+        var IsUpdate = false;
+        KeyPress(IsUpdate)
+        var isValid = true;
+        var acid = 0;
+        $(".select2").select2();
+        var dpr = { RPID: 0, CustomerID: 0, TDate: "", AccountID: "", ReceiveAmt: 0, BankCharges: 0, NetAmount: 0, RefNo: "", Description: "" ,DepotID :0}
+        function setDPR() {
+            dpr.RPID = $("#RPID").val();
+            dpr.CustomerID = $("#CustomerID").val();
+            dpr.AccountID = $("#AccountID").val();
+            dpr.ReceiveAmt = $("#ReceiveAmt").val();
+            dpr.BankCharges = $("#BankCharges").val();
+            dpr.NetAmount = $("#NetAmount").val();
+            dpr.RefNo = $("#RefNo").val();
+            dpr.Description = $("#Description").val();
+            dpr.DepotID = $("#DepotID").val();
+            dpr.TDate = $("#TDate").val();
+        }
+
+        $(document).on('click', "#refresh", function () {
+            window.location.reload(true);
+        });
+        $(document).on('keyup', "#ReceiveAmt", function () {
+            NetAmountCalculation();
+        });
+        $(document).on('keyup', "#BankCharges", function () {
+            NetAmountCalculation();
+        });
+
+        function NetAmountCalculation() {
+            var bank = $("#BankCharges").val();
+            var bankCheckNum = $.isNumeric(bank);
+            var amt = $("#ReceiveAmt").val();
+            var amtchecknum = $.isNumeric(amt);
+            if (bank == "" && amt != "" && amtchecknum == true) {
+                var amount = parseFloat(amt);
+                $("#NetAmount").val(amount.toFixed(2));
+            }else if (bank != "" && bankCheckNum == true && amt == "") {
+                var amount = -parseFloat(bank);
+                $("#NetAmount").val(amount.toFixed(2));
+            }
+            else if (bank != "" && bankCheckNum == true && amt != "" && amtchecknum == true) {
+                var amount = parseFloat(amt) - parseFloat(bank);
+                $("#NetAmount").val(amount.toFixed(2));
+            } else {
+                $("#NetAmount").val("");
+            }
+        }
+        $(document).on('change', "#DepotID", function () {
+                var id = { id: $(this).val() };
+                if (id.id != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetAccountByDepot", "DealerPaymentReceive")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify(id),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            $("#AccountID").empty();
+                            $.each(datas, function (index, value) {
+                                $("#AccountID").append($('<option />', {
+                                    value: value.Value,
+                                    text: value.Text
+                                })).trigger('change');
+                            });
+                            if (acid > 0) {
+                                $("#AccountID").val(acid).change();
+                            }
+                            acid = 0;
+
+                        }
+                    });
+                }
+                else {
+                    $("#AccountID").empty();
+                    $("#AccountID").append($('<option />', {
+                        value: "",
+                        text: "--- Select A/C ---"
+                    })).trigger('change');
+                }
+
+         });
+
+                $(document).on('click', '#go', function () {
+                    var id = $("#CustomerID").val();
+                    var depot = $("#DepotID").val();
+                    if (id != "" && depot != "") {
+                        ClearOnSearch();
+                        $.ajax({
+                            url: '@Url.Action("GetDealerInfoId", "DealerPaymentReceive")',
+                            contentType: "application/json;charset=utf-8",
+                            data: { id: id, depot: depot },
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (datas) {
+
+                                if (datas == 0) {
+                                    alert("Your entered Dealer No. Doesn't exist");
+                                }
+                                else {
+                                    $("#CustomerName").val(datas.dealer.CustomerName);
+                                    $("#Zone").val(datas.zone);
+                                    $("#Area").val(datas.dealer.AreaName);
+                                    $("#Due").val(datas.due);
+
+                                }
+                            },
+                            error: function () {
+                                alert("Please check your internet connection first. If this doesn't sovle your problem, then Contact With Paankouri Software & Services")
+                                $("#search").prop('disabled', false);
+                            }
+                        });
+                    } else {
+                        alert("To Get Information please Enter a Dealer ID and Select Depot ");
+                    }
+                });
+
+             //save code
+        $(document).on('click', '#save', function () {
+            RemoveError();
+            $("#save").prop('disabled', true);
+            setDPR();
+                ValidateDPR();
+                if (isValid == true) {
+                    if (confirm('Do you want to save')) {
+                        $.ajax({
+                            url: '@Url.Action("SaveDPR", "DealerPaymentReceive")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ dpr: dpr}),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Invalid Input");
+                                    $("#save").prop('disabled', false);
+                                }
+                                else if (datas == 2) {
+                                    alert("Already  Exist.");
+                                } else if (datas == 3) {
+                                    alert("Please select a valid entry date");
+                                    $("#TDate").focus();
+                                    $("#save").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully Saved");
+                                    $("#RPID").val(datas);
+                                    $("#print").show();
+                                    $("#save").prop('disabled', true);
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        $("#save").prop('disabled', false);
+                    }
+                }
+                else {
+                    $("#save").prop('disabled', false);
+                }
+
+        });
+
+            $(document).on('click', '#search', function () {
+                var id = $("#RPID").val();
+
+                    if (id != "") {
+
+                        $.ajax({
+                            url: '@Url.Action("GetDPR", "DealerPaymentReceive")',
+                            contentType: "application/json;charset=utf-8",
+                            data: { id: id },
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (datas) {
+
+                                if (datas == 0) {
+                                    alert("Invalid Input");
+
+                                } else if (datas == 2) {
+                                    alert("Your entered DPR ID Doesn't exist");
+                                }
+                                else {
+                                    acid = datas.AccountID;
+                                    $("#DepotID").val(datas.DepotID).change();
+                                    $("#CustomerID").val(datas.CustomerID);
+                                    $("#TDate").val((moment(datas.TDate).format("DD-MM-YYYY"))).change();
+                                    //$("#AccountID").val(datas.AccountID);
+                                    $("#ReceiveAmt").val(datas.ReceiveAmt);
+                                    $("#BankCharges").val(datas.BankCharges);
+                                    $("#NetAmount").val(datas.NetAmount);
+                                    $("#RefNo").val(datas.RefNo);
+                                    $("#Description").val(datas.Description);
+                                    $("#go").click();
+                                    $("#save").hide();
+                                    $("#update").show();
+                                    $("#delete").show();
+                                    $("#print").show();
+                                    IsUpdate = true;
+                                    KeyPress(IsUpdate);
+
+                                }
+                            },
+                            error: function () {
+                                alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+                                $("#search").prop('disabled', false);
+                            }
+                        });
+                    } else {
+                        alert("To Get Information please Enter a DPR ID  ");
+                    }
+                });
+
+
+         $(document).on('click', '#update', function () {
+            RemoveError();
+             $("#update").prop('disabled', true);
+                setDPR();
+                ValidateDPR();
+                if (isValid == true) {
+                    if (confirm('Do you want to update')) {
+                        $.ajax({
+                            url: '@Url.Action("UpdateDPR", "DealerPaymentReceive")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ dpr: dpr}),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Invalid Input");
+                                    $("#save").prop('disabled', false);
+                                } else if (datas == 3) {
+                                    alert("You can not change this transection");
+                                }
+                                else {
+                                    alert("Sucessfully Updated.");
+                                    $("#RPID").val(datas);
+                                    $("#save").prop('disabled', true);
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        $("#update").prop('disabled', false);
+                    }
+                }
+                else {
+                    $("#update").prop('disabled', false);
+                }
+
+        });
+           $(document).on('click', '#delete', function () {
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+               var id = $("#RPID").val();
+               if (id != "") {
+                   if (confirm('Are you sure you want to delete this from the database?')) {
+                       $.ajax({
+                           url: '@Url.Action("DeleteDPR", "DealerPaymentReceive")',
+                           contentType: "application/json;charset=utf-8",
+                           data: { id: id },
+                           type: 'GET',
+                           dataType: 'json',
+                           success: function (datas) {
+                               if (datas == 0) {
+                                   alert("Invalid Input.");
+                                   $("#delete").prop('disabled', false);
+                                   $("#update").prop('disabled', false);
+                               } else if (datas == 2) {
+                                   alert("DPR Not Found");
+                               } else if (datas == 3) {
+                                   alert("You can not change this transection");
+                               }
+                               else {
+                                   alert("Delete Successfull");
+                                   window.location.reload(true);
+                               }
+                           }
+                       });
+                   }
+               }
+               else {
+                   alert("Please Enter a DPR No.");
+                $("#update").prop('disabled', false);
+                $("#delete").prop('disabled', false);
+            }
+        });
+        $(document).on('click', "#print", function (event) {
+            event.preventDefault();
+
+            $("#report").attr("action", "/DealerPaymentReceive/GetDPRPreview")
+                $("#report").submit();
+
+        });
+        function ClearOnSearch() {
+            $("#CustomerName").val("");
+            $("#Zone").val("");
+            $("#Area").val("");
+            $("#Due").val("");
+        }
+        function ValidateDPR() {
+            isValid = true;
+            if (dpr.CustomerID == "") {
+                setError("CustomerID", "Please Enter a Dealer ID");
+                isValid = false;
+            }
+            if (dpr.DepotID == "") {
+                setError("DepotID", "Please Select a Depot");
+                isValid = false;
+            }
+            if (dpr.AccountID == "") {
+                setError("AccountID", "Please Select A/C");
+                isValid = false;
+            }
+            if (dpr.ReceiveAmt == "") {
+                setError("ReceiveAmt", "Please Enter Amount");
+                isValid = false;
+            }
+            if (parseFloat(dpr.NetAmount) < 0) {
+                setError("NetAmount", "Net Amount must be positive number");
+                isValid = false;
+            }
+
+        }
+    </script>
+
+}

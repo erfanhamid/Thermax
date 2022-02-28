@@ -1,0 +1,323 @@
+﻿@using BEEERP.Models.CommonInformation
+@using BEEERP.Models.ViewModel.Sales.Report
+@using BEEERP.Models.SalesModule
+@{
+    ViewBag.Title = "Invoice";
+    Layout = null;
+    decimal netPayable = 0.0m;
+    decimal unit = 0.0m;
+    decimal bonusQty = 0.0m;
+    decimal grossSale = 0.0m;
+    decimal totVat = 0.0m;
+    decimal totDiscount = 0.0m;
+    decimal totSalesQty = 0.0m;
+    int pageNo = 1;
+    int totalPage = 1;
+    var enumItem = (IEnumerable<SalesEntryNewLineItem>)ViewBag.SalesDetails;
+    var items = enumItem.ToList();
+
+}
+<style>
+    table {
+        width: 100%;
+    }
+
+    #invoiceTable th {
+        font-size: 13px;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+        border-collapse: collapse;
+        text-align: left;
+        overflow: hidden;
+        font-weight: 300;
+        font-family: sans-serif;
+    }
+
+    #invoiceTable td {
+        padding-top: 7px;
+        padding-bottom: 7px;
+        font-size: 11px;
+    }
+
+    td {
+        font-family: Arial;
+    }
+
+    .pagebreak {
+        page-break-before: always;
+    }
+</style>
+<table>
+    <tr>
+        <td style="padding-left: 188px;font-weight:bold;font-family:'Lucida Sans Unicode' sans-serif;font-size:20px;">@ViewBag.ComName</td>
+    </tr>
+    <tr>
+        <td style="padding-left: 188px;padding-top:0;font-family:'Lucida Sans Unicode';">@ViewBag.ComAddress</td>
+    </tr>
+    <tr>
+        <td style="padding-left: 188px;font-size:13px;font-family:Courier New, Courier, monospace;">Contact :@ViewBag.ComContact</td>
+    </tr>
+    <tr>
+        <td style="padding-left: 188px;font-size:13px;font-family:Courier New, Courier, monospace;">Factory Address :@ViewBag.FactoryAddress</td>
+    </tr>
+    <tr>
+        <td style="padding-left: 188px;font-size:13px;padding-right:0px;font-family:Courier New, Courier, monospace;">Factory Contact :@ViewBag.FactoryContact</td>
+    </tr>
+    <tr>
+        <td style="font-size:16px;font-family:sans-serif"><br />Sales Center : @ViewBag.DepotName</td>
+    </tr>
+</table>
+
+<table>
+    <tr style="width:100%;">
+        <td style="width:300px;font-size:16px;font-family:sans-serif">Challan and invoice</td>
+        <td style="width:300px;font-size:18px;font-family:sans-serif"></td>
+        <td style="width:300px;font-size:16px;font-family:sans-serif">Vat Reg No. 50310214152</td>
+    </tr>
+
+</table>
+<hr />
+
+@{
+    int rowCount = items.Count;
+    int pageCount = (int)Math.Ceiling((double)rowCount / 18);
+    int j = 0;
+    int lastPage = rowCount % 18;
+    int k = 0;
+
+    for (int i = 1; i <= pageCount; i++)
+    {
+
+        if (pageCount > 1 && pageCount != i)
+        {
+            j += 18;
+        }
+        int rowCountForPageBreak = 0;
+        if (pageCount == i)
+        {
+            j += lastPage;
+        }
+        <br />
+        <table>
+            <tr>
+                <td style="width:300px;font-size:18px; font-weight:100;"><text style="padding-right: 49px;">Customer ID#</text><text>:&ensp;@ViewBag.SaleEntry.CustomerId</text></td>
+                <td style="width:300px;font-size:18px;font-weight:100;"><text style="padding-right: 100px;">Invoice</text><text>:&ensp;@ViewBag.SaleEntry.InvoiceNo</text></td>
+            </tr>
+            <tr>
+                <td style="width:300px;font-size:18px;font-weight:100;"><text style="padding-right: 18px;">Customer's Name</text>  :&ensp;@ViewBag.SaleEntry.CustomerName</td>
+                <td style="width:300px;font-size:18px;font-weight:100;"><text style="padding-right: 17px;">Order Book. Date</text> <text>:&ensp;@ViewBag.SaleEntry.OrderBookDate</text></td>
+            </tr>
+            <tr>
+                <td style="width:300px;font-size:18px;font-weight:100;"><text style="padding-right: 90px;">Address</text><text> :&ensp;@ViewBag.SaleEntry.Address</text></td>
+                <td style="width:300px;font-size:18px;font-weight:100;"><text style="padding-right: 55px;">Invoice Date</text> <text>:&ensp;@ViewBag.SaleEntry.InvoiceDate</text></td>
+            </tr>
+            <tr>
+                <td style="width:300px;font-size:18px;font-weight:100;"></td>
+                <td style="width:300px;font-size:18px;font-weight:100;"><text style="padding-right: 37px;"></text>     <text>&ensp;</text></td>
+
+            </tr>
+        </table>
+        <hr />
+        <br />
+        <table>
+            <tr>
+                <td style="width:300px;font-size:16px;font-weight:100;padding-bottom:5px;">Telephone            : @ViewBag.SaleEntry.TelePhoneNo</td>
+                <td style="width:300px;font-size:16px;font-weight:100;padding-bottom:5px;">Territory Code       : @ViewBag.SaleEntry.TSOCode</td>
+                <td style="width:300px;font-size:16px;font-weight:bold;font-family:sans-serif;padding-bottom:5px;">@ViewBag.SaleEntry.TSOName       </td>
+            </tr>
+        </table>
+        <table id="invoiceTable" style="border-collapse: collapse;">
+            <tr>
+                <th style="width:20%">
+                    Products
+
+                </th>
+                <th style="width:7%;text-align:right;">Pac Size</th>
+                <th style="width:7%;text-align:right;">Unit</th>
+                <th style="width:7%;text-align:right;">Bonus</th>
+                <th style="width:7%;text-align:right;">Total</th>
+                <th style="width:7%;text-align:right;">Tp/Unit (Tk.)</th>
+                <th style="width:7%;text-align:right;">Total <br />(Tk.)</th>
+                <th style="width:7%;text-align:right;">Vat(%)</th>
+                <th style="width:7%;text-align:right;">Vat Amount</th>
+                <th style="width:7%;text-align:center;">Discount<br />(%)</th>
+                <th style="width:7%;text-align:right;">S.Discount</th>
+                <th style="width:7%;text-align:right;">Amount</th>
+            </tr>
+            <tbody>
+
+                @for (k = k; k < j * i; k++)
+                {
+                    if (k >= items.Count)
+                    {
+                        break;
+                    }
+                    decimal netAmount = items[k].SalesValue + items[k].VatAmount - items[k].DisAmount;
+                    netAmount = Math.Round(netAmount, 2);
+                    decimal salesValue = Math.Round(items[k].SalesValue, 2);
+                    decimal itemPrice = Math.Round(items[k].Price, 2);
+
+                    double totQty = items[k].Qty + items[k].OfferQty;
+                    netPayable += netAmount;
+                    totSalesQty += Convert.ToDecimal(items[k].Qty);
+                    bonusQty += Convert.ToDecimal(items[k].OfferQty);
+                    grossSale += items[k].SalesValue;
+                    grossSale = Math.Round(grossSale, 2);
+                    totVat += items[k].VatAmount;
+                    totDiscount += items[k].DisAmount;
+
+                    if ((double)((rowCountForPageBreak + 1) / 18) >= 1 || rowCount == rowCountForPageBreak - 1)
+                    {
+                        <tr>
+                            <td style="width:40px;padding-bottom:100px!important">@items[k].ItemName</td>
+                            <td style="max-width:40px;text-align:right;padding-bottom:100px!important">
+                                @items[k].PacSize
+                            </td>
+
+                            <td style="text-align:right;padding-bottom:100px!important;">@items[k].Qty</td>
+
+                            <td style="text-align:right;padding-bottom:100px!important">@items[k].OfferQty</td>
+
+                            <td style="text-align:right;padding-bottom:100px!important">
+                                @{
+                                    rowCountForPageBreak++;
+                                }@totQty
+                            </td>
+
+                            <td style="text-align:right;padding-bottom:100px!important">@itemPrice</td>
+
+                            <td style="text-align:right;padding-bottom:100px!important">@salesValue</td>
+
+                            <td style="text-align:right;padding-bottom:100px!important">@items[k].VatPerc</td>
+
+                            <td style="text-align:right;padding-bottom:100px!important">@items[k].VatAmount</td>
+
+                            <td style="text-align:right;padding-bottom:100px!important">@items[k].DisPerc</td>
+
+                            <td style="text-align:right;padding-bottom:100px!important">@items[k].DisAmount</td>
+
+                            <td style="text-align:right;padding-bottom:100px!important">
+                                @netAmount
+                            </td>
+
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td style="width:40px;">@items[k].ItemName</td>
+                            <td style="max-width:40px;text-align:right;">
+
+                                @items[k].PacSize
+                            </td>
+
+                            <td style="text-align:right;">@items[k].Qty</td>
+
+                            <td style="text-align:right;">@items[k].OfferQty</td>
+
+                            <td style="text-align:right;">
+                                @{
+                                    rowCountForPageBreak++;
+                                }@totQty
+                            </td>
+
+                            <td style="text-align:right;">@itemPrice</td>
+
+                            <td style="text-align:right;">@salesValue</td>
+
+                            <td style="text-align:right;">@items[k].VatPerc</td>
+
+                            <td style="text-align:right;">@items[k].VatAmount</td>
+
+                            <td style="text-align:right;">@items[k].DisPerc</td>
+
+                            <td style="text-align:right;">@items[k].DisAmount</td>
+
+                            <td style="text-align:right;">
+                                @netAmount
+                            </td>
+
+                        </tr>
+                    }
+                    <tr></tr>
+                }
+
+                @if (pageCount == i)
+                {
+                    <tr style=" border-top: 1px solid black;">
+                        <td></td>
+                        <td style="max-width:40px;border-bottom:1px solid black;"></td>
+                        <td style="border-bottom:1px solid black;text-align:right;">@totSalesQty</td>
+                        <td style="border-bottom:1px solid black;text-align:right;">@bonusQty</td>
+                        <td style="border-bottom:1px solid black;text-align:right;">@{var qty = totSalesQty + bonusQty;}@qty</td>
+                        <td style="border-bottom:1px solid black;text-align:right;"></td>
+                        <td style="border-bottom:1px solid black;text-align:right;">@Math.Round(grossSale, 2)</td>
+                        <td style="border-bottom:1px solid black;text-align:right;"></td>
+                        <td style="border-bottom:1px solid black;text-align:right;">@totVat</td>
+                        <td style="border-bottom:1px solid black;text-align:right;"></td>
+                        <td style="border-bottom:1px solid black;text-align:right;">@totDiscount</td>
+                        <td style="border-bottom:1px solid black;text-align:right;">@netPayable </td>
+                    </tr>
+
+
+                }
+            </tbody>
+        </table>
+        if (pageCount == i)
+        {
+            <br />
+            <table style="border-collapse: collapse;">
+                <tr>
+                    <td style="width:500px;font-weight:bold;"></td>
+                    <td style="width:200px;padding-bottom:10px;padding-top:10px;font-size:15px;">Total Trade Price:</td>
+                    <td style="width:100px;padding-bottom:10px;padding-top:10px;font-size:13px;text-align:right">@Math.Round(ViewBag.SaleEntry.NetSale, 2)</td>
+                </tr>
+                <tr>
+                    <td style="width:500px;font-weight:bold;"></td>
+                    <td style="width:200px;padding-bottom:10px;padding-top:10px;font-size:15px;">Total Vat:								</td>
+                    <td style="width:100px;padding-bottom:10px;padding-top:10px;font-size:13px;text-align:right">@totVat</td>
+                </tr>
+                <tr>
+                    <td style="width:500px;font-weight:bold;"></td>
+                    <td style="width:200px;padding-top:10px;font-size:15px;border-bottom: 1px solid #000;">Trade Discount % :								</td>
+                    <td style="width:100px;padding-top:10px;font-size:13px;border-bottom: 1px solid #000;text-align:right">@totDiscount</td>
+                </tr>
+                <tr>
+                    <td style="width:500px;font-weight:bold;"></td>
+                    <td style="width:200px;font-weight:bold;padding-top:10px;font-size:15px;">Net Payable:								</td>
+                    <td style="width:100px;font-weight:bold;padding-top:10px;font-size:13px;border-bottom: double 4px;text-align:right">@Math.Round(@netPayable)</td>
+                </tr>
+            </table>
+            <br />
+            <br>
+            <div style="font-family:Calibri; font-family:sans-serif">Amount In words:&ensp;&ensp;&ensp; @NumberToWord.NumberToWords(Convert.ToInt32(netPayable)) Taka Only</div>
+        }
+        <br />
+        <br />
+        <br />
+        <br />
+        <table>
+            <tbody>
+                <tr>
+                    <td style="width:22%; text-align:center;" >@ViewBag.PostedBy</td>
+                    <td style="width:22%;text-align:center;"></td>
+                    <td style="width:28%;text-align:center;">@ViewBag.AuthorizedBy</td>
+                    <td style="width:28%;text-align:center;"></td>
+                </tr>
+                <tr>
+                    <td style="width:22%;text-decoration: overline;">&ensp;&ensp;&ensp;&ensp;&ensp; Posted By &ensp;&ensp;&ensp;&ensp;&ensp;</td>
+                    <td style="width:22%;text-decoration: overline;">&ensp;&ensp;&ensp;&ensp;&ensp; Checked By &ensp;&ensp;&ensp;&ensp;&ensp;</td>
+                    <td style="width:28%;text-decoration: overline;">&ensp;&ensp;&ensp;&ensp;&ensp; Authorized Signature &ensp;&ensp;&ensp;</td>
+                    <td style="width:28%;text-decoration: overline;">&ensp;&ensp;&ensp;&ensp; Coustomer's Signature &ensp;&ensp;</td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+        <br /> <br />
+        <div style="text-align:right;font-style:italic">Page @i of @pageCount</div>
+    }
+
+
+}
+
+

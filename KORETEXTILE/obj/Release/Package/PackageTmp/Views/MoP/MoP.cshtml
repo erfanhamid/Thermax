@@ -1,0 +1,256 @@
+﻿@model BEEERP.Models.CommercialModule.MOP
+
+@{
+    ViewBag.Title = "MoP";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+<h3 style="text-align:center">Mode of Payment (MoP)</h3>
+
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div>
+                    <h4 style="color:red">@ViewBag.messege</h4>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h4 class="box-title"> Create Mode of Payment (MoP) List</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.MoPId, "MoP No", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8 ">
+                                        @Html.TextBoxFor(m => m.MoPId, new { @class = "form-control digit", @Value = ViewBag.numberofmops, })
+                                        @Html.ValidationMessageFor(m => m.MoPId, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.MoPName, "MoP Name", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.MoPName, new { @class = "form-control", })
+                                        @Html.ValidationMessageFor(m => m.MoPName, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.DaysCount, "Days Count", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.DaysCount, new { @class = "form-control digit" })
+                                        @Html.ValidationMessageFor(m => m.DaysCount, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="col-md-6">
+                        <div class="box-footer">
+                            <div class="form-group" , style="text-align:center">
+                                <input type="button" name="save" id="save" value="Save" class="btn btn-primary" />
+                                <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                                <input type="button" name="Refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>     
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box ">
+                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                    <h4 class="box-title">Mode of Payment List</h4>
+                </div>
+                <div class="box-body">
+                    <table class="table table-responsive" id="mopList">
+                        <thead>
+                            <tr>
+                                <th>MoP No</th>
+                                <th>MoP Name</th>
+                                <th>Days Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var mop in ViewBag.moplist)
+                            {
+                                <tr class='clickable-row' value="@mop.MoPId">
+                                    <td>@mop.MoPId</td>
+                                    <td>@mop.MoPName</td>                                    
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/CommercialModule/MOPInputFocus.js"></script>
+    <script>
+    $(document).ready(function () {
+        ImportMopFieldEnterPress();
+        var message = "";
+        $("#update").hide();
+        $("#add").hide();
+        $(document).on('click', '#save', function () {
+            $("#save").prop('disabled', true);
+                ValidateOnSaveClick();
+                if (message == "") {
+                    if (confirm("Do you want to save?")) {
+                        var mop = { MoPId: 0, MoPName: "", DaysCount: 0 };
+                        mop.MoPId = parseInt($("#MoPId").val());
+                        mop.MoPName = $("#MoPName").val();
+                        mop.DaysCount = parseInt($("#DaysCount").val());
+                         $.ajax
+                            ({
+                                url: '@Url.Action("SaveMop", "MoP")',
+                                 contentType: "application/json;charset=utf-8",
+                                 data: JSON.stringify({ mop: mop }),
+                                type: 'Post',
+                                dataType: 'json',
+                                success: function (datas) {
+                                    if (datas.Message == "0") {
+                                        alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                        $("#save").prop('disabled', false);
+                                    }
+                                    else if (datas.Message == "1") {
+                                        alert("Sccessfully saved.")
+                                        location.reload();
+                                    }
+                                    else if (datas.Message == "2") {
+                                        alert("This Mop  already Exist.");
+                                        $("#save").prop('disabled', false);
+                                    }
+
+                                }
+                            });
+                    }
+
+                }
+        });
+        $(".clickable-row").on('click', function (e) {
+                var id = $(this).attr("value");
+                 $.ajax({
+                    url: '@Url.Action("GetMopByMopID", "MoP")',
+                    contentType: "application/json;charset=utf-8",
+                     data: JSON.stringify({ mopid: id }),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if(datas==0)
+                        {
+                            alert("This MOP  doesn't exist.");
+                        }
+                        else {
+                            $("#save").hide();
+                            $("#update").show();
+                            $("#MoPId").val(datas.mop.MoPId);
+                            $("#MoPName").val(datas.mop.MoPName);
+                            $("#DaysCount").val(datas.mop.DaysCount);
+                        }
+                    }
+                });
+        });
+        $(document).on('click', '#update', function () {
+            $("#update").prop('disabled', true);
+                ValidateOnSaveClick();
+                if (confirm("Do you want to update?"))
+                {
+                    if (message == "") {
+                        var mop = { MoPId: 0, MoPName: "", DaysCount: 0 };
+                        mop.MoPId = parseInt($("#MoPId").val());
+                        mop.MoPName = $("#MoPName").val();
+                        mop.DaysCount = parseInt($("#DaysCount").val());
+                         $.ajax
+                            ({
+                                url: '@Url.Action("UpdateMoP", "MoP")',
+                                 contentType: "application/json;charset=utf-8",
+                                 data: JSON.stringify({ mop: mop }),
+                                type: 'Post',
+                                dataType: 'json',
+                                success: function (datas) {
+                                    if (datas.Message == "0") {
+                                        alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                        $("#update").prop('disabled', false);
+                                    }
+                                    else if (datas.Message == "1") {
+                                        alert("Sccessfully updated.")
+                                        location.reload();
+                                    }
+                                    else if (datas.Message == "2") {
+                                        alert("This Mop already Exist.");
+                                        $("#update").prop('disabled', false);
+                                    }
+
+                                }
+                            });
+                    }
+
+                }
+        });
+        
+        //forNumberbox
+        $(".digit").keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $("#errormsg").html("Digits Only").show().fadeOut("slow");
+                return false;
+            }
+        });
+
+        //validator
+        function ValidateOnSaveClick() {
+
+            message = "";
+            if ($("#MoPId").val() == "") {
+                setError("MoPId", "MoP is Required Field.");
+                message = "MoPId No is Required Field."
+            }
+            if ($("#MoPName").val() == "") {
+                setError("MoPName", "MoP Name is Required Field.\n");
+                message = "MoP Name  is Required Field."
+            }
+            if ($("#DaysCount").val() == "") {
+                setError("DaysCount", "Days Count is Required Field.\n");
+                message = "Days Count is Required Field."
+            }
+        }
+        $(document).on('click', '#refresh', function () {
+            location.reload();
+        });
+    });
+
+    </script>
+
+}
+

@@ -1,0 +1,254 @@
+﻿@model BEEERP.Models.CommercialModule.Currency
+
+@{
+    ViewBag.Title = "Currency";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<h3 style="text-align:center">Create Currncy List</h3>
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div>
+                    <h4 style="color:red">@ViewBag.messege</h4>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h4 class="box-title">Currency Details</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.CurrencyId, "Currency No", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.CurrencyId, new { @class = "form-control digit", @Value = ViewBag.numbersOfCorrencys, })
+                                        @Html.ValidationMessageFor(m => m.CurrencyId, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.CurrencyName, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.CurrencyName, new { @class = "form-control", })
+                                        @Html.ValidationMessageFor(m => m.CurrencyName, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ExchangeRate, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.ExchangeRate, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.ExchangeRate, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="col-sm-6">
+                        <div class="box-footer">
+                            <div class="form-group" , style="text-align:center">
+                                <input type="button" name="save" id="save" value="Save" class="btn btn-primary" />
+                                <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                                <input type="button" name="Refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box ">
+                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                    <h4 class="box-title">Currency List</h4>
+                </div>
+                <div class="box-body">
+                    <table class="table table-responsive" id="mopList">
+                        <thead>
+                            <tr>
+                                <th>Currency No</th>
+                                <th>Currency Name</th>
+                                <th>Exchange Rate </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var currency in ViewBag.currenyList)
+                            {
+                                <tr class='clickable-row' value="@currency.CurrencyId">
+                                    <td>@currency.CurrencyId</td>
+                                    <td>@currency.CurrencyName</td>
+                                    <td>@currency.ExchangeRate</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/CommercialModule/CurrencyInputFocus.js"></script>
+    <script>
+    $(document).ready(function () {
+        CurrencyFieldEnterPress();
+        var message = "";
+        $("#update").hide();
+        $("#add").hide();
+        $(document).on('click', '#save', function () {
+            $("#save").prop('disabled', true);
+                ValidateOnSaveClick();
+                if (message == "") {
+                    if (confirm("Do you want to save?")) {
+                        var currency = { CurrencyId: 0, CurrencyName: "", ExchangeRate: 0 };
+                        currency.CurrencyId = parseInt($("#CurrencyId").val());
+                        currency.CurrencyName = $("#CurrencyName").val();
+                        currency.ExchangeRate = parseFloat($("#ExchangeRate").val());
+                         $.ajax
+                            ({
+                                url: '@Url.Action("SaveCurrency", "Currency")',
+                                 contentType: "application/json;charset=utf-8",
+                                 data: JSON.stringify({ currency: currency }),
+                                type: 'Post',
+                                dataType: 'json',
+                                success: function (datas) {
+                                    if (datas.Message == "0") {
+                                        alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                        $("#save").prop('disabled', false);
+                                    }
+                                    else if (datas.Message == "1") {
+                                        alert("Sccessfully saved.")
+                                        location.reload();
+                                    }
+                                    else if (datas.Message == "2") {
+                                        alert("This Currency  already Exist.");
+                                        $("#save").prop('disabled', false);
+                                    }
+
+                                }
+                            });
+                    }
+
+                }
+        });
+        $(".clickable-row").on('click', function (e) {
+                var id = $(this).attr("value");
+                 $.ajax({
+                    url: '@Url.Action("GetCurrencyByCurrencyId", "Currency")',
+                    contentType: "application/json;charset=utf-8",
+                     data: JSON.stringify({ currencyId: id }),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if(datas==0)
+                        {
+                            alert("This Currency  doesn't exist.");
+                        }
+                        else {
+                            $("#save").hide();
+                            $("#update").show();
+                            $("#CurrencyId").val(datas.currency.CurrencyId);
+                            $("#CurrencyName").val(datas.currency.CurrencyName);
+                            $("#ExchangeRate").val(datas.currency.ExchangeRate);
+                        }
+                    }
+                });
+        });
+        $(document).on('click', '#update', function () {
+            $("#update").prop('disabled', true);
+                ValidateOnSaveClick();
+                if (confirm("Do you want to update?"))
+                {
+                    if (message == "") {
+                        var currency = { CurrencyId: 0, CurrencyName: "", ExchangeRate: 0 };
+                        currency.CurrencyId = parseInt($("#CurrencyId").val());
+                        currency.CurrencyName = $("#CurrencyName").val();
+                        currency.ExchangeRate = parseFloat($("#ExchangeRate").val());
+                         $.ajax
+                            ({
+                                url: '@Url.Action("UpdateCurrency", "Currency")',
+                                 contentType: "application/json;charset=utf-8",
+                                 data: JSON.stringify({ currency: currency }),
+                                type: 'Post',
+                                dataType: 'json',
+                                success: function (datas) {
+                                    if (datas.Message == "0") {
+                                        alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                        $("#update").prop('disabled', false);
+                                    }
+                                    else if (datas.Message == "1") {
+                                        alert("Sccessfully updated.")
+                                        location.reload();
+                                    }
+                                    else if (datas.Message == "2") {
+                                        alert("This Currency already Exist.");
+                                        $("#update").prop('disabled', false);
+                                    }
+
+                                }
+                            });
+                    }
+
+                }
+        });
+
+        //forNumberbox
+        $(".digit").keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $("#errormsg").html("Digits Only").show().fadeOut("slow");
+                return false;
+            }
+        });
+
+        //validator
+        function ValidateOnSaveClick() {
+
+            message = "";
+            if ($("#CurrencyId").val() == "") {
+                setError("CurrencyId", "Currency No is Required Field.");
+                message = "CurrencyId No is Required Field."
+            }
+            if ($("#CurrencyName").val() == "") {
+                setError("CurrencyName", "Currency Name is Required Field.\n");
+                message = "Currency Name  is Required Field."
+            }
+            if ($("#ExchangeRate").val() == "") {
+                setError("ExchangeRate", "Exchange Rate is Required Field.\n");
+                message = "Exchange Rate is Required Field."
+            }
+        }
+        $(document).on('click', '#refresh', function () {
+            location.reload();
+        });
+    });
+
+    </script>
+
+}

@@ -1,0 +1,456 @@
+﻿@model BEEERP.Models.ViewModel.Sales.Report.InventoryReportVModel
+@{
+    ViewBag.Title = "StoreDepotReport";
+    var i = 0;
+}
+
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        /*padding: 15px 32px;*/
+        /*text-align: center;*/
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 8px;
+        min-width: 400px;
+        /*height: 12px;*/
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+        }
+</style>
+
+<h3 style="text-align:center">Store Depot Report</h3>
+
+@using (Html.BeginForm("GetItemLedgerReport", "StoreFGReport", FormMethod.Post, new { id = "report", target = "_blank" }))
+{
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="col-md-6">
+                        <div class="box">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                <h4 class="box-title">Select Date Range and Parameters</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.DepotID, "Depot", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DropDownListFor(m => m.DepotID, (IEnumerable<SelectListItem>)ViewBag.Depot, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.DepotID)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.StoreId, "Store", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DropDownListFor(m => m.StoreId, (IEnumerable<SelectListItem>)ViewBag.Store, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.StoreId)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.GroupID, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DropDownListFor(m => m.GroupID, (IEnumerable<SelectListItem>)ViewBag.GroupId, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.GroupID)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ItemID, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DropDownListFor(m => m.ItemID, (IEnumerable<SelectListItem>)ViewBag.Item, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.ItemID)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.FromDate, "From Date", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6 date input-group" , style="padding-left:15px;padding-right:15px;">
+                                        @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        @Html.ValidationMessageFor(m => m.FromDate)
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ToDate, "To Date", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6 date input-group" , style="padding-left:15px;padding-right:15px;">
+                                        @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        @Html.ValidationMessageFor(m => m.ToDate)
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                    <div style="padding-left:280px;">
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.AsOnDate, "As on Date", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6 date input-group" , style="padding-left:15px;padding-right:15px;">
+                                        @Html.TextBoxFor(m => m.AsOnDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        @Html.ValidationMessageFor(m => m.AsOnDate)
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                <h4 class="box-title">Inventory Report</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="showSingleDepotInventoryStatus" type="submit">@i. Single Depot Inventory Status</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="VehicleWiseFGstockbalance" type="submit">@i. Vehicle Wise FG Stock Balance</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="singleVehicleFGStockBalance" type="submit">@i. Single Vehicle FG Stock Balance</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="combinedStockClosingBalance" type="submit">@i. Combined Stock Closing Balance</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                <h4 class="box-title">Goods Receive Report</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="depotWiseAllFGRNDetails" type="submit">@i. Depot Wise All FGRN Details</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="singleDepotAllFGRNDetails" type="submit">@i. Single Depot All FGRN Details</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="depotWiseallFGRNSummary" type="submit">@i. Depot Wise all FGRN Summary</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="singleDepotAllFGRNSummary" type="submit">@i. Single Depot All FGRN Summary</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="itemWiseFGRNDetails" type="submit">@i. Item Wise FGRN Details</button>
+                                </div>
+
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="itemWiseFGRNSummary" type="submit">@i. Item Wise FGRN Summary</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="receiveFromAllOtherDepot" type="submit">@i. Receive From All Other Depot</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="receiveFromSingleOtherDepot" type="submit">@i. Receive From Single Other Depot</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="singleDepotChalanReceived" type="submit">@i. Single Depot Chalan Received</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="singleDepotChalanNotReceive" type="submit">@i. Single Depot Chalan Not Receive</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="singleDepotImabalanceReceiveVSChalan" type="submit">@i. Single Depot Imabalance Received VS chalan</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                <h4 class="box-title">Shifting Report</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="singleDepotSITVSummary" type="submit">@i. Single Depot SITV Summary</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                <h4 class="box-title">Adjustement Report</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="depotWiseallInventoryAdjustementReport" type="submit">@i. Depot Wise all Inventory Adjustement Report</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="itemGroupWiseInventoryAdjustmentReport" type="submit">@i. Item Group Wise Inventory Adjustment Report</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="singleDepotAllInventoryAdjustementReport" type="submit">@i. Single Depot All Inventory Adjustement Report</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="singleItemAllInventoryAdjustementReport" type="submit">@i. Single Item All Inventory Adjustement Report</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                <h4 class="box-title">Damage Report</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="damageSampleAdjustmentReport" type="submit">@i. Damage Sample Adjustment Report</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*<input type="hidden" id="Depot" name="Depot" />*@
+}
+
+<input type="hidden" id="message" value="false" />
+@section scripts{
+    <script src="~/Scripts/Search.js"></script>
+    <script src="~/Scripts/ReportSearch.js"></script>
+    <script>
+      
+            $(".select2").select2();
+            $('.date').datepicker({
+                autoclose: true,
+                format:"dd-mm-yyyy"
+            });
+            var isValid = "";
+
+        $(document).on('change',"#DepotID", function () {
+
+            var id =  $(this).val();
+                if (id != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetStoreDepot", "StoreDepotReport")',
+                        contentType: "application/json;charset=utf-8",
+                        data: {Depot : id},
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            $("#StoreId").empty();
+
+                            //$("#DriverName").empty();
+                            $.each(datas.store, function (index, value) {
+                                $("#StoreId").append($('<option />', {
+                                    value: value.Value,
+                                    text: value.Text
+                                })).trigger('change');
+                            });
+ 
+                        }
+                    });
+                }
+                else {
+                    $("#StoreId").empty();
+                    $("#StoreId").append($('<option />', {
+                        value: "",
+                        text: "--- Select Store ---"
+                    })).trigger('change');
+
+                }
+        });
+
+
+
+            function validateOnStorehWiseItem() {
+                isValid = "";
+                RemoveError();
+                if ($("#StoreId").val() == "") {
+                    setError("StoreId", "Store is Required Field");
+                    isValid = "required";
+                }
+
+            }
+        $(document).on('click', "#showSingleDepotInventoryStatus", function (event) {
+            event.preventDefault();
+            RemoveError();
+            if ($("#DepotID").val() == "") {
+                setError("DepotID", "Please Select a Depot.");
+            } else {
+                $("#report").attr("action", "/StoreDepotReport/GetSingleDepotInventoryStatus")
+                $("#report").submit();
+            }
+                  
+            });
+            $(document).on('click', "#ItemInventorySummary", function () {
+                event.preventDefault();
+
+                if (isValid == "") {
+                    if ($("#message").val() != "true") {
+                        $("#report").attr("action", "/StoreDepotReport/GetItemWiseInventorySummary")
+                        $("#report").submit();
+                    }
+                }
+            });
+            $(document).on('click', "#InvSummary", function () {
+                event.preventDefault();
+
+                if (isValid == "") {
+                    if ($("#message").val() != "true") {
+                        $("#report").attr("action", "/StoreFGReport/GetInventorySummaryByAllStore")
+                        $("#report").submit();
+                    }
+                }
+            });
+            $(document).on('click', "#StoreWiseInventoryValueSummary", function () {
+                event.preventDefault();
+
+                if (isValid == "") {
+                    if ($("#message").val() != "true") {
+                        $("#report").attr("action", "/StoreFGReport/GetStoreWiseInventoryValueSummary")
+                        $("#report").submit();
+                    }
+                }
+            });
+
+            $(document).on('change', "#GroupID", function () {
+                var id = { groupId: $(this).val() };
+            if (id.groupId != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetItemByGroupId", "StockAdjustment")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            $("#ItemID").empty();
+                            $("#ItemID").prop("disabled", false);
+                            $.each(datas, function (index, value) {
+                                $("#ItemID").append($('<option />', {
+                                    value: value.Value,
+                                    text: value.Text
+                                }));
+                            });
+                        }
+                    });
+                }
+                else {
+                $("#ItemID").empty();
+                $("#ItemID").prop("disabled", true);
+                }
+            });
+            $(document).on('click', "#showLedger", function () {
+                //ValidateReportSearchParam(["AsOnDate", "StoreId", "Item"]);
+                event.preventDefault();
+                validateOnItemLedger()
+
+                if (isValid == "") {
+                        $("#report").attr("action", "/StoreFGReport/GetItemLedgerReport")
+                        $("#report").submit();
+                }
+
+            });
+
+
+            $(document).on('click', "#StockSummary", function () {
+
+                event.preventDefault();
+                if (isValid == "") {
+                    if ($("#message").val() != "true") {
+                        $("#report").attr("action", "/StoreFGReport/GetStockSumamry")
+                        $("#report").submit();
+                    }
+                }
+            });
+
+            function validateOnItemLedger() {
+                var store = $("#StoreId").val();
+                RemoveError();
+                isValid = "";
+                if (store == "") {
+                    setError("StoreId", "Please select a Store from the list");
+                    isValid = "required";
+                }
+                if ($("#ItemID").val()=="") {
+                    setError("ItemID", "Please select an Item from the list");
+                    isValid = "required";
+                }
+
+        }
+    </script>
+}
+
+
+
+

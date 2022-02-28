@@ -1,0 +1,839 @@
+﻿@using BEEERP.Models.Authentication
+@using BEEERP.Models.CommonInformation
+@model BEEERP.Models.ViewModel.Procurement.FreezerItemEntryVModel
+@{
+    ViewBag.Title = "FreezerItemEntry";
+}
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<div class="row">
+    <div>
+        <div class="col-md-7">
+            <h3 style="text-align:center">Create New Freezer Item</h3>
+
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                @*<div>
+                    <h4 style="color:red">@ViewBag.messege</h4>
+                </div>*@
+
+                <div class="row">
+                    <div class="col-md-7">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h4 class="box-title">Create Item</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.TypeID, "Type", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-4">
+                                        @Html.DropDownListFor(m => m.TypeID, (IEnumerable<SelectListItem>)ViewBag.TypeList, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.TypeID, "", new { @style = "color: red" })
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button type="submit" id="create" data-target="#typeCreate" data-toggle="modal" class="btn btn-primary">Create</button>
+                                        <div class="modal" id="typeCreate" tabindex="">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button class="close" data-dismiss="modal">&times;</button>
+                                                        <h4 class="modal-title">Create New Type</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form>
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(m => m.TypeName, "New Type ", new { @class = "col-md-2 control-label" })
+                                                                <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                                    @Html.TextBoxFor(m => m.TypeName, new { @class = "form-control" })
+                                                                    @Html.ValidationMessageFor(m => m.TypeName, "", new { @style = "color: red" })
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        @*<button class="btn btn-primary">Save</button>*@
+                                                        <input type="button" name="save" id="saveType" value="Save" class="btn btn-primary" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        @*<input type="button" name="delete" id="deleteType" value="Delete" class="btn btn-danger" />*@
+                                        <button onclick="return validateType()" type="submit" id="typeModifys" data-target="#typeModify" data-toggle="modal" class="btn btn-primary">Update</button>
+                                        <div class="modal" id="typeModify" tabindex="">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button class="close" data-dismiss="modal">&times;</button>
+                                                        <h4 class="modal-title">Edit Type</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form>
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(m => m.TypeNameModify, "New Type ", new { @class = "col-md-2 control-label" })
+                                                                <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                                    @Html.TextBoxFor(m => m.TypeNameModify, new { @class = "form-control" })
+                                                                    @Html.ValidationMessageFor(m => m.TypeNameModify, "", new { @style = "color: red" })
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        @*<button class="btn btn-primary">Save</button>*@
+                                                        <input type="button" name="save" id="updateType" value="Update" class="btn btn-primary" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.BrandID, "Brand", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-4">
+                                        @Html.DropDownListFor(m => m.BrandID, (IEnumerable<SelectListItem>)ViewBag.BrandList, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.BrandID, "", new { @style = "color: red" })
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button type="submit" id="create" data-target="#brandCreate" data-toggle="modal" class="btn btn-primary">Create</button>
+                                        <div class="modal" id="brandCreate" tabindex="">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button class="close" data-dismiss="modal">&times;</button>
+                                                        <h4 class="modal-title">Create New Brand</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form>
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(m => m.BrandName, "New Brand ", new { @class = "col-md-3 control-label" })
+                                                                <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                                    @Html.TextBoxFor(m => m.BrandName, new { @class = "form-control" })
+                                                                    @Html.ValidationMessageFor(m => m.BrandName, "", new { @style = "color: red" })
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <input type="button" name="save" id="saveBrand" value="Save" class="btn btn-primary" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <button onclick="return validateBrand()" type="submit" id="typeModifys" data-target="#brandModify" data-toggle="modal" class="btn btn-primary">Update</button>
+                                        <div class="modal" id="brandModify" tabindex="">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button class="close" data-dismiss="modal">&times;</button>
+                                                        <h4 class="modal-title">Edit Brand</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form>
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(m => m.BrandNameModify, "New Brand ", new { @class = "col-md-3 control-label" })
+                                                                <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                                    @Html.TextBoxFor(m => m.BrandNameModify, new { @class = "form-control" })
+                                                                    @Html.ValidationMessageFor(m => m.BrandNameModify, "", new { @style = "color: red" })
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        @*<button class="btn btn-primary">Save</button>*@
+                                                        <input type="button" name="save" id="updateBrand" value="Update" class="btn btn-primary" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ModelID, "Model", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-4">
+                                        @Html.DropDownListFor(m => m.ModelID, (IEnumerable<SelectListItem>)ViewBag.ModelList, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.ModelID, "", new { @style = "color: red" })
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button type="submit" id="create" data-target="#modelCreate" data-toggle="modal" class="btn btn-primary">Create</button>
+                                        <div class="modal" id="modelCreate" tabindex="">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button class="close" data-dismiss="modal">&times;</button>
+                                                        <h4 class="modal-title">Create New Model</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form>
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(m => m.ModelName, "New Model ", new { @class = "col-md-3 control-label" })
+                                                                <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                                    @Html.TextBoxFor(m => m.ModelName, new { @class = "form-control" })
+                                                                    @Html.ValidationMessageFor(m => m.ModelName, "", new { @style = "color: red" })
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <input type="button" name="save" id="saveModel" value="Save" class="btn btn-primary" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <button onclick="return validateModel()" type="submit" id="modelModifys" data-target="#modelModify" data-toggle="modal" class="btn btn-primary">Update</button>
+                                        <div class="modal" id="modelModify" tabindex="">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button class="close" data-dismiss="modal">&times;</button>
+                                                        <h4 class="modal-title">Edit Model</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form>
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(m => m.ModelNameModify, "New Model ", new { @class = "col-md-3 control-label" })
+                                                                <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                                    @Html.TextBoxFor(m => m.ModelNameModify, new { @class = "form-control" })
+                                                                    @Html.ValidationMessageFor(m => m.ModelNameModify, "", new { @style = "color: red" })
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        @*<button class="btn btn-primary">Save</button>*@
+                                                        <input type="button" name="save" id="updateBrand" value="Update" class="btn btn-primary" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.CapacityID, "Capacity", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-4">
+                                        @Html.DropDownListFor(m => m.CapacityID, (IEnumerable<SelectListItem>)ViewBag.CapacityList, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.CapacityID, "", new { @style = "color: red" })
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button type="submit" id="create" data-target="#capacityCreate" data-toggle="modal" class="btn btn-primary">Create</button>
+                                        <div class="modal" id="capacityCreate" tabindex="">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button class="close" data-dismiss="modal">&times;</button>
+                                                        <h4 class="modal-title">Create New Type</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form>
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(m => m.Capacity, "New Capacity ", new { @class = "col-md-2 control-label" })
+                                                                <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                                    @Html.TextBoxFor(m => m.Capacity, new { @class = "form-control" })
+                                                                    @Html.ValidationMessageFor(m => m.Capacity, "", new { @style = "color: red" })
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <input type="button" name="save" id="saveCapacity" value="Save" class="btn btn-primary" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <button onclick="return validateCapacity()" type="submit" id="capacityModifys" data-target="#capacityModify" data-toggle="modal" class="btn btn-primary">Update</button>
+                                        <div class="modal" id="capacityModify" tabindex="">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button class="close" data-dismiss="modal">&times;</button>
+                                                        <h4 class="modal-title">Edit Capacity</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form>
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(m => m.CapacityNameModify, "New Capacity ", new { @class = "col-md-2 control-label" })
+                                                                <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                                    @Html.TextBoxFor(m => m.CapacityNameModify, new { @class = "form-control" })
+                                                                    @Html.ValidationMessageFor(m => m.CapacityNameModify, "", new { @style = "color: red" })
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        @*<button class="btn btn-primary">Save</button>*@
+                                                        <input type="button" name="save" id="updateBrand" value="Update" class="btn btn-primary" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="background-color:white; ">
+                            <div class="form-group" style="padding:3px;">
+                                <div class="col-md-12" style="text-align:center;">
+                                    <input type="submit" name="Save" id="save" value="Save" class="btn skin-blue" />
+                                    <input type="submit" name="Upate" id="update" value="Update" class="btn skin-blue" />
+                                    <input type="submit" name="delete" id="delete" value="Delete" class="btn skin-blue" />
+                                    <input type="button" name="Refresh" id="refresh" value="Refresh" class="btn skin-blue" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-7">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h4 class="box-title">Item List</h4>
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-responsive" id="FWOItem">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Item Description</th>
+                                            <th>Action</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.FWOItem)
+                                        {
+                                            <tr class="clickable-row">
+                                                @*<td>@item.ID</td>*@
+                                                <td>@item.Value</td>
+                                                <td>@item.Text</td>
+                                                <td>
+                                                    <a href="#" style="padding-right:40px;"><i class="fa fa-edit" value="@item.Value" id="edit"></i> </a>
+                                                    <a href="#" style="padding-right:40px;"><i class="fa fa-trash" value="@item.Value" id="delete"></i> </a>
+                                                </td>
+                                            
+                                                @*<td> <a href="#" style="padding-right:40px;"><i class="fa fa-edit" value="@item.DeptmentID" id="edit"></i> </a></td>*@
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+    {
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/Procurement/FreezerWorkOrderInputFocus.js"></script>
+
+    <script>
+
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+        $(".select2").select2();
+        $(document).on('click', "#refresh", function () {
+            location.reload();
+
+        });
+
+        var table = $('#FWOItem').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false,
+            'scrollX': true,
+        });
+
+
+
+        $(document).ready(function () {
+            $("#update").hide();
+            $("#delete").hide();
+            //var item = { ID: 0, TypeID: 0, BrandID: 0, ModelID: 0, CapacityID: 0, UnitID: 1, Description: "" };
+        });
+        var item = { ID: 0, TypeID: 0, BrandID: 0, ModelID: 0, CapacityID: 0, UnitID: 1, Description: "" };
+        var type = { ID: 0, Name: "" };
+        var model = { ID: 0, Name: "" };
+        var brand = { ID: 0, Name: "" };
+        var capacity = { ID: 0, Name: "" };
+        var isValid = true;
+        //save type
+        
+        $(document).on('click', "#saveType", function () {
+            
+            type.Name = $("#TypeName").val();
+            type.ID = $("#TypeID").val();
+            if ($("#TypeName").val() == "") {
+                setError("TypeName", "This is required field");
+                isValid = false;
+            }
+            else {
+                if (confirm('Do you want to save')) {
+                    $.ajax({
+                        url: '@Url.Action("SaveUpdateType", "FreezerItemEntry")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ type: type }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Saved.");
+                                $("#save").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Saved.");
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            }
+        });
+        $(document).on('click', "#updateType", function () {
+            
+            type.Name = $("#TypeNameModify").val();
+            type.ID = $("#TypeID").val();
+            if ($("#TypeNameModify").val() == "") {
+                setError("TypeNameModify", "This is required field");
+                isValid = false;
+            }
+            else {
+                if (confirm('Do you want to update?')) {
+                    $.ajax({
+                        url: '@Url.Action("SaveUpdateType", "FreezerItemEntry")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ type: type }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Saved.");
+                                $("#save").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Updated.");
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            }
+        });
+        
+        $(document).on('click', "#saveBrand", function () {
+            var name = $("#BrandName").val();
+            if ($("#BrandName").val() == "") {
+                setError("BrandName", "This is required field");
+                isValid = false;
+            }
+            else {
+                if (confirm('Do you want to save')) {
+                    $.ajax({
+                        url: '@Url.Action("SaveUpdateBrand", "FreezerItemEntry")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ name: name }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Saved.");
+                                $("#save").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Saved.");
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            }
+        });
+        $(document).on('click', "#updateBrand", function () {
+            
+            brand.Name = $("#BrandNameModify").val();
+            brand.ID = $("#BrandID").val();
+            if ($("#BrandID").val() == "") {
+                setError("BrandID", "This is required field");
+                isValid = false;
+            }
+            if ($("#BrandNameModify").val() == "") {
+                setError("BrandNameModify", "This is required field");
+                isValid = false;
+            }
+            else {
+                if (confirm('Do you want to update?')) {
+                    $.ajax({
+                        url: '@Url.Action("SaveUpdateBrand", "FreezerItemEntry")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ brand: brand }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Saved.");
+                                $("#save").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Updated.");
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+        $(document).on('click', "#saveModel", function () {
+            var name = $("#ModelName").val();
+            if ($("#ModelName").val() == "") {
+                setError("ModelName", "This is required field");
+                isValid = false;
+            }
+            else {
+                if (confirm('Do you want to save')) {
+                    $.ajax({
+                        url: '@Url.Action("SaveUpdateModel", "FreezerItemEntry")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ name: name }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Saved.");
+                                $("#save").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Saved.");
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            }
+        });
+        $(document).on('click', "#updateModel", function () {
+            
+            model.Name = $("#ModelNameModify").val();
+            model.ID = $("#ModelID").val();
+            if ($("#ModelID").val() == "") {
+                setError("BrandID", "This is required field");
+                isValid = false;
+            }
+            if ($("#BrandNameModify").val() == "") {
+                setError("BrandNameModify", "This is required field");
+                isValid = false;
+            }
+            else {
+                if (confirm('Do you want to update?')) {
+                    $.ajax({
+                        url: '@Url.Action("SaveUpdateModel", "FreezerItemEntry")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ model: model }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Saved.");
+                                $("#save").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Updated.");
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+        $(document).on('click', "#saveCapacity", function () {
+            var name = $("#Capacity").val();
+            if ($("#Capacity").val() == "") {
+                setError("Capacity", "This is required field");
+                isValid = false;
+            }
+            else {
+                if (confirm('Do you want to save')) {
+                    $.ajax({
+                        url: '@Url.Action("SaveUpdateCapacity", "FreezerItemEntry")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ name: name }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Saved.");
+                                $("#save").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Saved.");
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            }
+        });
+        $(document).on('click', "#updateCapacity", function () {
+            capacity.Name = $("#CapacityNameModify").val();
+            capacity.ID = $("#CapacityID").val();
+            if ($("#CapacityID").val() == "") {
+                setError("CapacityID", "This is required field");
+                isValid = false;
+            }
+            if ($("#CapacityNameModify").val() == "") {
+                setError("CapacityNameModify", "This is required field");
+                isValid = false;
+            }
+            else {
+                if (confirm('Do you want to update?')) {
+                    $.ajax({
+                        url: '@Url.Action("SaveUpdateCapacity", "FreezerItemEntry")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ capacity: capacity }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Saved.");
+                                $("#save").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Updated.");
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+        $(document).on('click', "#save", function () {
+            var name = $("#CapacityID").val();
+            RemoveError();
+            ValidateWorkOrder();
+            if (isValid == false) {
+                
+            }
+            else {
+                if (confirm('Do you want to save')) {
+                    setItem();
+                    $.ajax({
+                        url: '@Url.Action("SaveItem", "FreezerItemEntry")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ item: item }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Save");
+                                $("#save").prop('disabled', false);
+                            }
+                            else if (datas==2) {
+                                alert("Sucessfully Updated");
+                                location.reload();
+                            }
+                            else {
+                                alert("Sucessfully Saved");
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+        function ValidateWorkOrder() {
+            isValid = true;
+            if ($("#CapacityID").val() == "") {
+                setError("CapacityID", "This is required field");
+                isValid = false;
+            }
+            if ($("#ModelID").val() == "") {
+                setError("ModelID", "This is required field");
+                isValid = false;
+            }
+            if ($("#BrandID").val() == "") {
+                setError("BrandID", "This is required field");
+                isValid = false;
+            }
+            if ($("#TypeID").val() == "") {
+                setError("TypeID", "This is required field");
+                isValid = false;
+            }
+        }
+
+        $(document).on('click', "#update", function () {
+            var name = $("#CapacityID").val();
+            if ($("#CapacityID").val() == "") {
+                setError("Capacity", "This is required field");
+                isValid = false;
+            }
+            else {
+                if (confirm('Do you want to update')) {
+                    setItem();
+                    $.ajax({
+                        url: '@Url.Action("SaveItem", "FreezerItemEntry")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ item: item }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Saved.");
+                                $("#save").prop('disabled', false);
+                            }
+                            else if (datas==2) {
+                                alert("Sucessfully Updated.");
+                                location.reload();
+                            }
+                            else {
+                                alert("Sucessfully Saved.");
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+        function setItem()
+        {
+            item.TypeID = $("#TypeID").val();
+            item.BrandID = $("#BrandID").val();
+            item.ModelID = $("#ModelID").val();
+            item.CapacityID = $("#CapacityID").val();
+        }
+
+        $(document).on('click', "#delete", function () {
+            var Id = $(this).attr("value");
+            if (confirm('Do you want to delete')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteItem", "FreezerItemEntry")',
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({ ID: Id }),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Failed To delete.");
+                            $("#save").prop('disabled', false);
+                        }
+                        else {
+                            alert("Sucessfully deleted.");
+                            location.reload();
+                        }
+                    }
+                });
+            }
+        });
+
+
+        $(document).on('click', "#edit", function () {
+            var id = $(this).attr("value");
+            $.ajax({
+                url: '@Url.Action("GetItem", "FreezerItemEntry")',
+                contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({ ID : id }),
+                type: 'POST',
+                dataType: 'json',
+                success: function (datas) {
+                    if (datas.Message==0)
+                    {
+                        alert("This Grade  doesn't exist.");
+                    }
+                    else {
+                        $("#save").hide();
+                        $("#update").show();
+                        //$("#delete").show();
+                        item.ID = datas.ID;
+                        $("#TypeID").val(datas.TypeID).change();
+                        $("#BrandID").val(datas.BrandID).change();
+                        $("#ModelID").val(datas.ModelID).change();
+                        $("#CapacityID").val(datas.CapacityID).change();
+
+                    }
+                }
+            });
+        });
+        
+        function validateType() {
+            RemoveError();
+            if ($("#TypeID").val() == "") {
+                setError("TypeID", "This is required field");
+                $('#typeModify').modal('toggle');
+            }
+        }
+        function validateBrand() {
+            RemoveError();
+            if ($("#BrandID").val() == "") {
+                setError("BrandID", "This is required field");
+                $('#brandModify').modal('toggle');
+            }
+        }
+        function validateModel() {
+            RemoveError();
+            if ($("#ModelID").val() == "") {
+                setError("ModelID", "This is required field");
+                $('#modelModify').modal('toggle');
+            }
+        }
+        function validateCapacity() {
+            RemoveError();
+            if ($("#CapacityID").val() == "") {
+                setError("CapacityID", "This is required field");
+                $('#capacityModify').modal('toggle');
+            }
+        }
+
+
+    </script>
+
+}

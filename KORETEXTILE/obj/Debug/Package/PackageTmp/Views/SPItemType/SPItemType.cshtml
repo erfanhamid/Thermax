@@ -1,0 +1,338 @@
+﻿@model BEEERP.Models.DataAdmin.SPSettings.SPItemType
+
+@{
+    ViewBag.Title = "SPItemType";
+}
+
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px;
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+<h3 style="text-align:center">Create Item </h3>
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="col-md-12">
+                    <div class="box " style="border:none">
+                        <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                            <h5 class="box-title">Item Type</h5>
+                        </div>
+
+                        <div class="box-body">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ItemTypeID, "Item Type ID", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-3">
+                                        @Html.TextBoxFor(m => m.ItemTypeID, new { @class = "form-control", @type = "number", @Value = ViewBag.Id })
+                                    </div>
+                                    <div class="col-sm-3">
+                                        @Html.ValidationMessageFor(x => x.ItemTypeID, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ItemType, "Item Type", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-3">
+                                        @Html.TextBoxFor(m => m.ItemType, new { @class = "form-control enterTab", @type = "text" })
+                                        @Html.ValidationMessageFor(x => x.ItemType, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" style="margin-bottom:7px">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.DepartmentID, "Department", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-3">
+                                        @Html.DropDownListFor(m => m.DepartmentID, (IEnumerable<SelectListItem>)ViewBag.DepartmentID, new { @class = "enterTab form-control select2 " })
+                                        @Html.ValidationMessageFor(m => m.DepartmentID, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="box-body">
+                <div class="col-md-12">
+                    <div class="box" style="border:none">
+                        <div class="form-group" style="height:70px">
+                            <div style="padding-top:17px;text-align:center">
+                                <input type="submit" value="Save" id="save" class="btn btn-primary" />
+                                <input type="button" value="Update" id="update" class="btn btn-primary" />
+                                <input type="button" value="Delete" id="delete" class="btn btn-primary" />
+                                <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                            <h5 class="box-title">ItemType Details</h5>
+                        </div>
+                        <div class="box-body">
+                            <table class="table table-responsive" id="ItemType">
+                                <thead>
+                                    <tr>
+                                        <th>ItemType ID</th>
+                                        <th>Item Type</th>
+                                        <th>Department</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in ViewBag.ItemType)
+                                    {
+                                        <tr class='clickable-row' value="@item.ItemTypeID">
+                                            <td>@item.ItemTypeID</td>
+                                            <td>@item.ItemType</td>
+                                            <td>@item.DepartmentName</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    @*<script src="~/Scripts/moment.min.js"></script>*@
+    @*<script src="~/Scripts/Customer/FlatBookingInputFocus.js"></script>*@
+    <script>
+
+        $(function () {
+            $('#MachineDetails').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+
+        var isValid = true;
+        var itemtype = { ItemTypeID: 0, ItemType: "", DepartmentID: 0}
+
+
+        $("#preview").prop("disabled", true);
+
+
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+
+        $(document).ready(function () {
+            $("#update").hide();
+            $("#delete").hide();
+            $("#clear").hide();
+           /* EnterPress();*/
+        });
+
+        $(document).on('click', "#refresh", function () {
+            location.reload();
+        });
+
+        $(".select2").select2();
+
+                 //Save Button click
+        $(document).on('click', '#save', function (e) {
+            $("#save").prop('disabled', true);
+            RemoveError();
+            ValidateItemType();
+            setItemData();
+            //$("#save").prop('disabled', true);
+            if (isValid == true) {
+                if (confirm('Do you want to save?')) {
+
+                   $.ajax({
+                    url: '@Url.Action("SaveItemTypeInfo", "SPItemType")',
+                    contentType: "application/json;charset=utf-8",
+                       data: JSON.stringify({ itemtype: itemtype }),
+                    type: 'POST',
+                    dataType: 'json',
+                       success: function (datas) {
+                           if (datas == 1) {
+                               alert("Saved Successfully.");
+                               $("#save").prop('disabled', true);
+                               location.reload();
+                           }
+
+                           else {
+                               alert("This Item Type already added, please check");
+                               //$("#ItemType").focus();
+                           }
+                       }
+                   });
+                }
+                else {
+                    $("#save").prop('disabled', false);
+
+                }
+            }
+            else {
+                $("#save").prop('disabled', false);
+            }
+        });
+
+         // Text Box FillUP
+
+        $(document).on('click', '.clickable-row', function () {
+            var id = $(this).attr("value");
+
+            $.ajax({
+                   url: '@Url.Action("GetItemTypeById", "SPItemType")',
+                   contentType: "application/json;charset=utf-8",
+                   data: { id: id },
+                   type: 'GET',
+                   dataType: 'json',
+                   success: function (datas) {
+
+                       if (datas == 0) {
+                           alert("This ItemType doesn't exist, please check");
+                       }
+                       else {
+                           $("#preview").prop("disabled", false);
+                           $("#save").hide();
+                           $("#update").show();
+                           $("#delete").show();
+                           $("#ItemTypeID").val(datas.item.ItemTypeID);
+                           $("#ItemType").val(datas.item.ItemType);
+                           $("#DepartmentID").val(datas.item.DepartmentID).change();
+
+                       }
+             },
+             error: function () {
+                 alert("Please check Network connection or contact with Kore ERP ")
+             }
+            });
+        });
+
+
+         //update
+        $(document).on('click', '#update', function () {
+            $("#update").prop('disabled', true);
+            $("#ItemTypeID").prop('disabled', true);
+            setItemData();
+            itemtype.ItemTypeID = $("#ItemTypeID").val();
+            ValidateItemType();
+
+                if (confirm('Do you want to Update')) {
+                    $.ajax({
+                        url: '@Url.Action("UpdateItemType", "SPItemType")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ itemtype: itemtype }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Update.");
+                                $("#update").prop('disabled', false);
+                                $("#ItemTypeID").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Updated.");
+                                $("#update").prop('disabled', true);
+                                $("#ItemTypeID").prop('disabled', true);
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#update").prop('disabled', false);
+                    $("#ItemTypeID").prop('disabled', false);
+                }
+        });
+
+
+         //Delete
+        $(document).on('click', '#delete', function () {
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var id = $("#ItemTypeID").val();
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteItemTypeByid", "SPItemType")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Delete Failed.")
+                        }
+                        else {
+                            alert("Delete Successfull");
+                            $("#delete").prop('disabled', true);
+
+                        }
+                    }
+                });
+            }
+            else {
+                $("#delete").prop('disabled', false);
+                $("#update").prop('disabled', false);
+            }
+        });
+
+
+        function setItemData() {
+            itemtype.ItemTypeID = $("#ItemTypeID").val();
+            itemtype.ItemType = $("#ItemType").val();
+            itemtype.DepartmentID = $("#DepartmentID").val();
+
+        }
+
+
+        function ValidateItemType() {
+            isValid = true;
+            if ($("#ItemType").val() == "") {
+                setError("ItemType", "Item Type is required field");
+                isValid = false;
+            }
+            if ($("#DepartmentID").val() == "") {
+                setError("DepartmentID", "Department is required field");
+                isValid = false;
+            }
+
+        }
+
+    </script>
+}

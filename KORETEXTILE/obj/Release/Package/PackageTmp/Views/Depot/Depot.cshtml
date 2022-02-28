@@ -1,0 +1,277 @@
+﻿@model BEEERP.Models.SalesModule.BranchInformation
+
+@{
+    ViewBag.Title = "Depot";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+    tbody tr:hover {
+        background-color: dodgerblue;
+        color: white;
+    }
+</style>
+<div class="row">
+    <div>
+        <div class="col-md-6">
+            <h3 style="text-align:center">Create Depot</h3>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div>
+                    <h4 style="color:red">@ViewBag.messege</h4>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h5 class="box-title">Depot Details</h5>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Slno, "Depot No", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(m => m.Slno, new { @class = "form-control", @readonly = "readonly", @Value = ViewBag.DepotId })
+                                        @Html.ValidationMessageFor(m => m.Slno)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.BrnachName, "Depot Name", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(m => m.BrnachName, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.BrnachName, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="background-color:white; ">
+                            <div class="form-group" style="padding:3px;">
+                                <div class="col-md-12" style="text-align:center;">
+                                    <input type="button" name="Save" id="save" value="Save" class="btn btn-primary" />
+                                    <input type="button" name="Upate" id="update" value="Update" class="btn btn-primary" />
+                                    <input type="button" name="Delete" id="delete" value="Delete" class="btn btn-primary" />
+                                    <input type="button" name="Refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h5 class="box-title">Depot List</h5>
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-responsive" id="DepotList">
+                                    <thead>
+                                        <tr>
+                                            <th>Depot No</th>
+                                            <th>Depot Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.Depot)
+                                        {
+                                            <tr class='clickable-row' value="@item.Slno">
+                                                <td>@item.Slno</td>
+                                                <td>@item.BrnachName</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    
+    <script>
+
+        $(function () {
+            $('#DepotList').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+
+        $(document).ready(function () {
+
+            $("#update").hide();
+            $("#delete").hide();
+            $("#BrnachName").focus();
+        })
+        $(document).on("keydown", "#BrnachName", function (e) {
+            if (e.keyCode == 13 || e.keyCode == 9) {
+                e.preventDefault();
+                $("#save").click();
+            }
+        });
+        $(document).on('click', '#refresh', function () {
+
+            window.location.reload(true);
+        });
+
+        //textbox fillup
+        $(document).on('click', '.clickable-row', function () {
+            var id = $(this).attr("value");
+                $.ajax({
+                    url: '@Url.Action("GetDepotByid", "Depot")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if(datas==0)
+                        {
+                            alert("This depot doesn't exist.");
+                        }
+                        else {
+                            $("#save").prop('disabled', true);
+                            $("#update").show();
+                            $("#delete").show();
+                            $("#Slno").val(datas.item.Slno);
+                            $("#BrnachName").val(datas.item.BrnachName);
+                        }
+                    }
+                });
+        });
+
+        //save Depot
+        $(document).on('click', '#save', function () {
+            ValidateOnSaveClick()
+            $("#save").prop('disabled',true);
+                if (message == "")
+                {
+                    var depot = { Slno: 0, BrnachName: "" };
+                    depot.Slno = $("#Slno").val();
+                    depot.BrnachName = $("#BrnachName").val();
+                    if (confirm('Do you want to save?')) {
+                        $.ajax({
+                        url: '@Url.Action("SaveDepot", "Depot")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ depot: depot }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Save Failed or This Depot Name is Already Exist");
+                                $("#save").prop('disabled', false);
+                            }
+                            else {
+                                alert("Save Sucessfull.");
+                                location.reload();
+                            }
+                        }
+                    });
+                    }
+                    
+                }
+                else {
+                    alert(message);
+                    $("#save").prop('disabled', false);
+                }
+        });
+
+        //update Depot
+        $(document).on('click', '#update', function () {
+            ValidateOnSaveClick()
+            $("#update").prop('disabled', true);
+                if (message == "")
+                {
+                    var depot = { Slno: 0, BrnachName: "" };
+                    depot.Slno = $("#Slno").val();
+                    depot.BrnachName = $("#BrnachName").val();
+                    if (confirm('Do you want to update?')) {
+                         $.ajax({
+                        url: '@Url.Action("UpdateDepot", "Depot")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ depot: depot }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Update Failed");
+                                $("#update").show();
+                            }
+                            else {
+                                alert("Update Successfull.");
+                                location.reload();
+                            }
+                        }
+                    });
+                    }
+                   
+                }
+                else {
+                    alert(message);
+                    $("#update").show();
+                }
+        });
+
+        //Delete Depot
+        $(document).on('click', '#delete', function () {
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var id = $("#Slno").val();
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteDepotByid", "Depot")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Delete failed.");
+                        }
+                        else {
+                            alert("Delete Successfull");
+                            location.reload();
+                        }
+                    }
+                });
+            }
+        });
+
+        function ValidateOnSaveClick() {
+            message = "";
+            if ($("#BrnachName").val() == "") {
+                message += "Depot Name Required Field.\n";
+            }
+        }
+
+    </script>    
+    
+}

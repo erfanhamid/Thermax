@@ -1,0 +1,189 @@
+﻿@model BEEERP.Models.ViewModel.Sales.Report.ReportVModel
+@{
+    ViewBag.Title = "AttandanceLog";
+}
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        /*padding: 15px 32px;*/
+        /*text-align: center;*/
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 8px;
+        min-width: 400px;
+        /*height: 12px;*/
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+        }
+</style>
+
+<h3 style="text-align:center">Attendance Report</h3>
+
+@using (Html.BeginForm("ShowAttandancelogDetails", "AttandanceLogReport", FormMethod.Post, new { id = "report", target = "_blank" }))
+{
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                    <h4 class="box-title">Select Date Range and Parameters</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-12">
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.EmployeeID, "Employee ", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(m => m.EmployeeID, (IEnumerable<SelectListItem>)ViewBag.Emp, new { @class = "form-control select2", })
+                                                    @Html.ValidationMessageFor(m => m.EmployeeID)
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.From, "From Date", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                    @Html.TextBoxFor(m => m.From, new { @class = "form-control fromdatepicker", @Value = DateTime.Now.ToString("dd-MM-yyyy"), @id = "From" })
+                                                    @Html.ValidationMessageFor(m => m.From, "", new { @style = "color: red" })
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.To, "To Date", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                    @Html.TextBoxFor(m => m.To, new { @class = "form-control todatepicker", @Value = DateTime.Now.ToString("dd-MM-yyyy"), @id = "To" })
+                                                    @Html.ValidationMessageFor(m => m.To, "", new { @style = "color: red" })
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                    <h4 class="box-title">Attandance Report</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-12">
+                                        <div class="form-group" style="text-align:center;">
+                                            <button class="btn skin-blue" type="submit" id="showAttandancelogDetails"> 1. Show Attendance Log Details</button>
+                                        </div>
+                                        <div class="form-group" style="text-align:center;">
+                                            <button class="btn skin-blue" type="submit" id="showEmployeeAttandancelogDetails">2. Show Employee Attandance Log Details</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+}
+@section scripts
+{
+    <script src="~/Scripts/Common.js"></script>
+    <script>
+        $(".select2").select2();
+        var isValid = true;
+
+        //$('.date').datepicker({
+        //    autoclose: true,
+        //    format: 'dd-mm-yyyy',
+
+        //});
+        $(".fromdatepicker").datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+            onSelect: function (selected) {
+                $(".todatepicker").datepicker("option", "minDate", selected)
+            }
+        });
+        //$(".fromdatepicker").datepicker({
+        //    autoclose: true,
+        //    format: 'dd-mm-yyyy',
+        //    changeMonth: true,
+        //    changeYear: true,
+        //    yearRange: "-20:+0",
+        //    maxDate: "+0M +0D",
+        //    minDate: "-10Y",
+        //    showOn: "both",
+        //    buttonText: "<i class='far fa-calendar-alt'></i>",
+        //    onSelect: function (selected) {
+        //        $(".todatepicker").datepicker("option", "minDate", selected)
+        //    }
+        //});
+        $(".todatepicker").datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+            onSelect: function (selected) {
+                $(".fromdatepicker").datepicker("option", "maxDate", selected)
+            }
+        });
+
+        $(document).on('click', "#showAttandancelogDetails", function (event) {
+            event.preventDefault();
+            //validateOnShowHolidayDetails();
+            if (isValid == true) {
+                $("#report").attr("action", "/AttandanceLogReport/ShowAttandancelogDetails")
+                $("#report").submit();
+            }
+            else {
+                alert("You have to provide a year");
+
+            }
+
+        });
+
+        $(document).on('click', "#showEmployeeAttandancelogDetails", function (event) {
+            event.preventDefault();
+            //validateOnShowHolidayDetails();
+            if (isValid == true) {
+                $("#report").attr("action", "/AttandanceLogReport/ShowEmpAttandancelogDetails")
+                $("#report").submit();
+            }
+            else {
+                alert("You have to provide a year");
+
+            }
+
+        });
+        $(document).on('click', "#ShowEmployeeLeave", function (event) {
+            event.preventDefault();
+            //validateOnShowHolidayDetails();
+            if (isValid == true) {
+                $("#report").attr("action", "/EmployeeLeaveReport/ShowEmpoyeeLeaveReport")
+                $("#report").submit();
+            }
+
+        });
+
+
+            //function validateOnShowHolidayDetails() {
+            //    isValid = true;
+            //    RemoveError();
+            //    if ($("#Year").val() == "") {
+            //        isValid = "false";
+            //    }
+            //}
+    </script>
+}

@@ -1,0 +1,1085 @@
+﻿@using BEEERP.Models.Authentication
+@using BEEERP.Models.CommonInformation
+@model BEEERP.Models.ViewModel.Procurement.GPBVModel
+@{
+    ViewBag.Title = "GPB";
+}
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+
+    .form-group.required .control-label:after {
+        content: "*";
+        color: red;
+    }
+</style>
+
+
+<h3 style="text-align:center">Goods Purchase Bill (GPB) Entry</h3>
+
+
+<div class="box">
+    <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+        <h4 class="box-title">GPB Details</h4>
+    </div>
+    <div class="box-body">
+        <div class="col-sm-9" style="padding-top:2%; border-right:2px solid #5aeff8;border-left:2px solid #5aeff8;border-top:2px solid #5aeff8;border-bottom:2px solid #5aeff8;">
+            <div class="row">
+                <div class="col-sm-9" style="border-bottom:2px solid #5aeff8;padding-bottom:2%">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="row">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.BillNo, "GPB No", new { @class = "col-sm-4 control-label", @Title = "Goods Purchase Bill" })
+                                    <div class="col-sm-8 input-group">
+                                        @Html.TextBoxFor(m => m.BillNo, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.BillNo, "", new { @style = "color: red" })
+                                        <div class="input-group-btn">
+                                            <input type="button" name="search" id="searchBillNo" value="Search" class="btn btn-primary" style="min-width: 50px" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="form-group required">
+                                            @Html.LabelFor(m => m.PDate, new { @class = "col-sm-4 control-label" })
+                                            <div class="col-sm-8 input-group">
+                                                @Html.TextBoxFor(m => m.PDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                @Html.ValidationMessageFor(m => m.PDate, "", new { @style = "color: red" })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.BillDate, new { @class = "col-sm-4 control-label" })
+                                        <div class="col-sm-8 input-group">
+                                            @Html.TextBoxFor(m => m.BillDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            @Html.ValidationMessageFor(m => m.BillDate, "", new { @style = "color: red" })
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 form-horizontal">
+                                    <div class="form-group row">
+                                        @Html.LabelFor(m => m.PurRef, new { @class = "col-sm-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.PurRef, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.PurRef, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        @Html.LabelFor(m => m.PurDescription, new { @class = "col-sm-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextAreaFor(m => m.PurDescription, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.PurDescription, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12" style="padding-top:2%;">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="row">
+                                <div class="form-group required">
+                                    @Html.LabelFor(m => m.GRNNo, "GRN No", new { @class = "col-sm-4 control-label", @Title = "Goods Receive Note" })
+                                    <div class="col-sm-8 input-group">
+                                        @Html.TextBoxFor(m => m.GRNNo, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.GRNNo, "", new { @style = "color: red" })
+                                        <div class="input-group-btn">
+                                            <input type="button" name="search" id="search" value="Go" class="btn btn-primary" style="min-width: 20px" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.SGroupId, new { @class = "col-sm-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.SGroupId, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.SGroupId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.SupplierID, new { @class = "col-sm-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.SupplierID, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.SupplierID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.WorkOrderId, "Work Order No", new { @class = "col-sm-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.WorkOrderId, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.WorkOrderId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.WorkOrderNo, "Work Order Code", new { @class = "col-sm-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.WorkOrderNo, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.WorkOrderNo, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12" style="padding-top:2%;border-bottom:2px solid #5aeff8">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-striped" id="GRNItemList">
+                                        <thead>
+                                            <tr>
+                                                <th>Item Name</th>
+                                                <th title="Unit of measurement">UoM</th>
+                                                <th>Received Qty</th>
+                                                <th>Rate</th>
+                                                <th>Value</th>
+                                                <th>VAT</th>
+                                                <th>AIT</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row box-footer" style="text-align:center;">
+                                <input type="button" value="Clear" id="ClearData" class="btn btn-primary" />&nbsp;<input type="button" value="Add To Grid" id="addToGrid" class="btn btn-primary" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="form-group input-group col-sm-12">
+                                    @Html.LabelFor(m => m.Total, new { @class = "col-sm-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.Total, new { @class = "form-control", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.Total, "", new { @style = "color: red", @type = "number" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group input-group col-sm-12">
+                                    @Html.LabelFor(m => m.Vat, "VAT", new { @class = "col-sm-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.Vat, new { @class = "form-control", @type = "number", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.Vat, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group input-group col-sm-12">
+                                    @Html.LabelFor(m => m.Ait, new { @class = "col-sm-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.Ait, new { @class = "form-control", @type = "number", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.Ait, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12" style="padding-top:2%">
+                    <div class="row">
+                        <div class="col-sm-3" style="padding-top:34px;">
+                            <table class="table table-striped" id="gRNList">
+                                <thead>
+                                    <tr>
+                                        <th>GRN No</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="col-sm-9">
+                            <table class="table table-striped" id="SelectedGRNItemList">
+                                <thead>
+                                    <tr>
+                                        <th>GRN No</th>
+                                        <th>Item Name</th>
+                                        <th>UoM</th>
+                                        <th>Quantity</th>
+                                        <th>Rate</th>
+                                        <th>Value</th>
+                                        <th>VAT</th>
+                                        <th>AIT</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+
+            <div class="form-group input-group">
+                @Html.LabelFor(m => m.GPBTotal, new { @class = "col-sm-4 control-label" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.GPBTotal, new { @class = "form-control", @type = "number", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m => m.GPBTotal, "", new { @style = "color: red" })
+                </div>
+            </div>
+
+
+            <div class="form-group input-group">
+                @Html.LabelFor(m => m.Discount, new { @class = "col-sm-4 control-label" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.Discount, new { @class = "form-control", @type = "number" })
+                    @Html.ValidationMessageFor(m => m.Discount, "", new { @style = "color: red" })
+                </div>
+            </div>
+
+
+            <div class="form-group input-group">
+                @Html.LabelFor(m => m.NetAmount, new { @class = "col-sm-4 control-label" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.NetAmount, new { @class = "form-control", @type = "number", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m => m.NetAmount, "", new { @style = "color: red" })
+                </div>
+            </div>
+            <div class="form-group input-group">
+                <label for="VatPerc" class="col-sm-4 control-label">VAT (%)</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control" id="VatPerc" />
+                </div>
+            </div>
+            <div class="form-group input-group">
+                @Html.LabelFor(m => m.VatAmount, "VAT Amount", new { @class = "col-sm-4 control-label" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.VatAmount, new { @class = "form-control", @type = "number" })
+                    @Html.ValidationMessageFor(m => m.VatAmount, "", new { @style = "color: red" })
+                </div>
+            </div>
+            <div class="form-group input-group">
+                @Html.LabelFor(m => m.NetOfVatAmount, "Total Amount", new { @class = "col-sm-4 control-label" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.NetOfVatAmount, new { @class = "form-control", @type = "number", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m => m.NetOfVatAmount, "", new { @style = "color: red" })
+                </div>
+            </div>
+            <div class="form-group input-group">
+                <label for="VDAPerc" class="col-sm-4 control-label">VDS (%)</label>
+
+                <div class="col-sm-8">
+                    <input type="number" class="form-control" id="VDAPerc" />
+
+                </div>
+            </div>
+
+            <div class="form-group input-group">
+                @Html.LabelFor(m => m.VDAAmount, new { @class = "col-sm-4 control-label" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.VDAAmount, new { @class = "form-control", @type = "number" })
+                    @Html.ValidationMessageFor(m => m.VDAAmount, "", new { @style = "color: red" })
+                </div>
+            </div>
+            <div class="form-group input-group">
+                <label for="AitPerc" class="col-sm-4 control-label">AIT (%)</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control" id="AitPerc" />
+
+                </div>
+            </div>
+            <div class="form-group input-group">
+                @Html.LabelFor(m => m.AitAmount, new { @class = "col-sm-4 control-label" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.AitAmount, new { @class = "form-control", @type = "number" })
+                    @Html.ValidationMessageFor(m => m.AitAmount, "", new { @style = "color: red" })
+                </div>
+            </div>
+            <div class="form-group input-group">
+                @Html.LabelFor(m => m.TotalPayable, new { @class = "col-sm-4 control-label" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.TotalPayable, new { @class = "form-control", @type = "number", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m => m.TotalPayable, "", new { @style = "color: red" })
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="box-footer">
+        <div class="col-sm-12" style="text-align:center;">
+            @if (User.IsInRole("ProcurementOperator"))
+            {
+                <input type="button" value="Save" id="save" class="btn btn-primary" />
+                <input type="button" value="Update" id="update" class="btn btn-primary" disabled />
+                <input type="button" name="update" id="delete" value="Delete" class="btn btn-primary" disabled />
+                <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                <input type="button" name="print" id="print" value="Print" class="btn btn-primary" />
+            }
+            else
+            {
+                <input type="button" value="Save" id="save" class="btn btn-primary" />
+                <input type="button" value="Update" id="update" class="btn btn-primary" />
+                <input type="button" name="update" id="delete" value="Delete" class="btn btn-primary" />
+                <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                <input type="button" name="print" id="print" value="Print" class="btn btn-primary" />
+            }
+        </div>
+    </div>
+</div>
+<input type="hidden" id="supplierId" />
+@section scripts{
+    <script src="~/Scripts/Procurement/GPB.js"></script>
+    <script>
+        EnterPress();
+        $("#GRNNo").focus();
+        $("#update").hide();
+        $("#print").hide();
+        $("#delete").hide();
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+        $("#refresh").on("click", function(){
+            window.location.reload(true);
+        });
+        $(document).ready(function () {
+            $("#GPBTotal").val(parseFloat(0));
+            $("#Discount").val(parseFloat(0));
+            $("#VatPerc").val(parseFloat(0.0));
+            $("#VatAmount").val(parseFloat(0));
+            $("#AitPerc").val(parseFloat(0));
+            $("#VDAPerc").val(parseFloat(0));
+            $("#VDAAmount").val(parseFloat(0));
+            $("#AitAmount").val(parseFloat(0));
+
+            var grnItemList = [];
+            var addedItems = [];
+            var grnList = [];
+            var supplierId = 0;
+            var isValid = "";
+            var isSearch = false;
+            var purchaseEntry = { BillNo: "", PDate: "", BillDate:"", SupplierId: "", BillTotalValue: "", PurRef: "", PurDescription: "", DiscountAmt: "", TotalDiscount: "", VatAmount: "", AitAmount: "", TotalPayable: "", PaidAmount:""};
+            var gRNItemList = $("#GRNItemList").DataTable({
+                'paging': false,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': false,
+                'autoWidth': false,
+                "scrollX": true
+            });
+
+            var table = $("#SelectedGRNItemList").DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false,
+                "scrollX": true
+            });
+            var gRNList = $("#gRNList").DataTable({
+                'paging': false,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': false,
+                'autoWidth': false,
+                "scrollX": true
+            });
+            $(document).on('click', '#print', function () {
+                if ($("#BillNo").val() != "") {
+                    window.open("/GPB/PrintBill?billNo=" + $("#BillNo").val(), "_blank");
+                }
+                else {
+                    alert("Bill-No is required");
+                }
+            });
+            $(document).on('click', '#ClearData', function () {
+                if (confirm("Do you want to clear datas ?")) {
+                    grnItemList = [];
+                    $("#GRNNo").val("");
+                    $("#WorkOrderId").val("");
+                    $("#WorkOrderNo").val("");
+                    $("#SGroupId").val("");
+                    $("#SupplierID").val("");
+                    $("#Total").val("");
+                    $("#Vat").val("");
+                    $("#Ait").val("");
+                    gRNItemList.clear().draw();
+                }
+            });
+            $(document).on('keyup', '#AitPerc', function () {
+                var gpbTotal = parseFloat($("#GPBTotal").val());
+
+                if (gpbTotal > 0) {
+                    var aitPerc = parseFloat($("#AitPerc").val());
+                    var aitAmount = parseFloat((gpbTotal * aitPerc) / 100).toFixed(2);
+                    $("#AitAmount").val(aitAmount);
+                }
+                var totalPayable = (parseFloat($("#VatAmount").val()) + parseFloat($("#NetAmount").val())) - (parseFloat($("#AitAmount").val()) + parseFloat($("#VDAAmount").val()));
+                $("#TotalPayable").val(totalPayable);
+            });
+            $(document).on('keyup', '#VDAPerc', function () {
+                var gpbTotal = parseFloat($("#GPBTotal").val());
+
+                if (gpbTotal > 0) {
+                    var vdaPerc = parseFloat($("#VDAPerc").val());
+                    var vdaAmount = parseFloat((gpbTotal * vdaPerc) / 100).toFixed(2);
+                    $("#VDAAmount").val(vdaAmount);
+                }
+                var totalPayable = (parseFloat($("#VatAmount").val()) + parseFloat($("#NetAmount").val())) - (parseFloat($("#AitAmount").val()) + parseFloat($("#VDAAmount").val()));
+                $("#TotalPayable").val(totalPayable);
+            });
+            $(document).on('keyup', '#VatPerc', function () {
+                var gpbTotal = parseFloat($("#GPBTotal").val());
+
+                if (gpbTotal > 0) {
+                    var vatPerc = parseFloat($("#VatPerc").val());
+                    var vatAmount = parseFloat((gpbTotal * vatPerc) / 100).toFixed(2);
+                    $("#VatAmount").val(vatAmount);
+                }
+                var totalPayable = parseFloat($("#VatAmount").val()) + parseFloat($("#NetAmount").val()) - parseFloat($("#AitAmount").val());
+                $("#TotalPayable").val(totalPayable);
+                $("#NetOfVatAmount").val(parseFloat($("#NetAmount").val()) + parseFloat($("#VatAmount").val()));
+
+            });
+
+            $(document).on('click', '#search', function () {
+                var grnNo = $("#GRNNo").val();
+                RemoveError();
+                if (grnNo == "") {
+                    setError("GRNNo","GRN No is required for search.")
+                }
+                else {
+                    $.ajax({
+                    url: "@Url.Action("GetGRNInfo", "GPB")",
+                    dataType: "json",
+                    contentType: "application/json;chartset=utf8;",
+                        type: "GET",
+                        data: { grnNo: grnNo, supId: supplierId },
+                         success: function (data) {
+                             if (data.Message == "2") {
+                                 alert("Already added to GPB. Which GPB No is ." + data.GPBNo);
+                             }
+                             else if (data.Message == "3") {
+                                 alert("Please enter valid GRN No.");
+                             }
+                             //else if (data.Message == "4") {
+                             //    alert("Update The GRN No " + data.GRNo);
+                             //}
+                             //else if (data.Message == "5")
+                             //{
+                             //    alert("Supplier does not match with previous GRN Supplier.\n Different supplier GRN cannot add at same time.");
+                             //}
+                             else if (data.Message=="1") {
+                                 grnItemList = [];
+                                 $.each(data.grnLineL, function (index, value) {
+                                     //GRNNo, ItemGrpID, ItemID, UOMID, Qty, CostRt, CostVal, ItemName, GroupName, Unit, PackSize, VatPer, AitPer
+                                     grnItem = { ItemName: "", ItemId: "", GroupId: 0, PacSize: "", UOMId: 0, UomName: "", Qty: 0, AdjustedAit: 0, AdjustedVat: 0, TotalCost: 0, UnitCost: 0, GRNNo: "",BusinessUnitName:""};
+                                     grnItem.ItemName = value.ItemName;
+                                     grnItem.ItemId = value.ItemID;
+                                     grnItem.GroupId = value.ItemGrpID;
+                                     grnItem.PacSize = value.PacSize;
+                                     grnItem.UomName = value.Unit;
+                                     grnItem.UOMId = value.UOMID;
+                                     grnItem.Qty = value.Qty;
+                                     grnItem.AdjustedAit = value.CostVal * (value.AitPer/100);
+                                     grnItem.AdjustedVat = value.CostVal * (value.VatPer/100);
+                                     grnItem.TotalCost = value.CostVal;
+                                     grnItem.UnitCost = value.CostRt;
+                                     grnItem.GRNNo = value.GRNNo;
+                                     //grnItem.BusinessUnit = value.BusinessUnit;
+                                     //grnItem.JobNo = value.JobNo;
+                                     //grnItem.BusinessUnitName = value.BusinessUnitName;
+                                     grnItemList.push(grnItem);
+                                 });
+                                 supplierId = data.supplierId;
+                                 $("#SGroupId").val(data.supplierGroup);
+                                 $("#SupplierID").val(data.supplierName);
+                                 $("#WorkOrderId").val(data.WorkOrderId);
+                                 $("#WorkOrderNo").val(data.WorkOrderCode);
+                                 $("#SGroupId").prop('title', $("#SGroupId").val());
+                                 $("#SupplierID").prop('title', $("#SupplierID").val());
+                                 $("#WorkOrderId").prop('title', $("#WorkOrderId").val());
+                                 $("#WorkOrderNo").prop('title', $("#WorkOrderNo").val());
+                                 $("#PurRef").prop('title', $("#PurRef").val());
+                                 $("#PDate").prop('title', $("#PDate").val());
+                                 $("#BillDate").prop('title', $("#BillDate").val());
+                                 $("#PurDescription").prop('title', $("#PurDescription").val());
+                                 ShowOnGrnItems();
+                             }
+                    },
+                    error: function (data) {
+                        alert("Please check your internet connection.\n If your connection is ok then contact with Paankouri Software & Services");
+                    },
+                });
+                }
+
+            });
+             $(document).on('click', "#addToGrid", function () {
+                 var grnNo = '';
+                 var samesupplier = true;
+                 if (addedItems.length > 0) {
+                     $.each(addedItems, function (index, value) {
+                         if (value.SupplierId != supplierId) {
+                             samesupplier = false;
+                             alert("GRNs Supplier should be same as the previous one");
+                         }
+                     });
+                 }
+                 if (samesupplier && grnItemList.length > 0) {
+                     validationCheckOnAddToGrid();
+                     if (isValid == "") {
+                         $.each(grnItemList, function (index, value) {
+                             //BillNo, GroupId, ItemId, UOMId, Qty, UnitCost, TotalCost, GRNNo
+                             grnItem = { BillNo: 0, ItemName: "", ItemId: "", GroupId: 0, PacSize: "", UOMId: 0, UomName: "", Qty: 0, AdjustedAit: 0, AdjustedVat: 0, TotalCost: 0, UnitCost: 0, GRNNo: "", JobNo: "", BusinessUnit: 0, BusinessUnitName: "", SupplierId: 0 };
+                             grnItem.ItemName = value.ItemName;
+                             grnItem.ItemId = value.ItemId;
+                             grnItem.GroupId = value.GroupId;
+                             grnItem.PacSize = value.PacSize;
+                             grnItem.UOMId = value.UOMId;
+                             grnItem.UomName = value.UomName;
+                             grnItem.Qty = value.Qty;
+                             grnItem.AdjustedAit = value.AdjustedAit;
+                             grnItem.AdjustedVat = value.AdjustedVat;
+                             grnItem.TotalCost = value.TotalCost;
+                             grnItem.UnitCost = value.UnitCost;
+                             grnItem.GRNNo = value.GRNNo;
+                             grnItem.JobNo = value.JobNo;
+                             grnItem.BusinessUnit = value.BusinessUnit;
+                             grnItem.BusinessUnitName = value.BusinessUnitName;
+                             grnItem.SupplierId = supplierId;
+                             grnNo = value.GRNNo;
+                             addedItems.push(grnItem);
+                         });
+                         grnList.push(grnNo);
+                         var totalPayable = (parseFloat($("#VatAmount").val()) + parseFloat($("#NetAmount").val())) - (parseFloat($("#AitAmount").val()) + parseFloat($("#VDAAmount").val()));
+                         $("#TotalPayable").val(totalPayable);
+                         ShowOnAddedGrnItems();
+                         isValid = "";
+                     }
+                     else {
+                         alert("This GRN No already added");
+                     }
+                 }
+                 else {
+                     alert("No GRN for add");
+                 }
+                 var aitPerc = parseFloat($("#AitPerc").val());
+                 if (aitPerc > 0) {
+                     var gpbTotal = parseFloat($("#GPBTotal").val());
+                     var aitAmount = parseFloat((gpbTotal * aitPerc) / 100).toFixed(2);
+                     $("#AitAmount").val(aitAmount);
+                 }
+                 var vdaperc = parseFloat($("#VDAPerc").val());
+                 if (vdaperc > 0) {
+                     var gpbTotal = parseFloat($("#GPBTotal").val());
+                     var vdaAmount = parseFloat((gpbTotal * vdaperc) / 100).toFixed(2);
+                     $("#VDAAmount").val(vdaAmount);
+                 }
+                 var vatPerc = parseFloat($("#VatPerc").val());
+                 if (vatPerc > 0) {
+                     var gpbTotal = parseFloat($("#GPBTotal").val());
+                     var vatAmount = parseFloat((gpbTotal * vatPerc) / 100).toFixed(2);
+                     $("#VatAmount").val(vatAmount);
+                 }
+                 //var totalPayable = (parseFloat($("#VatAmount").val()) + parseFloat($("#NetAmount").val())) - (parseFloat($("#AitAmount").val()) + parseFloat($("#VDAAmount").val()));
+                 //$("#TotalPayable").val(totalPayable);
+            });
+            $(document).on('click', "#searchBillNo", function () {
+                $("#GRNNo").val("");
+                $.ajax({
+                    url: "@Url.Action("GetGPBDetails", "GPB")",
+                    dataType: "json",
+                    contentType: "application/json;chartset=utf-8;",
+                    type: "get",
+                    data: { billNo: $("#BillNo").val() },
+                        success: function (data) {
+                            if (data.Message == "1") {
+                                isSearch = true;
+                                $("#SGroupId").val(data.purchaseentry[0].supplierGroup);
+                                $("#SupplierID").val(data.purchaseentry[0].supplierName);
+                                $("#WorkOrderId").val(data.purchaseentry[0].workorderid);
+                                $("#WorkOrderNo").val(data.purchaseentry[0].workorderno);
+                                $("#GPBTotal").val(data.purchaseentry[0].pe.BillTotalValue);
+
+                                $("#PDate").val(moment(data.purchaseentry[0].PDate).format("DD-MM-YYYY"));
+                                $("#BillDate").val(moment(data.purchaseentry[0].BillDate).format("DD-MM-YYYY"));
+                                $("#PurRef").val(data.purchaseentry[0].PurRef);
+                                $("#PurDescription").val(data.purchaseentry[0].PurDescription);
+                                $("#VatAmount").val(data.purchaseentry[0].pe.VatAmount);
+                                $("#VDAAmount").val(data.purchaseentry[0].pe.VDAAmnt);
+                                $("#NetOfVatAmount").val(data.purchaseentry[0].pe.BillTotalValue - data.purchaseentry[0].pe.DiscountAmt + data.purchaseentry[0].pe.VatAmount);
+                                $("#AitAmount").val(data.purchaseentry[0].pe.AitAmount);
+                                $("#Discount").val(data.purchaseentry[0].pe.DiscountAmt);
+                                $("#NetAmount").val(data.purchaseentry[0].pe.BillTotalValue - data.purchaseentry[0].pe.DiscountAmt);
+                                $("#TotalPayable").val(data.purchaseentry[0].pe.TotalPayable);
+                                //if (data.purchaseentry[0].pe.VatAmount >= 0) {
+                                //
+                                //}
+
+                                $("#SGroupId").prop('title', $("#SGroupId").val());
+                                $("#SupplierID").prop('title', $("#SupplierID").val());
+                                $("#WorkOrderId").prop('title', $("#WorkOrderId").val());
+                                $("#WorkOrderNo").prop('title', $("#WorkOrderNo").val());
+                                $("#PurRef").prop('title', $("#PurRef").val());
+                                $("#PDate").prop('title', $("#PDate").val());
+                                $("#BillDate").prop('title', $("#BillDate").val());
+                                $("#PurDescription").prop('title', $("#PurDescription").val());
+                                supplierId = data.purchaseentry[0].pe.SupplierId;
+                                grnItemList = [];
+                                addedItems = [];
+                                grnList = [];
+                                $.each(data.purchaseentryline, function (index, value) {
+                                    var found = false;
+                                    if (grnList.length > 0) {
+                                        $.each(grnList, function (index, v){
+                                            if (v == value.pel.GRNNo) {
+                                                found = true;
+                                            }
+                                        });
+                                    }
+                                    if (!found) {
+                                        grnList.push(value.pel.GRNNo);
+                                    }
+                                });
+                                $.each(data.purchaseentryline, function (index, value) {
+                                    grnItem = { BillNo: 0, ItemName: "", ItemId: "", GroupId: 0, PacSize: "", UOMId: 0, UomName: "", Qty: 0, AdjustedAit: 0, AdjustedVat: 0, TotalCost: 0, UnitCost: 0, GRNNo: "", JobNo: "", BusinessUnit: 0, BusinessUnitName: "" };
+                                    grnItem.ItemName = value.pel.ItemName;
+                                    grnItem.ItemId = value.pel.ItemId;
+                                    grnItem.GroupId = value.pel.GroupId;
+                                    grnItem.PacSize = value.pel.PacSize;
+                                    grnItem.UOMId = value.pel.UOMId;
+                                    grnItem.UomName = value.pel.Unit;
+                                    grnItem.Qty = value.pel.Qty;
+                                    grnItem.AdjustedAit = value.pel.Ait;
+                                    grnItem.AdjustedVat = value.pel.Vat;
+                                    grnItem.TotalCost = value.pel.TotalCost;
+                                    grnItem.UnitCost = value.pel.UnitCost;
+                                    grnItem.GRNNo = value.pel.GRNNo;
+                                    grnItem.JobNo = value.pel.JobNo;
+                                    grnItem.BusinessUnit = value.pel.BusinessUnit;
+                                    grnItem.BusinessUnitName = value.pel.BusinessUnitName;
+                                    grnNo = value.pel.GRNNo;
+                                    addedItems.push(grnItem);
+                                    $("#save").hide();
+                                    $("#update").show();
+                                    $("#delete").show();
+                                    $("#print").show();
+                                    //$("#delete").show();
+                                });
+                                ShowOnAddedGrnItems();
+
+                            }
+                            else if (data.Message == "0") {
+                                alert("This GPB No Does not exist.\n Try with different No");
+                            }
+
+                        },
+                        error: function () {
+                            alert("Please check your internet connection.\n If your connection is ok then contact with Paankouri Software & Serices");
+                        }
+                });
+
+            });
+            $(document).on('click', "#save", function () {
+                if (addedItems.length > 0) {
+                    if (confirm("Do you want save ?")) {
+                        var purchaseEntry = { BillNo: "", PDate: "", BillDate: "", SupplierId: "", BillTotalValue: "", PurRef: "", PurDescription: "", DiscountAmt: "", TotalDiscount: "", VatAmount: "", VDAAmnt:"", AitAmount: "", TotalPayable: "", PaidAmount: "" };
+                        purchaseEntry.BillNo = 0;
+                        purchaseEntry.PDate = $("#PDate").val();
+                        purchaseEntry.BillDate = $("#BillDate").val();
+                        purchaseEntry.SupplierId = supplierId;
+                        purchaseEntry.BillTotalValue = $("#GPBTotal").val();
+                        purchaseEntry.PurRef = $("#PurRef").val();
+                        purchaseEntry.PurDescription = $("#PurDescription").val();
+                        purchaseEntry.DiscountAmt = $("#Discount").val();
+                        //purchaseEntry.TotalDiscount = $("#NetAmount").val();
+                        purchaseEntry.TotalDiscount = $("#Discount").val();
+                        purchaseEntry.VatAmount = $("#VatAmount").val();
+                        purchaseEntry.VDAAmnt = $("#VDAAmount").val();
+                        purchaseEntry.AitAmount = $("#AitAmount").val();
+                        purchaseEntry.TotalPayable = $("#TotalPayable").val();
+                        purchaseEntry.PaidAmount = 0.0;
+                        $.ajax({
+                            url: "@Url.Action("SaveGPB", "GPB")",
+                            dataType: "json",
+                            contentType: "application/json;chartset=utf-8;",
+                            type: "post",
+                            data: JSON.stringify({ purchaseEntry: purchaseEntry, addedItems: addedItems }),
+                            success: function (data) {
+                                if (data.Message == "1") {
+                                    $("#BillNo").val(data.BillNo);
+                                    $("#save").remove();
+                                    alert("Successfully Saved.")
+                                    $("#print").show();
+                                    $("#print").focus();
+                                }
+                                else if (data.Message == "0") {
+                                    alert("Failed to Save. Try Again");
+                                }
+                                else {
+                                    alert("Critical Error!.\n Contact with Paankouri Software & Services");
+                                }
+
+                            },
+                            error: function () {
+                                alert("Please check your internet connection.\n If your connection is ok then contact with Paankouri Software & Services");
+                            }
+                        });
+                    }
+                }
+                else {
+                    alert("Atleast one item should be added");
+                }
+            });
+            $(document).on('click', "#update", function () {
+                if (addedItems.length > 0){
+                    if (confirm("Do you want update ?")) {
+                        var purchaseEntry = { BillNo: "", PDate: "", BillDate: "", SupplierId: "", BillTotalValue: "", PurRef: "", PurDescription: "", DiscountAmt: "", TotalDiscount: "", VatAmount: "", VDAAmnt:"", AitAmount: "", TotalPayable: "", PaidAmount: "" };
+                        purchaseEntry.BillNo = $("#BillNo").val();
+                        purchaseEntry.PDate = $("#PDate").val();
+                        purchaseEntry.BillDate = $("#BillDate").val();
+                        purchaseEntry.SupplierId = supplierId;
+                        purchaseEntry.BillTotalValue = $("#GPBTotal").val();
+                        purchaseEntry.PurRef = $("#PurRef").val();
+                        purchaseEntry.PurDescription = $("#PurDescription").val();
+                        purchaseEntry.DiscountAmt = $("#Discount").val();
+                        //purchaseEntry.TotalDiscount = $("#NetAmount").val();
+                        purchaseEntry.TotalDiscount = $("#Discount").val();
+                        purchaseEntry.VatAmount = $("#VatAmount").val();
+                        purchaseEntry.VDAAmnt = $("#VDAAmount").val();
+                        purchaseEntry.AitAmount = $("#AitAmount").val();
+                        purchaseEntry.TotalPayable = $("#TotalPayable").val();
+                        purchaseEntry.PaidAmount = 0.0;
+                        $.ajax({
+                            url: "@Url.Action("UpdateGPB", "GPB")",
+                            dataType: "json",
+                            contentType: "application/json;chartset=utf-8;",
+                            type: "post",
+                            data: JSON.stringify({ purchaseEntry: purchaseEntry, addedItems: addedItems }),
+                            success: function (data) {
+                                if (data.Message == "1") {
+                                    $("#BillNo").val(data.BillNo);
+                                    $("#update").remove();
+                                    alert("Successfully updated.")
+                                    $("#print").show();
+                                    $("#print").focus();
+                                }
+                                else if (data.Message == "0") {
+                                    alert("Failed to update. Try Again");
+                                }
+                                else {
+                                    alert("Critical Error!.\n Contact with Paankouri Software & Services");
+                                }
+
+                            },
+                            error: function () {
+                                alert("Please check your internet connection.\n If your connection is ok then contact with Paankouri Software & Services");
+                            }
+                        });
+                    }
+                }
+                else {
+                    alert("Atleast one item should be added");
+                }
+            });
+
+            //delete
+            $(document).on('click', '#delete', function () {
+                $("#update").prop('disabled', true);
+                $("#delete").prop('disabled', true);
+                var id = $("#BillNo").val();
+                if (confirm('Are you sure you want to delete this from the database?')) {
+                    $.ajax({
+                        url: '@Url.Action("DeleteGPB", "GPB")',
+                        contentType: "application/json;charset=utf-8",
+                        data: { id: id },
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed to delete.");
+                                $("#delete").prop('disabled', false);
+                                $("#update").prop('disabled', false);
+                            }
+                            else {
+                                alert("Delete Successfull");
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            });
+
+            $(document).on('change', "#Discount", function () {
+                var vat = 0, ait = 0,dis=0, vda=0;
+                if ($("#VatAmount").val() >= 0) {
+                    vat = parseFloat($("#VatAmount").val());
+                }
+                if ($("#VatAmount").val() == "") {
+                    vat = 0;
+                }
+                if ($("#VDAAmount").val() >= 0) {
+                    vda = parseFloat($("#VDAAmount").val());
+                }
+                if ($("#VDAAmount").val() == "") {
+                    vda = 0;
+                }
+                if ($("#AitAmount").val() >= 0) {
+                    ait = parseFloat($("#AitAmount").val());
+                }
+                if ($("#AitAmount").val() == "") {
+                    ait = 0;
+                }
+                if ($("#Discount").val() >= 0) {
+                    dis = parseFloat($("#Discount").val());
+                }
+                if ($("#Discount").val() =="")
+                    {
+                        dis=0;
+                    }
+                var netAmount = $("#GPBTotal").val() - dis;
+                $("#NetAmount").val(netAmount);
+                if ($("#Discount").val() >= 0) {
+                    $("#TotalPayable").val((netAmount + vat) - (ait + vda));
+                    if ($("#TotalPayable").val() < 0) {
+                        setError("Discount", "Discount Cannot be greater than Total Payable");
+                        $("#update").attr("disabled", true);
+                        $("#save").attr("disabled", true);
+                    }
+                    if ($("#TotalPayable").val() >= 0) {
+                        setError("Discount", "");
+                        $("#update").attr("disabled", false);
+                        $("#save").attr("disabled", false);
+                    }
+                }
+                else {
+                    $("#TotalPayable").val((netAmount + vat) - (ait + vda));
+                }
+            });
+            $(document).on('keyup', "#Discount", function () {
+                KeyUpFunc();
+            });
+            $(document).on('change', "#VatAmount", function () {
+                KeyUpFunc();
+            });
+            $(document).on('change', "#VDAAmount", function () {
+                KeyUpFunc();
+            });
+            $(document).on('change', "#AitAmount", function () {
+                KeyUpFunc();
+            });
+            $(document).on('keyup', "#VatAmount", function () {
+                KeyUpFunc();
+            });
+            $(document).on('keyup', "#AitAmount", function () {
+                KeyUpFunc();
+            });
+            function KeyUpFunc() {
+                var vat = 0, ait = 0, dis = 0, vda = 0;
+                if ($("#VatAmount").val() >= 0) {
+                    vat = parseFloat($("#VatAmount").val());
+                }
+                if ($("#VatAmount").val() == "") {
+                    vat = 0;
+                }
+                if ($("#VDAAmount").val() >= 0) {
+                    vda = parseFloat($("#VDAAmount").val());
+                }
+                if ($("#VDAAmount").val() == "") {
+                    vda = 0;
+                }
+                if ($("#AitAmount").val() >= 0) {
+                    ait = parseFloat($("#AitAmount").val());
+                }
+                if ($("#AitAmount").val() == "") {
+                    ait = 0;
+                }
+                if ($("#Discount").val() >= 0) {
+                    dis = parseFloat($("#Discount").val());
+                }
+                if ($("#Discount").val() == "") {
+                    dis = 0;
+                }
+                var netAmount = $("#GPBTotal").val() - dis;
+                $("#NetAmount").val(netAmount);
+                $("#NetOfVatAmount").val(netAmount + vat);
+                if ($("#Discount").val() >= 0) {
+                    $("#TotalPayable").val((netAmount + vat) - (ait + vda));
+                    if ($("#TotalPayable").val() < 0) {
+                        setError("Discount", "Discount Cannot be greater than Total Payable");
+                        $("#update").attr("disabled", true);
+                        $("#save").attr("disabled", true);
+                    }
+                    if ($("#TotalPayable").val() >= 0) {
+                        setError("Discount", "");
+                        $("#update").attr("disabled", false);
+                        $("#save").attr("disabled", false);
+                    }
+                }
+                else {
+                    $("#TotalPayable").val((netAmount + vat) - (ait + vda));
+                }
+
+
+            }
+            function validationCheckOnAddToGrid() {
+                $.each(grnList, function (index, value) {
+                    if (value == $("#GRNNo").val()) {
+                        isValid = "Not valid";
+                        return false;
+                    }
+                });
+            }
+            $(document).on('click', '[name="deleteRow"]', function () {
+                var grnno = $(this).attr("value");
+                if (confirm('Are you sure you want to delete this from grid ?')) {
+                    var newItemgrn = [];
+                    var newAddedItemList = [];
+                    $.each(addedItems, function (index, value) {
+                        if (value.GRNNo == grnno) {
+
+                        }
+                        else {
+                            newAddedItemList.push(value);
+                        }
+                    });
+                    $.each(grnList, function (index, value) {
+                        if (value == grnno) {
+
+                        }
+                        else {
+                            newItemgrn.push(value);
+                        }
+                    });
+                    addedItems = newAddedItemList;
+                    grnList = newItemgrn;
+                    ShowOnAddedGrnItems();
+                }
+            });
+            function ShowOnGrnItems() {
+                gRNItemList.clear().draw();
+
+                var total = 0.0;
+                var vat = 0.0;
+                var ait = 0.0;
+                $.each(grnItemList, function (index, value) {
+                    total += value.TotalCost;
+                    vat += value.AdjustedVat;
+                    ait += value.AdjustedAit;
+                    gRNItemList.row.add([value.ItemName, value.UomName, value.Qty, value.UnitCost, value.TotalCost, value.AdjustedVat, value.AdjustedAit]).draw();
+
+                });
+
+                $("#Total").val(total);
+                
+                $("#Ait").val(ait);
+                $("#Vat").val(vat);
+            }
+            function ShowOnAddedGrnItems() {
+                table.clear().draw();
+                gRNList.clear().draw();
+                var total = 0.0;
+                var vat = 0.0;
+                var ait = 0.0;
+                var netAmount = 0.0;
+                var netOfvat = 0.0;
+                var netOfAit = 0.0;
+                var totalPayable = 0.0;
+                $.each(grnList, function (index, value) {
+
+                    gRNList.row.add([value, '<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value + '"></i></a>']).draw();
+
+                });
+                $.each(addedItems, function (index, value) {
+                    total += value.TotalCost;
+                    vat += value.AdjustedVat;
+                    ait += value.AdjustedAit;
+                    table.row.add([value.GRNNo,value.ItemName, value.UomName, value.Qty, value.UnitCost, value.TotalCost, value.AdjustedVat, value.AdjustedAit]).draw();
+                    netAmount += total;
+                });
+                var discountAmt = $("#Discount").val();
+                netOfvat += vat;//total + vat;
+                netOfAit += ait//total - ait;
+                totalPayable += (total + netOfvat) - netOfAit;
+                if (discountAmt != "") {
+                    totalPayable -= discountAmt;
+                }
+                //else {
+                //    totalPayable += (total + netOfvat) - netOfAit;
+                grnItemList = [];
+                ShowOnGrnItems();
+                if (isSearch == false) {
+                    $("#GPBTotal").val(total);
+                    $("#NetOfVatAmount").val(total);
+                    $("#VatAmount").val(vat);
+                    $("#AitAmount").val(ait);
+                    if (discountAmt != "") {
+                        $("#NetAmount").val(total - $("#Discount").val());
+                    }
+                    else {
+                        $("#NetAmount").val(total);
+                    }
+                    $("#NetOfVatAmount").val(netOfvat);
+                    $("#TotalPayable").val(totalPayable);
+                }
+
+            }
+        });
+    </script>
+}

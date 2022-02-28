@@ -1,0 +1,623 @@
+﻿
+@model BEEERP.Models.ViewModel.Payroll.SetSalaryStructureVModel
+
+@{
+    ViewBag.Title = "SetSalaryStructure";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+
+<div class="content" style="margin-top:50px">
+    <div class="row">
+        <div>
+            <div class="col-md-10">
+                <h3 style="text-align:center">Set Employee Pay Scale Structure</h3>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div>
+                    <h4 style="color:red">@ViewBag.messege</h4>
+                </div>
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h5 class="box-title">Pay Scale Structure Details</h5>
+                            </div>
+                            <div class="box-body">
+
+                                <div class="form-group ">
+                                    @Html.LabelFor(m => m.Grade, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-5">
+                                        <div class="col-md-10">
+                                            @Html.DropDownListFor(m => m.Grade, (IEnumerable<SelectListItem>)ViewBag.GradeList, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.Grade, "", new { @style = "color: red" })
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Scale, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-5">
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(m => m.Scale, new { @class = "form-control" })
+                                        </div>
+
+                                        <div class="col-md-1 percent"></div>
+                                        @Html.ValidationMessageFor(m => m.Scale, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Basic, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-5">
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(m => m.Basic, new { @class = "form-control", @type = "number" })
+                                        </div>
+
+                                        <div class="col-md-1 percent"></div>
+                                        @Html.ValidationMessageFor(m => m.Basic, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.HouseRent, "Houserent (50% of Basic)", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-5">
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(m => m.HouseRent, new { @class = "form-control", @type = "number", @readonly = "readonly" })
+                                        </div>
+                                        <div class="col-md-1 percent"></div>
+                                        @Html.ValidationMessageFor(m => m.HouseRent, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.MedicalAllowance, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-5">
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(m => m.MedicalAllowance, new { @class = "form-control", @type = "number" })
+                                        </div>
+                                        <div class="col-md-1 percent"></div>
+                                        @Html.ValidationMessageFor(m => m.MedicalAllowance, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ConveyanceAllowance, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-5">
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(m => m.ConveyanceAllowance, new { @class = "form-control", @type = "number" })
+                                        </div>
+                                        <div class="col-md-1 percent"></div>
+                                        @Html.ValidationMessageFor(m => m.ConveyanceAllowance, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.DearnessAllowance, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-5">
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(m => m.DearnessAllowance, new { @class = "form-control", @type = "number" })
+                                        </div>
+                                        <div class="col-md-1 percent"></div>
+                                        @Html.ValidationMessageFor(m => m.DearnessAllowance, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Gross, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-5">
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(m => m.Gross, new { @class = "form-control", @type = "number" })
+                                            <div class="col-md-1 percent"></div>
+                                        </div>
+                                        <div>
+                                            @Html.ValidationMessageFor(m => m.Gross, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="background-color:white; ">
+                            <div class="form-group">
+                                <div class="col-sm-4"></div>
+                                <div class="col-sm-8">
+                                    <input type="button" name="Save" id="save" value="Save" class="btn skin-blue" />
+                                    <input type="button" name="Upate" id="update" value="Update" class="btn skin-blue" />
+                                    <input type="button" name="Delete" id="delete" value="Delete" class="btn skin-blue" />
+                                    <input type="button" name="Refresh" id="refresh" value="Refresh" class="btn skin-blue" />
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="message" value="false" />
+                        <input type="hidden" id="Check" value=@ViewBag.Update />
+                        <input type="hidden" id="SID" value=@ViewBag.ID />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h5 class="box-title">Grade Wise Pay Scale Structure</h5>
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-responsive" id="GardeList">
+                                    <thead>
+                                        <tr>
+                                            <th>SL No.</th>
+                                            <th>Grade Name</th>
+                                            <th>Scale</th>
+                                            <th>Basic</th>
+                                            <th>House Rent</th>
+                                            <th>Medical Allowance</th>
+                                            <th>Conveyance Allowance</th>
+                                            <th>Special Allowance</th>
+                                            <th>Gross</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.Grade)
+                                        {
+                                            <tr value="@item.ID" class="clickable-row">
+                                                <td>@item.ID</td>
+                                                <td>@item.GradeName</td>
+                                                <td>@item.Scale</td>
+                                                <td>@item.Basic</td>
+                                                <td>@item.HouseRent</td>
+                                                <td>@item.MedicalAllowance</td>
+                                                <td>@item.ConveyanceAllowance</td>
+                                                <td>@item.DearnessAllowance</td>
+                                                <td>@item.Gross</td>
+
+
+
+                                                @*<td> <a href="#" style="padding-right:40px;"><i class="fa fa-edit" value="@item.DeptmentID" id="edit"></i> </a></td>*@
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script src="~/Scripts/ReportSearch.js"></script>
+    <script src="~/Scripts/PayRollModule/SalaryStructure.js"></script>
+    <script>
+
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+        $(".select2").select2();
+        $(document).on('click', "#refresh", function () {
+            location.reload();
+
+        });
+        $(document).ready(function () {
+            //$("#Scale").val(parseFloat(0));
+            $("#Basic").val(parseFloat(0));
+            $("#HouseRent").val(parseFloat(0.0));
+            $("#MedicalAllowance").val(parseFloat(0));
+            $("#ConveyanceAllowance").val(parseFloat(0));
+            $("#DearnessAllowance").val(parseFloat(0));
+
+            $("#update").hide();
+            $("#delete").hide();
+        });
+
+             SalaryKeypress();
+             $("#Gross").attr("disabled", true);
+             var gross = 0;
+             var a = 0;
+             var b = 0;
+             var c = 0;
+             var d = 0;
+             var e = 0;
+             var f = 0;
+            var gradeError = true;
+            var grade;
+            var isSearch;
+            var deleteID;
+            if ($("#Check").val() == 1) {
+                $("#update").show();
+                $("#save").hide();
+            }
+            else {
+                $("#update").hide();
+                $("#save").show();
+            }
+             var SS = { Basic: 0, HouseRent: 0, MedicalAllowance: 0, ConveyanceAllowance: 0, DearnessAllowance: 0, ID : 0, Scale: 0, GradeID: 0, Gross:0};
+
+        $("#Basic, #HouseRent, #MedicalAllowance, #ConveyanceAllowance, #DearnessAllowance").focusout(function () {
+            if ($(this).val() == "") {
+                $(this).val(parseFloat(0));
+            }
+            else {
+                $(this).val(parseFloat($(this).val()));
+            }
+                a = parseFloat($("#Basic").val());
+                b = parseFloat($("#HouseRent").val());
+                c = parseFloat($("#MedicalAllowance").val());
+                d = parseFloat($("#ConveyanceAllowance").val());
+                e = parseFloat($("#DearnessAllowance").val());
+                f = parseFloat($("#Scale").val());
+
+                calculate(a, b, c, d, e);
+                houseRentCalculate(a, b);
+
+             });
+
+        $("#Basic").keyup(function () {
+            if (parseFloat($(this).val()) <= 0) {
+                $(this).val(0);
+            }
+        });
+
+        $("#Grade").change(function () {
+            RemoveError();
+            var id = $("#Grade").val();
+            if (isSearch==true) {
+                $("#Grade").val(grade);
+            } else {
+
+                $.ajax({
+                    url: '@Url.Action("checkSalaryStructure", "SetSalaryStructure")',
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({ id: id }),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            setError("Grade", "This grade is already saved!");
+                            gradeError = false;
+                        }
+                    }
+                });
+
+            }
+        });
+        $("#HouseRent").keyup(function () {
+            if (parseFloat($(this).val()) < 0 || $(this).val() == "") {
+                $(this).val(0);
+            }
+
+        });
+
+        $("#MedicalAllowance").keyup(function () {
+                if (parseFloat($(this).val()) < 0 || $(this).val() == "") {
+                    $(this).val("");
+                }
+        });
+
+        $("#ConveyanceAllowance").keyup(function () {
+                if (parseFloat($(this).val()) < 0 || $(this).val() == "") {
+                    $(this).val("");
+                }
+            });
+
+        $("#DearnessAllowance").keyup(function () {
+                if (parseFloat($(this).val()) < 0 || $(this).val() == "") {
+                    $(this).val("");
+                }
+            });
+
+        $("#Scale").keyup(function () {
+            if (parseFloat($(this).val()) < 0 || $(this).val() == "") {
+                $(this).val("");
+            }
+            });
+
+
+        function setSalary() {
+
+            if ($("#Basic").val() >= 0 && $("#HouseRent").val() >= 0 && $("#MedicalAllowance").val() >= 0 && $("#ConveyanceAllowance").val() >= 0 && $("#DearnessAllowance").val() >= 0) {
+                if ($("#Basic").val() > 0) {
+                    SS.Basic = $("#Basic").val();
+                }
+                if ($("#Basic").val() <= 0 || $("#Basic").val() =="") {
+                    SS.Basic = $("#Basic").val(0);
+                }
+                if ($("#HouseRent").val() > 0) {
+                    SS.HouseRent = $("#HouseRent").val();
+                }
+                if ($("#HouseRent").val() <= 0 || $("#HouseRent").val() == "") {
+                    SS.HouseRent = $("#HouseRent").val(0);
+                }
+                if ($("#MedicalAllowance").val() > 0) {
+                    SS.MedicalAllowance = $("#MedicalAllowance").val();
+                }
+                if ($("#MedicalAllowance").val() <= 0 || $("#MedicalAllowance").val() == "") {
+                    SS.MedicalAllowance = $("#MedicalAllowance").val();
+                }
+                if ($("#ConveyanceAllowance").val() > 0) {
+                    SS.ConveyanceAllowance = $("#ConveyanceAllowance").val();
+                }
+                if ($("#ConveyanceAllowance").val() <= 0 || $("#ConveyanceAllowance").val() == "") {
+                    SS.ConveyanceAllowance = $("#ConveyanceAllowance").val(0);
+                }
+                if ($("#DearnessAllowance").val() > 0) {
+                        SS.DearnessAllowance = $("#DearnessAllowance").val();
+                }
+                if ($("#DearnessAllowance").val() <= 0 || $("#DearnessAllowance").val() == "") {
+                        SS.DearnessAllowance = $("#DearnessAllowance").val(0);
+                }
+                //if ($("#Scale").val() > 0) {
+                //    SS.Scale = $("#Scale").val();
+                //}
+                //if ($("#Scale").val() <= 0 || $("#Scale").val() == "") {
+                //    SS.Scale = $("#Scale").val(0);
+                //}
+                SS.Gross = $("#Gross").val();
+                SS.ID = $("#SID").val();
+                SS.Scale = $("#Scale").val();
+                //SS.ID = grade;
+
+                if (isSearch == true) {
+                    SS.GradeID = grade;
+                } else {
+                    SS.GradeID = $('#Grade').val();
+                }
+            }
+        }
+        function houseRentCalculate(a, b) {
+            if (a == 0) {
+                $("#HouseRent").val(0);
+            }
+            if (a >= 0) {
+                var b = a / 2;
+                $("#HouseRent").val(b);
+            }
+        }
+        var isValid = true;
+        function ValidateSalaryStructure() {
+            if ($("#Grade").val() == "") {
+                setError("Grade", "Grade is required field");
+                isValid = false;
+            }
+
+            //if (workOrder.SupplierID == "") {
+            //    setError("SupplierID", "Supplier ID is required field");
+            //    isValid = false;
+            //}
+            //if (workOrder.SupplierGroup == "") {
+            //    setError("SupplierGroup", "Supplier Group is required field");
+            //    isValid = false;
+            //}
+        }
+
+        function calculate(a, b, c, d, e) {
+            if (a == 0 && b == 0 && c == 0 && d == 0 && e == 0) {
+                $("#Gross").val(0);
+            }
+            if (a == "") {
+                var val = b + c + d + e;
+                $("#Gross").val(val);
+            }
+            if (b == "") {
+                var val = a + c + d + e;
+                $("#Gross").val(val);
+            }
+            if (c == "") {
+                var val = a + b + d + e;
+                $("#Gross").val(val);
+            }
+            if (d == "") {
+                var val = a + b + c + e;
+                $("#Gross").val(val);
+            }
+            if (e == "") {
+                var val = a + b + c + d;
+                $("#Gross").val(val);
+            }
+            if (a >= 0 && b >= 0 && c >= 0 && d >= 0 && e >= 0) {
+                var x = a + b + c + d + e;
+                $("#Gross").val(x);
+            }
+            //    if (x == 100) {
+            //        setError("Gross", "");
+            //        $("#message").val("false");
+            //        $('#save').prop('disabled', false);
+            //        $('#update').prop('disabled', false);
+            //    }
+            //    if (x > 100) {
+            //        setError("Gross", "\nGross can not be greater than 100%");
+            //        $("#message").val("true");
+            //        $('#save').prop('disabled', true);
+            //        $('#update').prop('disabled', true);
+            //    }
+            //    if (x < 100) {
+            //        setError("Gross", "\nGross can not be less than 100%");
+            //        $("#message").val("true");
+            //        $('#save').prop('disabled', true);
+            //        $('#update').prop('disabled', true);
+            //    }
+        //    }
+        }
+
+        $(document).on('click', '#refresh', function () {
+
+            window.location.reload(true);
+        });
+        //save Depot
+        $(document).on('click', '#save', function () {
+
+            ValidateSalaryStructure();
+            setSalary();
+            if (isValid == true && gradeError == true) {
+                //if ($("#message").val() != "true")
+                //    {
+                        if (confirm('Do you want to save?')) {
+                            $.ajax({
+                            url: '@Url.Action("SaveSS", "SetSalaryStructure")',
+                            contentType: "application/json;charset=utf-8",
+                                data: JSON.stringify({ SS: SS }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Save Failed ");
+                                    //$("#save").prop('disabled', false);
+                                }
+                                else
+                                {
+                                    alert("Save Sucessful.");
+                                    window.location.reload(true);
+                                }
+                                }
+                            });
+                        }
+
+                //}
+            }
+            else {
+
+            }
+
+        });
+
+        $(document).on('click', ".clickable-row", function () {
+            isSearch = true;
+                var id = $(this).attr("value");
+                $("#Grade").prop("disabled", true);
+                 $.ajax({
+                    url: '@Url.Action("GetSetSalaryStructureById", "SetSalaryStructure")',
+                    contentType: "application/json;charset=utf-8",
+                     data: JSON.stringify({ id : id }),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas.Message==0)
+                        {
+                            alert("This Department  doesn't exist.");
+                        }
+                        else {
+                            $("#save").hide();
+                            $("#update").show();
+                            $("#delete").show();
+                            $("#Basic").val(datas.Basic);
+                            $("#HouseRent").val(datas.HouseRent);
+                            $("#MedicalAllowance").val(datas.MedicalAllowance);
+                            $("#ConveyanceAllowance").val(datas.ConveyanceAllowance);
+                            $("#DearnessAllowance").val(datas.DearnessAllowance);
+                            $("#Scale").val(datas.Scale);
+                            $("#Grade").val(parseInt( datas.GradeID)).change();
+                            grade = datas.GradeID;
+                            $("#SID").val(datas.ID);
+                            //$("#GradeName").val(datas.GradeName);
+                            $("#Gross").val(datas.Gross);
+                            deleteID = datas.ID;
+                        }
+                    }
+                });
+            });
+        //update Depot
+        $(document).on('click', '#update', function () {
+            setSalary();
+            //ValidateSalary();
+            if ($("#message").val() != "true")
+                {
+                    if (confirm('Do you want to update?')) {
+                         $.ajax({
+                        url: '@Url.Action("UpdateSS", "SetSalaryStructure")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ SS: SS }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Update Failed");
+                                $("#update").show();
+                            }
+                            else {
+                                alert("Update Successful.");
+                                location.reload();
+                            }
+                        }
+                    });
+                    }
+
+                }
+
+        });
+
+        //Delete Depot
+        $(document).on('click', '#delete', function () {
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var id = deleteID;
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteHDByid", "SetSalaryStructure")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Delete failed.");
+                        }
+                        else {
+                            alert("Delete Successfull");
+                            location.reload();
+                        }
+                    }
+                });
+            }
+        });
+
+        //function ValidateSalary() {
+        //    setSalary();
+        //    message = "";
+        //    var gross = $("#Gross").val();
+
+        //    if (gross != 100) {
+        //        setError("Gross", "Sum of the salary items must equal to 100, please check!");
+        //    }
+
+        //}
+
+        //$("#Gross").focusout(function () {
+        //    if ($("#Gross").val() == 100) {
+        //        setError("Gross", "");
+        //    }
+        //});
+
+
+    </script>
+
+}
+

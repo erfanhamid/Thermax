@@ -1,0 +1,297 @@
+﻿@model BEEERP.Models.ViewModel.Payroll.EmployeeCashAllowancesVModel
+@{
+    ViewBag.Title = "EmployeeCashAllowances";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<h3 style="text-align:center">Employee Cash Allowance</h3>
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h4 class="box-title">Employee Cash Allowances</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.EmployeeID, "Employee ID ", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.EmployeeID, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.EmployeeID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Name, "Employee Name ", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.Name, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.CADate, "Date", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:3%; padding-right:3%">
+                                                @Html.TextBoxFor(m => m.CADate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy"), @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.CADate, "", new { @style = "color: red" })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box">
+                            <div class="box-body" style="padding-right:10%;padding-left:0%">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.CAAmount, "CA Amount", new { @class = "col-md-5 control-label" })
+                                        <div class="col-sm-7">
+                                            @Html.TextBoxFor(m => m.CAAmount, new { @class = "form-control", @type = "number" })
+                                            @Html.ValidationMessageFor(m => m.CAAmount, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.CARefNO, "Reference No", new { @class = "col-md-5 control-label" })
+                                        <div class="col-sm-7">
+                                            @Html.TextBoxFor(m => m.CARefNO, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.CARefNO, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.CADescription, "Description", new { @class = "col-md-5 control-label" })
+                                        <div class="col-sm-7">
+                                            @Html.TextBoxFor(m => m.CADescription, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.CADescription, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3"></div>
+                            </div>
+                        </div>
+                        <div style="background-color:white; ">
+                            <div class="form-group">
+                                <div class="col-sm-12" style="text-align:center;">
+                                    <button class="btn skin-blue" id="save">Update </button>
+                                    <button class="btn skin-blue" id="refresh">Refresh</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h5 class="box-title">Employee Cash Allowances Description</h5>
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-responsive" id="EmployeeCashAllowancesTable">
+                                    <thead>
+                                        <tr>
+                                            <td>Employee ID</td>
+                                            <td>Employee Name</td>
+                                            <td>CA Amount</td>
+                                            <td>Reference NO</td>
+                                            <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.list)
+                                        {
+                                            <tr value="@item.EmployeeID" class="clickable-row">
+                                                <td>@item.EmployeeID</td>
+                                                <td>@item.Name</td>
+                                                <td>@item.CAAmount</td>
+                                                <td>@item.CARefNO</td>
+                                                <td>@item.CADescription</td>
+                                                @*<td> <a href="#" style="padding-right:40px;"><i class="fa fa-edit" value="@item.DeptmentID" id="edit"></i> </a></td>*@
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                                <div class="loader" id="loader"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/DataAdminModule/MROBInputFocus.js"></script>
+    <script>
+        var isValid = true;
+        var CashAllowances = { EmployeeID: 0, CADate: "", CAAmount: 0, CARefNO: "", CADescription: "" };
+        var table = $('#EmployeeCashAllowancesTable').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false,
+            'scrollX': true,
+        });
+        $(document).on('click', "#refresh", function () {
+            RemoveError();
+            Refresh();
+            Location.reload();
+            $("#Save").prop('disabled', true);
+        });
+        $(document).ready(function () {
+            $(".select2").select2();
+            $("#update").hide();
+            $("#delete").hide();
+            $("#EmployeeID").focus();
+        });
+    //Clikable Row
+    $(document).on('click', ".clickable-row", function () {
+        var id = $(this).attr("value");
+
+        $.ajax({
+        url: '@Url.Action("GetEmployeeCashAllowances", "EmployeeCashAllowances")',
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({ EmployeeID: id }),
+        type: 'POST',
+        dataType: 'json',
+        success: function (datas) {
+            if (datas.Message==0)
+            {
+                alert("This Employee Arrear Entry doesn't exist.");
+                $("#CAAmount").focus();
+            }
+            else {
+                $("#refresh").show();
+                $("#save").show();
+                $("#delete").show();
+                $("#EmployeeID").val(datas.cashAllowances.EmployeeID);
+                $("#Name").val(datas.cashAllowances.Name);
+                $("#CAAmount").val(datas.cashAllowances.CAAmount);
+                $("#CARefNO").val(datas.cashAllowances.CARefNO);
+                $("#CADescription").val(datas.cashAllowances.CADescription);
+                $("#CAAmount").focus();
+            }
+        }
+        });
+    });
+    //update Gride(save) code
+    $(document).on('click', '#save', function () {
+    SetEmployeeCashAllowances();
+    RemoveError();
+    $("#save").prop('disabled', true);
+    ValidateCashAllowances();
+    if (isValid == true) {
+        if (confirm('Do you want to save?')) {
+            $.ajax({
+                url: '@Url.Action("SaveEmployeeCashAllowances", "EmployeeCashAllowances")',
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify({ CashAllowances: CashAllowances }),
+                type: 'POST',
+                dataType: 'json',
+                success: function (datas) {
+                    if (datas == 0) {
+                        alert("Failed To Saved.");
+                        $("#save").prop('disabled', false);
+                    }
+                    else {
+                        alert("Sucessfully Saved.");
+                        $("#save").prop('disabled', true);
+                        location.reload();
+                    }
+                }
+            });
+        }
+        else {
+            $("#save").prop('disabled', false);
+        }
+    }
+    else {
+        $("#save").prop('disabled', false);
+    }
+    });
+
+    function ClearOnSearch() {
+        $("#Name").val("");
+        $("#Designation").val("");
+        $("#Department").val("");
+
+        $("#CAAmount").val("");
+        $("#CARefNO").val("");
+        $("#CADescription").val("");
+    }
+    //get value from textbox
+        function SetEmployeeCashAllowances() {
+        CashAllowances.EmployeeID = $("#EmployeeID").val();
+        CashAllowances.CADate = $("#CADate").val();
+        CashAllowances.CAAmount = $("#CAAmount").val();
+        CashAllowances.CARefNO = $("#CARefNO").val();
+        CashAllowances.CADescription = $("#CADescription").val();
+        }
+        function ValidateCashAllowances() {
+            isValid = true;
+            if (CashAllowances.CAAmount == "") {
+                setError("CAAmount", "CAAmount is required field.");
+                isValid = false;
+            }
+            if (CashAllowances.EmployeeID == "") {
+                setError("EmployeeID", "Select employee id from description.");
+                isValid = false;
+            }
+            if (CashAllowances.Name == "") {
+                setError("Name", "Select employee name from description.");
+                isValid = false;
+            }
+        }
+        function Refresh() {
+            $("#EmployeeID").val("");
+            $("#Name").val("");
+            $("#CAAmount").val("");
+            $("#CARefNO").val("");
+            $("#CADescription").val("");
+        }
+    </script>
+}

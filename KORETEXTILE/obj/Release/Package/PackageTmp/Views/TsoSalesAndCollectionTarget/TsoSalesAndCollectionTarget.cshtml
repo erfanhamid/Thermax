@@ -1,0 +1,689 @@
+﻿@model BEEERP.Models.ViewModel.Sales.Transaction.TargetSalesAndCollectionVModel
+@using BEEERP.Models.CommonInformation
+@{
+    ViewBag.Title = "TsoSalesAndCollectionTarget";
+}
+
+<style>
+    .btn:hover {
+        color: blue !important;
+    }
+
+    .btn:focus {
+        background-color: aqua !important;
+    }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+
+</style>
+<form id="report" target="_blank">
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="text-align:center;">
+                                    <h3 class="box-title">Tso Sales And Collection Target</h3>
+                                </div>
+                                <div class="box-body" style="padding-right:5%;padding-left:0%">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.TargetSCNo, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:1.75%; padding-right:1.75%;">
+                                                @Html.TextBoxFor(m => m.TargetSCNo, new { @class = "form-control", @Value = ViewBag.Id })
+                                                @Html.ValidationMessageFor(m => m.TargetSCNo, "", new { @style = "color: red" })
+                                                <div class="input-group-btn">
+                                                    <input type="button" name="search" id="search" value="Search" class="btn skin-blue" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @if (UserAccessAction.IsAdmin)
+                                        {
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.BranchId, new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(m => m.BranchId, (IEnumerable<SelectListItem>)ViewBag.Depot, new { @class = "form-control select2" })
+                                                    @Html.ValidationMessageFor(m => m.BranchId, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.BranchId, new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(m => m.BranchId, (IEnumerable<SelectListItem>)ViewBag.Depot, new { @class = "form-control select2", @disabled = "disabled" })
+                                                    @Html.ValidationMessageFor(m => m.BranchId, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                        }
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.FromDate, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:1.75%; padding-right:1.75%">
+                                                @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                @Html.ValidationMessageFor(m => m.FromDate, "", new { @style = "color: red" })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.ToDate, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:1.75%; padding-right:1.75%">
+                                                @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                @Html.ValidationMessageFor(m => m.ToDate, "", new { @style = "color: red" })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.PeriodName, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @*@Html.DropDownListFor(m => m.PeriodName, (IEnumerable<SelectListItem>)ViewBag.PeriodName, new { @class = "form-control select2" })*@
+                                                @Html.TextBoxFor(m => m.PeriodName, new { @class = "form-control", list = "periodList" })   
+                                                @*<input type="text" name="PeriodName" list="exampleList">*@
+                                                <datalist id="periodList">
+                                                    @foreach(var item in ViewBag.PeriodName)
+                                                    {
+                                                        <option value= @item.Name></option>
+                                                    }
+                                                </datalist>
+                                                @Html.ValidationMessageFor(m => m.PeriodName, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div class="box-body" style="padding-right:5%;padding-left:0%">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.TsoId, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.TsoId, (IEnumerable<SelectListItem>)ViewBag.TSO, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.TsoId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.SalesTarget, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.SalesTarget, new { @class = "form-control", @type = "number" })
+                                                @Html.ValidationMessageFor(m => m.SalesTarget, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.litreTarget, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.litreTarget, new { @class = "form-control", @type = "number" })
+                                                @Html.ValidationMessageFor(m => m.litreTarget, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.CollectionTarget, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.CollectionTarget, new { @class = "form-control", @type = "number" })
+                                                @Html.ValidationMessageFor(m => m.CollectionTarget, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="padding-left:89.5%;padding-top:0%">
+                                            <button type="button" id="addToGrid" name="addToGrid" style="height:300%; font-size:100%;" class="btn">Add To Grid</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" style="margin-top:46px">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.TotalSales, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.TotalSales, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.TotalSales, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                       
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.TotalLitre, new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(m => m.TotalLitre, new { @class = "form-control", @disabled = "disabled" })
+                                                    @Html.ValidationMessageFor(m => m.TotalLitre, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.TotalCollection, new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(m => m.TotalCollection, new { @class = "form-control", @disabled = "disabled" })
+                                                    @Html.ValidationMessageFor(m => m.TotalCollection, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="box ">
+                                        <div class="box-header with-border box-head-back" style="text-align:center;">
+                                            <h3 class="box-title">Tso Sales And Collection Target List</h3>
+                                        </div>
+                                        <div class="box-body">
+                                            <table class="table table-responsive" id="DSIAlist">
+                                                <thead>
+                                                    <tr>
+                                                        <th>TSO Name</th>
+                                                        <th>Sales Taget</th>
+                                                        <th>Target in Litre</th>
+                                                        <th>Collection Target</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-8" style="text-align:center;">
+                                            <input type="button" value="Save" id="save" class="btn skin-blue" style="padding-left:20px;" />
+                                            <input type="button" name="update" id="update" value="Update" class="btn skin-blue" />
+                                            <input type="button" name="delete" id="delete" value="Delete" class="btn skin-blue" />
+                                            <input type="button" name="refresh" id="refresh" value="Refresh" class="btn skin-blue" />
+                                            <input type="button" name="print" id="print" value="Print" class="btn skin-blue" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="vatPer" />
+    <input type="hidden" id="NetAmount" />
+</form>
+
+
+@section scripts
+{
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/SalesModule/TargetSalesAndCollectionInputFocus.js"></script>
+
+    <script>
+
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+        //$('.date').datepicker({
+        //    autoclose: true,
+        //    format: 'yyyy-mm-dd'
+        //});
+
+        //var d = new Date();
+        //var year = d.getFullYear();
+        //var month = d.getMonth();
+        //var day = d.getDate();
+        //var fromdate = year + '-' + month + '-' + day;
+        //var todate = year + '-' + month + '-' + (day + 1);
+        //$("#FromDate").val(fromdate).change();
+        //$("#ToDate").val(todate).change();
+        
+        var table = $('#DSIAlist').DataTable({
+            'paging': false,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+
+        $(document).ready(function () {
+            $("#update").hide();
+            $("#delete").hide();
+            $("#clear").hide();
+            $("#BranchId").val(@ViewBag.DepotId).change();
+            $("#print").hide();
+            $("#PeriodName").focus();
+        });
+
+        EnterPress();
+        var isValid = true;
+        var addedItems = [];
+        var tsoId = "";
+        var update = false;
+        var tsc = { TargetSCNo: 0, FromDate: "", ToDate: "", PeriodName: "", BranchId: 0 };
+
+        $(document).on('click', "#refresh", function () {
+            location.reload();
+        });
+
+        $(".select2").select2();
+        
+        //group change reaction
+        $(document).on('change', "#BranchId", function () {
+                var id = { id: $(this).val() };
+                if (id.id != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetTSoByDepotId", "TsoSalesAndCollectionTarget")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            $("#TsoId").empty();
+                            $.each(datas, function (index, value) {
+                                $("#TsoId").append($('<option />', {
+                                    value: value.Value,
+                                    text: value.Text
+                                })).trigger('change');
+                            });
+                            //$("#TsoId").focus();
+                            if (tsoId != "") {
+                                $("#TsoId").val(tsoId).change();
+                                tsoId = "";
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#TsoId").val("").change();
+                }
+        });
+
+       
+        //add to grid
+        $(document).on('click', '#addToGrid', function () {
+            RemoveError();
+            ValidateAddToGrid();
+            var fdate = $("#FromDate").val();
+            var tdate = $("#ToDate").val();
+            //var fdate = fd.toString('mm-dd-yy');
+            //var tdate = td.toString('mm-dd-yy');
+            var tso = $("#TsoId").val();
+            if (fdate != "" && tdate != "" && tso != "" && update == false) {
+                $.ajax({
+                    url: '@Url.Action("CheckTargetDate", "TsoSalesAndCollectionTarget")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: tso, fdate: fdate, tdate: tdate },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data == 1) {
+                            alert("Target is alredy set for those days");
+                        } else {
+
+                            var item = { TargetSCNo: 0, TsoId: 0, TsoName: "", SalesTarget: 0.0, CollectionTarget: 0.0, litreTarget: 0.0 };
+
+                            if (isValid == true) {
+                                item.TsoName = $("#TsoId :selected").text();
+                                item.TsoId = $("#TsoId").val();
+                                item.SalesTarget = $("#SalesTarget").val();
+                                item.CollectionTarget = $("#CollectionTarget").val();
+                                item.litreTarget = $("#litreTarget").val();
+
+                                addedItems.push(item);
+                                ClearOnSearch();
+                                ShowOnTable();
+                            }
+                        }
+                    }
+
+                });
+            } else if (update == true) {
+                var item = { TargetSCNo: 0, TsoId: 0, TsoName: "", SalesTarget: 0.0, CollectionTarget: 0.0, litreTarget: 0.0 };
+
+                if (isValid == true) {
+                    item.TsoName = $("#TsoId :selected").text();
+                    item.TsoId = $("#TsoId").val();
+                    item.SalesTarget = $("#SalesTarget").val();
+                    item.CollectionTarget = $("#CollectionTarget").val();
+                    item.litreTarget = $("#litreTarget").val();
+
+                    addedItems.push(item);
+                    ClearOnSearch();
+                    ShowOnTable();
+                }
+            } else {
+
+            }
+
+            
+        });
+
+        //delete Row
+        $(document).on('click', '[name="deleteRow"]', function () {
+            RemoveError();
+            var item = $(this).attr("value");
+            var newItem = [];
+            if (confirm('Are you sure you want to delete this from Grid ?')) {
+                $.each(addedItems, function (index, value) {
+                    if (value.TsoId == item) {
+
+                    }
+                    else {
+                        newItem.push(value);
+                    }
+
+                });
+                addedItems = newItem;
+                ShowOnTable();
+            }
+        });
+
+
+        //edit Row
+        $(document).on('click', '[name="editRow"]', function () {
+            RemoveError();
+            var item = $(this).attr("value");
+            var newItem = [];
+            $.each(addedItems, function (index, value) {
+                if (value.TsoId == item) {
+
+                    $("#TsoId").val(value.TsoId).change();
+                    $("#SalesTarget").val(value.SalesTarget);
+                    $("#CollectionTarget").val(value.CollectionTarget);
+                    $("#litreTarget").val(value.litreTarget);
+                    //tsoId = value.TsoId;
+                }
+                else {
+                    newItem.push(value);
+                }
+
+            });
+            addedItems = newItem;
+            ShowOnTable();
+        });
+
+        //save code
+        $(document).on('click', '#save', function () {
+            RemoveError();
+            $("#save").prop('disabled', true);
+            SetTsc();
+            if (addedItems.length <= 0) {
+                alert("At least One Item should be added for save.");
+                $("#save").prop('disabled', false);
+            }
+            else {
+                ValidateTsc();
+                if (isValid == true) {
+                    if (confirm('Do you want to save')) {
+                        $.ajax({
+                            url: '@Url.Action("SaveTSC", "TsoSalesAndCollectionTarget")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ tsc: tsc, addedItems: addedItems }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Failed To Saved.");
+                                    $("#save").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully Saved.");
+                                    $("#TargetSCNo").val(datas.tsc.TargetSCNo);
+                                    $("#print").show();
+                                    $("#save").prop('disabled', true);
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        $("#save").prop('disabled', false);
+                    }
+                }
+                else {
+                    $("#save").prop('disabled', false);
+                }
+            }
+        });
+
+        //search code
+        $(document).on('click', '#search', function () {
+                $("#search").prop('disabled', true);
+                var id = { id: $("#TargetSCNo").val() };
+                ClearOnSearch();
+                if (id.id != "") 
+                {
+                    $.ajax({
+                        url: '@Url.Action("GetTSCById", "TsoSalesAndCollectionTarget")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            if (datas == 0) {
+                                alert("Your entered TSC No. Doesn't exist");
+                                $("#search").prop('disabled', false);
+                            }
+                            else {
+                                $("#save").hide();
+                                $("#update").show();
+                                $("#delete").show();
+                                var tsc = { TargetSCNo: 0, FromDate: "", ToDate: "", PeriodName: "", BranchId: 0 };
+                                
+                                $("#TargetSCNo").val(datas.tscItem.TargetSCNo);
+                                $("#FromDate").val((moment(datas.tscItem.FromDate).format("DD-MM-YYYY")));
+                                $("#ToDate").val((moment(datas.tscItem.ToDate).format("DD-MM-YYYY")));
+                                $("#PeriodName").val(datas.tscItem.PeriodName)/*.change()*/;
+                                $("#BranchId").val(datas.tscItem.BranchId).change();
+
+                                addedItems = [];
+                                $.each(datas.tscLineItem, function (index, value) {
+                                    var item = { TargetSCNo: 0, TsoId: 0, TsoName: "", SalesTarget: 0.0, CollectionTarget: 0.0, litreTarget: 0.0 };
+                                    item.TsoName = value.TsoName;
+                                    item.TsoId = value.TsoId;
+                                    item.SalesTarget = value.SalesTarget;
+                                    item.CollectionTarget = value.CollectionTarget;
+                                    item.litreTarget = value.litreTarget;
+
+                                    addedItems.push(item);
+                                });
+
+                                ShowOnTable();
+                                update = true;
+                                $("#search").prop('disabled', true);
+                                $("#print").show();
+                            }
+                        },
+                        error: function () {
+                            alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+                            $("#search").prop('disabled', false);
+                        }
+                    });
+                }
+                else {
+                    setError("TargetSCNo", "TSC No is required for get Data.");
+                    $("#search").prop('disabled', false);
+                }
+                
+        });
+
+        //update
+        $(document).on('click', '#update', function () {
+            RemoveError();
+            $("#update").prop('disabled', true);
+            SetTsc();
+            tsc.TargetSCNo = $("#TargetSCNo").val();
+
+            if (addedItems.length <= 0) {
+                alert("At least One Item should be added for update.");
+                $("#update").prop('disabled', false);
+            }
+            else {
+                ValidateTsc();
+                if (confirm('Do you want to Update')) {
+                    if (isValid == true) {
+                    $.ajax({
+                        url: '@Url.Action("UpdateTSC", "TsoSalesAndCollectionTarget")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ tsc: tsc, addedItems: addedItems }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Update.");
+                                $("#update").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Updated.");
+                                $("#update").prop('disabled', true);
+                            }
+                        }
+                    });
+                }
+                    else {
+                        $("#update").prop('disabled', false);
+                    }
+                }
+                else {
+                    $("#update").prop('disabled', false);
+                }
+            }
+
+        });
+
+        //delete code
+        $(document).on('click', '#delete', function () {
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var id = $("#TargetSCNo").val();
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteTSCByid", "TsoSalesAndCollectionTarget")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Delete failed.");
+                            $("#delete").prop('disabled', false);
+                            $("#update").prop('disabled', false);
+                        }
+                        else {
+                            alert("Delete Successfull");
+                            location.reload();
+                        }
+                    }
+                });
+            }
+            else {
+                $("#update").prop('disabled', false);
+                $("#delete").prop('disabled', false);
+            }
+        });
+
+        $(document).on('click', "#print", function (event) {
+            event.preventDefault();
+            if ($("#message").val() != "true") {
+                $("#report").attr("action", "/DSIA/GetSamplePreview")
+                $("#report").submit();
+            }
+        });
+
+        //data table fill up
+        function ShowOnTable() {
+            table.clear().draw();
+            var totSalesTarget = 0;
+            var totCollectionTarget = 0;
+            var totalLitreTarget = 0;
+
+            $.each(addedItems, function (index, value) {
+                table.row.add([value.TsoName, value.SalesTarget, value.litreTarget, value.CollectionTarget,
+                '<a href="#"><i class="fa fa-edit" name="editRow" value="' +
+                value.TsoId + '"></i></a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.TsoId + '"></i></a>']).draw();
+
+                totSalesTarget += parseFloat(value.SalesTarget);
+                totCollectionTarget += parseFloat(value.CollectionTarget);
+                totalLitreTarget += parseFloat(value.litreTarget);
+            });
+            $("#TotalSales").val(totSalesTarget);
+            $("#TotalCollection").val(totCollectionTarget);
+            $("#TotalLitre").val(totalLitreTarget);
+        }
+
+        function ValidateAddToGrid() {
+            isValid = true;
+            if ($("#TsoId").val() == "") {
+                setError("TsoId", "Tso is required field.");
+                isValid = false;
+            }
+            if ($("#SalesTarget").val() == "") {
+                setError("SalesTarget", "Sales Target is required field");
+                isValid = false;
+            }
+            if ($("#SalesTarget").val() <= 0) {
+                setError("SalesTarget", "Sales Target must be grater than Zero");
+                isValid = false;
+            }
+            if ($("#CollectionTarget").val() == "") {
+                setError("CollectionTarget", "Collection Target is required field");
+                isValid = false;
+            }
+            if ($("#CollectionTarget").val() <= 0) {
+                setError("CollectionTarget", "Collection Target must be grater than Zero");
+                isValid = false;
+            }
+            if ($("#litreTarget").val() <= 0) {
+                setError("litreTarget", "litre Target must be grater than Zero");
+                isValid = false;
+            }
+          
+            $.each(addedItems, function (index, value) {
+                if (value.TsoId == $("#TsoId").val()) {
+                    setError("TsoId", "This Tso is Already Added.");
+                    isValid = false;
+                }
+            });
+        }
+
+        function ClearOnSearch() {
+            $("#TsoId").val("").change();
+            $("#SalesTarget").val("");
+            $("#CollectionTarget").val("");
+            $("#litreTarget").val("");
+        }
+
+        //get value from textbox
+        function SetTsc() {
+            tsc.TargetSCNo = 0;
+            tsc.FromDate = $("#FromDate").val();
+            tsc.ToDate = $("#ToDate").val();
+            tsc.PeriodName = $("#PeriodName").val();
+            tsc.BranchId = $("#BranchId").val();
+        }
+
+        function ValidateTsc() {
+            isValid = true;
+            if (tsc.FromDate == "") {
+                setError("FromDate", "From Date is required field");
+                isValid = false;
+            }
+            if (tsc.ToDate == "") {
+                setError("ToDate", "To Date is required field");
+                isValid = false;
+            }
+            if (tsc.PeriodName == "") {
+                setError("PeriodName", "Period Name is required field");
+                isValid = false;
+            }
+            if (tsc.BranchId == "") {
+                setError("BranchId", "Branch is required field");
+                isValid = false;
+            }
+
+        }
+
+
+    </script>
+}

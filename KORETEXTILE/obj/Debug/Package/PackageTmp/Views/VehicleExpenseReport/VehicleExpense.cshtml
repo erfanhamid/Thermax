@@ -1,0 +1,172 @@
+﻿@model BEEERP.Models.ViewModel.Sales.Report.ReportVModel
+@{
+    ViewBag.Title = "VehicleExpense";
+    int i = 0;
+}
+
+<h2 style="text-align:center">Vehicle Expense Report</h2>
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "VehicleExpenseReport", target = "_blank" }))
+{
+
+    <div class="content" style="margin-top:50px;">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <div class="col-md-4">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 class="box-title">Selection</h3>
+                                </div>
+
+                                <div class="box-body" style="padding-bottom:110px;">
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.From, "From", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 date input-group" style="padding-left:15px;padding-right:15px;">
+                                            @Html.TextBoxFor(m => m.From, new { @class = "form-control AsOnDate", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            @Html.ValidationMessageFor(m => m.From)
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.To, "To", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 date input-group" style="padding-left:15px;padding-right:15px;">
+                                            @Html.TextBoxFor(m => m.To, new { @class = "form-control AsOnDate", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            @Html.ValidationMessageFor(m => m.To)
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Depot, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.Depot, (IEnumerable<SelectListItem>)ViewBag.Depot, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.Depot)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.StoreId, "Vehicle", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.StoreId, (IEnumerable<SelectListItem>)ViewBag.Store, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.StoreId)
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 class="box-title">Vehicle Expense Report</h3>
+                                </div>
+                                <div class="box-body">
+                                    @*<div class="form-group" style="text-align:center;">
+            <button class="btn skin-blue" style="min-width:400px;" type="button">1. Show Customer Details</button>
+        </div>*@
+                                    <div class="form-group" style="text-align:center;">
+                                        @{
+            i = i + 1;
+                                        }
+                                        <button class="btn skin-blue" id="ItemWiseVehicleExpenseReport" style="min-width:400px;" type="submit">@i. Depot and Ledger Item wise Vehicle Expense Summary</button>
+                                    </div>
+                                    <div class="form-group" style="text-align:center;">
+                                        @{
+            i = i + 1;
+                                        }
+                                        <button class="btn skin-blue" style="min-width:400px;" type="submit" id="LedgerItemWiseVehicleExpenseReport">@i. Ledger Item wise Vehicle Expense Summary</button>
+                                    </div>
+                                    <div class="form-group" style="text-align:center;">
+                                        @{
+            i = i + 1;
+                                        }
+                                        <button class="btn skin-blue" style="min-width:400px;" type="submit" id="DepotWiseVehicleExpenseReport">@i. Depot wise Vehicle Expense Summary</button>
+                                    </div>
+                                    <div class="form-group" style="text-align:center;">
+                                        @{
+            i = i + 1;
+                                        }
+                                        <button class="btn skin-blue" style="min-width:400px;" type="submit" id="VehicleExpenseDetailsReport">@i.  Vehicle Expense Details</button>
+                                    </div>
+                                    <div class="form-group" style="text-align:center;">
+                                        @{
+            i = i + 1;
+                                        }
+                                        <button class="btn skin-blue" style="min-width:400px;" type="submit" id="DepotWiseVehicleExpenseDetails">@i. Depot Wise Vehicle Expense Details</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+    <input type="hidden" id="message" value="false" />
+
+@section scripts{
+    <script src="~/Scripts/Search.js"></script>
+    <script src="~/Scripts/ReportSearch.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $(".select2").select2();
+            $('.date').datepicker({
+                autoclose: true,
+                format: "dd-mm-yyyy"
+            });
+            
+            $(document).on('click', "#ItemWiseVehicleExpenseReport", function () {
+                $("#VehicleExpenseReport").attr("action", "/VehicleExpenseReport/ItemWiseVehicleExpense");
+                $("#VehicleExpenseReport").submit();
+            });
+            $(document).on('click', "#LedgerItemWiseVehicleExpenseReport", function () {
+                $("#VehicleExpenseReport").attr("action", "/VehicleExpenseReport/LedgerItemWiseVehicleExpense");
+                $("#VehicleExpenseReport").submit();
+            });
+            $(document).on('click', "#DepotWiseVehicleExpenseReport", function () {
+                
+                ValidateReportSearchParam(["Depot"]);
+                event.preventDefault();
+                if ($("#message").val() != "true") {
+                        $("#VehicleExpenseReport").attr("action", "/VehicleExpenseReport/VehicleExpenseSummary");
+                        $("#VehicleExpenseReport").submit();
+                    }
+                
+            });
+            $(document).on('click', "#VehicleExpenseDetailsReport", function () {
+
+                ValidateReportSearchParam(["StoreId"]);
+                event.preventDefault();
+                if ($("#message").val() != "true") {
+                    $("#VehicleExpenseReport").attr("action", "/VehicleExpenseReport/VehicleExpenseDetails");
+                    $("#VehicleExpenseReport").submit();
+                }
+
+            });
+            $(document).on('click', "#DepotWiseVehicleExpenseDetails", function () {
+
+                ValidateReportSearchParam(["Depot"]);
+                event.preventDefault();
+                if ($("#message").val() != "true") {
+                    $("#VehicleExpenseReport").attr("action", "/VehicleExpenseReport/DepotWiseVehicleExpenseDetails");
+                    $("#VehicleExpenseReport").submit();
+                }
+
+            });
+
+        });
+    </script>
+
+}

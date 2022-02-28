@@ -1,0 +1,417 @@
+﻿@model BEEERP.Models.ViewModel.Payroll.EmployeeSalaryAdditionVModel
+
+@{
+    ViewBag.Title = "EmployeeSalaryAddition";
+}
+
+<style>
+    tbody tr:hover {
+        background-color: dodgerblue;
+        color: white;
+    }
+    .btn:hover {
+        color: blue !important;
+    }
+
+    .btn:focus {
+        background-color: aqua !important;
+    }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h2 class="box-title"  >Select Branch/Depot</h2>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.BranchID, "Depot", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.BranchID, (IEnumerable<SelectListItem>)ViewBag.Depot, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.BranchID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Set Employee Pay Scale</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.EmployeeId, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6 input-group" style="padding-left:15px; padding-right:15px;">
+                                            @Html.TextBoxFor(m => m.EmployeeId, new { @class = "form-control digit", @Value = ViewBag.gbeCountNumPlausOne })
+                                            @Html.ValidationMessageFor(m => m.EmployeeId, "", new { @style = "color: red" })
+                                            <div class="input-group-btn">
+                                                <input type="button" name="go" id="go" value="Go" class="btn btn-primary" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Grade, "Employee Grade", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.TextBoxFor(m => m.Grade, new { @class = "form-control", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.Grade, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.EmployeeName, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.EmployeeName, new { @class = "form-control", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.EmployeeName, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.CompanyName, "Branch/Depot", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.CompanyName, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Designation, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.Designation, new { @class = "form-control", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.Designation, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box ">
+                            <div class="box-body">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Gross, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.Gross, new { @class = "form-control", @type = "number" })
+                                            @Html.ValidationMessageFor(m => m.Gross, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Basic, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.Basic, new { @class = "form-control", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.Basic, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.HRA, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.HRA, new { @class = "form-control", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.HRA, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.MA, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.MA, new { @class = "form-control", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.MA, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.CA, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.CA, new { @class = "form-control", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.CA, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                                <div class="col-md-3">
+                                    @*<div class="form-group">
+                                        @Html.LabelFor(m => m.TA, "TA", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.TA, new { @class = "form-control", @type = "number" })
+                                            @Html.ValidationMessageFor(m => m.TA, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>*@
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.OtherAdj, "Special Allowance", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.OtherAdj, new { @class = "form-control", @type = "number", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.OtherAdj, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12 ">
+                                            <input type="button" name="save" value="Save" id="save" class="btn btn-primary" style="float:right;border:solid white" />
+                                            <input type="button" name="update" value="Update" id="update" class="btn btn-primary" style="float:right;border:solid white" />
+                                            <input type="button" name="delete" value="Delete" id="delete" class="btn btn-primary" style="float:right;border:solid white" />
+                                            <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" style="float:right;border:solid white" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Employee List of Salary Information</h3>
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-responsive" id="slaryAdditionTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Employee ID</th>
+                                            <th>Employee Name</th>
+                                            <th>Basic</th>
+                                            <th>Home Rent Allowence</th>
+                                            <th>Medical Allowence</th>
+                                            <th>Convey Allowence</th>
+                                            <th>Gross Salary</th>
+                                            @*<th>TA</th>*@
+                                            <th>Other Allowance</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#update").hide();
+            $("#delete").hide();
+            $("#go").hide();
+            var message = "";
+            function ValidateOnSaveClick() {
+                message = "";
+                if ($("#EmployeeId").val() == "") {
+                    setError("EmployeeId", "Please enter Employee ID.");
+                    message = "Please enter Employee ID"
+                }
+                if ($("#Basic").val() == "") {
+                    setError("Basic", "Please enter Basic.");
+                    message = "Please enter Basic."
+                }
+                //if ($("#OtherAdj").val() == "" ) {
+                //    setError("OtherAdj", "Need Value.");
+                //    message = "Please enter Basic."
+                //}
+                if ( $("#OtherAdj").val() < 0 ) {
+                    setError("OtherAdj", "Must be positive.");
+                    message = "Please enter Basic."
+                }
+                //if (parseFloat($("#OtherAdj").val()) > parseFloat( $("#Gross").val())) {
+                //    setError("OtherAdj", "Not validate.");
+                //    message = "Please enter Basic."
+                //}
+            }
+            //forNumberbox
+            $(".digit").keypress(function (e) {
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    $("#errormsg").html("Digits Only").show().fadeOut("slow");
+                    return false;
+                }
+            });
+            $(document).on('click', '#refresh', function () {
+                location.reload();
+            });
+            $(document).on('click', '#save', function () {
+                ValidateOnSaveClick();
+                if (message == "") {
+                    if ($("#Gross").val() > 0) {
+                        if (confirm("Do you want to save?")) {
+                            var empSalary = { EmployeeId: 0, Basic: 0, HRA: 0, MA: 0, CA: 0, Gross: 0, OtherAdj: 0 }
+                            empSalary.EmployeeId = $("#EmployeeId").val();
+                            empSalary.Basic = $("#Basic").val();
+                            empSalary.HRA = $("#HRA").val();
+                            empSalary.MA = $("#MA").val();
+                            empSalary.CA = $("#CA").val();
+                            empSalary.Gross = $("#Gross").val();
+                            empSalary.OtherAdj = $("#OtherAdj").val();
+                            //empSalary.TA = $("#TA").val();
+                            $.ajax
+                                ({
+                                    url: '@Url.Action("SaveSalaryAddition", "EmployeeSalaryAddition")',
+                                    contentType: "application/json;charset=utf-8",
+                                    data: JSON.stringify({ employeeSalaryAddition: empSalary }),
+                                    type: 'Post',
+                                    dataType: 'json',
+                                    success: function (datas) {
+                                        if (datas.Message == "0") {
+                                            alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+
+                                        }
+                                        else if (datas.Message == "1") {
+                                            alert("Sccessfully saved.")
+                                            location.reload();
+                                        }
+                                        else if (datas.Message == "2") {
+                                            alert("Updated successfully.");
+                                            location.reload();
+                                        }
+                                    }
+                                });
+                        }
+                    }
+                    else {
+                        setError("Gross", "Gross Salary is required field");
+                    }
+                }
+            });
+            $(document).on('click', '#update', function () {
+            $("#update").prop('disabled', true);
+                ValidateOnSaveClick();
+                if (message == "") {
+                    if ($("#Gross").val() > 0) {
+                        if (confirm("Do you want to update?")) {
+                            var empSalary = { EmployeeId: 0, Basic: 0, HRA: 0, MA: 0, CA: 0, Gross: 0, OtherAdj: 0}
+                            empSalary.EmployeeId = $("#EmployeeId").val();
+                            empSalary.Basic = $("#Basic").val();
+                            empSalary.HRA = $("#HRA").val();
+                            empSalary.MA = $("#MA").val();
+                            empSalary.CA = $("#CA").val();
+                            empSalary.Gross = $("#Gross").val();
+                            empSalary.OtherAdj = $("#OtherAdj").val();
+                            //empSalary.TA = $("#TA").val();
+                            $.ajax
+                                ({
+                                    url: '@Url.Action("UpdateSalaryAddition", "EmployeeSalaryAddition")',
+                                    contentType: "application/json;charset=utf-8",
+                                    data: JSON.stringify({ employeeSalaryAddition: empSalary }),
+                                    type: 'Post',
+                                    dataType: 'json',
+                                    success: function (datas) {
+                                        if (datas.Message == "0") {
+                                            alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                            location.reload();
+                                        }
+                                        else if (datas.Message == "1") {
+                                            alert("Sccessfully updated.")
+                                            location.reload();
+                                        }
+                                        else if (datas.Message == "2") {
+                                            alert("Empty salary can not be updated.");
+                                            location.reload();
+                                        }
+                                    }
+                                });
+                        }
+                    }
+                    else {
+                        setError("Gross", "Gross Salary is required field");
+                    }
+                }
+            });
+            $(document).on('click', "#go", function () {
+                var param = { empId: $("#EmployeeId").val() };
+                $.ajax({
+                    url: '@Url.Action("GetEmployeeById", "EmployeeSalaryAddition")',
+                    contentType: "application/json;charset=utf-8",
+                    data: param,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data!= 0) {
+                            $("#EmployeeName").val(data.EmpName);
+                            $("#Designation").val(data.EmpDesignation);
+                            $("#CompanyName").val(data.BranchName);
+                            $("#Grade").val(data.EmpGrade);
+                            //$("#Department").val(data.Employee); 
+                            
+                        }
+                        else {
+                            $("#EmployeeName").val("");
+                            $("#Designation").val("");
+                            $("#CompanyName").val("");
+                            $("#Grade").val("");
+                            //$("#Department").val("");
+                            //$("#CompanyName").val("");
+                            alert("May be Employee doesn't exist");
+                        }
+                    }
+                });
+            });
+            table = $("#slaryAdditionTable").DataTable();
+            $('#slaryAdditionTable tbody').on('click', 'tr', function () {
+                var tabledata = table.row(this).data();
+                $("#EmployeeId").val(tabledata[0]);
+                $("#go").click();
+                $("#Basic").val(tabledata[2]);
+                $("#HRA").val(tabledata[3]);
+                $("#MA").val(tabledata[4]);
+                $("#CA").val(tabledata[5]); 
+                $("#Gross").val(tabledata[6]);
+                $("#OtherAdj").val(tabledata[8]);
+                //$("#TA").val(tabledata[7]);
+                
+            });
+
+            $(document).on('keyup', "#Gross", function () {
+                setError("Gross", "");
+                var param = { grossAmount: $("#Gross").val(), gradeName: $("#Grade").val() };
+                $.ajax({
+                    url: '@Url.Action("GetOtherAmountByGross", "EmployeeSalaryAddition")',
+                    contentType: "application/json;charset=utf-8",
+                    data: param,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.Message=1) {
+                            $("#Basic").val(data.basic);
+                            $("#HRA").val(data.hra);
+                            $("#MA").val(data.ma);
+                            $("#CA").val(data.ca);
+                            $("#OtherAdj").val(data.oa);
+                        }
+                        else {
+                            $("#Basic").val("");
+                            $("#HRA ").val("");
+                            $("#MA").val("");
+                            $("#CA").val("");
+                            $("#OtherAdj").val("");
+                        }
+                    }
+                });
+            });
+            getResult();
+            function getResult() {
+            $.ajax({
+                type: "GET",
+                //url: "/AttendanceLog/GetSearchResult",
+                url: '@Url.Action("GetAllEmployeeInfo", "EmployeeSalaryAddition")',
+                contentType: "application/Json;charset=utf-8",
+                data: JSON.stringify(),
+                success: function (rData) {
+                    if (rData != null || rData.length != 0) {
+                        table.clear().draw();
+                        var list = rData;
+                        $.each(list, function (index, value) {
+                            table.row.add([value.EmployeeId, value.EmployeeName, value.Basic, value.HRA, value.MA, value.CA, value.Gross,  value.OtherAdj]).draw();;
+                        });
+                    }
+                },
+                error: function () {
+                    alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services");
+                }
+            });
+        }
+        });
+    </script>
+}

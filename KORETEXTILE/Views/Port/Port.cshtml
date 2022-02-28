@@ -1,0 +1,231 @@
+﻿@model BEEERP.Models.CommercialModule.Port
+
+@{
+    ViewBag.Title = "Port";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+</style>
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div>
+                    <h4 style="color:red">@ViewBag.messege</h4>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h4 class="box-title">Create Port List</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.PortID, "Port No", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.PortID, new { @class = "form-control digit", @Value = ViewBag.portNumber, })
+                                        @Html.ValidationMessageFor(m => m.PortID, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.PortName, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.PortName, new { @class = "form-control", })
+                                        @Html.ValidationMessageFor(m => m.PortName, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-4"></div>
+                                    <div class="col-sm-8">
+                                        <input type="button" name="save" id="save" value="Save" class="btn btn-primary" />
+                                        <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                                        <input type="button" name="Refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box ">
+                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                    <h4 class="box-title">Port List</h4>
+                </div>
+                <div class="box-body">
+                    <table class="table table-responsive" id="portList">
+                        <thead>
+                            <tr>
+                                <th>Port No</th>
+                                <th>Port Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var port in ViewBag.ports)
+                            {
+                                <tr class='clickable-row' value="@port.PortID">
+                                    <td>@port.PortID</td>
+                                    <td>@port.PortName</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/CommercialModule/MOPInputFocus.js"></script>
+    <script src="~/Scripts/CommercialModule/PortInputFocus.js"></script>
+    <script>
+    $(document).ready(function () {
+        ImportPortFieldEnterPress();
+        var addedItems = [];
+        var message = "";
+        $("#update").hide();
+        $(document).on('click', '#save', function () {
+            $("#save").prop('disabled', true);
+                ValidateOnSaveClick();
+                if (message == "") {
+                    if (confirm("Do you want to save?")) {
+                        var port = { PortID: 0, PortName: ""};
+                        port.PortID = parseInt($("#PortID").val());
+                        port.PortName = $("#PortName").val();
+                         $.ajax
+                            ({
+                                url: '@Url.Action("SavePort", "Port")',
+                                 contentType: "application/json;charset=utf-8",
+                                 data: JSON.stringify({ port: port }),
+                                type: 'Post',
+                                dataType: 'json',
+                                success: function (datas) {
+                                    if (datas.Message == "0") {
+                                        alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                        $("#save").prop('disabled', false);
+                                    }
+                                    else if (datas.Message == "1") {
+                                        alert("Sccessfully saved.")
+                                        location.reload();
+                                    }
+                                    else if (datas.Message == "2") {
+                                        alert("This Batch already Exist.");
+                                        $("#save").prop('disabled', false);
+                                    }
+
+                                }
+                            });
+                    }
+
+                }
+        });
+        $(".clickable-row").on('click', function (e) {
+                var id = $(this).attr("value");
+                 $.ajax({
+                    url: '@Url.Action("GetPortsByPortID", "Port")',
+                     contentType: "application/json;charset=utf-8",
+                     data: JSON.stringify({ portID: id }),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if(datas==0)
+                        {
+                            alert("This PORT  doesn't exist.");
+                        }
+                        else {
+                            $("#save").hide();
+                            $("#update").show();
+                            $("#PortID").val(datas.port.PortID);
+                            $("#PortName").val(datas.port.PortName);
+                        }
+                    }
+                });
+        });
+        $(document).on('click', '#update', function () {
+            $("#update").prop('disabled', true);
+                ValidateOnSaveClick();
+                if (confirm("Do you want to update?"))
+                {
+                    if (message == "") {
+                        var port = { PortID: 0, PortName: ""};
+                        port.PortID = parseInt($("#PortID").val());
+                        port.PortName = $("#PortName").val();
+                         $.ajax
+                            ({
+                                url: '@Url.Action("UpdatePort", "Port")',
+                                 contentType: "application/json;charset=utf-8",
+                                 data: JSON.stringify({ port: port }),
+                                type: 'Post',
+                                dataType: 'json',
+                                success: function (datas) {
+                                    if (datas.Message == "0") {
+                                        alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                        $("#update").prop('disabled', false);
+                                    }
+                                    else if (datas.Message == "1") {
+                                        alert("Sccessfully updated.")
+                                        location.reload();
+                                    }
+                                    else if (datas.Message == "2") {
+                                        alert("This Batch already Exist.");
+                                        $("#update").prop('disabled', false);
+                                    }
+
+                                }
+                            });
+                    }
+
+                }
+        });
+        //forNumberbox
+        $(".digit").keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $("#errormsg").html("Digits Only").show().fadeOut("slow");
+                return false;
+            }
+        });
+
+        //validator
+        function ValidateOnSaveClick() {
+
+            message = "";
+            if ($("#PortID").val() == "") {
+                setError("PortID", "Port ID is Required Field.");
+                message = "PortID is Required Field."
+            }
+            if ($("#PortName").val() == "") {
+                setError("PortName", "Port Name is Required Field.\n");
+                message = "PortName  is Required Field."
+            }
+        }
+        $(document).on('click', '#refresh', function () {
+            location.reload();
+        });
+    });
+
+    </script>
+
+}

@@ -1,0 +1,285 @@
+﻿@model BEEERP.Models.Procurement.SupplierGroup
+
+@{
+    ViewBag.Title = "SupplierGroup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    
+    tbody tr:hover {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+</style>
+<div class="row">
+    <div>
+        <div class="col-md-6">
+            <h3 style="text-align:center">Create Supplier Group</h3>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div>
+                    <h4 style="color:red">@ViewBag.messege</h4>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h4 class="box-title">Supplier Group Details</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.SgroupId, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(m => m.SgroupId, new { @class = "form-control digit", @Value = ViewBag.numberofGroups, })
+                                        @Html.ValidationMessageFor(m => m.SgroupId, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.SgroupName, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(m => m.SgroupName, new { @class = "form-control", })
+                                        @Html.ValidationMessageFor(m => m.SgroupName, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.SgroupCode, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(m => m.SgroupCode, new { @class = "form-control digit" })
+                                        @Html.ValidationMessageFor(m => m.SgroupCode, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="background-color:white; ">
+                            <div class="form-group" style="padding:3px;">
+                                <div class="col-md-12" style="text-align:center;">
+                                    <input type="button" name="add" id="add" value="Add" class="btn btn-primary" />
+                                    <input type="button" name="save" id="save" value="Save" class="btn btn-primary" />
+                                    <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                                    <input type="button" name="Refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box ">
+                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                    <h4 class="box-title">Group List</h4>
+                </div>
+                <div class="box-body">
+                    <table class="table table-responsive" id="GroupList">
+                        <thead>
+                            <tr>
+                                <th>Group No</th>
+                                <th>Group Name</th>
+                                <th>Group Code</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var sg in ViewBag.sgrouplist)
+                            {
+                                <tr class='clickable-row' value="@sg.SgroupId">
+                                    <td>@sg.SgroupId</td>
+                                    <td>@sg.SgroupName</td>
+                                    <td>@sg.SgroupCode</td>
+                                </tr>
+                             }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+
+    <script src="~/Scripts/Procurement/SupplierGroupInputFocus.js"></script>
+    <script>
+    $(document).ready(function () {
+        SupplierGroupEnterpress();
+        var addedItems = [];
+        var message = "";
+        var groupNo = 0;
+        $("#update").hide();
+        $("#add").hide();
+        $(".clickable-row").on('click', function (e) {
+                var id = $(this).attr("value");
+                 $.ajax({
+                    url: '@Url.Action("GetSupplierGroupByGroupNo", "SupplierGroup")',
+                    contentType: "application/json;charset=utf-8",
+                     data: JSON.stringify({ sgid: id }),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if(datas==0)
+                        {
+                            alert("This group no doesn't exist.");
+                        }
+                        else {
+                            $("#save").hide();
+                            $("#update").show();
+                            $("#SgroupId").val(datas.sgroup.SgroupId);
+                            $("#SgroupName").val(datas.sgroup.SgroupName);
+                            $("#SgroupCode").val(datas.sgroup.SgroupCode);
+                        }
+                    }
+                });
+        });
+        $(document).on('click', '#update', function () {
+            $("#update").prop('disabled', true);
+                ValidateOnSaveClick();
+                if (confirm("Do you want to update?"))
+                {
+                    if (message == "") {
+                        var group = { SgroupId: 0, SgroupName: "", SgroupCode: 0 };
+                        group.SgroupId = parseInt($("#SgroupId").val());
+                        group.SgroupName = $("#SgroupName").val();
+                        group.SgroupCode = parseInt($("#SgroupCode").val());
+                         $.ajax
+                            ({
+                                url: '@Url.Action("UpdateSupplierGroup", "SupplierGroup")',
+                                 contentType: "application/json;charset=utf-8",
+                                 data: JSON.stringify({ supplierGroup: group }),
+                                type: 'Post',
+                                dataType: 'json',
+                                success: function (datas) {
+                                    if (datas.Message == "0") {
+                                        alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                        $("#update").prop('disabled', false);
+                                    }
+                                    else if (datas.Message == "1") {
+                                        alert("Sccessfully updated.")
+                                        location.reload();
+                                    }
+                                    else if (datas.Message == "2") {
+                                        alert("This Batch already Exist.");
+                                        $("#update").prop('disabled', false);
+                                    }
+
+                                }
+                            });
+                    }
+
+                }
+        });
+        //addTable
+        var table = $('#GroupList').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        })
+        //forNumberTextbox
+        $(".digit").keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $("#errormsg").html("Digits Only").show().fadeOut("slow");
+                return false;
+            }
+        });
+        //save
+        $(document).on('click', '#save', function () {
+            $("#save").prop('disabled', true);
+                ValidateOnSaveClick();
+                if (message == "") {
+                    if (confirm("Do you want to save?")) {
+                        var group = { SgroupId: 0, SgroupName: "", SgroupCode: 0 };
+                        group.SgroupId = parseInt($("#SgroupId").val());
+                        group.SgroupName = $("#SgroupName").val();
+                        group.SgroupCode = parseInt($("#SgroupCode").val());
+                         $.ajax
+                            ({
+                                url: '@Url.Action("SaveSupplierGroup", "SupplierGroup")',
+                                 contentType: "application/json;charset=utf-8",
+                                 data: JSON.stringify({ supplierGroup: group }),
+                                type: 'Post',
+                                dataType: 'json',
+                                success: function (datas) {
+                                    if (datas.Message == "0") {
+                                        alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                        $("#save").prop('disabled', false);
+                                    }
+                                    else if (datas.Message == "1") {
+                                        alert("Sccessfully saved.")
+                                        location.reload();
+                                    }
+                                    else if (datas.Message == "2") {
+                                        alert("This Batch already Exist.");
+                                        $("#save").prop('disabled', false);
+                                    }
+
+                                }
+                            });
+                    }
+
+                }
+        });
+
+        //validator
+        function ValidateOnSaveClick() {
+
+            message = "";
+            if ($("#SgroupId").val() == "") {
+                setError("SgroupId", "Batch Name is Required Field.");
+                message = "Group No is Required Field."
+            }
+            if ($("#SgroupName").val() == "") {
+                setError("SgroupName", "Date is Required Field.\n");
+                message = "Grouo Name is Required Field."
+            }
+            if ($("#SgroupCode").val() == "") {
+                setError("SgroupCode", "Group is Required Field.\n");
+                message = "Group Code is Required Field."
+            }
+            var Group = $("#SgroupId").val();
+            $.each(addedItems, function (key, value) {
+
+                if (value.SgroupId == Group) {
+                    message += "Already Exist";
+                }
+            });
+        }
+        $(document).on('click', '#refresh', function () {
+            location.reload();
+        });
+        function ShowOnTable() {
+            table.clear().draw();
+            $.each(addedItems, function (index, value) {
+                table.row.add([value.groupNo, value.groupName, value.groupCode]).draw();
+            });
+        }
+        
+    });
+
+    </script>
+
+}

@@ -1,0 +1,532 @@
+﻿@model BEEERP.Models.ViewModel.Location.CustomerLocationVModel
+
+@{
+    ViewBag.Title = "CLEntry";
+}
+<style>
+    .btn:hover {
+        color: blue !important;
+    }
+
+    .btn:focus {
+        background-color: aqua !important;
+    }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+
+    .cost {
+        padding-bottom: 10px;
+    }
+
+    .btnGrid {
+        margin: 2px;
+    }
+
+    .fix {
+        margin-bottom: 5px;
+    }
+
+    span {
+        padding-bottom: 2px;
+    }
+    #btnsearch{
+       padding-left: 0px;
+    }
+</style>
+
+
+<div class="content">
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="box-header with-border box-head-back" align="center">
+                    <h2 class="box-title">
+                        <b>
+                            Dealer Location
+                        </b>
+                    </h2>
+                </div>
+                <div class="col-md-12">
+                    <div class="row">
+
+                        <div class="box">
+                            <div class="box-body" style="background-color:white">
+                                <div class="col-md-8 col-md-offset-2">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.CLNo, new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8 ">
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    @Html.TextBoxFor(m => m.CLNo, new { @class = "form-control digit", @type ="Number"  })
+                                                    @Html.ValidationMessageFor(m => m.CLNo, "", new { @style = "color: red" })
+                                                </div>
+                                                <div class="col-md-2 input-group-btn" id="btnsearch">
+                                                    <button type="button" class="btn skin-blue btn-flat" id="search">Search</button>
+                                                </div>
+                                            </div>
+                                        
+                                            @*<span class="input-group-btn">
+                                                
+                                            </span>*@
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-8 col-md-offset-2">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.TsoID, new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8 ">
+                                            @Html.DropDownListFor(m => m.TsoID, (IEnumerable<SelectListItem>)ViewBag.tso, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.TsoID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 col-md-offset-2">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.CustomerID, new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8 ">
+                                            @Html.DropDownListFor(m => m.CustomerID, (IEnumerable<SelectListItem>)ViewBag.cust, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.CustomerID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 col-md-offset-2">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Longitude, new { @class = "col-md-4 control-label"})
+                                        <div class="col-md-8 ">
+                                            @Html.TextBoxFor(m => m.Longitude, new { @class = "form-control digit", @type = "number" })
+                                            @Html.ValidationMessageFor(m => m.Longitude, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 col-md-offset-2">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Latitude, new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8 ">
+                                            @Html.TextBoxFor(m => m.Latitude, new { @class = "form-control digit",  @type = "number"  })
+                                            @Html.ValidationMessageFor(m => m.Latitude, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-8 col-md-offset-2" style="text-align:right;">
+                                        <button type="button" id="addToGrid" name="addToGrid" class="btn">Add To Grid</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      
+
+        <div class="row">
+            <div class="col-md-8 ">
+                <div class="box ">
+                    <div class="box-header with-border box-head-back" align="center">
+                        <h3 class="box-title"><b>Information</b></h3>
+                    </div>
+                    <div class="box-body">
+                        <table class="table table-responsive" id="DealerList">
+                            <thead>
+                                <tr>
+                                    <th>TSO Name</th>
+                                    <th>Dealer Name</th>
+                                    <th>Longitute</th>
+                                    <th>Latitute</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-md-8 button " align="center" style="background-color:white">
+
+            <div class="box-body">
+                <input type="button" value="Save" id="save" class="btn skin-blue span4 offset4 centered" style="padding-left:20px;" />
+                <input type="button" name="refresh" id="refresh" value="Refresh" class="btn skin-blue span4 offset4 centered" />
+                <input type="button" name="update" id="update" value="Update" class="btn skin-blue span4 offset4 centered" />
+                <input type="button" name="delete" id="delete" value="Delete" class="btn skin-blue span4 offset4 centered" />
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+@section scripts{
+   
+    <script src="~/Scripts/Location/ClEntry.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.select2').select2();
+            var customerid = 0;
+            var TsoId = 0;
+            var update = false;
+            
+            $("#delete").hide();
+            $("#update").hide();
+            addedItems = [];
+            var table = $('#DealerList').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            });
+
+            EnterPress();
+            $("#refresh").on('click', function () {
+                window.location.reload(true);
+            });
+
+            $(document).on('change', "#TsoID", function () {
+            var id = { TsoID: $(this).val() };
+            var isItFromEdit = false;
+              
+                   if (id.TsoID != "")
+                   {
+                       $.ajax({
+                        url: '@Url.Action("GetDealerByTsoId", "CustomerLocation")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                           success: function (datas) {
+
+                               $("#CustomerID").empty();
+                               $("#CustomerID").prop("disabled", false);
+                               $.each(datas, function (index, value) {
+                                   $("#CustomerID").append($('<option />', {
+                                       value: value.Value,
+                                       text: value.Text
+                                   })).trigger('change');
+                               });
+                               $("#CustomerID").focus();
+                               if (customerid != 0) {
+                                   $("#CustomerID").val(customerid).change();
+                                   customerid = 0;
+                               }
+                           }
+                       });
+                   }
+
+                     else
+                    {
+                       $("#CustomerID").val("").change();
+                       $("#CustomerID").prop("disabled", true);
+                    }
+               
+                
+            });
+
+
+            $(document).on('click', "#addToGrid", function () {
+
+                if (update == true) {
+                    ValidationAddToGrid();
+                    if (isValid == true) {
+
+                        var item = { TsoID: 0, CustomerID: 0, Longitude: 0.0, Latitude: 0, TsoName: "", DealerName: "" }
+                        item.TsoID = $("#TsoID").val();
+                        item.CustomerID = $("#CustomerID").val();
+                        item.Longitude = $("#Longitude").val();;
+                        item.Latitude = $("#Latitude").val();
+                        item.TsoName = $("#TsoID option:selected").text();
+                        item.DealerName = $("#CustomerID option:selected").text();
+
+                        addedItems.push(item);
+                        ShowOnTable();
+                        ClearOnAddToGrid();
+                        RemoveError();
+                    }
+                }
+                else {
+                     var id = { CustomerID: $("#CustomerID").val() };
+
+                
+                ValidationAddToGrid();
+                if (id.CustomerID != "")
+                   {
+                       $.ajax({
+                        url: '@Url.Action("GetDealerbycust", "CustomerLocation")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                           success: function (datas) {
+                               if (datas.cust != 0) {
+                                   alert("you are already in the list. Your Dealer location Id is :" + datas.cust);
+                                   ClearOnAddToGrid();
+                               } else if (datas.cust == 0) {
+                                   
+                                   if (isValid == true) {
+
+                                       var item = { TsoID: 0, CustomerID: 0, Longitute: 0.0, Latitute: 0, TsoName: "", DealerName: "" }
+                                       item.TsoID = $("#TsoID").val();
+                                       item.CustomerID = $("#CustomerID").val();
+                                       item.Longitude = $("#Longitude").val();;
+                                       item.Latitude = $("#Latitude").val();
+                                       item.TsoName = $("#TsoID option:selected").text();
+                                       item.DealerName = $("#CustomerID option:selected").text();
+
+                                       addedItems.push(item);
+                                       ShowOnTable();
+                                       ClearOnAddToGrid();
+                                       RemoveError();
+                                       $("#save").show();
+
+                                   }
+                               }  
+                           }
+                       });
+                   }
+
+                }
+            });
+
+            function ShowOnTable() {
+                table.clear().draw();
+                var s1 = 0;
+                var item = [];
+                $.each(addedItems, function (index, value) {
+                    s1 = s1 + 1;
+                    value.s1 = s1;
+                    item.push(value);
+                    table.row.add([value.TsoName, value.DealerName, value.Longitude, value.Latitude,
+                    '<a href="#"><i class="fa fa-edit" name="editRow" value="' +
+                    s1 + '"></i>']).draw();
+                    
+                });
+                addedItems = item;
+            }
+            $(document).on('click', '[name="editRow"]', function (e) {
+                var s1 = $(this).attr("value");
+                $.each(addedItems, function (index, value) {
+                    if (value.s1 == s1) {
+                        $("#TsoID").val(value.TsoID).change();
+                        //$("#CustomerID").val(value.CustomerID).change();
+                        $("#Longitude").val(value.Longitude);
+                        $("#Latitude").val(value.Latitude);
+                        customerid = value.CustomerID;
+                        
+                    }
+                });
+                DeleteRowFromGrid(s1);
+            });
+            function DeleteRowFromGrid(rowSL) {
+                var items = [];
+                $.each(addedItems, function (index, value) {
+                    if (value.s1 != rowSL) {
+                        items.push(value);
+                    }
+                });
+                addedItems = items;
+                ShowOnTable();
+
+            }
+
+            function ValidationAddToGrid() {
+                isValid = true;
+                if ($("#TsoID").val() == "") {
+                    setError("TsoID", "Tso is required field ");
+                    isValid = false;
+                }
+
+                if ($("#CustomerID").val() == "") {
+                    setError("CustomerID", "Dealer Name is Required");
+                    isValid = false;
+                }
+
+                if ($("#Longitude").val() == "") {
+                    setError("Longitude", "Longitude is required field ");
+                    isValid = false;
+                }
+                if ($("#Latitude").val() == "") {
+                    setError("Latitude", "Latitude is required field ");
+                    isValid = false;
+                }
+            }
+            function ClearOnAddToGrid() {
+                $("#TsoID").val("").change();
+                $("#CustomerID").val("").change();
+                $("#Longitude").val("");
+                $("#Latitude").val("");
+        
+            }
+
+
+             $(document).on('click', '#save', function () {
+
+            $("#save").prop('disabled', true);
+             if (addedItems.length > 0)
+             {
+                if (confirm("Do you want to save?"))
+                {
+                    var CL = { TsoID: 0, CustomerID: 0, Longitude: 0.0, Latitude: 0.0};
+                    CL.IPIId = $("#TsoID").val();
+                    CL.IPINO = $("#CustomerID").val();
+                    CL.SupplierId = $("#Longitude").val();
+                    CL.IPIDate = $("#Latitude").val();
+                  
+
+                    $.ajax({
+                        url: '@Url.Action("SaveCL", "CustomerLocation")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ addedItems: addedItems }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas.Message == "0") {
+                                alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                $("#save").prop('disabled', false);
+                            }
+                            else if (datas.Message == "1") {
+                                alert("Sccessfully saved.")
+                                location.reload();
+                            }
+                            else if (datas.Message == "2") {
+                                alert("This Delar already Exist.");
+                                $("#save").prop('disabled', false);
+                            }
+
+                        }
+                    });
+                }
+             }
+             else
+             {
+                var messageforEmpty = "The Item list is empty";
+                alert(messageforEmpty);
+                $("#save").prop('disabled', false);
+             }
+            });
+
+            $(document).on('click', "#update", function () {
+            RemoveError();
+            
+            if (addedItems.length <= 0) {
+                alert("At least One Item should be added for save.");
+            }
+            else {
+                //ValidateSetGrn();
+                if (isValid == true) {
+                    if (confirm('Do you want to Update')) {
+                    var id = $("#CLNo").val();
+                    $.ajax({
+                        url: '@Url.Action("UpdateCL", "CustomerLocation")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({id, addedItems: addedItems }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Update failed");
+                                $("#update").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Updated.");
+                                $("#CLNo").val(datas.CLNo);
+                                
+                                $("#update").hide();
+                            }
+                        }
+                    });
+                    }
+                    else {
+                        $("#update").show();
+                    }
+                }
+                else {
+                    $("#update").show();
+                }
+            }
+            });
+
+            $(document).on('click', '#delete', function () {
+                $("#update").prop('disabled', true);
+                $("#delete").prop('disabled', true);
+                var id = $("#CLNo").val();
+                if (confirm('Are you sure you want to delete this from the database?')) {
+                    $.ajax({
+                        url: '@Url.Action("DeleteCL", "CustomerLocation")',
+                        contentType: "application/json;charset=utf-8",
+                        data: { id: id },
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Delete failed.");
+                                $("#delete").prop('disabled', false);
+                                $("#update").prop('disabled', false);
+                            }
+                            else {
+                                alert("Delete Successfull");
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+
+            });
+             $(document).on('click', '#search', function () {
+                 var id = { id: $("#CLNo").val() };
+            
+                 $.ajax({
+                     url: '@Url.Action("GetCLById", "CustomerLocation")',
+                     contentType: "application/json;charset=utf-8",
+                     data: id,
+                     type: 'GET',
+                     dataType: 'json',
+                     success: function (datas) {
+
+                         if (datas == 0) {
+                             alert("Your entered Dealer Location No. Doesn't exist");
+                         }
+                         else {
+                             addedItems = [];
+                             $.each(datas.data, function (index, value) {
+                                 var item = { TsoID: 0, CustomerID: 0, Longitude: 0.0, Latitude: 0, TsoName: "", DealerName: "", s1: 0 }
+                                 item.TsoID = value.TsoID;
+                                 item.CustomerID = value.CustomerID;
+                                 item.Longitude = value.Longitude;
+                                 item.Latitude = value.Latitude;
+                                 item.TsoName = value.TsoName;
+                                 item.DealerName = value.CustomerName;
+                                 item.s1 = value.s1;
+                                 addedItems.push(item);
+                             });
+                             ShowOnTable();
+                             update = true;
+                             $("#save").hide();
+                             $("#update").show();
+                             $("#delete").show();
+                         }
+                     },
+                     error: function () {
+                         alert("Please check your internet connection first. If this doesn't sole your problem, then Contact With Paankouri Software & Services")
+
+                     }
+                 
+                });
+            });
+
+        });
+
+
+
+    </script>
+    
+
+    }

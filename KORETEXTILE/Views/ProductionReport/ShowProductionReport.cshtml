@@ -1,0 +1,608 @@
+﻿@model BEEERP.Models.ViewModel.Sales.Report.InventoryReportVModel
+@{
+    ViewBag.Title = "ShowProductionReport";
+    int i = 0;
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        /*padding: 15px 32px;*/
+        /*text-align: center;*/
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 8px;
+        min-width: 400px
+        /*height: 12px;*/
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+        }
+</style>
+
+<h3 style="text-align:center">Production Report</h3>
+
+
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "report", target = "_blank" }))
+{
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                    <h4 class="box-title">Select Date Range and Parameters</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            @*<div class="form-group">
+                                                @Html.LabelFor(m => m.RootAccountType, "Inventory Type", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(m => m.RootAccountType, (IEnumerable<SelectListItem>)ViewBag.acType, new { @class = "form-control select2" })
+                                                    @Html.ValidationMessageFor(m => m.RootAccountType, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>*@
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.StoreId, "RM Store", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownList("StoreId", (IEnumerable<SelectListItem>)ViewBag.LoadStore, new { @class = "form-control select2" })
+                                                    @Html.ValidationMessage("StoreId", "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.FGStoreId, "FG Store", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownList("FGStoreId", (IEnumerable<SelectListItem>)ViewBag.LoadFGStore, new { @class = "form-control select2" })
+                                                    @Html.ValidationMessage("FGStoreId", "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.BatchID, "Batch No", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(m => m.BatchID, (IEnumerable<SelectListItem>)ViewBag.LoadBatch, new { @class = "form-control select2", })
+                                                    @Html.ValidationMessageFor(m => m.BatchID, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.FGGroupID, "FG Item Group", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(m => m.FGGroupID, (IEnumerable<SelectListItem>)ViewBag.GroupId, new { @class = "form-control select2" })
+                                                    @Html.ValidationMessageFor(m => m.FGGroupID)
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.FGItemID, "FG Item", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(m => m.FGItemID, (IEnumerable<SelectListItem>)ViewBag.FGItem, new { @class = "form-control select2" })
+                                                    @Html.ValidationMessageFor(m => m.FGItemID)
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.GroupID, "RM Item Group", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8 input-group" style="padding-left:15px;padding-right:15px;">
+                                                    @Html.DropDownListFor(m => m.GroupID, (IEnumerable<SelectListItem>
+                                                        )ViewBag.Group, new { @class = "form-control select2" })
+                                                    @Html.ValidationMessageFor(m => m.GroupID, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.ItemID, "RM Item", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8 input-group" style="padding-left:15px;padding-right:15px;">
+                                                    @Html.DropDownListFor(m => m.ItemID, (IEnumerable<SelectListItem>
+                                                        )ViewBag.Item, new { @class = "form-control select2" })
+                                                    @Html.ValidationMessageFor(m => m.ItemID, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.FromDate, "From Date", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8 date input-group" , style="padding-left:15px;padding-right:15px;">
+                                                    @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                    @Html.ValidationMessageFor(m => m.FromDate)
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.ToDate, "To Date", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8 date input-group" , style="padding-left:15px;padding-right:15px;">
+                                                    @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                    @Html.ValidationMessageFor(m => m.ToDate)
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                </div>
+                                                <div style="padding-left:280px;">
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.AsOnDate, "As on Date", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8 date input-group" , style="padding-left:15px;padding-right:15px;">
+                                                    @Html.TextBoxFor(m => m.AsOnDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                    @Html.ValidationMessageFor(m => m.AsOnDate)
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                </div>
+                                                <div style="padding-left:280px;">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                    <h4 class="box-title">Raw Material Consumption Reports</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group" style="text-align:center;">
+                                                @{
+                                                    i = i + 1;
+                                                }
+                                                <button class="btn skin-blue" id="itemWiseRMCSummary" type="submit">@i. Show Item Wise RM Consumption Summary</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group" style="text-align:center;">
+                                                @{
+                                                    i = i + 1;
+                                                }
+                                                <button class="btn skin-blue" id="showRMCSummary"  type="submit">@i. Show Batch wise Cost of RM Summary </button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group" style="text-align:center;">
+                                                @{
+                                                    i = i + 1;
+                                                }
+                                                <button class="btn skin-blue" id="singleItemRMConsumptiondetail" type="submit">@i. Show Single Item RM Consumption Detail</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group" style="text-align:center;">
+                                                @{
+                                                    i = i + 1;
+                                                }
+                                                <button class="btn skin-blue" id="singleBatchRMCDetail" type="submit">@i. Show Single Batch RM Consumption Detail</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                    <h4 class="box-title">Finished Goods Production Reports</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group" style="text-align:center;">
+                                                @{
+                                                    i = i + 1;
+                                                }
+                                                <button class="btn skin-blue" id="itemwiseFGPSummary" type="submit">@i. Show Item Wise FG Production Summary</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group" style="text-align:center;">
+                                                @{
+                                                    i = i + 1;
+                                                }
+                                                <button class="btn skin-blue" id="batchitemwiseFGPSummary" type="submit">@i. Show Batch and Item Wise FGP Summary</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group" style="text-align:center;">
+                                                @{
+                                                    i = i + 1;
+                                                }
+                                                <button class="btn skin-blue" id="batchwiseFGPSummary" type="submit">@i. Show Batch Wise FGP Summary</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group" style="text-align:center;">
+                                                @{
+                                                    i = i + 1;
+                                                }
+                                                <button class="btn skin-blue" id="singleItemFGPDetail" type="submit">@i. Show Sinlge Item FG Production Detail</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group" style="text-align:center;">
+                                                @{
+                                                    i = i + 1;
+                                                }
+                                                <button class="btn skin-blue" id="singleBatchFGPDetail" type="submit">@i. Show Sinlge Batch FG Production Detial</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                    <h4 class="box-title">RM and FG Stock Reports</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group" style="text-align:center;">
+                                                @{
+                                                    i = i + 1;
+                                                }
+                                                <button class="btn skin-blue" id="singleStoreRMBalanceSummary" type="submit">@i. Show Single Store RM Balance Summary</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group" style="text-align:center;">
+                                                @{
+                                                    i = i + 1;
+                                                }
+                                                <button class="btn skin-blue" id="consolidatedRMBalanceSummary" type="submit">@i. Show Consolidated RM Balance Summary</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group" style="text-align:center;">
+                                                @{
+                                                    i = i + 1;
+                                                }
+                                                <button class="btn skin-blue" id="singleStoreFGBalancesummary" type="submit">@i. Show Single Store FG Balance Summary</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group" style="text-align:center;">
+                                                @{
+                                                    i = i + 1;
+                                                }
+                                                <button class="btn skin-blue" id="consolidatedFGBalancesummary" type="submit">@i. Show Consolidated FG Balance Summary</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </div>
+}
+
+
+
+@section scripts{
+    <script src="~/Scripts/Search.js"></script>
+    <script src="~/Scripts/ReportSearch.js"></script>
+    <script>
+        $(".select2").select2();
+        var isValid = "";
+        $('.date').datepicker({
+            autoclose: true,
+            format: "dd-mm-yyyy"
+        });
+
+        //$(document).on('click', "#showBatchWiseProduction", function (event) {
+        //    event.preventDefault();
+        //    validateOnBatchWiseProduction();
+        //    if (isValid == "") {
+        //        if ($("#message").val() != "true") {
+        //            $("#Depot").val($("#DepotId").val());
+        //            $("#report").attr("action", "/ProductionReport/GetBatchWiseProduction")
+        //            $("#report").submit();
+        //        }
+        //    }
+        //});
+
+        $(document).on('click', "#showRMCSummary", function (event) {
+            event.preventDefault();
+            validateOnBatchWiseProduction();
+            if (isValid == "") {
+                if ($("#message").val() != "true") {
+                    $("#report").attr("action", "/ProductionReport/GetRMCSummary")
+                    $("#report").submit();
+                }
+            }
+        });
+
+        $(document).on('click', "#showFGPSummary", function (event) {
+            event.preventDefault();
+            validateOnBatchWiseProduction();
+            if (isValid == "") {
+                if ($("#message").val() != "true") {
+
+                    $("#report").attr("action", "/ProductionReport/GetFGPSummary")
+                    $("#report").submit();
+                }
+            }
+        });
+        $(document).on('click', "#itemBalance", function (event) {
+            event.preventDefault();
+            validateOnStorehWiseItem();
+            if (isValid == "") {
+                if ($("#message").val() != "true") {
+
+                    $("#report").attr("action", "/ProductionReport/GetStoreWiseItemQty")
+                    $("#report").submit();
+                }
+            }
+        });
+        // Show Item Wise RM Consumption Summary
+        $(document).on('click', "#itemWiseRMCSummary", function (event) {
+            event.preventDefault();
+            //validateOnStorehWiseItem();
+            ValidateReportSearchParam(["From", "To"]);
+            if (isValid == "") {
+                if ($("#message").val() != "true") {
+                    $("#report").attr("action", "/ProductionReport/ItemWiseRMCSummary")
+                    $("#report").submit();
+                }
+            }
+        });
+        // Show Item Wise FG Production (FGP) Summary
+        $(document).on('click', "#itemwiseFGPSummary", function (event) {
+            event.preventDefault();
+            //validateOnStorehWiseItem();
+            ValidateReportSearchParam(["From", "To"]);
+            if (isValid == "") {
+                if ($("#message").val() != "true") {
+                    $("#report").attr("action", "/ProductionReport/ItemwiseFGPSummary")
+                    $("#report").submit();
+                }
+            }
+        });
+        // Show  Batch and Item Wise FG Production (FGP) Summary
+        $(document).on('click', "#batchitemwiseFGPSummary", function (event) {
+            event.preventDefault();
+            //validateOnStorehWiseItem();
+            ValidateReportSearchParam(["From", "To"]);
+            if (isValid == "") {
+                if ($("#message").val() != "true") {
+                    $("#report").attr("action", "/ProductionReport/BatchitemwiseFGPSummary")
+                    $("#report").submit();
+                }
+            }
+        });
+        // Show Batch Wise FG Production (FGP) Summary
+        $(document).on('click', "#batchwiseFGPSummary", function (event) {
+            event.preventDefault();
+            //validateOnStorehWiseItem();
+            ValidateReportSearchParam(["From", "To"]);
+            if (isValid == "") {
+                if ($("#message").val() != "true") {
+                    $("#report").attr("action", "/ProductionReport/BatchwiseFGPSummary")
+                    $("#report").submit();
+                }
+            }
+        });
+        //Single Item RM Consumption Details 
+        $(document).on('click', "#singleItemRMConsumptiondetail", function (event) {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#ItemID").val() == "") {
+                setError("ItemID", "Please select a Item");
+                isValid = false;
+            }
+            else {
+
+                $("#report").attr("action", "/ProductionReport/SingleItemRMConsumptiondetail");
+                $("#report").submit();
+            }
+        });
+        //Single Store RM Balance Summary
+        $(document).on('click', "#singleStoreRMBalanceSummary", function (event) {
+            event.preventDefault();
+            //ValidateReportSearchParam(["From", "To"]);
+            if ($("#StoreId").val() == "") {
+                setError("StoreId", "Please select a Store");
+                isValid = false;
+            }
+            else {
+
+                //$("#report").attr("action", "/ProductionReport/SingleStoreRMBalanceSummary");
+                $("#report").attr("action", "/StoreReport/SingleStoreRMAmountSummary");
+                $("#report").submit();
+            }
+        });
+        //Single Store FG Balance Summary
+        $(document).on('click', "#singleStoreFGBalancesummary", function (event) {
+            event.preventDefault();
+            //ValidateReportSearchParam(["From", "To"]);
+            if ($("#FGStoreId").val() == "") {
+                setError("FGStoreId", "Please select a Store");
+                isValid = false;
+            }
+            else {
+
+                $("#report").attr("action", "/ProductionReport/SingleStoreFGBalancesummary");
+                $("#report").submit();
+            }
+        });
+        // Consolidated RM Balance Summary
+        $(document).on('click', "#consolidatedRMBalanceSummary", function (event) {
+            event.preventDefault();
+            //validateOnStorehWiseItem();
+            ValidateReportSearchParam(["From", "To"]);
+            if (isValid == "") {
+                if ($("#message").val() != "true") {
+                    $("#report").attr("action", "/ProductionReport/ConsolidatedRMBalanceSummary")
+                    $("#report").submit();
+                }
+            }
+        });
+        // Consolidated FG Balance Summary
+        $(document).on('click', "#consolidatedFGBalancesummary", function (event) {
+            event.preventDefault();
+            //validateOnStorehWiseItem();
+            ValidateReportSearchParam(["From", "To"]);
+            if (isValid == "") {
+                if ($("#message").val() != "true") {
+                    $("#report").attr("action", "/ProductionReport/ConsolidatedFGBalancesummary")
+                    $("#report").submit();
+                }
+            }
+        });
+        //Single Item FG Production Details 
+        $(document).on('click', "#singleItemFGPDetail", function (event) {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#FGItemID").val() == "") {
+                setError("FGItemID", "Please select a Item");
+                isValid = false;
+            }
+            else {
+
+                $("#report").attr("action", "/ProductionReport/SingleItemFGPDetail");
+                $("#report").submit();
+            }
+        });
+        //Single Batch RM Consumption Details 
+        $(document).on('click', "#singleBatchRMCDetail", function (event) {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#BatchID").val() == "") {
+                setError("BatchID", "Please select a Batch");
+                isValid = false;
+            }
+            else {
+
+                $("#report").attr("action", "/ProductionReport/SingleBatchRMCDetail");
+                $("#report").submit();
+            }
+        });
+        //Single Batch FG Production Detail 
+        $(document).on('click', "#singleBatchFGPDetail", function (event) {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#BatchID").val() == "") {
+                setError("BatchID", "Please select a Batch");
+                isValid = false;
+            }
+            else {
+
+                $("#report").attr("action", "/ProductionReport/SingleBatchFGPDetail");
+                $("#report").submit();
+            }
+        });
+        // Show RM Item Ledger
+        $(document).on('click', "#showLedger", function () {
+            ValidateReportSearchParam(["StoreId", "Item", "FromDate", "ToDate"]);
+            event.preventDefault();
+            //validateOnItemLedger();
+            if (isValid == "") {
+                if ($("#message").val() != "true") {
+                    $("#Depot").val($("#DepotId").val());
+                    $("#report").attr("action", "/StoreRMReport/GetItemLedgerReport")
+                    $("#report").submit();
+                }
+            }
+        });
+        $(document).on('change', "#GroupID", function () {
+            $("#ItemID").prop('disabled', false);
+            var id = { groupId: $(this).val() };
+            if (id.groupId != "") {
+                $.ajax({
+                    url: '@Url.Action("GetItemByGroupId", "WorkOrder")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        $("#ItemID").empty();
+                        $("#ItemID").prop("disabled", false);
+                        $.each(datas, function (index, value) {
+                            $("#ItemID").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                        $("#ItemID").focus();
+                        if (itemId != "") {
+                            $("#ItemID").val(itemId).change();
+                            itemId = "";
+                        }
+                    }
+                });
+            }
+            else {
+                $("#ItemID").val("").change();
+                $("#ItemID").prop("disabled", true);
+            }
+        });
+        $(document).on('change', "#FGGroupID", function () {
+            var id = { groupId: $(this).val() };
+            if (id.groupId != "") {
+                $.ajax({
+                    url: '@Url.Action("GetItemByGroupId", "StockAdjustment")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+
+                        $("#FGItemID").empty();
+                        $("#FGItemID").prop("disabled", false);
+                        $.each(datas, function (index, value) {
+                            $("#FGItemID").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            }));
+                        });
+                    }
+                });
+            }
+            else {
+                $("#FGItemID").empty();
+                $("#FGItemID").prop("disabled", true);
+            }
+        });
+        //$(document).on('click', "#CustomerWiseRMSalesSummary", function (event) {
+        //    event.preventDefault();
+        //    ValidateReportSearchParam(["From", "To"]);
+        //    if ($("#message").val() != "true") {
+        //        $("#StoreReport").attr("action", "/StoreReport/CustomerWiseRMSalesSummary")
+        //        $("#StoreReport").submit();
+        //    }
+        //});
+        function validateOnBatchWiseProduction() {
+            isValid = "";
+            RemoveError();
+            if ($("#BatchId").val() == "") {
+                setError("BatchId", "Batch No is Required Field");
+                isValid = "required";
+            }
+        }
+        function validateOnStorehWiseItem() {
+            isValid = "";
+            RemoveError();
+            if ($("#StoreId").val() == "") {
+                setError("StoreId", "Store is Required Field");
+                isValid = "required";
+            }
+            if ($("#RootAccountType").val() == "") {
+                setError("RootAccountType", "Inventory Type is Required Field");
+                isValid = "required";
+            }
+        }
+        
+
+    </script>
+}
+

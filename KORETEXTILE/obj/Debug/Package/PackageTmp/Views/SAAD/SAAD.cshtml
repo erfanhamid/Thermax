@@ -1,0 +1,739 @@
+﻿@model BEEERP.Models.ViewModel.Account.SAADVModel
+
+@{
+    ViewBag.Title = "SAAD";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+<h3 style="text-align:center">Supplier Account Adjustment (SAAD) Entry</h3>
+
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="text-align:left; background: #82E0AA;">
+                                <h4 class="box-title">SAAD Details</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.SAADNo,"SAAD No", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px;">
+                                            @Html.TextBoxFor(m => m.SAADNo, new { @class = "form-control", @type = "number", @Value = ViewBag.spvno })
+                                            @Html.ValidationMessageFor(m => m.SAADNo, "", new { @style = "color: red" })
+                                            <div class="input-group-btn">
+                                                <input type="button" name="search" id="search" value="Search" class="btn btn-primary" style="min-width: 50px" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Date, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                            @Html.TextBoxFor(m => m.Date, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            @Html.ValidationMessageFor(m => m.Date, "", new { @style = "color: red" })
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.GroupID, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.GroupID, (IEnumerable<SelectListItem>)ViewBag.SGroup, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.GroupID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.SupplierId, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.SupplierId, (IEnumerable<SelectListItem>)ViewBag.Supplier, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.SupplierId, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.LedgerAcId, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.LedgerAcId, (IEnumerable<SelectListItem>)ViewBag.account, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.LedgerAcId, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.RefNo,"Reference No", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.RefNo, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.RefNo, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Description, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Description, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="box" id="billinfo">
+                            <div class="box-header with-border box-head-back" style="text-align:left; background: #82E0AA;">
+                                <h4 class="box-title"></h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.BillType, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.BillType, (IEnumerable<SelectListItem>)ViewBag.gbpgsbfpb, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.BillType, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.BillNo, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.BillNo, (IEnumerable<SelectListItem>)ViewBag.billno, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.BillNo, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.BillAmount, new { @class = "col-md-5 control-label" })
+                                        <div class="col-sm-7">
+                                            @Html.TextBoxFor(m => m.BillAmount, new { @class = "form-control", @type = "number", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.BillAmount, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.PaidAmount, new { @class = "col-md-5 control-label" })
+                                        <div class="col-sm-7">
+                                            @Html.TextBoxFor(m => m.PaidAmount, new { @class = "form-control", @type = "number" })
+                                            @Html.ValidationMessageFor(m => m.PaidAmount, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.BalAmount, new { @class = "col-md-5 control-label" })
+                                        <div class="col-sm-7">
+                                            @Html.TextBoxFor(m => m.BalAmount, new { @class = "form-control", @type = "number", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.BalAmount, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <div class="row">
+                        <div class="box">
+                            <div class="box-footer">
+                                <div class="form-group" , style="text-align:center">
+                                    <input type="button" id="save" value="Save" class="btn btn-primary" />
+                                    <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                                    <input type="button" name="delete" id="delete" value="Delete" class="btn btn-primary" />
+                                    <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                    <input type="button" name="print" id="print" value="Print" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/AccountModule/SupplierPaymentVoucherInputFocus.js"></script>
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/AccountModule/SaadInputFocus.js"></script>
+    <script>
+
+        var table = $('#saaList').DataTable({
+            'paging': false,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+
+        $(".select2").select2();
+        
+        var message = "";
+        var supplierId = 0;
+        var billtype = "";
+        var billno = 0;
+        var billamount = 0;
+        var remaining = 0;
+        var prevbill = 0;
+        var paidAmount = "";
+        var balAmount = "";
+        var billType = "";
+        var isSearch = false;
+        var saad = { SAADNo: 0, Date: "", GroupID: 0, LedgerAcId: 0, SupplierId: 0, Amount: 0, RefNo: "", Description: "", BillType: "", BillNo: 0 };
+        $("#update").hide();
+        $("#delete").hide();
+        $("#print").hide();
+
+
+        //Supplier Group change event
+
+        $(document).on('change', "#GroupID", function () {
+            $("#GroupID").prop('disabled', false);
+            var id = { groupId: $(this).val() };
+            if (id.groupId != "") {
+                $.ajax({
+                    url: '@Url.Action("GetSupplierByGroupId", "SAAD")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        $("#SupplierId").empty();
+                        $("#SupplierId").prop("disabled", false);
+                        $.each(datas, function (index, value) {
+                            $("#SupplierId").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                        $("#SupplierId").focus();
+                        if (supplierId != "") {
+                            $("#SupplierId").val(supplierId).change();
+                            supplierId = "";
+                        }
+                    }
+                });
+            }
+            else {
+                $("#SupplierId").val("").change();
+                $("#SupplierId").prop("disabled", true);
+            }
+        });
+
+        var datasFromSupplier;
+        $(document).on('change', "#SupplierId", function () {
+            $("#SupplierId").prop('disabled', false);
+            var id = { supplierId: $(this).val() };
+            if (id.supplierId != "") {
+                $.ajax({
+                    url: '@Url.Action("GetDueDetailsBySupplierId", "SupplierPaymentVoucher")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        datasFromSupplier = datas;
+                        if (isSearch == false) {
+                            $("#BillType").empty();
+                        }
+                        
+                        $("#BillType").prop("disabled", false);
+                        $.each(datas.gbpgsbfpb, function (index, value) {
+                            $("#BillType").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                        //$("#BillType").focus();
+                        if (supplierId != "") {
+                            $("#SupplierID").val(supplierId);
+                            $("#BillType").val(billType);
+                            //supplierId = "";
+                        }
+                    }
+                });
+            }
+            else {
+                //if (supplierId != "") {
+                //    $("#SupplierID").val(supplierId).change();
+                //    //supplierId = "";
+                //}
+               // $("#BillType").val("").change();
+                //$("#BillType").prop("disabled", true);
+            }
+        });
+
+        $(document).on('change', "#BillType", function () {
+            if (isSearch == false) {
+                $("#BillNo").empty();
+            }
+            if ($("#BillType").val() == 'GPB') {
+                $.each(datasFromSupplier.gpb, function (index, value) {
+                    $("#BillNo").append($('<option />', {
+                        value: value.Value,
+                        text: value.Text
+                    })).trigger('change');
+                });
+                $("#BillNo").focus();
+                if (supplierId != "") {
+                    $("#SupplierID").val(supplierId).change();
+                    //supplierId = "";
+                }
+                
+            } else if ($("#BillType").val() == 'GSB') {
+
+                //$("#BillNo").empty();
+                $.each(datasFromSupplier.gsb, function (index, value) {
+                    $("#BillNo").append($('<option />', {
+                        value: value.Value,
+                        text: value.Text
+                    })).trigger('change');
+                });
+                //$("#SupplierID").focus();
+                if (supplierId != "") {
+                    $("#SupplierID").val(supplierId).change();
+                    //$("#BillNo").val(billno);
+                    //supplierId = "";
+                }
+            } else if ($("#BillType").val() == 'FPB') {
+                //$("#BillNo").empty();
+                $.each(datasFromSupplier.fpb, function (index, value) {
+                    $("#BillNo").append($('<option />', {
+                        value: value.Value,
+                        text: value.Text
+                    })).trigger('change');
+                });
+                $("#SupplierID").focus();
+                if (supplierId != "") {
+                    $("#SupplierID").val(supplierId).change();
+                    //supplierId = "";
+                }
+            }
+            
+
+        });
+
+        $(document).on('change', "#BillNo", function () {
+            $("#BillNo").prop('disabled', false);
+            var billid = { billno: $(this).val()}
+
+            if (billid.billno != "") {
+                var id = parseInt($("#BillNo").val());
+                if ($("#BillType").val() == 'GPB') {
+                    GPBremainbill();
+                } else if ($("#BillType").val() == 'GSB') {
+                    GSBremainbill();
+                } else if ($("#BillType").val() == 'FPB') {
+                    FPBremainbill();
+                }
+                //$("#BillAmount").focus();
+                if (isSearch == false) {
+                    if (billamount != 0) {
+                        $("#BillAmount").val(billamount);
+                        billamount = "";
+                    }
+                } else {
+                    if (prevbill != 0) {
+                        $("#BillAmount").val(prevbill);
+                        prevbill = "";
+
+                    }
+                }
+
+
+            }
+            else {
+                //$("#BillNo").val("").change();
+                //$("#BillNo").prop("disabled", true);
+            }
+        });
+
+
+        function GPBremainbill() {
+            var gpbNo = { gpb: parseInt($("#BillNo").val()),  };
+            if (gpbNo != null) {
+                $.ajax({
+                    url: '@Url.Action("GetGPBAmount", "SupplierPaymentVoucher")',
+                    contentType: "application/json;charset=utf-8",
+                    data: gpbNo,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        $("#BillAmount").val(data.gpbAmount);
+                        if (isSearch == true) {
+                            if (billamount != 0) {
+                                $("#BillAmount").val(billamount);
+                                billamount = "";
+                            }
+                        } else {
+                            if (prevbill != 0) {
+                                $("#BillAmount").val(prevbill);
+                                prevbill = "";
+
+                            }
+
+                        }
+                    }
+                });
+            } else {
+
+            }
+        }
+        function GSBremainbill() {
+            var gsbNo = { gsb: parseInt($("#BillNo").val()),  };
+            if (gsbNo != null) {
+                $.ajax({
+                    url: '@Url.Action("GetGSBAmount", "SupplierPaymentVoucher")',
+                    contentType: "application/json;charset=utf-8",
+                    data: gsbNo,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        $("#BillAmount").val(data.gsbAmount);
+                        if (isSearch == true) {
+                            if (billamount != 0) {
+                                $("#BillAmount").val(billamount);
+                                billamount = "";
+                            }
+                        } else {
+                            if (prevbill != 0) {
+                                $("#BillAmount").val(prevbill);
+                                prevbill = "";
+
+                            }
+
+                        }
+                    }
+                });
+            } else {
+
+            }
+        }
+        function FPBremainbill() {
+            var fpbNo = { fpb: parseInt($("#BillNo").val()),  };
+            if (fpbNo != null) {
+                $.ajax({
+                    url: '@Url.Action("GetFPBAmount", "SupplierPaymentVoucher")',
+                    contentType: "application/json;charset=utf-8",
+                    data: fpbNo,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        $("#BillAmount").val(data.fpbAmount);
+                        if (isSearch == true) {
+                            if (billamount != 0) {
+                                $("#BillAmount").val(billamount);
+                                billamount = "";
+                            }
+                        } else {
+                            if (prevbill != 0) {
+                                $("#BillAmount").val(prevbill);
+                                prevbill = "";
+
+                            }
+
+                        }
+                    }
+                });
+            } else {
+
+            }
+        }
+        
+        $(document).on('keyup', '#PaidAmount', function () {
+            if ($("#PaidAmount").val() == "") {
+                $("#BalAmount").val(parseFloat(0));
+            } else {
+                $("#BalAmount").val((parseFloat($("#BillAmount").val()) - parseFloat($("#PaidAmount").val())));
+            }
+        });
+
+        
+        //save saad
+         $(document).on('click', '#save', function () {
+            ValidateOnSaveClick();
+            if (isValid == true) {
+                if (confirm("Do you want to save?")) {
+                    setSaad();
+                    $.ajax
+                    ({
+                        url: '@Url.Action("SaveSAAD", "SAAD")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ supplierAcAdjustment: saad}),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas.Message == "0") {
+                                alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With KORE ERP");
+                            $("#save").prop('disabled', false);
+                            }
+                            else if (datas.Message == "1") {
+                                alert("Sccessfully saved.");
+                                $("#SAADNo").val(datas.saadno);
+                                //$("#update").show();
+                                //$("#delete").show();
+                                $("#print").show();
+                                $("#save").hide();
+                                //location.reload();
+                            }
+                            else{
+                            alert("This SAAD already exists.");
+                            $("#save").prop('disabled', false);
+                            }
+                        }
+                    });
+
+                }
+
+            }
+            else {
+
+            }
+        });
+        function ValidateOnSaveClick() {
+            isValid = true;
+
+            if ($("#SupplierId").val() == "") {
+                setError("SupplierId", "Please select a supplier from the list");
+                isValid = false;
+            }
+            if ($("#LedgerAcId").val() == "") {
+                setError("LedgerAcId", "Please select an Adjustment Account");
+                isValid = false;
+            }
+            if ($("#BillType").val() == "") {
+                setError("BillType", "Please select Bill Type");
+                isValid = false;
+            }
+
+            if ($("#BillNo").val() == "") {
+                setError("BillNo", "Please select Bill No");
+                isValid = false;
+            }
+            if ($("#PaidAmount").val() == "") {
+                setError("PaidAmount", "Please enter adjustment amount");
+                isValid = false;
+            }
+
+            //if ($("#CreditAdvance").val() != "") {
+            //    if ($("#CreditAdvance").val() == "Advance") {
+            //        if ($("#PayInfoAmount").val() == "") {
+            //            setError("PayInfoAmount", "Please enter a valid Amount");
+            //            isValid = false;
+            //        }
+            //    }
+            //    else {
+            //        if ($("#TotalPaidAmount").val() == "") {
+            //            setError("TotalPaidAmount", "Please enter a valid Amount");
+            //            isValid = false;
+            //        }
+            //    }
+            //}
+        }
+        var paidAmnt=0;
+        //Search SAAD
+        $(document).on('click', '#search', function () {
+            isSearch = true;
+            var saadNo = { saadNo: parseInt($('#SAADNo').val()) };
+            //ClearOnSearch();
+            if ($("#SAADNo").val() == "") {
+                alert("Please enter a valid SAAD No.");
+                $("#SAADNo").focus();
+            }
+            else {
+
+                $.ajax({
+                url: '@Url.Action("GetSAAD", "SAAD")',
+                contentType: "application/json;charset=utf-8",
+                data:saadNo,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.Message == 0) {
+                        alert("This SAAD No is not found");
+                        $("#SAADNo").focus();
+                    } else if (data.Message ==2) {
+                        alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Kore ERP");
+                    } else
+                    {
+                        $("#update").show();
+                        $("#delete").show();
+                        $("#print").show();
+                        $("#save").hide();
+                        $("#SAADNo").val(data.saad.SAADNo);
+                        $("#Date").val(moment(data.saad.Date).format("DD-MM-YYYY")).change();
+                        $("#GroupID").val(data.saad.GroupID).change();
+                        $("#LedgerAcId").val(data.saad.LedgerAcId).change();
+
+                        supplierId = data.saad.SupplierId;
+                        datasFromSupplier = data.supplierInformation.Data;
+                        $("#SupplierId").val(supplierId).change();
+                        $("#PaidAmount").val(data.saad.Amount);
+                        //paidAmnt = data.saad.Amount;
+                        $("#RefNo").val(data.saad.RefNo);
+                        $("#Description").val(data.saad.Description);
+                        //billType = data.saad.BillType;
+                        $("#BillType").val(data.saad.BillType).change();
+                        $("#BillNo").val(data.saad.BillNo);
+                        //$("#")
+                    }
+                }
+            });
+
+
+            }
+
+        });
+        //Update
+        $(document).on('click', '#update', function () {
+                ValidateOnSaveClick();
+                if (message == "") {
+                    if (confirm("Do you want to update?")) {
+                        setSaad();
+                        $.ajax
+                        ({
+                            url: '@Url.Action("UpdateSAAD", "SAAD")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ supplierAcAdjustment: saad}),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas.Message == "0") {
+                                    alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                $("#update").prop('disabled', false);
+                                }
+                                else if (datas.Message == "1") {
+                                    alert("Updated successfully");
+                                    location.reload();
+                                }
+                                else{
+                                alert("This SAAD already Exist.");
+                                $("#update").prop('disabled', false);
+                                }
+                            }
+                        });
+
+                    }
+
+                }
+                else {
+
+                }
+            });
+
+        //Delete
+        $(document).on('click', '#delete', function () {
+                ValidateOnSaveClick();
+                if (message == "") {
+                    if (confirm("Do you want to delete?")) {
+                        var saad = { SAADNo: 0, Date: "", LedgerAcId: 0, SupplierId: 0, Amount: 0, RefNo: "", Description: "" }
+                        saad.SAADNo = $("#SAADNo").val();
+                        saad.Date = $("#Date").val();
+                        saad.LedgerAcId = $("#LedgerAcId").val();
+                        saad.SupplierId = $("#SupplierId").val();
+                        saad.Amount = $("#Amount").val();
+                        saad.RefNo = $("#RefNo").val();
+                        saad.Description = $("#Description").val();
+                        $.ajax
+                        ({
+                            url: '@Url.Action("DeleteSAAD", "SAAD")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ supplierAcAdjustment: saad}),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas.Message == "0") {
+                                    alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                $("#save").prop('disabled', false);
+                                }
+                                else{
+                                    alert("Sccessfully deleted.");
+                                    location.reload();
+                                }
+                            }
+                        });
+
+                    }
+
+                }
+                else {
+
+                }
+        });
+        $(document).on('click', '#refresh', function () {
+            location.reload();
+        });
+        function setSaad() {
+            saad.SAADNo = $("#SAADNo").val();
+            saad.Date = $("#Date").val();
+            saad.GroupID = $("#GroupID").val();
+            saad.LedgerAcId = $("#LedgerAcId").val();
+            saad.SupplierId = $("#SupplierId").val();
+            saad.Amount = $("#PaidAmount").val();
+            saad.RefNo = $("#RefNo").val();
+            saad.Description = $("#Description").val();
+            saad.BillType = $("#BillType").val();
+            saad.BillNo = $("#BillNo").val();
+        }
+
+        function calculateTotalPaidAmount() {
+            var TotalAmount = 0;
+            $.each(addedItems, function (i, v) {
+                TotalAmount += parseFloat(v.Amount);
+            })
+            $("#TotalPaidAmount").val(TotalAmount);
+        }
+
+        //Validation
+
+        function ClearOnSearch() {
+            //$("#CreditAdvance").val("").change();
+            $("#GroupID").val("").change();
+            $("#SupplierID").val("").change();
+            $("#LedgerAcId").val("").change();
+            $("#RefNo").val("");
+            $("#Discription").val("");
+            $("#PayInfoAmount").val("");
+        }
+        $(document).on('click', '#print', function () {
+            if ($("#SAADNo").val() != "") {
+                window.open("/SAAD/SAADPrintPreview?saad=" + $("#SAADNo").val(), "_blank");
+            }
+            else {
+                setError("SAADNo", "Supplier account adjustment no is required.");
+            }
+        });
+
+    </script>
+}

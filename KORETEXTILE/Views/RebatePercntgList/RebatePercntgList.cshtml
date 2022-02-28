@@ -1,0 +1,287 @@
+﻿@model BEEERP.Models.TaxCalculator.RebatePercntgList
+@{
+    ViewBag.Title = "RebatePercntgList";
+}
+
+
+<style>
+    tbody tr:hover {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    .btn:hover {
+        color: blue !important;
+    }
+
+    .btn:focus {
+        background-color: aqua !important;
+    }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Rebate Percentage On Investment</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Id, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.Id, new { @class = "form-control", @readonly = "readonly", @Value = ViewBag.RebatePercntgId })
+                                        @Html.ValidationMessageFor(m => m.Id, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Item, "Name", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.Item, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.Item, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Percentage, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8" style="padding-left:0%; padding-right:0%;">
+                                        <div class="col-sm-8" style="padding-right:0%;">
+                                            @Html.TextBoxFor(m => m.Percentage, new { @class = "form-control", @type = "number" })
+                                        </div>
+                                        <label class="col-sm-1" style="padding-left:0%;font-size:150%;text-align:center;color:green">%</label>
+                                        @Html.ValidationMessageFor(m => m.Percentage, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-8">
+                                        <input type="button" name="Save" id="save" value="Save" class="btn skin-blue" />
+                                        <input type="button" name="Upate" id="update" value="Update" class="btn skin-blue" />
+                                        <input type="button" name="Delete" id="delete" value="Delete" class="btn skin-blue" />
+                                        <input type="button" name="Refresh" id="refresh" value="Refresh" class="btn skin-blue" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Rebate Percentage List</h3>
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-responsive" id="ExemtionList">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Name</th>
+                                            <th>Percentage</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.RebatePercntg)    
+                                        {
+                                            <tr class='clickable-row' value="@item.Id">
+                                                <td>@item.Id</td>
+                                                <td>@item.Item</td>
+                                                <td>@item.Percentage</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/Scripts/TaxCalculator/RebatePercntgListInputFocus.js"></script>
+    <script>
+        $('#ExemtionList').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        })
+
+        $(document).on('click', '#refresh', function () {
+            location.reload();
+        });
+
+        var rebate = { Id: 0, Item: "", Percentage: 0 }
+        var isValid = true;
+        EnterPress();
+
+        $(document).ready(function () {
+            $("#update").hide();
+            $("#delete").hide();
+            $("#Item").focus();
+        });
+
+        $(".clickable-row").on('click', function (e) {
+             var id = $(this).attr("value");
+             $.ajax({
+                url: '@Url.Action("GetRebateById", "RebatePercntgList")',
+                contentType: "application/json;charset=utf-8",
+                data: { id: id },
+                type: 'GET',
+                dataType: 'json',
+                success: function (datas) {
+                    if(datas==0)
+                    {
+                        alert("This Exemtion no doesn't exist.");
+                    }
+                    else {
+                        $("#save").hide();
+                        $("#update").show();
+                        $("#delete").show();
+                        $("#Id").val(datas.Id);
+                        $("#Item").val(datas.Item);
+                        $("#Percentage").val(datas.Percentage);
+                    }
+                }
+            });
+        });
+
+        $(document).on('click', '#save', function () {
+            ValidateOnSaveClick();
+            $("#save").prop('disabled', true);
+            if (isValid == true)
+            {
+                SetRebate();    
+                if (confirm("Do you want to save?")) {
+                    $.ajax({
+                        url: '@Url.Action("SaveRebate", "RebatePercntgList")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ rebate: rebate }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas != 0) {
+                                alert("Save Sucessfull.");
+                                location.reload();
+                            }
+                            else {
+                                setError("Item", "Name Is Already Exists.");
+                                $("#save").prop('disabled', false);
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#save").prop('disabled', false);
+                }
+            }
+            else {
+                $("#save").prop('disabled', false);
+            }
+        });
+
+        $(document).on('click', '#update', function () {
+            ValidateOnSaveClick();
+            $("#update").prop('disabled', true);
+            if (isValid == true)
+            {
+                SetRebate();
+                if (confirm("Do you want to Update?")) {
+                    $.ajax({
+                        url: '@Url.Action("UpdateRebate", "RebatePercntgList")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ rebate: rebate }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Update Failed");
+                                $("#update").prop('disabled', false);
+                            }
+                            else {
+                                alert("Update Sucessfull.");
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#update").prop('disabled', false);
+                }
+            }
+            else {
+                $("#update").prop('disabled', false);
+            }
+
+        });
+
+        $(document).on('click', '#delete', function () {
+
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var id = $("#Id").val();
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteRebateByid", "RebatePercntgList")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Delete failed.");
+                            $("#update").prop('disabled', true);
+                            $("#delete").prop('disabled', true);
+                        }
+                        else {
+                            alert("Delete Successfull");
+                            location.reload();
+                        }
+                    }
+                });
+            }
+            else {
+                $("#update").prop('disabled', false);
+                $("#delete").prop('disabled', false);
+            }
+        });
+
+        function SetRebate() {
+            rebate.Id = $("#Id").val();
+            rebate.Item = $("#Item").val();
+            rebate.Percentage = $("#Percentage").val();
+        }
+
+        function ValidateOnSaveClick() {
+            isValid = true;
+            if ($("#Item").val() == "") {
+                setError("Item", "Exemtion Name is required field");
+                isValid = false;
+            }
+            if ($("#Percentage").val() == "") {
+                setError("Percentage", "Percentage is required field");
+                isValid = false;
+            }
+            if ($("#Percentage").val() <= 0) {
+                setError("Percentage", "Percentage must be grater than zero.");
+                isValid = false;
+            }
+        }
+
+    </script>
+}
+
+
+

@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+    <form id="report" target="_blank" method="post" action="/EmployeeAttendance/Index">
+        <div class="content">
+            <div class="row">
+                <div class="form-horizontal">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-6">
+                                    <div class="box">
+                                        <div class="box-header with-border box-head-back" style="text-align:center">
+                                            <h3 class="box-title">Device Status</h3>
+                                        </div>
+                                        <div class="box-body" style="padding-left:0%">
+                                            @if (ViewBag.Status == true)
+    {
+                                       
+                                            <div class="col-md-12" style="padding-right:0%;padding-left:0%;">
+                                                <div class="col-md-4" style="color:blue;font-weight:bold;padding-top:1%;">
+                                                    Connected with Device
+                                                </div>
+
+                                                <div class="col-md-8" style="padding-right:0%;padding-left:1%;"><input type="submit" value="Disconnect" id="disconnect" class="btn skin-blue" style="text-align:center;width:100%;font-weight:bold;" /></div>
+
+                                            </div>
+
+}
+else
+{
+
+                                        <div class="col-md-12" style="padding-right:0%;padding-left:0%;padding-bottom:2%">
+                                            <div class="col-md-4" style="color:red;font-weight:bold;padding-top:1%;">
+                                                Disconnected from Device
+                                            </div>
+                                            <div class="col-md-8" style="padding-right:0%;padding-left:1%;"><input type="submit" value="Connect" id="connect" class="btn skin-blue" style="text-align:center;width:100%;font-weight:bold;" /></div>
+
+                                        </div>
+
+}
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="isConnect" value="true" id="isConnect"/>
+    </form>
+
+@section scripts{
+    
+    <script>
+
+        $(document).on("click", "#connect", function () {
+            $("#isConnect").val("true");
+            $("#report").attr("action", "/EmployeeAttendance/Index")
+            $("#report").submit();
+           
+        })
+
+        $(document).on("click", "#disconnect", function () {
+            $("#isConnect").val("false");
+            $("#report").attr("action", "/EmployeeAttendance/Index")
+            $("#report").submit();
+           
+        });
+    </script>
+    }

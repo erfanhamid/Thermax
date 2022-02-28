@@ -1,0 +1,915 @@
+﻿@model BEEERP.Models.ViewModel.SpareParts.LMRGoodsReceiveNoteVModel
+
+@{
+    ViewBag.Title = "LMRGoodsReceiveNote";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<h3 style="text-align:center">Local Material Receive (LMR) Entry</h3>
+
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h6 class="box-title">LMR Details</h6>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.GRNNo, "LMR No", new { @class = "col-md-4 control-label" })
+                                        <div class="input-group input-group-sm col-md-8" style="padding-right:19px;padding-left:14px;">
+                                            @Html.TextBoxFor(m => m.GRNNo, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.GRNNo, "", new { @style = "color: red" })
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-primary" id="search" style="min-width: 50px">Search</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.GRNDate, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 date input-group" style="padding-left:15px; padding-right:15px">
+                                            @Html.TextBoxFor(m => m.GRNDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            @Html.ValidationMessageFor(m => m.GRNDate, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ChallanNo, "Challan No", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.ChallanNo, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.ChallanNo, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.SupplierID, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.SupplierID, (IEnumerable<SelectListItem>)ViewBag.Supplier, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.SupplierID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    @*<div class="form-group">
+                                        @Html.LabelFor(m => m.WONo, "Work Order Code", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.WONo, (IEnumerable<SelectListItem>)ViewBag.WOCode, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.WONo, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>*@
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.WOId, "Work Order No", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.WOId, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.WOId, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.RefNo, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.RefNo, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.RefNo, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Descriptions, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextAreaFor(m => m.Descriptions, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Descriptions, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    @*<div class="form-group">
+                                        @Html.LabelFor(m => m.StoreID, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.StoreID, (IEnumerable<SelectListItem>)ViewBag.Store, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.StoreID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h6 class="box-title">Work Order Item Info</h6>
+                            </div>
+                            <table class="table table-responsive" id="salesGrid2">
+                                <thead>
+                                    <tr>
+                                        <th>Group Name </th>
+                                        <th>Item Name</th>
+                                        @*<th>Pack Size</th>*@
+                                        <th>Unit</th>
+                                        <th>WO Qty</th>
+                                        <th>Receive Qty</th>
+                                        <th>Available Qty</th>
+                                        <th id="action">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h6 class="box-title">Receive Item Quantity</h6>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ItemGrpID, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.ItemGrpID, (IEnumerable<SelectListItem>)ViewBag.Group, "", new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.ItemGrpID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ItemID, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.ItemID, (IEnumerable<SelectListItem>)ViewBag.Item, "", new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.ItemID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.UOMID, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.UOMID, (IEnumerable<SelectListItem>)ViewBag.UOM, "", new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.UOMID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Qty, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.Qty, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Qty, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ReceivedQty, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.ReceivedQty, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.ReceivedQty, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.AvailableQty, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.AvailableQty, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.AvailableQty, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ReceiveQty, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.ReceiveQty, new { @class = "form-control number" })
+                                            @Html.ValidationMessageFor(m => m.ReceiveQty, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.HaveToRecev, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.HaveToRecev, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.HaveToRecev, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.TotalQty, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.TotalQty, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.TotalQty, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12" style="text-align:center;">
+                                            <button type="button" id="addToGrid" name="addToGrid" class="btn btn-primary">Add To Grid</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h6 class="box-title">Receive Info</h6>
+                            </div>
+                            <table class="table table-responsive" id="salesGrid">
+                                <thead>
+                                    <tr>
+                                        <th>Group Name</th>
+                                        <th>Item Name</th>
+                                        @*<th>Pack Size</th>*@
+                                        <th>Receive Qty</th>
+                                        <th>Unit</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="box">
+                        <div class="box-footer">
+                            <div class="form-group" , style="text-align:center">
+                                @if (User.IsInRole("StoreRMOperator"))
+                                {
+                                    <button type="button" id="save" style="height:500%; font-size:100%;" class="btn btn-primary">Save</button>
+                                    <button type="button" id="update" style="height:500%; font-size:100%;" class="btn btn-primary" disabled>Update</button>
+                                    <button type="button" id="refresh" style="height:500%; font-size:100%;" class="btn btn-primary">Refresh</button>
+                                    <button type="button" id="print" style="height:500%; font-size:100%;" class="btn btn-primary">Print</button>
+                                    <button type="button" id="delete" style="height:500%; font-size:100%;" class="btn btn-primary" disabled>Delete</button>
+                                }
+                                else
+                                {
+                                    <button type="button" id="save" style="height:500%; font-size:100%;" class="btn btn-primary">Save</button>
+                                    <button type="button" id="update" style="height:500%; font-size:100%;" class="btn btn-primary">Update</button>
+                                    <button type="button" id="delete" style="height:500%; font-size:100%;" class="btn btn-primary">Delete</button>
+                                    <button type="button" id="refresh" style="height:500%; font-size:100%;" class="btn btn-primary">Refresh</button>
+                                    <button type="button" id="print" style="height:500%; font-size:100%;" class="btn btn-primary">Print</button>
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="unitCost" />
+
+@section scripts{
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/StoreRM/GRNEntryInputFocus.js"></script>
+    <script>
+
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+
+        var addedItems = [];
+        var addedItems1 = [];
+        var grn = { GRNNo : 0, GRNDate : "", ChallanNo : "", SupplierID : 0, WONo : 0, StoreID : 0, RefNo : "", Descriptions : "", TotalQty : 0.0, TotalCost : 0.0, Type : ""}
+        var isValid = false;
+        var woNo = "";
+        var isSearch = false;
+        var grnNo = "";
+
+        $(".select2").select2();
+
+        var table = $('#salesGrid').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': false,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+        var table1 = $('#salesGrid2').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': false,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+
+        $(document).on('click', "#refresh", function () {
+            location.reload();
+        });
+
+        EnterPress();
+
+        $(document).ready(function () {
+            //$("#StoreID").prop('disabled', true);
+            //$("#StoreID").val('@ViewBag.FactoryRM').change();
+            $("#ItemGrpID").prop('disabled', true);
+            $("#ItemID").prop('disabled', true);
+            $("#UOMID").prop('disabled', true);
+            $("#Qty").prop('disabled', true);
+            $("#ReceivedQty").prop('disabled', true);
+            $("#AvailableQty").prop('disabled', true);
+            $("#HaveToRecev").prop('disabled', true);
+            $("#TotalQty").prop('disabled', true);
+            $("#WOId").prop('disabled', true);
+            $("#WONo").prop('disabled', true);
+            $("#ChallanNo").focus();
+            $("#update").hide();
+            $("#print").hide();
+            $("#delete").hide();
+        });
+
+        $(".digit").keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                return false;
+            }
+        });
+
+        $(document).on('change', "#SupplierID", function () {
+            $("#WONo").prop('disabled', false);
+            var id = { supplierId: $(this).val(), isSearch: isSearch };
+            if (id.supplierId != "") {
+                $.ajax({
+                    url: '@Url.Action("GetWOCodeBySupplierId", "LMRGoodsReceiveNote")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        $("#WONo").empty();
+                        $("#WONo").prop("disabled", false);
+                        $.each(datas, function (index, value) {
+                            $("#WONo").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                        $("#WONo").focus();
+                        if (isSearch == true) {
+                            if (woNo != "") {
+                                $("#WONo").val(woNo).change();
+                                $("#WONo").prop('disabled', true);
+                                //$("#WONo").prop('disabled', false);
+                                //woNo = "";
+                            }
+                            //isSearch = false;
+                        }
+
+                    }
+                });
+            }
+                    else {
+                        $("#WONo").val("").change();
+                        $("#WONo").prop("disabled", true);
+                }
+        });
+
+        @*$(document).on('change', "#ItemGrpID", function () {
+                var id = { groupId: $(this).val() };
+                if (id.groupId != "") {
+                   $.ajax({
+                       url: '@Url.Action("GetItemByGroupId", "GRN")',
+                       contentType: "application/json;charset=utf-8",
+                       data: id,
+                       type: 'GET',
+                       dataType: 'json',
+                       success: function (datas) {
+
+                           $("#ItemID").empty();
+                           $("#ItemID").prop("disabled", false);
+                           $.each(datas, function (index, value) {
+                               $("#ItemID").append($('<option />', {
+                                   value: value.Value,
+                                   text: value.Text
+                               })).trigger('change');
+                           });
+                           $("#ItemID").focus();
+                       }
+                   });
+                }
+                else {
+                    $("#ItemID").val("").change();
+                    $("#ItemID").prop("disabled", true);
+                }
+        });*@
+
+        $(document).on('change', "#WONo", function () {
+            RemoveError();
+            var id = { id: $(this).val() };
+            $("#WOId").val($(this).val());
+            if (id != "") {
+                $.ajax({
+                    url: '@Url.Action("GetWorderByWONo", "LMRGoodsReceiveNote")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        $("#WOId").val(datas.workOrder.WONo);
+                        addedItems = [];
+                        $.each(datas.workOrderLI, function (index, value) {
+                            var item = { WONo: 0, ItemID: 0, ItemRate: 0.0, ItemQty: 0, ItemValue: 0.0, ItemDescriptions: "", GroupID: 0, ItemName: "", GroupName: "", Unit: "", RevQty: 0.0, AvaQty: 0.0, UnitId: 0, PackSize: "", UnitCost : 0.0 }
+                            item.WONo = value.WONo;
+                            item.ItemID = value.ItemID;
+                            item.ItemRate = value.ItemRate;
+                            item.ItemQty = value.ItemQty;
+                            item.ItemValue = value.ItemValue;
+                            item.ItemDescriptions = value.ItemDescriptions;
+                            item.GroupID = value.GroupID;
+                            item.ItemName = value.ItemName;
+                            item.GroupName = value.GroupName;
+                            item.Unit = value.Unit;
+                            item.RevQty = value.RevQty;
+                            item.AvaQty = value.AvaQty;
+                            item.UnitId = value.UnitId;
+                            item.UnitCost = value.UnitCost;
+
+                            //item.PackSize = value.PackSize;
+                            addedItems.push(item);
+                        });
+                        ShowOnTable();
+                    }
+                });
+            }
+            else {
+                $("#WOId").val("");
+            }
+        });
+
+
+        $(document).on('click', '[name="editRow"]', function () {
+            var sl = $(this).attr("value");
+            $.each(addedItems, function (index, value) {
+                if (value.Sl == sl) {
+                    $("#Qty").val(value.ItemQty);
+                    $("#ItemGrpID").val(value.GroupID).change();
+                    $("#UOMID").val(value.UnitId).change();
+                    $("#ReceivedQty").val(value.RevQty);
+                    $("#AvailableQty").val(value.AvaQty);
+                    $("#ReceiveQty").val(value.AvaQty);
+                    $("#ItemID").val(value.ItemID).change();
+                    $("#unitCost").val(value.UnitCost);
+
+                }
+            });
+            DeleteRowFromGrid(sl);
+        });
+
+        $(document).on('click', '[name="editRow1"]', function () {
+            if (isSearch == false) {
+                var sl = $(this).attr("value");
+
+                $.each(addedItems1, function (index, value) {
+                    if (value.Sl == sl) {
+                        $("#Qty").val(value.OrderQty).change();
+                        $("#ItemGrpID").val(value.ItemGrpID).change();
+                        $("#UOMID").val(value.UOMID);
+                        $("#ReceivedQty").val(value.ReceivedQty);
+                        $("#ReceiveQty").val(value.Qty);
+
+                        $("#AvailableQty").val(value.AvailableQty);
+                        $("#ItemID").val(value.ItemID).change();
+                        $("#unitCost").val(value.CostRt);
+                    }
+                });
+                DeleteRowFromGrid1(sl);
+            } else {
+                var sl = $(this).attr("value");
+                $.each(addedItems1, function (index, value) {
+                    if (value.Sl == sl) {
+
+                        $("#ItemGrpID").val(value.ItemGrpID).change();
+                        $("#UOMID").val(value.UOMID);
+                        $("#ReceivedQty").val(value.ReceivedQty);
+                        $("#ReceiveQty").val(value.Qty);
+                        var receive = value.Qty;
+                        $.each(addedItems, function (index, value) {
+                            $("#Qty").val(value.ItemQty).change();
+                            $("#AvailableQty").val(value.AvaQty + receive);
+                            $("#ReceivedQty").val(value.RevQty - receive);
+                        });
+                       // $("#AvailableQty").val(value.AvailableQty);
+                        $("#ItemID").val(value.ItemID).change();
+                        //$("#unitCost").val(value.CostRt);
+                    }
+                });
+                $.each(addedItems, function (intex, value) {
+                    if (value.Sl == parseInt( sl)) {
+                        $("#unitCost").val(value.UnitCost);
+                    }
+                });
+                DeleteRowFromGrid1(sl);
+            }
+
+        });
+
+        $(document).on('focusout', "#ReceiveQty", function () {
+            var rcvQty = $(this).val();
+            var RcvdQty = $("#ReceivedQty").val();
+            var avQty = $("#AvailableQty").val();
+            var orderQty = $("#Qty").val();
+
+            if (parseFloat(rcvQty) > parseFloat(avQty)) {
+                alert("Receive Qty Can not be grater than Available Qty");
+            }
+            else {
+                $("#HaveToRecev").val(parseFloat(orderQty) - (parseFloat(RcvdQty) + parseFloat(rcvQty)));
+            }
+        });
+
+        $(document).on('click', "#addToGrid", function () {
+
+            var id = { item: $("#ItemID").val(), group: $("#ItemGrpID").val() };
+            ValidationAddToGrid();
+            if (isValid == true) {
+                if (id != "") {
+                $.ajax({
+                    url: '@Url.Action("GetItemAndGroupName", "LMRGoodsReceiveNote")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        var item = { ItemID: 0, ItemGrpID: 0, ItemName: "", GroupName: "", Unit: "", Id: 0, GRNNo: 0, UOMID: 0, Qty: 0, CostRt: 0.0, CostVal: 0.0,OrderQty:0.0,AvailableQty:0.0,ReceivedQty:0.0 }
+                        item.Unit = datas.Unit;
+                        item.Qty = $("#ReceiveQty").val();
+                        item.ItemName = datas.Item;
+                        item.GroupName = datas.Group;
+                        item.ItemID = $("#ItemID").val();
+                        item.ItemGrpID = $("#ItemGrpID").val();
+                        item.UOMID = $("#UOMID").val();
+                        item.CostRt = $("#unitCost").val();
+                        item.OrderQty = parseFloat($("#Qty").val());
+                        item.AvailableQty = parseFloat($("#AvailableQty").val());
+                        item.ReceivedQty = parseFloat($("#ReceivedQty").val());
+
+                        item.CostVal = item.CostRt * item.Qty;
+                        addedItems1.push(item);
+                        ShowOnTable1();
+                        ClearOnAddToGrid();
+                        RemoveError();
+                    }
+                });
+                }
+            }
+        });
+
+
+
+        $(document).on('click', '#print', function () {
+            if ($("#GRNNo").val() != "") {
+                window.open("/GRN/PrintBill?GRNNo=" + $("#GRNNo").val(), "_blank");
+            }
+            else {
+                alert("GRN-No is required");
+            }
+        });
+
+        $(document).on('click', '#delete', function () {
+            var id = { id: $("#GRNNo").val() };
+            if (confirm('Do you want to Delete')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteGRNById", "LMRGoodsReceiveNote")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+
+                        if (datas == 0) {
+                            alert("Your entered GRN No. Doesn't exist");
+                        }
+                        else {
+                            alert("Deleted Successfully");
+                        }
+                    },
+                    error: function () {
+                        alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+
+                    }
+                });
+            }
+        });
+
+        $(document).on('click', '[name="deleteRow1"]', function () {
+            DeleteRowFromGrid1($(this).attr("value"));
+        });
+
+        $(document).on('click', "#save", function () {
+            RemoveError();
+            SetGrn();
+            if (addedItems1.length <= 0) {
+                alert("At least One Item should be added for save.");
+            }
+            else {
+                ValidateSetGrn();
+                if (isValid == true) {
+                    if (confirm('Do you want to save')) {
+                    $.ajax({
+                        url: '@Url.Action("SaveGRN", "LMRGoodsReceiveNote")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ grn: grn, addedItems1: addedItems1 }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                setError("ChallanNo", "Challan No is already Exist");
+                                alert("Challan No is already Exist");
+                                $("#save").prop('disabled', false);
+                            } else if (datas==1) {
+                                alert("Please reload the page!");
+                            }
+                            else {
+                                alert("Sucessfully Saved.");
+                                $("#GRNNo").val(datas.grnNo);
+                                //clearIssuFGStore();
+                                $("#save").hide();
+                                $("#print").show();
+                                $("#delete").show();
+                            }
+                        }
+                    });
+                    }
+                    else {
+                        $("#save").show();
+                    }
+                }
+                else {
+                    $("#save").show();
+                }
+            }
+        });
+
+
+        //update GRN
+
+        $(document).on('click', "#update", function () {
+            RemoveError();
+            SetGrnforUpdate();
+            if (addedItems1.length <= 0) {
+                alert("At least One Item should be added for save.");
+            }
+            else {
+                ValidateSetGrn();
+                if (isValid == true) {
+                    if (confirm('Do you want to update')) {
+                    $.ajax({
+                        url: '@Url.Action("UpdateGRN", "LMRGoodsReceiveNote")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ grn: grn, addedItems1: addedItems1 }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                setError("ChallanNo", "Challan No is already Exist");
+                                alert("Challan No is already Exist");
+                                $("#save").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Updated.");
+                                $("#GRNNo").val(datas.grnNo);
+                                //clearIssuFGStore();
+                                $("#save").hide();
+                                $("#print").show();
+                                $("#delete").show();
+                            }
+                        }
+                    });
+                    }
+                    else {
+                        $("#update").show();
+                    }
+                }
+                else {
+                    $("#update").show();
+                }
+            }
+        });
+
+        //search GRN
+        $(document).on('click', '#search', function () {
+            isSearch = true;
+            var id = { id: $("#GRNNo").val() };
+            //$("#edit").hide();
+            woNo = "";
+                //ClearOnSearch();
+                $.ajax({
+                        url: '@Url.Action("GetGRNById", "LMRGoodsReceiveNote")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            if (datas == 0) {
+                                alert("Your entered GRN No. Doesn't exist");
+                            }
+                            else {
+                                $("#save").hide();
+                                $("#print").show();
+                                $("#delete").show();
+                                $("#update").show();
+                                $("#delete").show();
+                                $("#SupplierID").prop('disabled', false);
+                                $("#GRNDate").val((moment(datas.grnItem.GRNDate).format("DD-MM-YYYY")));
+                                $("#GRNNo").val(datas.grnItem.GRNNo);
+                                $("#ChallanNo").val(datas.grnItem.ChallanNo);
+                                $("#SupplierID").val(datas.grnItem.SupplierID).change();
+                                $("#RefNo").val(datas.grnItem.RefNo);
+                                $("#Descriptions").val(datas.grnItem.Descriptions);
+                                addedItems1 = [];
+                                $.each(datas.grnLineItem, function (index, value) {
+                                    var item = { ItemID: 0, ItemGrpID: 0, ItemName: "", GroupName: "", Unit: "", Id: 0, GRNNo: 0, UOMID: 0, Qty: 0, CostRt: 0.0, CostVal: 0.0 }
+                                    item.Unit = value.Unit;
+                                    item.Qty = value.Qty;
+                                    item.ItemName = value.ItemName;
+                                    item.GroupName = value.GroupName;
+                                    item.ItemID = value.ItemID;
+                                    item.ItemGrpID = value.ItemGrpID;
+                                    item.CostRt = value.CostRt;
+                                    item.UOMID = value.UOMID;
+                                    //item.PackSize = value.PackSize;
+                                    item.CostVal = item.CostRt * item.Qty;
+                                    grnNo = value.GRNNo;
+                                    addedItems1.push(item);
+                                });
+                                ShowOnTable1();
+                                woNo = datas.WoNo;
+
+                            }
+                    },
+                    error: function () {
+                        alert("Please check your internet connection first. If this doesn't sole your problem, then Contact With Paankouri Software & Services")
+
+                    }
+                    });
+        });
+
+        function ShowOnTable() {
+            table1.clear().draw();
+            var sl = 0;
+            var items = [];
+            $.each(addedItems, function (index, value) {
+                //sl = sl + 1;
+                sl = value.ItemID;
+                value.Sl = sl;
+                items.push(value);
+                //if (grnNo == "") {
+                    table1.row.add([value.GroupName, value.ItemName, value.Unit, value.ItemQty, value.RevQty, value.AvaQty,
+                    '<a href="#"><i class="fa fa-edit" name="editRow" value="' +
+                    sl + '"></i></a>']).draw();
+
+                //}
+                //else {
+                //    table1.row.add([value.GroupName, value.ItemName, value.Unit, value.ItemQty, value.RevQty, value.AvaQty, ""]).draw();
+                //    woNo = "";
+                //}
+            });
+            addedItems = items;
+        }
+
+        function ShowOnTable1() {
+            table.clear().draw();
+            var totQty = 0;
+            var sl = 0;
+            var items = [];
+            $.each(addedItems1, function (index, value) {
+                //sl = sl + 1;
+                sl = value.ItemID;
+                value.Sl = sl;
+                items.push(value);
+                table.row.add([value.GroupName, value.ItemName, value.Qty, value.Unit,
+                '<a href="#"><i class="fa fa-edit" name="editRow1" value="' +
+                    sl + '"></i></a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow1" value="' + sl + '"></i></a>']).draw();
+                totQty += parseFloat(value.Qty);
+            });
+            $("#TotalQty").val(totQty);
+            addedItems1 = items;
+        }
+
+        function ClearOnAddToGrid() {
+            $("#Qty").val("");
+            $("#ItemGrpID").val("").change();
+            $("#ItemID").val("").change();
+            $("#UOMID").val("");
+            $("#ReceivedQty").val("");
+            $("#AvailableQty").val("");
+            $("#ReceiveQty").val("");
+            $("#HaveToRecev").val("");
+            $("#unitCost").val("");
+        }
+
+        function DeleteRowFromGrid(rowSL) {
+            var items = [];
+            $.each(addedItems, function (index, value) {
+                if (value.Sl != rowSL) {
+                    items.push(value);
+                }
+            });
+            addedItems = items;
+            ShowOnTable();
+        }
+
+        function DeleteRowFromGrid1(rowSL) {
+            var items = [];
+            $.each(addedItems1, function (index, value) {
+                if (value.Sl != rowSL) {
+                    items.push(value);
+                }
+            });
+            addedItems1 = items;
+            ShowOnTable1();
+        }
+
+        function ValidationAddToGrid() {
+            isValid = true;
+            if ($("#ReceiveQty").val() == "") {
+                setError("ReceiveQty", "Receive Qty is required field and only number is acceptable");
+                isValid = false;
+            }
+
+            if ($("#ReceiveQty").val() == 0) {
+                setError("ReceiveQty", "Receive Qty can not be Zero and only number is acceptable");
+                isValid = false;
+            }
+
+            $.each(addedItems1, function (index, value) {
+                if (value.ItemID == $("#ItemID").val()) {
+                    alert("This Item Already Added.");
+                    ClearOnAddToGrid();
+                    isValid = false;
+                }
+            });
+        }
+
+        function SetGrn() {
+            grn.GRNNo = 0;
+            grn.GRNDate = $("#GRNDate").val();
+            grn.ChallanNo = $("#ChallanNo").val();
+            grn.SupplierID = $("#SupplierID").val();
+            grn.WONo = $("#WONo").val();
+            grn.StoreID = $("#StoreID").val();
+            grn.RefNo = $("#RefNo").val();
+            grn.Descriptions = $("#Descriptions").val();
+            grn.TotalQty = $("#TotalQty").val();
+            grn.TotalCost = 0.0;
+            grn.Type = $("#Type").val();
+        }
+        function SetGrnforUpdate() {
+            grn.GRNNo = $("#GRNNo").val();
+            grn.GRNDate = $("#GRNDate").val();
+            grn.ChallanNo = $("#ChallanNo").val();
+            grn.SupplierID = $("#SupplierID").val();
+            grn.WONo = $("#WONo").val();
+            grn.StoreID = $("#StoreID").val();
+            grn.RefNo = $("#RefNo").val();
+            grn.Descriptions = $("#Descriptions").val();
+            grn.TotalQty = $("#TotalQty").val();
+            grn.TotalCost = 0.0;
+            grn.Type = $("#Type").val();
+        }
+
+        function ValidateSetGrn() {
+            isValid = true;
+            if (grn.GRNDate == "") {
+                setError("GRNDate", "Date is required field");
+                isValid = false;
+            }
+            if (grn.ChallanNo == "") {
+                setError("ChallanNo", "Challan is required field");
+                isValid = false;
+            }
+            if (grn.SupplierID == "") {
+                setError("SupplierID", "Supplier NO is required field");
+                isValid = false;
+            }
+            if (grn.WONo == "") {
+                setError("WONo", "WO No is required field");
+                isValid = false;
+            }
+            if (grn.StoreID == "") {
+                setError("StoreID", "Store is required field");
+                isValid = false;
+            }
+        }
+
+    </script>
+}

@@ -1,0 +1,370 @@
+﻿@using BEEERP.Models.Authentication
+@using BEEERP.Models.CommonInformation
+@model BEEERP.Models.ProductionModule.Batch
+@{
+    ViewBag.Title = "BatchEntry";
+}
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<h3 style="text-align:center">Create New Production Batch</h3>
+<form id="report" , target="_blank">
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                    <h5 class="box-title">Batch Details</h5>
+                                </div>
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ID, "Batch ID", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-4">
+                                            @Html.TextBoxFor(m => m.ID, new { @class = "form-control digit", @Value = ViewBag.ID })
+                                            @Html.ValidationMessageFor(m => m.ID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.BatchNo, "Batch No", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-4">
+                                            @Html.TextBoxFor(m => m.BatchNo, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.BatchNo, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.BatchDate, "Batch Date", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-4 input-group" style="padding-left:15px; padding-right:15px">
+                                            @Html.TextBoxFor(m => m.BatchDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            @Html.ValidationMessageFor(m => m.BatchDate, "", new { @style = "color: red" })
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.PMName, "Target Production", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-4">
+                                            @Html.TextBoxFor(m => m.PMName, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.PMName, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.BatchDesc, "Batch Description", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-4">
+                                            @Html.TextAreaFor(m => m.BatchDesc, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.BatchDesc, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" id="Data" name="Data" value=@ViewBag.Data>
+                            <div class="row">
+                                <div class="box">
+                                    <div class="box-footer">
+                                        <div class="form-group">
+                                            <div class="col-md-2"></div>
+                                            <div class="col-md-8" style="text-align:center;">
+                                                @if (User.IsInRole("ProductionOperator"))
+                                                {
+                                                    <input type="button" value="Save" id="save" class="btn btn-primary" style="padding-left:20px;" />
+                                                }
+                                                else
+                                                {
+                                                    <input type="button" value="Save" id="save" class="btn btn-primary" style="padding-left:20px;" />
+                                                    <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                                                    @*<input type="button" name="delete" id="delete" value="Delete" class="btn skin-blue" />*@
+                                                    <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                                    @*<input type="button" name="print" id="print" value="Print" class="btn skin-blue" />*@
+                                                }
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="box ">
+                                        <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                            <h4 class="box-title">Batch List</h4>
+                                        </div>
+                                        <div class="box-body">
+                                            <table class="table table-responsive" id="BatchList">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Batch</th>
+                                                        <th>Date</th>
+                                                        <th>Target</th>
+                                                        <th>Description</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    @foreach (var item in ViewBag.Data)
+                                                    {
+                                                        <tr value="@item.ID" class="clickable-row">
+                                                            <td>@item.ID</td>
+                                                            <td>@item.BatchNo</td>
+                                                            @*<td>@item.BatchDate</td>*@
+                                                            <td>@item.Date</td>
+                                                            <td>@item.PMName</td>
+                                                            <td>@item.BatchDesc</td>
+                                                            @*<td> <a href="#" style="padding-right:40px;"><i class="fa fa-edit" value="@item.ID" id="edit"></i> </a></td>*@
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@section scripts{
+    <script src="~/Scripts/Common.js"></script>
+    <script>
+
+        var batch = { ID: 0, BatchNo: "", BatchDate: "", BatchDesc: "", PMName: "" }
+        function SetBatch() {
+            batch.ID = $("#ID").val();
+            batch.BatchNo = $("#BatchNo").val();
+            batch.BatchDesc = $("#BatchDesc").val();
+            batch.BatchDate = $("#BatchDate").val();
+            batch.PMName = $("#PMName").val();
+        }
+        var isUpdate = false;
+        function ValidateBatch() {
+            isValid = true;
+            if (batch.BatchNo == "") {
+                setError("BatchNo", "BatchNo is required field");
+                isValid = false;
+            }
+            if (batch.BatchDate == "") {
+                setError("BatchDate", "BatchNo is required field");
+                isValid = false;
+            }
+        }
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+
+        var table = $('#BatchList').DataTable({
+            'paging': false,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+
+        $(document).ready(function () {
+            $("#update").hide();
+            //addedItems = [];
+            //var loadedData = $("#Data").val();
+            //$.each(loadedData, function (index, value) {
+            //    var item = { ID: 0, BatchNo: "", BatchDate: "", BatchDesc: "", PMName: "" }
+            //    item.ID = value.ID;
+            //    item.BatchNo = value.BatchNo;
+            //    item.BatchDate = value.BatchDate;
+            //    item.BatchDesc = value.BatchDesc;
+            //    item.PMName = value.PMName;
+            //    addedItems.push(item);
+            //});
+            //ShowOnTable();
+
+
+        });
+        $(document).on('click', '#refresh', function () {
+            location.reload();
+        });
+        $(".clickable-row").on('click', function (e) {
+                var id = $(this).attr("value");
+
+                 $.ajax({
+                    url: '@Url.Action("GetBatch", "BatchEntry")',
+                    contentType: "application/json;charset=utf-8",
+                     data: JSON.stringify({ id : id }),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas.Message==0)
+                        {
+                            alert("This Batch  doesn't exist.");
+                        }
+                        else {
+                            $("#save").hide();
+                            $("#update").show();
+                            isUpdate = true;
+                            $("#ID").val(datas.ID);
+                            $("#BatchNo").val(datas.BatchNo);
+                            $("#BatchDate").val(moment(datas.BatchDate).format("DD-MM-YYYY")).change();
+                            $("#BatchDesc").val(datas.BatchDesc);
+                            $("#PMName").val(datas.PMName);
+                            window.scrollTo(x - coord, y - coord);
+                        }
+                    }
+                });
+        });
+
+
+        $(document).on('click', '#save', function () {
+            RemoveError();
+            //$("#save").prop('disabled', true);
+            SetBatch();
+
+                ValidateBatch();
+                if (isValid == true) {
+                    if (confirm('Do you want to save')) {
+                        $.ajax({
+                            url: '@Url.Action("SaveUpdateBatch", "BatchEntry")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ batch: batch }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Failed To Saved.");
+                                    $("#save").prop('disabled', false);
+                                } else if (datas == 3) {
+                                    alert("Please select a valid entry date");
+                                    $("#BatchDate").focus();
+                                    $("#save").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully Saved.");
+
+                                    window.location.reload(true);
+
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        $("#save").show();
+                    }
+
+            }
+        });
+       $(document).on('click', '#update', function () {
+            RemoveError();
+            //$("#save").prop('disabled', true);
+            SetBatch();
+
+                ValidateBatch();
+                if (isValid == true) {
+                    if (confirm('Do you want to update')) {
+                        $.ajax({
+                            url: '@Url.Action("SaveUpdateBatch", "BatchEntry")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ batch: batch }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Failed To update.");
+                                    $("#save").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully updated.");
+
+                                    window.location.reload(true);
+
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        $("#save").show();
+                    }
+
+            }
+        });
+
+        $('#ID').focus();
+        $("#ID").on("keydown", function (e) {
+            if (e.keyCode == 13 || e.keyCode == 9) {
+                e.preventDefault();
+                $("#BatchNo").focus();
+            }
+        });
+        $("#BatchNo").on("keydown", function (e) {
+            if (e.keyCode == 13 || e.keyCode == 9) {
+                e.preventDefault();
+                $("#BatchDate").focus();
+            }
+        });
+        $("#BatchDate").on("keydown", function (e) {
+            if (e.keyCode == 13 || e.keyCode == 9) {
+                e.preventDefault();
+                $("#PMName").focus();
+            }
+        });
+        $("#PMName").on("keydown", function (e) {
+            if (e.keyCode == 13 || e.keyCode == 9) {
+                e.preventDefault();
+                $("#BatchDesc").focus();
+
+            }
+        });
+        $("#BatchDesc").on("keydown", function (e) {
+            if (e.keyCode == 13 || e.keyCode == 9) {
+                e.preventDefault();
+                if (isUpdate == true) {
+                    $("#update").focus();
+                } else {
+                    $("#save").focus();
+                }
+
+            }
+        });
+        $("#save").on("keydown", function (e) {
+            if (e.keyCode == 13 || e.keyCode == 9) {
+                e.preventDefault();
+                $("#save").click();
+            }
+        });
+        $("#update").on("keydown", function (e) {
+            if (e.keyCode == 13 || e.keyCode == 9) {
+                e.preventDefault();
+                $("#update").click();
+            }
+        });
+
+    </script>
+
+}
+

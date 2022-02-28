@@ -1,0 +1,143 @@
+﻿@model BEEERP.Models.ViewModel.CommercialVM.Report.PIReportVModel
+@using BEEERP.Models.CommonInformation
+@{
+    ViewBag.Title = "ShowPIDetails";
+    int i = 0;
+}
+<h2 style="text-align:center">Proforma Invoice Report</h2>
+
+@using (Html.BeginForm("ShowImportPISummary", "PIDetails", FormMethod.Post, new { id = "PIReport", target = "_blank" }))
+{
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="box ">
+                        <div class="box-header with-border box-head-back">
+                            <h3 class="box-title">Range And Selection</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.From, new { @class = "col-md-4 control-label" })
+                                <div class="col-sm-8 date input-group" style="padding-left:15px;padding-right:15px;">
+                                    @Html.TextBoxFor(m => m.From, new { @class = "form-control AsOnDate", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                    @Html.ValidationMessageFor(m => m.From)
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.To, new { @class = "col-md-4 control-label" })
+                                <div class="col-sm-8 date input-group" style="padding-left:15px;padding-right:15px;">
+                                    @Html.TextBoxFor(m => m.To, new { @class = "form-control AsOnDate", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                    @Html.ValidationMessageFor(m => m.To)
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Type, "Type", new { @class = "col-md-4 control-label" })
+                                <div class="col-sm-8 date input-group" style="padding-left:15px;padding-right:15px;">
+                                    @Html.DropDownListFor(m => m.Type, (IEnumerable<SelectListItem>)ViewBag.lcType, new { @class = "form-control select2" })
+                                    @Html.ValidationMessageFor(m => m.Type)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Item, "Item", new { @class = "col-md-4 control-label" })
+                                <div class="col-sm-8 date input-group" style="padding-left:15px;padding-right:15px;">
+                                    @Html.DropDownListFor(m => m.Item, (IEnumerable<SelectListItem>)ViewBag.item, new { @class = "form-control select2" })
+                                    @Html.ValidationMessageFor(m => m.Item)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.SupplierId, "Supplier", new { @class = "col-md-4 control-label" })
+                                <div class="col-sm-8 date input-group" style="padding-left:15px;padding-right:15px;">
+                                    @Html.DropDownListFor(m => m.SupplierId, (IEnumerable<SelectListItem>)ViewBag.Supplier, new { @class = "form-control select2" })
+                                    @Html.ValidationMessageFor(m => m.SupplierId)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="box ">
+                        <div class="box-header with-border box-head-back">
+                            <h3 class="box-title">Contact Report</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group" style="text-align:center;">
+                                @{
+            i = i + 1;
+                                }
+                                <button class="btn skin-blue" id="importPISummary" style="min-width:400px;" type="submit">@i. Show Import PI Summary</button>
+                            </div>
+                            <div class="form-group" style="text-align:center;">
+                                @{
+            i = i + 1;
+                                }
+                                <button class="btn skin-blue" id="importPIDetails" style="min-width:400px;" type="submit">@i. Show Import PI Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="message" value="false"/>
+</div>
+}
+@section scripts{
+    <script src="~/Scripts/ReportSearch.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".select2").select2();
+            $('.AsOnDate').datepicker({
+                autoclose: true,
+                format: "dd-mm-yyyy"
+            });
+            $(document).on('change', '#Type', function () {
+                var type = { type: $("#Type").val() };
+                $.ajax({
+                    url: '@Url.Action("GetItemByType", "PIDetails")',
+                    contentType: "application/json;charset=utf-8",
+                    data: type,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data){
+                        $("#Item").empty();
+                        $.each(data, function (i,v) {
+                            $("#Item").append($('<option>', {
+                                value: v.Value,
+                                text: v.Text
+                            })).trigger('change');
+                        });
+                    }
+
+                })
+            });
+        });
+
+        $(document).on('click', "#importPISummary", function () {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#message").val() != "true") {
+                $("#PIReport").attr("action", "/PIDetails/ShowImportPISummary")
+                $("#PIReport").submit();
+            }
+        });
+
+        $(document).on('click', "#importPIDetails", function () {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#message").val() != "true") {
+                $("#PIReport").attr("action", "/PIDetails/ShowImportPIDetails")
+                $("#PIReport").submit();
+            }
+        });
+
+        
+    </script>
+}

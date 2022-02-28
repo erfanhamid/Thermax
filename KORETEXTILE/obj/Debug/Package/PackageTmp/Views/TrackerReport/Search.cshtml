@@ -1,0 +1,121 @@
+﻿@model BEEERP.Models.ViewModel.Location.Report.TrackerReportVModel
+@{
+    ViewBag.Title = "Search";
+    int i = 0;
+}
+
+
+<h2 style="text-align:center">Tracker Report</h2>
+
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "report", target = "_blank" }))
+{
+    <div class="content" style="margin-top:50px;">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 class="box-title">Range And Selection</h3>
+                                </div>
+
+                                <div class="box-body" style="padding-bottom:110px;">
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.TsoID, "TSO", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.TsoID, (IEnumerable<SelectListItem>)ViewBag.TSO, new { @class = "form-control select2 enterTab" })
+                                            @Html.ValidationMessageFor(x => x.TsoID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.FromDate, "From", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 date input-group" style="padding-left:15px;padding-right:15px;">
+                                            @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control AsOnDate", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            @Html.ValidationMessageFor(m => m.FromDate)
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ToDate, "To", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 date input-group" style="padding-left:15px;padding-right:15px;">
+                                            @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control AsOnDate", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            @Html.ValidationMessageFor(m => m.ToDate)
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 class="box-title">Tracker Report</h3>
+                                </div>
+                                <div class="box-body">
+                                    @*<div class="form-group" style="text-align:center;">
+                                            <button class="btn skin-blue" style="min-width:400px;" type="button">1. Show Customer Details</button>
+                                        </div>*@
+                                    <div class="form-group" style="text-align:center;">
+                                        @{
+                                            i = i + 1;
+                                        }
+                                        <button class="btn skin-blue" id="TrackingHistoryAll" style="min-width:400px;" type="submit">@i. TSO Wise Tracking History(All)</button>
+                                    </div>
+                                    <div class="form-group" style="text-align:center;">
+                                        @{
+                                            i = i + 1;
+                                        }
+                                        <button class="btn skin-blue" style="min-width:400px;" type="submit" id="TrackingHistory">@i. TSO Wise Tracking History(Not Visited)</button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+@section scripts{
+    <script src="~/Scripts/Search.js"></script>
+    <script src="~/Scripts/ReportSearch.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $(".select2").select2();
+            $('.date').datepicker({
+                autoclose: true,
+                format: "dd-mm-yyyy"
+            });
+
+            $(document).on('click', "#TrackingHistoryAll", function () {
+                
+                
+                $("#report").attr("action", "/TrackerReport/ShowTSOWiseTrackingAll");
+                $("#report").submit();
+            });
+            $(document).on('click', "#TrackingHistory", function () {
+
+
+                $("#report").attr("action", "/TrackerReport/ShowTSOWiseTracking");
+                $("#report").submit();
+            });
+            
+        });
+    </script>
+    
+    }

@@ -1,0 +1,291 @@
+﻿@model BEEERP.Models.ViewModel.Sales.Report.ReportVModel
+@{
+    int i = 0;
+    ViewBag.Title = "EmployeeInfoReport";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+    .box-header {
+        background: #F1C40F;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        /*padding: 15px 32px;*/
+        /*text-align: center;*/
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 8px;
+        min-width: 450px;
+        /*height: 12px;*/
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+        }
+</style>
+
+<h3 style="text-align:center">Employee Report</h3>
+
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "report", target = "_blank" }))
+{
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                    <h4 class="box-title">Select Date Range and Parameters</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.EmployeeID, "Employee", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-6">
+                                                @Html.DropDownListFor(m => m.EmployeeID, (IEnumerable<SelectListItem>)ViewBag.Employee, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.EmployeeID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.From, "From Date", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-6 date input-group" style="padding-left:15px;padding-right:15px;">
+                                                @Html.TextBoxFor(m => m.From, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy"), @autocomplte = "off" })
+                                                @Html.ValidationMessageFor(m => m.From)
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.To, "To Date", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-6 date input-group" style="padding-left:15px;padding-right:15px;">
+                                                @Html.TextBoxFor(m => m.To, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy"), @autocomplte = "off" })
+                                                @Html.ValidationMessageFor(m => m.To)
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="text-align:center;">
+                                            <lable for="date" class="col-md-4 control-label" style="font-weight:bold;padding-right:20px;">As on Date</lable>
+                                            <div class="col-sm-6 input-group" style="padding-left: 15px;padding-right: 14px;">
+                                                <input type="text" id="AsOnDate" class="enterTab form-control date" Value=@DateTime.Now.ToString("dd-MM-yyyy") name="AsOnDate" ,autocomplte="off" />
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                            <div style="padding-left:32px">
+                                                @Html.ValidationMessage("date")
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                    <h4 class="box-title">Employee Reports</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-12">
+                                        <div class="form-group" style="text-align:center;">
+                                            @{
+                                                i = i + 1;
+                                            }
+                                            <button class="btn skin-blue" id="showEmpDetails" type="submit" >@i. Show Employee Details</button>
+                                        </div>
+                                        <div class="form-group" style="text-align:center;">
+                                            @{
+                                                i = i + 1;
+                                            }
+                                            <button class="btn skin-blue" id="showEmpListOdrByName" type="submit" >@i. Show Employee List</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<input type="hidden" id="message" value="false" />
+
+
+
+
+@section scripts{
+    <script src="~/Scripts/Search.js"></script>
+    <script src="~/Scripts/ReportSearch.js"></script>
+    <script>
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+            orientation: 'bottom auto'
+        });
+        $(".select2").select2();
+        var isValid = "";
+
+        $(document).on('click', "#showEmpDetails", function (event) {
+            event.preventDefault();
+            ValidateReportSearchParam(["EmployeeId"]);
+            if ($("#EmployeeID").val() == "" || $("#EmployeeID").val() <= 0) {
+                setError("EmployeeID", "EmployeeId is required field");
+            }
+            if (isValid == "" && $("#EmployeeID").val() != "" && $("#EmployeeID").val() > 0) {
+                RemoveError();
+                if ($("#message").val() != "true") {
+                    $("#report").attr("action", "/EmployeeReport/GetAllEmployeeInfo")
+                    $("#report").submit();
+                }
+            }
+        });
+
+        $(document).on('click', "#showEmpBalanceSummry", function (event) {
+            event.preventDefault();
+
+            ValidateReportSearchParam(["EmployeeId", "AsOnDate"]);
+            if (isValid == "") {
+                if ($("#message").val() != "true") {
+                    $("#report").attr("action", "/EmployeeReport/GetEmployeeBalanceSummary")
+                    $("#report").submit();
+                }
+            }
+
+        });
+
+        $(document).on('click', "#showEmpListOdrByName", function (event) {
+            RemoveError();
+            $("#message").val(false);
+            event.preventDefault();
+            if (isValid == "") {
+                if ($("#message").val() != "true") {
+                    $("#report").attr("action", "/EmployeeReport/GetEmployeeListOrderByName")
+                    $("#report").submit();
+                }
+            }
+        });
+        $(document).on('click', "#showleftemployeelist", function (event) {
+            RemoveError();
+            $("#message").val(false);
+            event.preventDefault();
+            if (isValid == "") {
+                if ($("#message").val() != "true") {
+                    $("#report").attr("action", "/EmployeeReport/GetLeftEmployeeList")
+                    $("#report").submit();
+                }
+            }
+        });
+
+        $(document).on('click', "#employeeLeaveDetails", function (event) {
+            RemoveError();
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if (isValid == "") {
+                if ($("#message").val() != "true") {
+                    $("#report").attr("action", "/EmployeeReport/ShowEmployeeLeaveDetails")
+                    $("#report").submit();
+                }
+            }
+        });
+
+        $(document).on('click', "#showepfsummary", function (event) {
+            RemoveError();
+            event.preventDefault();
+            ValidateReportSearchParam(["AsOnDate"]);
+            if (isValid == "") {
+                if ($("#message").val() != "true") {
+                    $("#report").attr("action", "/EmployeeReport/GetEmployeePFBalenceSummary")
+                    $("#report").submit();
+                }
+            }
+        });
+
+        $(document).on('click', "#showeitsummary", function (event) {
+            RemoveError();
+            event.preventDefault();
+            ValidateReportSearchParam(["AsOnDate"]);
+            if (isValid == "") {
+                if ($("#message").val() != "true") {
+                    $("#report").attr("action", "/EmployeeReport/GetEmployeeITBalenceSummary")
+                    $("#report").submit();
+                }
+            }
+        });
+
+        $(document).on('click', "#showemcsummary", function (event) {
+            RemoveError();
+            event.preventDefault();
+            ValidateReportSearchParam(["AsOnDate"]);
+            if (isValid == "") {
+                if ($("#message").val() != "true") {
+                    $("#report").attr("action", "/EmployeeReport/GetEmployeeMCBalenceSummary")
+                    $("#report").submit();
+                }
+            }
+        });
+
+        $(document).on('click', "#showeadsummary", function (event) {
+            RemoveError();
+            event.preventDefault();
+            ValidateReportSearchParam(["AsOnDate"]);
+            if (isValid == "") {
+                if ($("#message").val() != "true") {
+                    $("#report").attr("action", "/EmployeeReport/GetEmployeeADBalenceSummary")
+                    $("#report").submit();
+                }
+            }
+        });
+        //$(document).on('click', "#employeeLedger", function (event) {
+
+        //    event.preventDefault();
+        //    if ($("#EmployeeID").val() == "" || $("#EmployeeID").val() <= 0) {
+        //        setError("EmployeeID", "EmployeeId is required field");
+        //    }
+        //    ValidateReportSearchParam(["EmployeeId"]);
+        //    if (isValid == "" && $("#EmployeeID").val()>0) {
+        //        RemoveError();
+        //        if ($("#message").val() != "true") {
+        //            $("#report").attr("action", "/EmployeeReport/ShowEmployeeLedger")
+        //            $("#report").submit();
+        //        }
+        //    }
+        //});
+        $(document).on('click', "#employeeofficialhistory", function (event) {
+            RemoveError();
+            event.preventDefault();
+            ValidateReportSearchParam(["EmployeeID"]);
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#EmployeeID").val() == "" || $("#EmployeeID").val() <= 0) {
+                setError("EmployeeID", "EmployeeId is required field");
+            }
+            if ($("#From").val() == "") {
+                setError("From", "From date is required field");
+            }
+            if ($("#To").val() == "") {
+                setError("To", "To date is required field");
+            }
+            if ($("#EmployeeID").val() != "" && $("#From").val() != "" && $("#To").val() != "") {
+                RemoveError();
+                if (isValid == "") {
+                    if ($("#message").val() != "true") {
+                        $("#report").attr("action", "/EmployeeReport/ShowEmployeeOfficialHistory")
+                        $("#report").submit();
+                    }
+                }
+            }
+        });
+
+    </script>
+}

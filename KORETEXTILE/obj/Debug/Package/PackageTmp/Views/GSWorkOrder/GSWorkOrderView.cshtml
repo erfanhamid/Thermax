@@ -1,0 +1,1352 @@
+﻿@using BEEERP.Models.Authentication
+@using BEEERP.Models.CommonInformation
+@model BEEERP.Models.ViewModel.GeneralStore.GSWorkOrderVModel
+
+@{
+    ViewBag.Title = "GSWorkOrderView";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+    .my-tooltip {
+        position: relative;
+        display: inline-block;
+    }
+
+        .my-tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            /* Position the tooltip */
+            position: absolute;
+            z-index: 1;
+            top: -5px;
+            left: 105%;
+            opacity: 0;
+            transition: opacity 0.5s linear;
+        }
+
+        .my-tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+<h3 style="text-align:center">General Store Work Order (GSWO) Entry</h3>
+
+
+<form id="report" , target="_blank">
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                    <h4 class="box-title">GS Work Order Details</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.WONo, "GSWO No", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px;">
+                                                @Html.TextBoxFor(m => m.WONo, new { @class = "form-control", @Value = ViewBag.Id })
+                                                @Html.ValidationMessageFor(m => m.WONo, "", new { @style = "color: red" })
+                                                <div class="input-group-btn">
+                                                    <input type="button" name="search" id="search" value="Search" class="btn btn-primary" style="min-width: 50px" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.WODate, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.WODate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                @Html.ValidationMessageFor(m => m.WODate, "", new { @style = "color: red" })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.WOCode, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.WOCode, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.WOCode, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.SupplierGroup, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.SupplierGroup, (IEnumerable<SelectListItem>)ViewBag.SGroup, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.SupplierGroup, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.SupplierID, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.SupplierID, (IEnumerable<SelectListItem>)ViewBag.Supplier, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.SupplierID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.SupplierCode, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.SupplierCode, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.SupplierCode, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box ">
+                                <div class="box-body">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.GroupID, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.GroupID, (IEnumerable<SelectListItem>
+                                                    )ViewBag.Group, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.GroupID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.ItemID, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.ItemID, (IEnumerable<SelectListItem>
+                                                    )ViewBag.Item, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.ItemID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.UOM, "UoM", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.UOM, (IEnumerable<SelectListItem>
+                                                    )ViewBag.UoM, "", new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.UOM, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.ItemQty, new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(m => m.ItemQty, new { @class = "form-control", @type = "number" })
+                                                    @Html.ValidationMessageFor(m => m.ItemQty, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.UnitCost, new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(m => m.UnitCost, new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.UnitCost, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.TotalCost, new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(m => m.TotalCost, new { @class = "form-control", @disabled = "disabled" })
+                                                    @Html.ValidationMessageFor(m => m.TotalCost, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.Specification, new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(m => m.Specification, new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.Specification, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="box-footer">
+                                    <div class="form-group" , style="text-align:center">
+                                        <input type="button" name="addToGrid" id="addToGrid" value="Add To Grid" class="btn skin-blue" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                    <h4 class="box-title">Work Order Amount</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.TotalQty, "Total Qty", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.TotalQty, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.TotalQty, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.WOTotal, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.WOTotal, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.WOTotal, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.VatPer, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.VatPer, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.VatPer, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.VatPlus, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.VatPlus, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.VatPlus, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.NetOfVat, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.NetOfVat, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.NetOfVat, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.VdsPer, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.VdsPer, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.VdsPer, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.VdsAmount, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.VdsAmount, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.VdsAmount, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.AitPer, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.AitPer, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.AitPer, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.AitMinus, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.AitMinus, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.AitMinus, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.NetOfAit, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.NetOfAit, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.NetOfAit, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="box ">
+                                        <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                            <h4 class="box-title">Work Order Line Item</h4>
+                                        </div>
+                                        <div class="box-body">
+                                            <table class="table table-responsive" id="InventoryList">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Group</th>
+                                                        <th>Item Name</th>
+                                                        <th>Quantity</th>
+                                                        <th>Rate</th>
+                                                        <th>Value</th>
+                                                        <th>Specification</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box" id="termsCondi">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                    <h4 class="box-title">Set Terms and Condition</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.RefNo, new { @class = "col-md-6 control-label" })
+                                            <div class="col-sm-6">
+                                                @Html.DropDownListFor(m => m.RefNo, (IEnumerable<SelectListItem>)ViewBag.Department, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.RefNo, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.DeliveryDate, new { @class = "col-md-6 control-label" })
+                                            <div class="col-sm-6 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.DeliveryDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                @Html.ValidationMessageFor(m => m.DeliveryDate, "", new { @style = "color: red" })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.PaymentTerms, new { @class = "col-md-6 control-label" })
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(m => m.PaymentTerms, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.PaymentTerms, "", new { @style = "color: red" })
+                                            </div>
+                                            <label class="col-sm-2 control-label" for="days">Days</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.ValidDays, new { @class = "col-md-6 control-label" })
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(m => m.ValidDays, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.ValidDays, "", new { @style = "color: red" })
+                                            </div>
+                                            <label class="col-sm-2 control-label" for="days">Days</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box" id="ddtc">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                    <h4 class="box-title">Delivary Date Terms and Condition</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-2">
+                                        <input type="radio" name="ddt" value="1" id="ddtDefault" checked> Default<br>
+                                        <input type="radio" name="ddt" value="2" id="ddtCustome"> Custome<br>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.DdtTerms, "Display", new { @class = "col-md-1 control-label" })
+                                            <div class="col-sm-11">
+                                                @Html.TextAreaFor(m => m.DdtTerms, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.DdtTerms, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box" id="ptc">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                    <h4 class="box-title">Payment Terms and Condition</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-2">
+                                        <input type="radio" name="dt" value="3" id="dtDefault" checked> Default<br>
+                                        <input type="radio" name="dt" value="4" id="dtCustome"> Custome<br>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.PayTerms, "Display", new { @class = "col-md-1 control-label" })
+                                            <div class="col-sm-11">
+                                                @Html.TextAreaFor(m => m.PayTerms, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.PayTerms, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box" id="da">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                    <h4 class="box-title">Delivery Address</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-2">
+                                        <input type="radio" name="da" value="5" id="daDefault" checked> Default<br>
+                                        <input type="radio" name="da" value="6" id="daCustome"> Custome<br>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.AddressTerms, "Display", new { @class = "col-md-1 control-label" })
+                                            <div class="col-sm-11">
+                                                @Html.TextAreaFor(m => m.AddressTerms, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.AddressTerms, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div class="box-footer">
+                                    <div class="form-group" , style="text-align:center">
+                                        @if (User.IsInRole("ProcurementOperator"))
+                                        {
+                                            <input type="button" name="save" id="save" value="Save" class="btn btn-primary" />
+                                            <input type="button" name="update" id="update" value="Update" class="btn btn-primary" disabled />
+                                            <input type="button" name="delete" id="delete" value="Delete" class="btn btn-primary" disabled />
+                                            <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                            <input type="button" name="print" id="print" value="Print" class="btn btn-primary" />
+                                        }
+                                        else
+                                        {
+                                            <input type="button" name="save" id="save" value="Save" class="btn btn-primary" />
+                                            <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                                            <input type="button" name="delete" id="delete" value="Delete" class="btn btn-primary" />
+                                            <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                            <input type="button" name="print" id="print" value="Print" class="btn btn-primary" />
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<input type="hidden" id="hPacSize" />
+
+
+@section scripts
+{
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/Procurement/WorkOrderInputFocus.js"></script>
+
+    <script>
+        var TotalWOValue = 0;
+        var VatT = 0;
+        var VdsT = 0;
+        var AitT = 0;
+        var isSearch = false;
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+        $(".select2").select2();
+        $(document).on('click', "#refresh", function () {
+            location.reload();
+
+        });
+
+        var table = $('#InventoryList').DataTable({
+            'paging': false,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+
+
+
+        $(document).ready(function () {
+            $("#SupplierID").prop('disabled', true);
+            $("#ItemID").prop('disabled', true);
+            //$("#UnitCost").prop('disabled', true);
+            //$("#VatPer").prop('disabled', true);
+            //$("#AitPer").prop('disabled', true);
+            $("#ItemQty").prop('disabled', true);
+            $("#update").hide();
+            $("#delete").hide();
+            //$("#termsCondi").hide();
+            //$("#ddtc").hide();
+            //$("#ptc").hide();
+            //$("#da").hide();
+            $("#SupplierGroup").focus();
+
+            $("#TotalQty").val(parseFloat(0));
+            $("#WOTotal").val(parseFloat(0));
+            $("#VatPer").val(parseFloat(0.0));
+            $("#VatPlus").val(parseFloat(0));
+            $("#AitPer").val(parseFloat(0));
+            $("#NetOfAit").val(parseFloat(0));
+            $("#VdsPer").val(parseFloat(0));
+            $("#VdsAmount").val(parseFloat(0));
+            $("#AitMinus").val(parseFloat(0));
+            $("#NetOfVat").val(parseFloat(0));
+
+
+
+
+        });
+
+        var supplierId = "";
+        var itemId = "";
+        var isValid = true;
+        var addedItems = [];
+        var workOrder = { WONo: 0, WODate: "", SupplierID: 0, DeliveryDate: "", PaymentTerms: 0, RefNo: "", ValidDays: 0, WOTotal: 0.0, WOCode: 0, DdtOption: 0, PaymentOption: 0, AddressOption: 0, DdtTerms: "", PayTerms: "", AddressTerms: "", VdsAmount: 0.0,VatAmount: 0.0, AitAmount: 0.0, SupplierGroup : 0 }
+        var isValid = true;
+        EnterPress();
+        $("#print").hide();
+
+
+
+
+        if ($("#ddtDefault").prop("checked")) {
+            var ddt = "Products must be delivered to TFAIL premises on or before ";
+            var delDate = $("#DeliveryDate").val();
+            var ddtF = ddt.concat(delDate);
+            console.log(ddtF);
+            $("#DdtTerms").val(ddt);
+            $("#DdtTerms").prop('disabled', true);
+        }
+        if ($("#dtDefault").prop("checked")) {
+            var dt1 = "Will be made within ";
+            var dt2 = $("#PaymentTerms").val();
+            var dt3 = " days from the date of delivery or bill submission which is later.";
+            var dtF = dt1.concat(dt2).concat(dt3);
+            $("#PayTerms").val(dtF);
+            $("#PayTerms").prop('disabled', true);
+        }
+        if ($("#daDefault").prop("checked")) {
+            //var dt1 = "Will be made within ";
+            //var dt2 = $("#PaymentTerms").val();
+            //var dt3 = " days from the date of delivery or bill submission which is later.";
+            var dtF = "Bashile, Kathali 6 No. Valuka Union Parishad Valuka, Mymensingh";
+            $("#AddressTerms").val(dtF);
+            $("#AddressTerms").prop('disabled', true);
+        }
+        $(document).ready(function () {
+            $('#ddtDefault').click(function () {
+                if ($(this).is(':checked')) {
+                    var ddt = "Products must be delivered to TFAIL premises on or before ";
+                    var delDate = $("#DeliveryDate").val();
+                    var ddtF = ddt.concat(delDate);
+                    $("#DdtTerms").val(ddtF);
+                    $("#DdtTerms").prop('disabled', true);
+                }
+            });
+            $('#ddtCustome').click(function () {
+                if ($(this).is(':checked')) {
+                    $("#DdtTerms").val("");
+                    $("#DdtTerms").prop('disabled', false);
+                }
+            });
+
+
+            $('#dtDefault').click(function () {
+                if ($(this).is(':checked')) {
+                    var dt1 = "Will be made within ";
+                    var dt2 = $("#PaymentTerms").val();
+                    var dt3 = " days from the date of delivery or bill submission which is later.";
+                    var dtF = dt1.concat(dt2).concat(dt3);
+                    $("#PayTerms").val(dtF);
+                    $("#PayTerms").prop('disabled', true);
+                }
+            });
+            $('#dtCustome').click(function () {
+                if ($(this).is(':checked')) {
+                    $("#PayTerms").val("");
+                    $("#PayTerms").prop('disabled', false);
+                }
+            });
+
+
+            $('#daDefault').click(function () {
+                if ($(this).is(':checked')) {
+                    var dtF = "Bashile, Kathali 6 No. Valuka Union Parishad Valuka, Mymensingh";
+                    $("#AddressTerms").val(dtF);
+                    $("#AddressTerms").prop('disabled', true);
+                }
+            });
+            $('#daCustome').click(function () {
+                if ($(this).is(':checked')) {
+                    $("#AddressTerms").val("");
+                    $("#AddressTerms").prop('disabled', false);
+                }
+            });
+        });
+        $(document).on('change', "#DeliveryDate", function () {
+
+            var ddt = "Products must be delivered to TFAIL premises on or before ";
+            var delDate = $("#DeliveryDate").val();
+            var ddtF = ddt.concat(delDate);
+            console.log(ddtF);
+            $("#DdtTerms").val(ddtF);
+            $("#DdtTerms").prop('disabled', true);
+        });
+        $(document).on('keyup', "#PaymentTerms", function () {
+
+            var dt1 = "Will be made within ";
+            var dt2 = $("#PaymentTerms").val();
+            var dt3 = " days from the date of delivery or bill submission which is later.";
+            var dtF = dt1.concat(dt2).concat(dt3);
+            $("#PayTerms").val(dtF);
+            $("#PayTerms").prop('disabled', true);
+        });
+
+
+
+        //supplier Group Change event
+        $(document).on('change', "#SupplierGroup", function () {
+
+            $("#SupplierID").prop('disabled', false);
+            var id = { sGroupId: $(this).val() };
+            if (id.sGroupId != "") {
+                $.ajax({
+                    url: '@Url.Action("GetSupplierByGroupId", "WorkOrder")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        $("#SupplierID").empty();
+                        $("#SupplierID").prop("disabled", false);
+                        $.each(datas, function (index, value) {
+                            $("#SupplierID").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                        $("#SupplierID").focus();
+                        if (supplierId != "") {
+                            $("#SupplierID").val(supplierId).change();
+                            $("#SupplierID").prop('disabled', true);
+                            supplierId = "";
+                        }
+                    }
+                });
+            }
+            else {
+                $("#SupplierID").val("").change();
+                $("#SupplierID").prop("disabled", true);
+            }
+        });
+
+        //supplier Change event
+        $(document).on('change', "#SupplierID", function () {
+            var id = { sId: $(this).val() };
+            if (id.sId != "") {
+                $.ajax({
+                    url: '@Url.Action("GetSupplier", "WorkOrder")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas != "") {
+                            $("#SupplierCode").val(datas.Supplier.SCode);
+                        }
+                        else
+                        {
+                            setError("SupplierCode", "Supplier Code Not Found");
+                            $("#SupplierCode").val("");
+                        }
+                    }
+                });
+            }
+        });
+
+        //Group Change Event
+        $(document).on('change', "#GroupID", function () {
+
+            $("#ItemID").prop('disabled', false);
+            var id = { groupId: $(this).val() };
+            if (id.groupId != "") {
+                $.ajax({
+                    url: '@Url.Action("GetItemByGroupId", "WorkOrder")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        $("#ItemID").empty();
+                        $("#ItemID").prop("disabled", false);
+                        $.each(datas, function (index, value) {
+                            $("#ItemID").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                        $("#ItemID").focus();
+                        if (itemId != "") {
+                            $("#ItemID").val(itemId).change();
+                            itemId = "";
+                        }
+                    }
+                });
+            }
+            else {
+                $("#ItemID").val("").change();
+                $("#ItemID").prop("disabled", true);
+            }
+        });
+
+        //item change event
+        $(document).on('change', "#ItemID", function () {
+            $("#ItemQty").prop('disabled', false);
+            var id = { itemId: $(this).val() };
+            if (id.itemId != "") {
+                $.ajax({
+                    url: '@Url.Action("GetUoM", "WorkOrder")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas != "") {
+                            $("#UOM").val(datas.Item.UoMID).change();
+                            $("#hPacSize").val(datas.Item.PacSize);
+                            $("#ItemQty").focus();
+                        }
+                        else
+                        {
+                            //setError("UOM", "UOM Not Found");
+                            $("#UOM").val("");
+                        }
+                    }
+                });
+            }
+        });
+
+        //qty focusout
+        $(document).on('focusout', "#ItemQty", function () {
+            //$("#UnitCost").prop('disabled', false);
+            //$("#VatPer").prop('disabled', false);
+            //$("#AitPer").prop('disabled', false);
+            $("#UnitCost").focus();
+        });
+
+        //unit cost focusout
+        $(document).on('focusout', "#UnitCost", function () {
+            $("#TotalCost").val($("#ItemQty").val() * $("#UnitCost").val());
+        });
+
+        //only digit acceptable
+        //$(".digit").keypress(function (e) {
+        //    if (e.which != 8 && e.which != 0 /*&& e.which != 46*/ && (e.which < 48 || e.which > 57)) {
+        //        return false;
+        //    }
+        //});
+
+        //add to grid
+        $(document).on('click', "#addToGrid", function () {
+
+            RemoveError();
+            ValidateAddToGrid();
+            var item = { WONo: 0, ItemID: 0, UnitCost: 0.0, ItemQty: 0, TotalCost: 0.0, Specification: "", GroupID: 0, ItemName: "", GroupName: "", PackSize: "", Unit: "", VatPerc: 0.0, VdsPerc: 0.0, AitPerc: 0.0, VatAmount: 0.0, AitAmount: 0.0, VdsAmount: 0.0 }
+
+            if (isValid == true) {
+                item.WONo = 0;
+                item.ItemName = $("#ItemID :selected").text();
+                item.GroupName = $("#GroupID :selected").text();
+                item.PackSize = $("#hPacSize").val();
+                item.Unit = $("#UOM :selected").text();
+                item.GroupID = $("#GroupID").val();
+                item.ItemID = $("#ItemID").val();
+                item.ItemQty = $("#ItemQty").val();
+                item.UnitCost = $("#UnitCost").val();
+                item.TotalCost = $("#TotalCost").val();
+                item.Specification = $("#Specification").val();
+                item.VatPerc = $("#VatPer").val();
+                item.VdsPerc = $("#VdsPer").val();
+                item.AitPerc = $("#AitPer").val();
+                item.VdsAmount = ($("#VdsPer").val() / 100) * $("#WOTotal").val();
+                item.VatAmount = ($("#VatPer").val() / 100) * $("#WOTotal").val();
+                item.AitAmount = ($("#AitPer").val() / 100) * $("#WOTotal").val();
+                addedItems.push(item);
+                ClearOnSearch();
+                if (isSearch == false) {
+                    ShowOnTable();
+                }
+                else {
+                    ShowOnTableforaddtogrid()
+                }
+
+                $("#ItemID").focus();
+            }
+        });
+
+        //Save Button click Event
+        $(document).on('click', "#save", function () {
+
+            RemoveError();
+            SetWorkOrder();
+            if (addedItems.length <= 0) {
+                alert("At least One Item should be added for save.");
+            }
+            else {
+                ValidateWorkOrder();
+                if (isValid == true) {
+                    if (confirm('Do you want to save')) {
+                        $.ajax({
+                            url: '@Url.Action("SaveWorkOrder", "WorkOrder")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ workOrder: workOrder, addedItems: addedItems }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Failed to save");
+                                    $("#save").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully Saved.");
+                                    $("#WONo").val(datas.Wo);
+                                    $("#WOCode").val(datas.WoCode);
+                                    $("#save").hide();
+                                    $("#print").show();
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        $("#save").show();
+                    }
+                }
+            }
+        });
+
+        //Search Button click
+        $(document).on('click', '#search', function () {
+            isSearch = true;
+            if ($("#WONo").val()!="") {
+            $("#SupplierGroup").prop('disabled', true);
+            $("#SupplierID").prop('disabled', true);
+            var id = { id: $("#WONo").val() };
+                //ClearOnSearch();
+                $.ajax({
+                        url: '@Url.Action("GetWorkOrderById", "WorkOrder")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            if (datas == 0) {
+                                alert("Your entered Work Order No. Doesn't exist");
+                            }
+                            else {
+                                $("#save").hide();
+                                $("#update").show();
+                                $("#delete").show();
+                                $("#WONo").val(datas.workOrder.WONo);
+                                $("#WODate").val((moment(datas.workOrder.WODate).format("DD-MM-YYYY")));
+                                $("#WOCode").val(datas.workOrder.WOCode);
+                                $("#SupplierGroup").val(datas.workOrder.SupplierGroup).change();
+                                supplierId = datas.workOrder.SupplierID;
+                                var vatPerc = parseFloat((datas.workOrder.VatAmount * 100) / datas.workOrder.WOTotal).toFixed(2);
+                                //var vdsPer = parseFloat((datas.workOrder.VdsAmount * 100) / datas.workOrder.WOTotal).toFixed(2);
+                                $("#VatPer").val(vatPerc);
+                                var vdsPer = parseFloat((datas.workOrder.VdsAmount * 100) / datas.workOrder.WOTotal).toFixed(2);
+                                $("#VdsPer").val(vdsPer);
+                                var aitPerc = parseFloat((datas.workOrder.AitAmount * 100) / datas.workOrder.WOTotal).toFixed(2);
+                                $("#AitPer").val(aitPerc);
+                                $("#VdsAmount").val(datas.workOrder.VdsAmount);
+                                var vatamount = parseFloat(datas.workOrder.VatAmount).toFixed(2);
+
+                                $("#WOTotal").val(datas.workOrder.WOTotal);
+
+                                $("#VatPlus").val(datas.workOrder.VatAmount);
+                                //$("#VdsAmount").val(datas.workOrder.VdsAmount);
+                                $("#AitMinus").val(datas.workOrder.AitAmount);
+                                //alert(datas.workOrder.VatAmount);
+                                $("#NetOfVat").val(datas.workOrder.WOTotal + datas.workOrder.VatAmount);
+
+                                $("#NetOfAit").val((datas.workOrder.WOTotal + datas.workOrder.VatAmount) - (datas.workOrder.AitAmount + datas.workOrder.VdsAmount));
+                                $("#PaymentTerms").val(datas.workOrder.PaymentTerms);
+                                $("#DeliveryDate").val((moment(datas.workOrder.DeliveryDate).format("DD-MM-YYYY")));
+                                $("#ValidDays").val(datas.workOrder.ValidDays);
+                                $("#RefNo").val(datas.workOrder.RefNo).change();
+                                $("#DdtTerms").val(datas.workOrder.DdtTerms).change();
+                                $("#PayTerms").val(datas.workOrder.PayTerms).change();
+                                $("#AddressTerms").val(datas.workOrder.AddressTerms).change();
+                                TotalWOValue = datas.workOrder.WOTotal;
+                                VatT = datas.workOrder.VatAmount;
+                                AitT = datas.workOrder.AitAmount;
+                                VdsT = datas.workOrder.VdsAmount;
+
+                                //var netPayable = datas.workOrder.TotalVat + datas.workOrder.WOTotal - datas.workOrder.AitAmount + datas.workOrder - datas.VdsAmount;
+                                //$("#NetOfAit").val(netPayable);
+                                //$("#WOTotal").val(datas.workOrder.);
+                                //            $("#VatPlus").val(vatTotal);
+                                //            $("#AitMinus").val(aitTotal);
+                                //            $("#NetOfVat").val(totCost + vatTotal);
+
+                                addedItems = [];
+                                $.each(datas.workOrderLineItem, function (index, value) {
+                                    var item = { WONo: 0, ItemID: 0, UnitCost: 0.0, ItemQty: 0, TotalCost: 0.0, Specification: "", GroupID: 0, ItemName: "", GroupName: "", PackSize: "", Unit: "", VatPerc: 0.0, AitPerc: 0.0, VatAmount: 0.0, AitAmount: 0.0 }
+                                    item.ItemName = value.ItemName;
+                                    item.GroupName = value.GroupName;
+                                    item.PackSize = value.PackSize;
+                                    item.Unit = value.Unit;
+                                    item.GroupID = value.GroupID;
+                                    item.ItemID = value.ItemID;
+                                    item.ItemQty = value.ItemQty;
+                                    item.UnitCost = value.UnitCost;
+                                    item.TotalCost = value.TotalCost;
+                                    item.Specification = value.Specification;
+                                    //item.VatPerc = value.TotalCost* //value.VatPerc;
+                                    //item.AitPerc = value.AitPerc;
+                                    //item.VatAmount = (value.VatPerc / 100) * value.WOTotal;
+                                    //item.AitAmount = (value.AitPerc / 100) * value.WOTotal;
+                                    itemId = value.ItemID;
+                                    addedItems.push(item);
+                                    $("#print").show();
+                                });
+                                ShowOnTableforsearch();
+                            }
+                    },
+                    error: function () {
+                        alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+
+                    }
+                });
+            }
+            else {
+                alert("Please Enter a work order No first");
+            }
+        });
+
+        //print M
+        $(document).on('click', '#print', function () {
+            if ($("#WONo").val() != "") {
+                window.open("/WorkOrder/PrintWo?WONo=" + $("#WONo").val(), "_blank");
+            }
+            else {
+                alert("Work order number is required");
+            }
+        });
+
+        //delete row Click
+        $(document).on('click', '[name="deleteRow"]', function () {
+            var item = $(this).attr("value");
+            var newItem = [];
+            if (confirm('Are you sure you want to delete this from Grid ?')) {
+                $.each(addedItems, function (index, value) {
+                    if (value.ItemID == item) {
+
+                    }
+                    else {
+                        newItem.push(value);
+                    }
+
+                });
+                addedItems = newItem;
+                if (isSearch == false) {
+                    ShowOnTable();
+                }
+                else {
+                    ShowOnTableforaddtogrid()
+                }
+            }
+        });
+
+        //edit Row
+        $(document).on('click', '[name="editRow"]', function () {
+            var item = $(this).attr("value");
+            var newItem = [];
+            $.each(addedItems, function (index, value) {
+                if (value.ItemID == item) {
+
+                    $("#GroupID").val(value.GroupID).change();
+                    $("#ItemID").val(item).change();
+                    $("#ItemQty").val(value.ItemQty);
+                    $("#UnitCost").val(value.UnitCost);
+                    $("#VatPer").val(value.VatPerc);
+                    $("#VdsPer").val(value.VdsPerc);
+                    $("#VdsAmount").val(value.VdsAmount);
+                    $("#AitPer").val(value.AitPerc);
+                    $("#TotalCost").val(value.TotalCost);
+                    $("#Specification").val(value.Specification);
+
+                    itemId = value.ItemID;
+                }
+                else {
+                    newItem.push(value);
+                }
+
+            });
+            addedItems = newItem;
+            if (isSearch == false) {
+                ShowOnTable();
+            }
+            else {
+                ShowOnTableforaddtogrid()
+            }
+        });
+
+        //update
+        $(document).on('click', '#update', function () {
+            RemoveError();
+            $("#update").prop('disabled', true);
+            SetWorkOrder();
+            workOrder.WONo = $("#WONo").val();
+            workOrder.WOCode = $("#WOCode").val();
+            ValidateWorkOrder();
+
+            if (addedItems.length <= 0) {
+                alert("At least One Item should be added for Update.");
+                $("#update").prop('disabled', false);
+            }
+            else {
+                if (confirm('Do you want to Update')) {
+                    if (isValid == true) {
+                    $.ajax({
+                        url: '@Url.Action("UpdateWorkOrder", "WorkOrder")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ workOrder: workOrder, addedItems: addedItems }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("This Work Order Is Already Received. Unable To Update.");
+                                $("#update").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Updated.");
+                                //$("#WONo").val(datas.WONo);
+                                //clearsIFD();
+                                $("#update").prop('disabled', true);
+                                $("#print").show();
+                                $("#print").focus();
+                            }
+                        }
+                    });
+                    }
+                    else {
+                        $("#update").prop('disabled', false);
+                    }
+                }
+            }
+
+        });
+
+        //delete
+        $(document).on('click', '#delete', function () {
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var id = $("#WONo").val();
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteWorkOrder", "WorkOrder")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("This Work Order Is Already Received. Unable To Delete.");
+                            $("#delete").prop('disabled', false);
+                            $("#update").prop('disabled', false);
+                        }
+                        else {
+                            alert("Delete Successfull");
+                            location.reload();
+                        }
+                    }
+                });
+            }
+        });
+
+
+
+        $(document).on('keyup', '#VatPer', function () {
+
+            if ($("#VatPer").val() == "") {
+                $("#VatPer").val(parseFloat(0));
+            } else {
+                $("#VatPer").val();
+            }
+            $('#VatPlus').val((parseFloat($('#VatPer').val()) * parseFloat($("#WOTotal").val())) / 100);
+            $("#NetOfVat").val(parseFloat($("#VatPlus").val()) + parseFloat($("#WOTotal").val()));
+            var WOTotal = $('#WOTotal').val();
+            //if (WOTotal > 0) {
+                $('#NetOfAit').val(( parseFloat($("#NetOfVat").val())) - (parseFloat($("#AitMinus").val()) + parseFloat($("#VdsAmount").val())));
+            //}
+            //else {
+            //    $('#NetOfAit').val((parseFloat($("#WOTotal").val()) + parseFloat($("#NetOfVat").val())) - (parseFloat($("#AitMinus").val()) + parseFloat($("#VdsAmount").val())));
+            //}
+        });
+
+        $(document).on('keyup', '#VdsPer', function () {
+            if ($("#VdsPer").val() == "") {
+                 $("#VdsPer").val(parseFloat(0));
+            } else {
+                $("#VdsPer").val();
+            }
+            $('#VdsAmount').val((parseFloat($('#VdsPer').val()) * parseFloat($("#WOTotal").val())) / 100);
+            var WOTotal = $('#WOTotal').val();
+            console.log(WOTotal);
+            //if (WOTotal > 0) {
+            $('#NetOfAit').val(( parseFloat($("#NetOfVat").val())) - (parseFloat($("#AitMinus").val()) + parseFloat($("#VdsAmount").val())));
+            //}
+            //else {
+            //    $('#NetOfAit').val((parseFloat($("#WOTotal").val()) + parseFloat($("#NetOfVat").val())) - (parseFloat($("#AitMinus").val()) + parseFloat($("#VdsAmount").val())));
+            //}
+        });
+        $(document).on('keyup', '#AitPer', function () {
+            if ($("#AitPer").val() == "") {
+                $("#AitPer").val(parseFloat(0));
+            }
+            else {
+                $("#AitPer").val();
+            }
+            $('#AitMinus').val((parseFloat($('#AitPer').val()) * parseFloat($("#WOTotal").val())) / 100);
+            //var WOTotal = $('#WOTotal').val();
+            //if (WOTotal > 0) {
+                $('#NetOfAit').val(( parseFloat($("#NetOfVat").val())) - (parseFloat($("#AitMinus").val()) + parseFloat($("#VdsAmount").val())));
+            //}
+            //else {
+            //    $('#NetOfAit').val((parseFloat($("#WOTotal").val()) + parseFloat($("#NetOfVat").val())) - (parseFloat($("#AitMinus").val()) + parseFloat($("#VdsAmount").val())));
+            //}
+        });
+
+        function ValidateAddToGrid() {
+            isValid = true;
+            if ($("#ItemQty").val() == 0) {
+                setError("ItemQty", "Qty Can not be Zero");
+                isValid = false;
+            }
+            if ($("#ItemQty").val() == "") {
+                setError("ItemQty", "Qty is required field");
+                isValid = false;
+            }
+            if ($("#GroupID").val() == "") {
+                setError("GroupID", "Group is required field");
+                isValid = false;
+            }
+            //if ($("#UnitCost").val() == 0) {
+            //    setError("UnitCost", "Rate Can not be Zero");
+            //    isValid = false;
+            //}
+            if ($("#UnitCost").val() == "" )  {
+                setError("UnitCost", "Rate is required field");
+                isValid = false;
+            }
+            if ($("#GroupID").val() != "") {
+                if ($("#ItemID").val() == "") {
+                    setError("ItemID", "Item is required field");
+                    isValid = false;
+                }
+            }
+            $.each(addedItems, function (index, value) {
+                if (value.ItemID == $("#ItemID").val()) {
+                    setError("ItemID", "This Item Already Added.");
+                    isValid = false;
+                }
+            });
+        }
+
+        function ShowOnTable() {
+            table.clear().draw();
+            var totQty = 0;
+            var totCost = 0;
+            var vatTotal = 0.0;
+            var aitTotal = 0.0;
+            $.each(addedItems, function (index, value) {
+                table.row.add([value.GroupName, value.ItemName, value.ItemQty, value.UnitCost, value.TotalCost, value.Specification,
+                '<a href="#"><i class="fa fa-edit" name="editRow" value="' +
+                value.ItemID + '"></i></a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.ItemID + '"></i></a>']).draw();
+                totQty += parseFloat(value.ItemQty);
+                totCost += parseFloat(value.TotalCost);
+                vatTotal += parseFloat(value.VatAmount);
+                aitTotal += parseFloat(value.AitAmount);
+            });
+            $("#TotalQty").val(totQty);
+            $("#WOTotal").val(totCost);
+            $("#VatPlus").val(vatTotal);
+            $("#AitMinus").val(aitTotal);
+            $("#NetOfVat").val(totCost + vatTotal);
+            $("#NetOfAit").val((totCost + vatTotal) - aitTotal);
+        }
+        function ShowOnTableforaddtogrid() {
+            table.clear().draw();
+            var totQty = 0;
+            var totCost = 0;
+            var vatTotal = 0.0;
+            var aitTotal = 0.0;
+            $.each(addedItems, function (index, value) {
+                table.row.add([value.GroupName, value.ItemName, value.ItemQty, value.UnitCost, value.TotalCost, value.Specification,
+                '<a href="#"><i class="fa fa-edit" name="editRow" value="' +
+                value.ItemID + '"></i></a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.ItemID + '"></i></a>']).draw();
+                totQty += parseFloat(value.ItemQty);
+                totCost += parseFloat(value.TotalCost);
+                //vatTotal = parseFloat(value.VatAmount);
+                //aitTotal = parseFloat(value.AitAmount);
+
+            });
+            console.log(totCost);
+            var vatPerc = parseFloat((VatT * 100) / TotalWOValue).toFixed(2);
+            $("#VatPer").val(vatPerc);
+            var aitPerc = parseFloat((AitT * 100) / TotalWOValue).toFixed(2);
+            $("#AitPer").val(aitPerc);
+            var vdsPerc = parseFloat((VdsT * 100) / TotalWOValue).toFixed(2);
+            $("#VdsPer").val(vdsPerc);
+            var vatPlus = parseFloat(parseFloat(vatPerc) * parseFloat(totCost) / 100);
+            var aitMinus = parseFloat(parseFloat(aitPerc) * parseFloat(totCost) / 100);
+            var vdsMinus = parseFloat(parseFloat(vdsPerc) * parseFloat(totCost) / 100);
+            console.log(vatPlus);
+
+            $("#TotalQty").val(totQty);
+            $("#WOTotal").val(totCost);
+            // $("#VatPlus").val(vatTotal);
+            $("#VatPlus").val(vatPlus);
+            //$("#AitMinus").val(aitTotal);
+            $("#AitMinus").val(aitMinus);
+            $("#VdsAmount").val(vdsMinus);
+            $("#NetOfVat").val(totCost + vatPlus);
+            $("#NetOfAit").val((totCost + vatPlus) - (aitMinus + vdsMinus));
+        }
+        function ShowOnTableforsearch() {
+            table.clear().draw();
+            var totQty = 0;
+            var totCost = 0;
+            var vatTotal = 0.0;
+            var aitTotal = 0.0;
+            $.each(addedItems, function (index, value) {
+                table.row.add([value.GroupName, value.ItemName, value.ItemQty, value.UnitCost, value.TotalCost, value.Specification,
+                '<a href="#"><i class="fa fa-edit" name="editRow" value="' +
+                value.ItemID + '"></i></a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.ItemID + '"></i></a>']).draw();
+                totQty += parseFloat(value.ItemQty);
+                totCost += parseFloat(value.TotalCost);
+                vatTotal += parseFloat(value.VatAmount);
+                aitTotal += parseFloat(value.AitAmount);
+            });
+            $("#TotalQty").val(totQty);
+            $("#WOTotal").val(totCost);
+            //$("#VatPlus").val(vatTotal);
+            //$("#AitMinus").val(aitTotal);
+            //$("#NetOfVat").val(totCost + vatTotal);
+            //$("#NetOfAit").val((totCost + vatTotal) - aitTotal);
+        }
+
+        function ClearOnSearch() {
+            $("#ItemID").val("").change();
+            $("#ItemQty").val("");
+            $("#UnitCost").val("");
+            $("#TotalCost").val("");
+            $("#Specification").val("");
+            $("#UOM").val("");
+            $("#VatPer").val("");
+            $("#AitPer").val("");
+            //itemId = "";
+        }
+
+        function SetWorkOrder()
+        {
+            workOrder.WONo = 0;
+            workOrder.WODate = $("#WODate").val();
+            workOrder.SupplierGroup = $("#SupplierGroup").val();
+            workOrder.SupplierID = $("#SupplierID").val();
+            workOrder.DeliveryDate = $("#DeliveryDate").val();
+            //workOrder.DeliveryDate = "";
+            workOrder.PaymentTerms = $("#PaymentTerms").val();
+            //workOrder.PaymentTerms = 0;
+            //workOrder.RefNo = $("#RefNo").val();
+            workOrder.RefNo = $("#RefNo").val();
+            workOrder.ValidDays = $("#ValidDays").val();
+           //workOrder.ValidDays = 0;
+            workOrder.WOTotal = $("#WOTotal").val();
+            workOrder.WOCode = 0;
+            workOrder.DdtOption = 0;
+            workOrder.PaymentOption = 0;
+            workOrder.AddressOption = 0;
+            workOrder.DdtTerms = $("#DdtTerms").val();
+            workOrder.PayTerms = $("#PayTerms").val();
+            workOrder.AddressTerms = $("#AddressTerms").val();
+            workOrder.VdsAmount = $("#VdsAmount").val();
+            workOrder.VatAmount = $("#VatPlus").val();
+            workOrder.AitAmount = $("#AitMinus").val();
+        }
+
+        function ValidateWorkOrder()
+        {
+            isValid = true;
+            if (workOrder.WODate == "") {
+                setError("WODate", "WO Date is required field");
+                isValid = false;
+            }
+            if (workOrder.SupplierID == "") {
+                setError("SupplierID", "Supplier ID is required field");
+                isValid = false;
+            }
+            //if (workOrder.DeliveryDate == "") {
+            //    setError("DeliveryDate", "Delivery Date is required field");
+            //    isValid = false;
+            //}
+            //if (workOrder.PaymentTerms == "") {
+            //    setError("PaymentTerms", "Payment Terms is required field");
+            //    isValid = false;
+            //}
+            //if (workOrder.RefNo == "") {
+            //    setError("RefNo", "Ref No is required field");
+            //    isValid = false;
+            //}
+            //if (workOrder.ValidDays == "") {
+            //    setError("ValidDays", "Valid Days is required field");
+            //    isValid = false;
+            //}
+            if (workOrder.SupplierGroup == "") {
+                setError("SupplierGroup", "Supplier Group is required field");
+                isValid = false;
+            }
+            $.each(addedItems, function (index, value) {
+                if (value.ItemID == $("#ItemID").val()) {
+                    setError("ItemID", "This Item Already Added.");
+                    isValid = false;
+                }
+            });
+        }
+
+
+
+    </script>
+
+}

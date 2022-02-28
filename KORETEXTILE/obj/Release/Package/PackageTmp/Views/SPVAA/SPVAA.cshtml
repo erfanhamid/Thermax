@@ -1,0 +1,1177 @@
+﻿@model BEEERP.Models.ViewModel.Account.SADAVModel
+
+@{
+    ViewBag.Title = "SupplierPaymentVoucher";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+<h3 style="text-align:center">Supplier Advance Adjustment (SADA) Entry</h3>
+
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                <h4 class="box-title">Basic Info</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.SPVNo, "SADA No", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px;">
+                                            @Html.TextBoxFor(m => m.SPVNo, new { @class = "form-control", @type = "number", @Value = ViewBag.spvno })
+                                            @Html.ValidationMessageFor(m => m.SPVNo, "", new { @style = "color: red" })
+                                            <div class="input-group-btn">
+                                                <input type="button" name="search" id="search" value="Search" class="btn btn-primary" style="min-width: 50px" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Date, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                            @Html.TextBoxFor(m => m.Date, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            @Html.ValidationMessageFor(m => m.Date, "", new { @style = "color: red" })
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.RefNo, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.RefNo, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.RefNo, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Discription, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.Discription, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Discription, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.GroupID, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.GroupID, (IEnumerable<SelectListItem>)ViewBag.SGroup, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.GroupID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.SupplierID, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.SupplierID, (IEnumerable<SelectListItem>)ViewBag.Supplier, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.SupplierID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.AdvanceNO, "SPV No", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.AdvanceNO, (IEnumerable<SelectListItem>)ViewBag.billno, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.AdvanceNO, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.AdvanceAmount, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.AdvanceAmount, new { @class = "form-control", @type = "number", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.AdvanceAmount, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.RemAdvAmount, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.RemAdvAmount, new { @class = "form-control", @type = "number", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.RemAdvAmount, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.TotalPaidAmount, "Total Adjusted Amount", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.TotalPaidAmount, new { @class = "form-control", @type = "number", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.TotalPaidAmount, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.TAAmount, "Balance To Be Adjusted", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.TAAmount, new { @class = "form-control", @type = "number", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.TAAmount, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="box" id="billinfo">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                <h4 class="box-title">Bill Info</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.BillType, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.BillType, (IEnumerable<SelectListItem>)ViewBag.gbpgsbfpb, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.BillType, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.BillNo, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.BillNo, (IEnumerable<SelectListItem>)ViewBag.billno, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.BillNo, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.BillAmount, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.BillAmount, new { @class = "form-control", @type = "number", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.BillAmount, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.PaidAmount,"Adjusted Amount", new { @class = "col-md-5 control-label" })
+                                        <div class="col-sm-7">
+                                            @Html.TextBoxFor(m => m.PaidAmount, new { @class = "form-control", @type = "number" })
+                                            @Html.ValidationMessageFor(m => m.PaidAmount, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.BalAmount, new { @class = "col-md-5 control-label" })
+                                        <div class="col-sm-7">
+                                            @Html.TextBoxFor(m => m.BalAmount, new { @class = "form-control", @type = "number", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.BalAmount, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5"></div>
+                                    <div class="col-md-7" style="text-align:left;">
+                                        <input type="button" name="addToGrid" id="addToGrid" value="Add To Grid" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box" id="spvgrid">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                <h4 class="box-title">Line Items</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-md-7">
+                                    
+                                </div>
+                                <table class="table table-responsive" id="spvList">
+                                    <thead>
+                                        <tr>
+                                            <th>Bill Type</th>
+                                            <th>Bill No</th>
+                                            <th>Amount</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="box">
+                        <div class="box-footer">
+                            <div class="form-group" , style="text-align:center">
+                                <input type="button" id="save" value="Save" class="btn btn-primary" />
+                                <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                                <input type="button" name="delete" id="delete" value="Delete" class="btn btn-primary" />
+                                <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/AccountModule/SupplierPaymentAdvanceInputFocus.js"></script>
+    <script>
+
+        var table = $('#spvList').DataTable({
+            'paging': false,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+
+        $(".select2").select2();
+        var isRowdelete
+        var addedItems = [];
+        var spvLineItem = {};
+        var message = "";
+        var supplierId = "";
+        var advanceno = "";
+        var reAdvanceAmt = 0.0;
+        var billtype = "";
+        var billno = 0;
+        var billamount = 0;
+        var remaining = 0;
+        var prevbill = 0;
+        var SPVoucher = { SPAANo: 0, SupplierID: 0, SPVNo: 0, Date: "", AdjustedAmount: 0.0, Description: "", RefNo: ""};
+        var paidAmount = "";
+        var balAmount = "";
+        var isValid = true;
+        var isSearch = false;
+        var isEditRow = false;
+        var isadd = false;
+
+        //EnterPress(advance);
+
+        $(document).on("keyup", "#SPVNo", function (e) {
+            if (e.keyCode == 13 || e.keyCode == 9) {
+                e.preventDefault();
+                $("#search").click();
+            }
+        });
+
+        $(document).on('click', '#refresh', function () {
+            location.reload();
+        });
+
+        $(document).ready(function () {
+            EnterPress();
+            $("#billinfo").show();
+            $("#remaining").show();
+            //$("#GPBNo").prop("disabled", true);
+            //$("#GBENo").prop("disabled", true);
+            //$("#ILCBNo").prop("disabled", true);
+            //$("#DPNo").prop("disabled", true);
+           // $("#BillType").prop("disabled", true);
+            //$("#PaymentAccID").prop("disabled", false);
+            //$("#BillNo").prop("disabled", true);
+
+            $("#SupplierID").prop('disabled', true);
+            $("#GroupID").prop('disabled', false);
+
+            $('#BillAmount').val(parseFloat(0));
+            $('#BalAmount').val(parseFloat(0));
+            $("#TotalPaidAmount").val(parseFloat(0));
+            $("#RemAdvAmount").val(parseFloat(0));
+            $("#TAAmount").val(parseFloat(0));
+
+            $('#update').hide();
+            $('#delete').hide();
+            @*if ($("#SPVNo").val() != "") {
+                var spv = { rv: parseInt($("#SPVNo").val()) };
+                SearchClick(spv);
+                //condition
+                if (@ViewBag.Approve == 0) {
+                    $("#approve").show();
+                    $("#print").show();
+                }
+                else {
+                    $("#approve").hide();
+                    $("#print").show();
+                }
+
+            }*@
+        });
+
+        //Supplier Group change event
+
+        $(document).on('change', "#GroupID", function () {
+            $("#GroupID").prop('disabled', false);
+            var id = { groupId: $(this).val() };
+            if (id.groupId != "") {
+                $.ajax({
+                    url: '@Url.Action("GetSupplierByGroupId", "SupplierPaymentVoucher")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        $("#SupplierID").empty();
+                        $("#SupplierID").prop("disabled", false);
+                        $.each(datas, function (index, value) {
+                            $("#SupplierID").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                        $("#SupplierID").focus();
+                        if (supplierId != "") {
+                            $("#SupplierID").val(supplierId).change();
+                            supplierId = "";
+                        }
+                    }
+                });
+            }
+            else {
+                $("#SupplierID").val("").change();
+                $("#SupplierID").prop("disabled", true);
+            }
+        });
+
+        var datasFromSupplier;
+        $(document).on('change', "#SupplierID", function () {
+            BillTypeBySupplierID();
+            AdvanceNoBySupplierID();
+            if (advanceno != "") {
+                $("#advanceno").val(advanceno).change();
+                advanceno = "";
+            }
+        });
+
+        function BillTypeBySupplierID() {
+            //$("#SupplierID").prop('disabled', false);
+            var id = { supplierId: $("#SupplierID").val()};
+            if (id.supplierId != "") {
+                $.ajax({
+                    url: '@Url.Action("GetDueDetailsBySupplierId", "SupplierPaymentVoucher")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        datasFromSupplier = datas;
+                        $("#BillType").empty();
+                        $("#BillType").prop("disabled", false);
+                        $.each(datas.gbpgsbfpb, function (index, value) {
+                            $("#BillType").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                        //$("#BillType").focus();
+                        if (supplierId != "") {
+                            $("#SupplierID").val(supplierId).change();
+                            supplierId = "";
+                        }
+                    }
+                });
+            }
+            else {
+                $("#BillType").val("").change();
+                $("#BillType").prop("disabled", true);
+            }
+        }
+
+        function AdvanceNoBySupplierID() {
+            var id = { supplierId: $("#SupplierID").val() };
+            if (id.supplierId != "") {
+                $.ajax({
+                    url: '@Url.Action("GetAdvanceDetailsBySupplierId", "SPVAA")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        datasFromSupplier = datas;
+                        $("#AdvanceNO").empty();
+                        $("#AdvanceNO").prop("disabled", false);
+                        $.each(datas.advanceid, function (index, value) {
+                            $("#AdvanceNO").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                        //$("#BillType").focus();
+                        
+                    }
+                });
+            }
+            else {
+                $("#BillType").val("").change();
+                $("#BillType").prop("disabled", true);
+            }
+        }
+        $(document).on('change', "#BillType", function () {
+           
+            $("#BillNo").prop('disabled', false);
+            if ($("#BillType").val() == 'GPB') {
+                $("#BillNo").empty();
+
+                $.each(datasFromSupplier.gpb, function (index, value) {
+                    $("#BillNo").append($('<option />', {
+                        value: value.Value,
+                        text: value.Text
+                    })).trigger('change');
+                });
+
+                if (supplierId != "") {
+                    $("#SupplierID").val(supplierId).change();
+                    supplierId = "";
+                  
+                }
+                
+            } else if ($("#BillType").val() == 'GSB') {
+                $("#BillNo").empty();
+                $.each(datasFromSupplier.gsb, function (index, value) {
+                    $("#BillNo").append($('<option />', {
+                        value: value.Value,
+                        text: value.Text
+                    })).trigger('change');
+                });
+                //$("#SupplierID").focus();
+                if (supplierId != "") {
+                    $("#SupplierID").val(supplierId).change();
+                    $("#BillNo").val(billno);
+                    supplierId = "";
+                   
+                }
+                
+            } else if ($("#BillType").val() == 'FPB') {
+                $("#BillNo").empty();
+                $.each(datasFromSupplier.fpb, function (index, value) {
+                    $("#BillNo").append($('<option />', {
+                        value: value.Value,
+                        text: value.Text
+                    })).trigger('change');
+                });
+                // $("#SupplierID").focus();
+                if (supplierId != "") {
+                    $("#SupplierID").val(supplierId).change();
+                    supplierId = "";
+                    
+                }
+                
+            }
+
+        });
+        //$(document).on('change', "#BillType", function () {
+        //    $("#BillNo").prop('disabled', false);
+        //    if ($("#BillType").val() == 'GPB') {
+        //        $("#BillNo").empty();
+        //        $.each(datasFromSupplier.gpb, function (index, value) {
+        //            $("#BillNo").append($('<option />', {
+        //                value: value.Value,
+        //                text: value.Text
+        //            }));
+        //        });
+        //        //$("#BillNo").focus();
+        //        if (supplierId != "") {
+        //            $("#SupplierID").val(supplierId).change();
+        //            //$("#BillNo").val(billno);
+        //            supplierId = "";
+        //        }
+        //    } else if ($("#BillType").val() == 'GSB') {
+        //        $("#BillNo").empty();
+        //        $.each(datasFromSupplier.gsb, function (index, value) {
+        //            $("#BillNo").append($('<option />', {
+        //                value: value.Value,
+        //                text: value.Text
+        //            }));
+        //        });
+        //        //$("#SupplierID").focus();
+        //        if (supplierId != "") {
+        //            $("#SupplierID").val(supplierId).change();
+        //            $("#BillNo").val(billno);
+        //            supplierId = "";
+        //        }
+        //    } else if ($("#BillType").val() == 'FPB') {
+        //        $("#BillNo").empty();
+        //        $.each(datasFromSupplier.fpb, function (index, value) {
+        //            $("#BillNo").append($('<option />', {
+        //                value: value.Value,
+        //                text: value.Text
+        //            }));
+        //        });
+        //       // $("#SupplierID").focus();
+        //        if (supplierId != "") {
+        //            $("#SupplierID").val(supplierId).change();
+        //            supplierId = "";
+        //        }
+        //    }
+
+        //});
+
+        
+
+        $(document).on('change', "#BillNo", function () {
+            $("#BillNo").prop('disabled', false);
+            var billid = { billno: $(this).val()}
+            //checkBillNoOnSpv();
+            if (billid.billno != "") {
+                var id = parseInt($("#BillNo").val());
+                if ($("#BillType").val() == 'GPB') {
+                    GPBremainbill();
+                } else if ($("#BillType").val() == 'GSB') {
+                    GSBremainbill();
+                } else if ($("#BillType").val() == 'FPB') {
+                    FPBremainbill();
+                }
+                //$("#BillAmount").focus();
+                if (isSearch == false) {
+                    if (billamount != 0) {
+                        $("#BillAmount").val(billamount);
+                        billamount = "";
+                    }
+                } else {
+                    if (prevbill != 0) {
+                        $("#BillAmount").val(prevbill);
+                        prevbill = "";
+
+                    }
+                }
+
+
+            }
+            else {
+                //$("#BillNo").val("").change();
+                //$("#BillNo").prop("disabled", true);
+            }
+        });
+
+        @*function checkBillNoOnSpv() {
+            var id = { type: $("#BillType").val(), billNo: parseInt($("#BillNo").val())};
+            $.ajax({
+                url: '@Url.Action("checkBillNoOnSpv", "SPVAA")',
+                contentType: "application/json;charset=utf-8",
+                data: id,
+                type: 'GET',
+                dataType: 'json',
+                success: function (datas) {
+                    if (datas.Message != 0) {
+                        if (editemp == datas.employeeId) {
+                            addgide();
+                        } else {
+                            isValid = false;
+                            alert("This employee allready saved. MRID is "+datas.MARID);
+                        }
+
+                    }
+                    else {
+                        addgide();
+                    }
+                }
+            });
+        }*@
+
+        $(document).on('change', "#AdvanceNO", function () {
+            if (advanceno != "") {
+                //$("#advanceno").val(advanceno).change();
+                //advanceno = "";
+            }
+            else {
+
+
+                var id = { id: $("#AdvanceNO").val() };
+                if (id.id != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetAdvanceAmount", "SPVAA")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas.amount != '') {
+                                $("#RemAdvAmount").val(datas.amount);
+                                $("#AdvanceAmount").val(datas.advanceamt);
+                            }
+                            if (reAdvanceAmt != '') {
+                                $("#RemAdvAmount").val(datas.amount + reAdvanceAmt);
+                                $("#AdvanceAmount").val(datas.advanceamt);
+                                $("#TAAmount").val(datas.amount);
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+
+        function GPBremainbill() {
+            var gpbNo = { gpb: parseInt($("#BillNo").val()),  };
+            if (gpbNo != null) {
+                $.ajax({
+                    url: '@Url.Action("GetGPBAmount", "SupplierPaymentVoucher")',
+                    contentType: "application/json;charset=utf-8",
+                    data: gpbNo,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        $("#BillAmount").val(data.gpbAmount);
+                        if (isSearch == true) {
+                            if (billamount != 0) {
+                                $("#BillAmount").val(billamount);
+                                billamount = "";
+                            }
+                        } else {
+                            if (prevbill != 0) {
+                                $("#BillAmount").val(prevbill);
+                                prevbill = "";
+
+                            }
+
+                        }
+                    }
+                });
+            } else {
+
+            }
+        }
+        function GSBremainbill() {
+            var gsbNo = { gsb: parseInt($("#BillNo").val()),  };
+            if (gsbNo != null) {
+                $.ajax({
+                    url: '@Url.Action("GetGSBAmount", "SupplierPaymentVoucher")',
+                    contentType: "application/json;charset=utf-8",
+                    data: gsbNo,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        $("#BillAmount").val(data.gsbAmount);
+                        if (isSearch == true) {
+                            if (billamount != 0) {
+                                $("#BillAmount").val(billamount);
+                                billamount = "";
+                            }
+                        } else {
+                            if (prevbill != 0) {
+                                $("#BillAmount").val(prevbill);
+                                prevbill = "";
+
+                            }
+
+                        }
+                    }
+                });
+            } else {
+
+            }
+        }
+        function FPBremainbill() {
+            var fpbNo = { fpb: parseInt($("#BillNo").val()),  };
+            if (fpbNo != null) {
+                $.ajax({
+                    url: '@Url.Action("GetFPBAmount", "SupplierPaymentVoucher")',
+                    contentType: "application/json;charset=utf-8",
+                    data: fpbNo,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        $("#BillAmount").val(data.fpbAmount);
+                        if (isSearch == true) {
+                            if (billamount != 0) {
+                                $("#BillAmount").val(billamount);
+                                billamount = "";
+                            }
+                        } else {
+                            if (prevbill != 0) {
+                                $("#BillAmount").val(prevbill);
+                                prevbill = "";
+
+                            }
+
+                        }
+                    }
+                });
+            } else {
+
+            }
+        }
+
+        $(document).on('keyup', '#PaidAmount', function () {
+            if ($("#PaidAmount").val() == "") {
+                $("#BalAmount").val(parseFloat(0));
+            } else {
+                $("#BalAmount").val((parseFloat($("#BillAmount").val()) - parseFloat($("#PaidAmount").val())));
+            }
+        });
+        $(document).on('click', "#addToGrid", function () {
+            isadd = true;
+            RemoveError();
+            ValidateOnAddClick();
+            if (isValid==true) {
+                SetSPVLine();
+                addedItems.push(spvLineItem);
+                ShowOnTable();
+                ClearOnAddToGrid();
+            }
+            
+        });
+
+        //function SetSPVLine() {
+        //    spvLineItem = { BillNo: 0, BillType: "", Amount: 0.0, Balance: 0.0, PaymentAmount: 0.0, Remaining: 0.0, billamount: 0.0,remain:0.0 };
+        //    spvLineItem.BillNo = $("#BillNo").val();
+        //    spvLineItem.BillType = $("#BillType").val();
+        //    spvLineItem.Amount = $("#PaidAmount").val();
+        //    spvLineItem.PaymentAmount = $("#PaidAmount").val();
+        //    spvLineItem.remain = $("#BalAmount").val();
+        //    spvLineItem.billamount = $("#BillAmount").val();
+        //}
+        function SetSPVLine() {
+            spvLineItem = { BillType: "", BillNo: 0, Amount: 0.0, Balance: 0.0, AdjustedAmount: 0.0, billamount: 0.0,remain:0.0 };
+            spvLineItem.BillNo = $("#BillNo").val();
+            spvLineItem.BillType = $("#BillType").val();
+            spvLineItem.Amount = $("#PaidAmount").val();
+            spvLineItem.AdjustedAmount = $("#PaidAmount").val();
+            spvLineItem.remain = $("#BalAmount").val();
+            spvLineItem.billamount = $("#BillAmount").val();
+        }
+
+
+        //Edit Grid
+        $(document).on('click', '[name="editRow"]', function (e) {
+            isEditRow = true;
+            RemoveError();
+            var item = $(this).attr("value");
+            var newItem = [];
+            $.each(addedItems, function (index, value) {
+                if (value.BillNo == item) {
+                    $("#BillType").val(value.BillType).change();
+                    $("#BillNo").val(value.BillNo);
+                    $("#PaidAmount").val(value.AdjustedAmount);
+                    $("#BillAmount").val(value.billamount);
+                    
+                    billno = value.BillNo;
+                    billamount = value.billamount;
+                    $("#BalAmount").val(billamount - value.AdjustedAmount);
+
+                }
+                else {
+                    newItem.push(value);
+                }
+            });
+            addedItems = newItem;
+            ShowOnTable();
+            calculateTotalPaidAmount();
+        });
+
+        //$(document).on('click', '[name="editRow"]', function (e) {
+        //    var item = $(this).attr("value");
+        //    var newItem = [];
+        //    $.each(addedItems, function (index, value) {
+        //        if (value.DebitAC == item) {
+        //            $("#DebitAcId").val(value.DebitAC).change();
+        //            $("#CostGroupId").val(value.CostGroupId).change();
+        //            $("#MRVAAmount").val(value.Amount).change();
+        //            $("#MRVADescription").val(value.Description).change();
+        //            $("#RefNo").val(value.RefNo).change();
+        //        }
+        //        else {
+        //            newItem.push(value);
+        //        }
+        //    });
+        //    addedItems = newItem;
+        //    ShowOnTable();
+        //    calculateTotalVoucherAmount();
+        //});
+
+        //Delete Grid
+        $(document).on('click', '[name="deleteRow"]', function () {
+            var item = $(this).attr("value");
+            if (confirm('Are you sure you want to delete this from grid ?')) {
+                var newItem = [];
+                $.each(addedItems, function (index, value) {
+                    if (value.BillNo == item) {
+
+                    }
+                    else {
+                        newItem.push(value);
+                    }
+                });
+                addedItems = newItem;
+                ShowOnTable();
+            }
+        });
+
+        //Save
+        $(document).on('click', '#save', function (event) {
+            RemoveError();
+            ValidateOnSaveClick();
+            $("#save").prop("disabled", true);
+            if (addedItems.length <= 0) {
+                alert("At least one Line Item is to be added");
+                $("#save").prop('disabled', false);
+            }
+            else {
+                if (isValid == true) {
+                    SetSPVoucher();
+                    if (confirm("Do you want to Save?")) {
+                        $.ajax({
+                            url: '@Url.Action("saveSAPA", "SPVAA")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ sPAdvanceAdjustment: SPVoucher, addedItems: addedItems }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas.message == 0) {
+                                    alert("Failed To Saved.");
+                                    $("#save").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully Saved.");
+                                    $("#SPVNo").val(datas.id);
+                                    $("#print").show();
+                                    //$("#save").hide();
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        $("#save").prop('disabled', false);
+                    }
+                }
+                else {
+                    $("#save").prop('disabled', false);
+                }
+            }
+        });
+
+        //Search
+        $(document).on('click', '#search', function () {
+            isSearch = true;
+            if ($("#SPVNo").val() == "") {
+                alert("Please enter a SADA No first.");
+            }
+            else {
+                var id =  $("#SPVNo").val();
+                //ClearOnSearch();
+                $.ajax(
+                    {
+                        url: '@Url.Action("GetSPAById", "SPVAA")',
+                        contentType: "application/json;charset=utf-8",
+                        data: { id: id },
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("SADA No doesn't exist.");
+                            }
+                            else
+                            {
+                                $("#save").hide();
+                                //$("#update").show();
+                                $("#delete").show();
+                                $("#print").show();
+
+                                //$("#SPVNo").val(datas.sPa.PBID);
+                                $("#Date").val((moment(datas.sPa.Date).format("DD-MM-YYYY"))).change();
+                                $("#GroupID").val(datas.paybillinfo.GroupId).change();
+                             
+                                //$("#SupplierID").val(datas.sPa.SupplierID).change();
+                                supplierId = datas.sPa.SupplierID;
+                                //$("#AdvanceNO").val(datas.sPa.SPVNo).change();
+                                advanceno = datas.sPa.SPVNo;
+                                
+                               // $("#AdvanceNO").val(datas.sPa.SPVNo).change();
+                                reAdvanceAmt = datas.sPa.AdjustedAmount;
+                                $("#TotalPaidAmount").val(datas.sPa.AdjustedAmount);
+                                $("#RefNo").val(datas.sPa.RefNo);
+                                $("#Discription").val(datas.sPa.Description);
+                                
+                                addedItems = [];
+                                $.each(datas.sPaLine, function (index, value) {
+                                    var item = { BillType: "", BillNo: 0, Amount: 0.0, Balance: 0.0, AdjustedAmount: 0.0, billamount: 0.0, remain: 0.0 }
+                                    item.BillType = value.BillType;
+                                    item.BillNo = value.BillNo;
+                                    item.AdjustedAmount = value.AdjustedAmount;
+                                    item.Amount = value.AdjustedAmount;
+                                    //item.PaymentAmount = value.PaymentAmount;
+                                    item.remain = value.Remaining;
+                                    item.billamount = value.AdjustedAmount + value.Remaining;
+                                    addedItems.push(item);
+                                });
+                                ShowOnTable();
+                                $("#SPVNo").prop("disabled", true);
+                            }
+                        },
+                        error: function ()
+                        {
+                            alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services");
+                        }
+               });
+            }
+        });
+        function ShowOnTable() {
+            table.clear().draw();
+            $.each(addedItems, function (index, value) {
+                table.row.add([value.BillType, value.BillNo, value.AdjustedAmount, '<a href="#"><i class="fa fa-edit" name="editRow" value="' +
+                    value.BillNo + '"></i></a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.BillNo + '"></i></a>']).draw();
+                calculateTotalPaidAmount();
+            });
+        }
+
+        function SearchClick(spv) {
+            $.ajax({
+                  url: '@Url.Action("GetSPVById", "SupplierPaymentVoucher")',
+                  contentType: "application/json;charset=utf-8",
+                  data: spv,
+                  type: 'GET',
+                  dataType: 'json',
+                  success: function (datas) {
+                      if (datas == 0) {
+                          alert("Your RV No Doesn't Exist");
+                      }
+                      else
+                      {
+                          $("#save").hide();
+                          $("#SPVNo").val(datas.sPV.PBID);
+                         
+                          $("#Date").val((moment(datas.sPV.TDate).format("DD-MM-YYYY"))).change();
+                          $("#CreditAdvance").val(datas.sPV.CreditAdvance).change();
+                          $("#GroupID").val(datas.sPV.GroupId).change();
+                          $("#SupplierID").val(datas.sPV.SupplierID).change();
+                          $("#PaymentAccID").val(datas.sPV.PaymentAccID).change();
+                          $("#RefNo").val(datas.sPV.RefNo);
+                          $("#Discription").val(datas.sPV.Note);
+                      }
+                  },
+                  error: function ()
+                  {
+                      alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+
+                  }
+            });
+        }
+
+        //Update
+        $(document).on('click', '#update', function () {
+            ValidateOnSaveClick();
+            $("#update").prop("disabled", true);
+            if (isValid == true) {
+                SetSPVoucher();
+                if (confirm("Do you want to Update?"))
+                {
+                    $.ajax(
+                    {
+                        url: '@Url.Action("UpdateSAPA", "SPVAA")',
+                        contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ sPAdvanceAdjustment: SPVoucher, addedItems: addedItems}),
+                            type: "POST",
+                            dataType: "json",
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Update Failed");
+                                    $("#update").prop('disabled', false);
+                                }
+                                else{
+                                    alert("Update Successfully");
+                                    $("#SPVNo").val(datas.id);
+                                    $("#search").click();
+
+                                    $("#print").show();
+                                }
+                            },
+                            error: function () {
+                                alert("Please check Internet connection. If doesn't solve problem. Contact with Avalanche Technology Ltd.");
+                                $("#update").prop("disabled", false);
+                            }
+                    });
+                }
+                else{
+                    $("#update").prop("disabled", false);
+                }
+            }
+            else{
+                $("#update").prop("disabled", false);
+            }
+        });
+
+        //Delete
+        $(document).on('click', '#delete', function () {
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var id = $("#SPVNo").val();
+            if (confirm('Are you sure you want to delete now?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteSPAById", "SPVAA")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Failed to delete, please check");
+                            $("#delete").prop('disabled', false);
+                            $("#update").prop('disabled', false);
+                        }
+                        else {
+                            alert("Deleted Successfully");
+                            location.reload();
+                        }
+                    }
+                });
+            }
+            else {
+                $("#update").prop('disabled', false);
+                $("#delete").prop('disabled', false);
+            }
+        });
+
+        function calculateTotalPaidAmount() {
+            var AdvanceAmount = parseFloat($("#RemAdvAmount").val());
+            var TotalAmount = 0;
+            $.each(addedItems, function (i, v) {
+                TotalAmount += parseFloat(v.Amount);
+            })
+            $("#TotalPaidAmount").val(TotalAmount);
+            $("#TAAmount").val(AdvanceAmount-TotalAmount);
+        }
+
+        
+
+        function SetSPVoucher() {
+            SPVoucher.SPAANo = $("#SPVNo").val();
+            SPVoucher.Date = $("#Date").val();
+            SPVoucher.SupplierID = $("#SupplierID").val();
+            SPVoucher.SPVNo = $("#AdvanceNO").val();
+            SPVoucher.AdjustedAmount = parseFloat( $("#TotalPaidAmount").val());
+            SPVoucher.RefNo = $("#RefNo").val();
+            SPVoucher.Description = $("#Discription").val();
+        }
+
+        //Validation
+        function ValidateOnSaveClick() {
+            isValid = true;
+            //if ($("#CreditAdvance").val() == "") {
+            //    setError("CreditAdvance", "Please select Credit or Advance first.");
+            //    isValid = false;
+            //}
+            if ($("#GroupID").val() == "") {
+                setError("GroupID", "Please select a group from the list.");
+                isValid = false;
+            }
+            if ($("#SupplierID").val() == "") {
+                setError("SupplierID", "Please select a supplier from the list");
+                isValid = false;
+            }
+
+            if ($("#AdvanceNO").val() == "") {
+                setError("AdvanceNO", "Please select Advance/SPV No");
+                isValid = false;
+            }
+            //var taamount = $("#TAAmount").val();
+            //if (taamount == "" || taamount < 0) {
+            //    setError("TAAmount", "Total Advance amount can't be negetive value");
+            //    isValid = false;
+            //}
+        }
+
+        function ValidateOnAddClick() {
+            isValid = true;
+            //if ($("#GPBNo").val() == "" && $("#GBENo").val() == "" && $("#ILCBNo").val() == "" && $("#DPNo").val() == "" && $("#OpeningBalance").val() == false) {
+            //    //message = "Bill No is required."
+            //    setError("ILCBNo", "Bill No is required.");
+            //    isValid = false;
+                //}
+            if ($("#BillType").val() == "") {
+                setError("BillType", "Please select Bill Type");
+                isValid = false;
+            }
+            if ($("#BillNo").val() == "") {
+                setError("BillNo", "Please select Bill No");
+                isValid = false;
+            }
+            if ($("#PaidAmount").val() <= 0) {
+                setError("PaidAmount", "Amount Must be Grater than Zero.");
+                isValid = false;
+            }
+            if ($("#BalAmount").val() < 0) {
+                setError("BalAmount", "Balance Amount can't be Negetive.");
+                isValid = false;
+            }
+            var billno =  $("#BillNo").val();
+            var billType = $("#BillType").val();
+            $.each(addedItems, function (key, value) {
+                if (value.DocNo == billno && value.DocType == billType) {
+                    alert("Bill No already exists");
+                    isValid = false;
+                    ClearOnAddToGrid();
+                }
+            });
+        }
+
+        function ClearOnSearch() {
+            //$("#Date").val((moment("").format("DD-MM-YYYY"))).change();
+            //$("#CreditAdvance").val("").change();
+            $("#GroupID").val("").change();
+            $("#SupplierID").val("").change();
+            //$("#PaymentAccID").val("").change();
+            $("#RefNo").val("");
+            $("#Discription").val("");
+            //$("#PayInfoAmount").val("");
+        }
+        function ClearOnAddToGrid() {
+            //$("#BillType").val("").change();
+            //$("#BillNo").val("").change();
+            //$("#ILCBNo").val("").change();
+            //$("#DPNo").val("").change();
+            //$("#BillType").val("").change();
+            //$("#BillAmount").val("");
+            //$("#PaidAmount").val("");
+            //$("#BalAmount").val("");
+            //$("BillType").prop("selected", false)
+            $("#BillType").val("").change();
+            $("#BillAmount").val("");
+            $("#PaidAmount").val("");
+            $("#BalAmount").val("");
+            $("#BillNo").val("").change();
+        }
+
+        function DisabledDropdown() {
+            $("#GPBNo").prop('disabled', true);
+            $("#GBENo").prop('disabled', true);
+            $("#ILCBNo").prop('disabled', true);
+            $("#DPNo").prop('disabled', true);
+            $("#OpeningBalance").prop("disabled", true);
+        }
+
+
+
+        $(document).on('click', '#print', function () {
+            if ($("#SPVNo").val() != "") {
+                window.open("/SupplierPaymentVoucher/GetSPVoucherPreview?spvNo=" + $("#SPVNo").val(), "_blank");
+            }
+            else {
+                setError("SPVNo", "SPVNo is required for Print Preview.");
+            }
+        });
+
+    </script>
+}

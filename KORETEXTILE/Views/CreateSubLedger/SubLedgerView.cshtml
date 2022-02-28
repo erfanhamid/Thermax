@@ -1,0 +1,403 @@
+﻿@model BEEERP.Models.AccountModule.SubLedger
+
+@{
+    ViewBag.Title = "SubLedgerView";
+}
+
+<style>
+    tbody tr:hover {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+</style>
+<div class="row">
+    <div>
+        <div class="col-md-6">
+            <h3 style="text-align:center">Create Sub Ledger</h3>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div>
+                    <h4 style="color:red">@ViewBag.messege</h4>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h5 class="box-title">Sub Ledger Details</h5>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.SubLedgerID, "Sub Ledger ID", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(m => m.SubLedgerID, new { @class = "form-control", @readonly = "readonly", @Value = ViewBag.subledgerid })
+                                        @Html.ValidationMessageFor(m => m.SubLedgerID, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.SubLedgerName, "Sub Ledger Name", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(m => m.SubLedgerName, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.SubLedgerName, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.SubLedgerType, "Sub Ledger Type", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DropDownListFor(m => m.SubLedgerType, (IEnumerable<SelectListItem>)ViewBag.SubLedgerType, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.SubLedgerType, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.DepotID, "Depot Name", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DropDownListFor(m => m.DepotID, (IEnumerable<SelectListItem>)ViewBag.DepotId, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.DepotID, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ReferenceNo, "Reference No", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(m => m.ReferenceNo, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.ReferenceNo, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.SLDescription, "Description", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(m => m.SLDescription, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.SLDescription, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="background-color:white; ">
+                            <div class="form-group" style="padding:3px;">
+                                <div class="col-md-12" style="text-align:center;">
+                                    @*@{
+                                        if (UserAccessAction.HavePerOnSave)
+                                        {*@
+                                    <input type="button" name="Save" id="save" value="Save" class="btn btn-primary" />
+                                    @*}
+
+                                        if (UserAccessAction.HavePerOnSave)
+                                        {*@
+                                    <input type="button" name="Upate" id="update" value="Update" class="btn btn-primary" />
+                                    @*}
+                                         if (UserAccessAction.HavePerOnSave)
+                                        {*@
+                                    <input type="button" name="Delete" id="delete" value="Delete" class="btn btn-primary" />
+                                    @*}
+                                        }*@
+                                    <input type="button" name="Refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h5 class="box-title">Sub Ledger List</h5>
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-responsive" id="SubLedgerList">
+                                    <thead>
+                                        <tr>
+                                            <th>Sub Ledger ID</th>
+                                            <th>Sub Ledger Name</th>
+                                            <th>Sub Ledger Type</th>
+                                            <th>Depot</th>
+                                            <th>Reference No</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.SubLedger)
+                                        {
+                                            <tr class='clickable-row' value="@item.SubLedgerID">
+                                                <td>@item.SubLedgerID</td>
+                                                <td>@item.SubLedgerName</td>
+                                                <td>@item.SubLedgerType</td>
+                                                <td>@item.DepotName</td>
+                                                <td>@item.ReferenceNo</td>
+                                                <td>@item.SLDescription</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script src="~/Scripts/DataAdminModule/StoreInputFocus.js"></script>
+    <script>
+
+        var isValid = true;
+        var FGStoreID="";
+        $(function () {
+            $('#SubLedgerList').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+
+
+        })
+        //var table = $("#StoreList").DataTable({
+
+        //    'searching': true,
+        //    'ordering': true,
+        //    'info': true
+
+        //});
+        $(".select2").select2();
+        $(document).ready(function () {
+
+            $("#update").hide();
+            $("#delete").hide();
+            $("#SubLedgerName").focus();
+            @*$("#Depot").val("@ViewBag.DepotId").change();
+            $("#DepotID").prop('disabled', false);*@
+            $(document).on('click', '#edit', function () {
+                var id = $(this).attr("value");
+                alert(id);
+            });
+
+            $(document).on('click', '#refresh', function () {
+                location.reload();
+            });
+
+            //textbox fillup
+            //$(".clickable-row").on('click', function (e) {
+            $(document).on('click', ".clickable-row", function () {
+                var id = $(this).attr("value");
+                 $.ajax({
+                    url: '@Url.Action("GetSubLedgerByid", "CreateSubLedger")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if(datas==0)
+                        {
+                            alert("This sub ledger no doesn't exist.");
+                        }
+                        else {
+                            $("#save").hide();
+                            $("#update").show();
+                            $("#delete").show();
+                            $("#SubLedgerID").val(datas.item.SubLedgerID);
+                            $("#SubLedgerName").val(datas.item.SubLedgerName);
+                            $("#SubLedgerType").val(datas.item.SubLedgerType).change();
+                            $("#DepotID").val(datas.item.DepotID).change();
+                            $("#ReferenceNo").val(datas.item.ReferenceNo);
+                            $("#SLDescription").val(datas.item.SLDescription);
+                            //$("#FGStoreID").val(datas.item.FGStoreID).change();
+                            //FGStoreID = datas.item.FGStoreID;
+                        }
+                    }
+                });
+            });
+        });
+        EnterPress();
+        //save store
+        $(document).on('click', '#save', function () {
+            ValidateOnSaveClick()
+            //$("#save").prop('disabled', true);
+            if (isValid == true)
+            {
+                var subledger = { SubLedgerID: 0, SubLedgerName: "", SubLedgerType: "", DepotID: 0, ReferenceNo: "", SLDescription:"" };
+                subledger.SubLedgerID = $("#SubLedgerID").val();
+                subledger.SubLedgerName = $("#SubLedgerName").val();
+                subledger.SubLedgerType = $("#SubLedgerType").val();
+                subledger.DepotID = parseInt($("#DepotID").val());
+                subledger.ReferenceNo = $("#ReferenceNo").val();
+                subledger.SLDescription = $("#SLDescription").val();
+                if (confirm("Do you want to save?")) {
+                     $.ajax({
+                        url: '@Url.Action("SaveNewSubLedger", "CreateSubLedger")',
+                        contentType: "application/json;charset=utf-8",
+                             data: JSON.stringify({ subledger: subledger }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas.Message == 0) {
+                                alert("Sub Ledger Name already exists");
+                                $("#save").prop('disabled', false);
+                            }
+                            else if (datas.Message == 1) {
+                                alert("Saved successfully");
+                                location.reload();
+                            }
+                            else {
+                                alert("Save Failed. Check your Internet Connection.");
+                            }
+                        }
+                });
+                }
+
+            }
+            else {
+                alert(message);
+                $("#save").prop('disabled', false);
+            }
+        });
+
+        @*$(document).on('change', "#DepotID", function () {
+           // $("#GroupID").prop('disabled', false);
+            var depotID = { depotID: $(this).val() };
+            //var depotID = $("#DepotID").val();
+
+                $.ajax({
+                    url: '@Url.Action("GetFGstoreName", "Store")',
+                    contentType: "application/json;charset=utf-8",
+                    data: depotID,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        $("#FGStoreID").empty();
+                        //$("#SupplierID").prop("disabled", false);
+                        $.each(datas.FGStore, function (index, value) {
+                            $("#FGStoreID").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                        $("#FGStoreID").focus();
+                        if (FGStoreID != "") {
+                            $("#FGStoreID").val(FGStoreID).change();
+                            FGStoreID = "";
+                        }
+                    }
+                });
+
+
+        });*@
+
+        //update store
+        $(document).on('click', '#update', function () {
+            ValidateOnSaveClick();
+            //$("#update").prop('disabled', true);
+                if (isValid == true)
+                {
+                    var subledger = { SubLedgerID: 0, SubLedgerName: "", SubLedgerType: "", DepotID: 0, ReferenceNo: "", SLDescription: "" };
+                    subledger.SubLedgerID = $("#SubLedgerID").val();
+                    subledger.SubLedgerName = $("#SubLedgerName").val();
+                    subledger.SubLedgerType = $("#SubLedgerType").val();
+                    subledger.DepotID = parseInt($("#DepotID").val());
+                    subledger.ReferenceNo = $("#ReferenceNo").val();
+                    subledger.SLDescription = $("#SLDescription").val();
+                    if (confirm("Do you want to Update?")) {
+                        $.ajax({
+                        url: '@Url.Action("UpdateSubLedger", "CreateSubLedger")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ subledger: subledger }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Name already exists, please check");
+                                $("#update").prop('disabled', false);
+                            }
+                            else {
+                                alert("Updated Sucessfully");
+                                location.reload();
+                            }
+                        }
+                    });
+                    }
+
+                }
+                else {
+                    alert(message);
+                    $("#update").prop('disabled', false);
+                }
+
+        });
+
+        //delete store
+        $(document).on('click', '#delete', function () {
+
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var id = $("#SubLedgerID").val();
+            if (confirm('Are you sure you want to delete now?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteSubLedgerByid", "CreateSubLedger")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("This sub ledger has transaction, please check");
+                        }
+                        else {
+                            alert("Deleted Successfully");
+                            location.reload();
+                        }
+                    }
+                });
+            }
+        });
+
+        function ValidateOnSaveClick() {
+            var isValid = true;
+            if ($("#SubLedgerName").val() == "") {
+                setError("SubLedgerName", "Please enter a sub ledger name");
+                isValid = false;
+            }
+
+            if ($("#SubLedgerType").val() == "") {
+                setError("SubLedgerType", "Please select a type");
+                isValid = false;
+            }
+
+            if ($("#DepotID").val() == "") {
+                setError("DepotID", "Please select a Depot");
+                isValid = false;
+            }
+
+        }
+
+
+    </script>
+}
+

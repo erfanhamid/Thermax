@@ -1,0 +1,335 @@
+﻿@model BEEERP.Models.Payroll.Holiday
+
+@{
+    /**/
+
+    ViewBag.Title = "Holiday";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+@using (Html.BeginForm("SaveLeaveType", "LeaveType", FormMethod.Post))
+{
+<div class="row">
+    <div>
+        <div class="col-md-6">
+            <h3 style="text-align:center">Create Yearly Holidays</h3>
+
+        </div>
+    </div>
+</div>
+    <div class="content">
+
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div>
+                        <h4 style="color:red">@ViewBag.messege</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                    <h4 class="box-title">Holiday Details</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ID, "Holiday ID", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-7">
+                                            @Html.TextBoxFor(m => m.ID, new { @class = "form-control", @readonly = "readonly", @Value = ViewBag.HID })
+                                            @Html.ValidationMessageFor(m => m.ID)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.HolidayName, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-7">
+                                            @Html.TextBoxFor(m => m.HolidayName, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.HolidayName, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.HolidayDate, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-7 date input-group" style="padding-left:15px; padding-right:15px">
+                                            @Html.TextBoxFor(m => m.HolidayDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            @Html.ValidationMessageFor(m => m.HolidayDate)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="background-color:white; ">
+                                <div class="form-group">
+                                    <div class="col-sm-4"></div>
+                                    <div class="col-sm-8">
+                                        <input type="button" name="Save" id="save" value="Save" class="btn skin-blue" />
+                                        <input type="button" name="Upate" id="update" value="Update" class="btn skin-blue" />
+                                        <input type="button" name="Delete" id="delete" value="Delete" class="btn skin-blue" />
+                                        <input type="button" name="Refresh" id="refresh" value="Refresh" class="btn skin-blue" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                    <h4 class="box-title">Holiday List</h4>
+                                </div>
+                                <div class="box-body">
+                                    <table class="table table-responsive" id="HDList">
+                                        <thead>
+                                            <tr>
+                                                <th>Holiday Name</th>
+                                                <th>Holiday Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ViewBag.HD)
+                                            {
+                                                @*<script>
+                                                        var date = moment(@item.HolidayDate).format("DD-MM-YYYY");
+                                                    </script>*@
+                                                <tr class='clickable-row' value="@item.ID">
+                                                    <td>@item.HolidayName</td>
+                                                    <td>@item.Date</td>
+                                                </tr>
+
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@section scripts{
+
+    <script>
+        var isValid = true;
+        $(function () {
+            $('#HDList').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': true,
+                'ordering': false,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+
+        $("#ID").attr('disabled', true);
+        $('.date').datepicker({
+            autoclose: true,
+            format: "dd-mm-yyyy"
+        });
+
+        $(document).ready(function () {
+
+            $("#update").hide();
+            $("#delete").hide();
+            $("#HolidayName").focus();
+        })
+        $(document).on("keydown", "#HolidayName", function (e) {
+            if (e.keyCode == 13 || e.keyCode == 9) {
+                e.preventDefault();
+                $("#HolidayDate").focus();
+            }
+        });
+        $(document).on("keydown", "#HolidayDate", function (e) {
+            if (e.keyCode == 13 || e.keyCode == 9) {
+                e.preventDefault();
+                $("#save").focus();
+            }
+        });
+        $(document).on("keydown", "#save", function (e) {
+            if (e.keyCode == 13 || e.keyCode == 9) {
+                e.preventDefault();
+                $("#save").click();
+            }
+        });
+        $(document).on('click', '#refresh', function () {
+
+            window.location.reload(true);
+        });
+
+        //textbox fillup
+        $(document).on('click', '.clickable-row', function () {
+            var id = $(this).attr("value");
+                $.ajax({
+                    url: '@Url.Action("GetHDByid", "Holiday")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if(datas==0)
+                        {
+                            alert("This Holiday Already Expired.");
+                        }
+                        else {
+
+                                $("#save").prop('disabled', true);
+                                $("#update").show();
+                                $("#delete").show();
+                                $("#ID").val(datas.item.ID);
+                                $("#HolidayName").val(datas.item.HolidayName);
+                                $("#HolidayDate").val(moment(datas.item.HolidayDate).format("DD-MM-YYYY")).change();
+
+
+
+
+                        }
+                    }
+                });
+        });
+
+        //save Depot
+        $(document).on('click', '#save', function () {
+            ValidateOnSaveClick()
+            $("#save").prop('disabled', true);
+            if (isValid == true)
+                {
+                var HD = { ID: 0, HolidayName: "", HolidayDate: "" };
+                    HD.ID = $("#ID").val();
+                    HD.HolidayName = $("#HolidayName").val();
+                    HD.HolidayDate = $("#HolidayDate").val();
+                    if (confirm('Do you want to save?')) {
+                        $.ajax({
+                        url: '@Url.Action("SaveHD", "Holiday")',
+                        contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ HD: HD }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Save Failed or This Holiday is Already Exist");
+                                $("#save").prop('disabled', false);
+                            }
+                            else {
+                                alert("Save Sucessful.");
+                                window.location.reload(true);
+                            }
+                        }
+                    });
+                    }
+
+                }
+                else {
+
+                    $("#save").prop('disabled', false);
+                }
+        });
+
+        //update Depot
+        $(document).on('click', '#update', function () {
+            ValidateOnSaveClick()
+            $("#update").prop('disabled', true);
+            if (isValid == true)
+                {
+                var HD = { ID: 0, HolidayName: "", HolidayDate:"" };
+                    HD.ID = $("#ID").val();
+                    HD.HolidayName = $("#HolidayName").val();
+                    HD.HolidayDate = $("#HolidayDate").val();
+                    if (confirm('Do you want to update?')) {
+                         $.ajax({
+                        url: '@Url.Action("UpdateHD", "Holiday")',
+                        contentType: "application/json;charset=utf-8",
+                             data: JSON.stringify({ HD: HD }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Update Failed");
+                                $("#update").show();
+                            }
+                            else {
+                                alert("Update Successfull.");
+                                window.location.reload(true);
+                            }
+                        }
+                    });
+                    }
+
+                }
+                else {
+
+                $("#update").prop('disabled', false);
+                }
+        });
+
+        //Delete Depot
+        $(document).on('click', '#delete', function () {
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var id = $("#ID").val();
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteHDByid", "Holiday")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Delete failed.");
+                        }
+                        else {
+                            alert("Delete Successfull");
+                            location.reload();
+                        }
+                    }
+                });
+            }
+        });
+
+        function ValidateOnSaveClick() {
+
+            if ($("#HolidayName").val() == "") {
+                setError("HolidayName", "Please Enter Holiday First");
+                isValid = false;
+            }
+        }
+        $("#HolidayName").focusout(function () {
+            if ($("#HolidayName").val() != "") {
+                setError("HolidayName", "");
+                isValid = true;
+            }
+        });
+
+    </script>
+
+}
+

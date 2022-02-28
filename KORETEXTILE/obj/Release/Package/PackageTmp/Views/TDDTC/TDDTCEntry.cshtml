@@ -1,0 +1,1003 @@
+﻿@model BEEERP.Models.ViewModel.Location.TsoCustomerTravelCheckpointVModel
+
+@{
+    ViewBag.Title = "TDDTCEntry";
+}
+<style>
+    .btn:hover {
+        color: blue !important;
+    }
+
+    .btn:focus {
+        background-color: aqua !important;
+    }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+
+    .cost {
+        padding-bottom: 10px;
+    }
+
+    .btnGrid {
+        margin: 2px;
+    }
+
+    .fix {
+        margin-bottom: 5px;
+    }
+
+    span {
+        padding-bottom: 2px;
+    }
+
+    #btnsearch {
+        padding-left: 0px;
+    }
+
+    .Tdate {
+        padding-left: 2%;
+        padding-right: 2%
+    }
+
+    .radiobtn {
+        font-weight: bold;
+        padding: 1%;
+        margin-bottom: 2%;
+        background: #ecf0f5;
+        text-align: center;
+    }
+
+    .CatRadio {
+        padding: 2px;
+    }
+    .select2 {
+        width: 90%!important;
+    }
+</style>
+
+
+<div class="content" style="margin-top:15px;">
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+
+                    <div class="box-header with-border box-head-back" align="center">
+                        <h2 class="box-title">
+                            <b>
+                                TSO Daily Dealer Travel Checkpoint
+                            </b>
+                        </h2>
+                    </div>
+                    <div class="box-body">
+                        <div class="col-md-12" style="margin-top:35px;">
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="col-md-10 col-md-offset-2 radiobtn">
+                                        <input type="radio" id="Zone" name="Category" value="Zone" checked="checked"><span class="CatRadio"> Zone Wise</span>
+                                        <input type="radio" id="Area" name="Category" value="Area"><span class="CatRadio"> Area Wise</span>
+                                        <input type="radio" id="Manual" name="Category" value="Manual"><span class="CatRadio"> Manual</span>
+                                        <input type="radio" id="PrevDate" name="Category" value="PrevDate"><span class="CatRadio"> Previous Date Wise</span>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.TCTNo, new { @class = "col-md-4 control-label" })
+                                            <div class="col-md-8 ">
+                                                <div class="row">
+                                                    <div class="col-md-10">
+                                                        @Html.TextBoxFor(m => m.TCTNo, new { @class = "form-control digit", @type = "Number" })
+                                                        @Html.ValidationMessageFor(m => m.TCTNo, "", new { @style = "color: red" })
+                                                    </div>
+                                                    <div class="col-md-2 input-group-btn" id="btnsearch">
+                                                        <button type="button" class="btn skin-blue btn-flat" id="search">Search</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-10" id="TsoHide">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.TsoID, new { @class = "col-md-4 control-label" })
+                                            <div class="col-md-8 ">
+                                                @Html.DropDownListFor(m => m.TsoID, (IEnumerable<SelectListItem>)ViewBag.tso, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.TsoID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10 ">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Date, new { @class = "col-md-4 control-label" })
+                                            <div class="col-md-8 input-group" style="padding: 0% 2% 0% 2%;">
+                                                @Html.TextBoxFor(m => m.Date, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                @Html.ValidationMessageFor(m => m.Date, "", new { @style = "color: red" })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-md-6">
+
+                                    <div class="col-md-10" id="zone">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.ZoneID, new { @class = "col-md-4 control-label" })
+                                            <div class="col-md-8 ">
+                                                @Html.DropDownListFor(m => m.ZoneID, (IEnumerable<SelectListItem>)ViewBag.zone, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.ZoneID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10" id="Customer">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.CustomerID, new { @class = "col-md-4 control-label" })
+                                            <div class="col-md-8 ">
+                                                @Html.DropDownListFor(m => m.CustomerID, (IEnumerable<SelectListItem>)ViewBag.cust, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.CustomerID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10" id="area">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.AreaName, new { @class = "col-md-4 control-label" })
+                                            <div class="col-md-8 ">
+                                                @Html.DropDownListFor(m => m.AreaName, (IEnumerable<SelectListItem>)ViewBag.area, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.AreaName, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10" id="PreDate">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.PreviousDate, new { @class = "col-md-4 control-label" })
+                                            <div class="col-md-8 input-group " style="padding: 0% 2% 0% 2%;">
+                                                @Html.TextBoxFor(m => m.PreviousDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                @Html.ValidationMessageFor(m => m.PreviousDate, "", new { @style = "color: red" })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="CustomerName" name="CustomerName" />
+                                <input type="hidden" id="TsoName" name="TsoName" />
+                                @*<input type="hidden" id="TID" name="TID" />*@
+                                <input type="hidden" id="CustID" name="CustID" />
+                                <input type="hidden" id="Latitude" name="Latitude" />
+                                <input type="hidden" id="Longitude" name="Longitude" />
+                                <input type="hidden" id="AreaN" name="AreaN" />
+                                <input type="hidden" id="ZID" name="ZID" />
+                                <div class="col-md-12" style="text-align: center">
+                                    <div class="form-group">
+                                        @*<div class="col-md-10" style="text-align:right;">*@
+                                        <button type="button" id="addToGrid" name="addToGrid" class="btn">Add To Grid</button>
+                                        @*</div>*@
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="box ">
+                    <div class="box-header with-border box-head-back" align="center">
+                        <h3 class="box-title"><b>Information</b></h3>
+                    </div>
+                    <div class="box-body">
+                        <table class="table table-responsive" id="DataList">
+                            <thead>
+                                <tr>
+                                    <th>TSO Name</th>
+                                    <th>Dealer Name</th>
+                                    <th>Category</th>
+                                    <th>Longitute</th>
+                                    <th>Latitute</th>
+                                    <th>Date</th>
+                                    <th id="acHide">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-md-12 button " align="center" style="background-color:white">
+
+            <div class="box-body">
+                <input type="button" value="Save" id="save" class="btn skin-blue span4 offset4 centered" style="padding-left:20px;" />
+                <input type="button" name="update" id="update" value="Update" class="btn skin-blue span4 offset4 centered" />
+                <input type="button" name="delete" id="delete" value="Delete" class="btn skin-blue span4 offset4 centered" />
+                <input type="button" name="refresh" id="refresh" value="Refresh" class="btn skin-blue span4 offset4 centered" />
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/Location/TDDTCEntry.js"></script>
+    <script>
+
+        $(document).ready(function () {
+        EnterPress();
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'mm-dd-yyyy',
+        });
+        var addedItems = [];
+        var table = $('#DataList').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': false,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+            });
+        $("#PreviousDate").val("10/10/1971").change();
+        $("#Customer").hide();
+        $("#area").hide();
+        $("#PreDate").hide();
+        $("#update").hide();
+        $("#delete").hide();
+        $("#ZoneID").val("").change();
+        //$("#TsoHide").hide();
+        $("#CustomerID").prop("disabled", true);
+        $("#addToGrid").prop("disabled", true);
+        //var buttons = table.buttons(['.edit']);
+        //buttons.disable();
+        var area = true;
+        var manual = true;
+        var zone = true;
+        var prev = true;
+        var tso = true;
+        var load = true;
+        var custid = 0;
+        var input = false;
+        var flagTso = true;
+        $("#ZoneID").change(function () {
+            var id = $(this).val();
+            var tso = $("#TsoID").val();
+           
+                    if (id != "" && tso != "" && zone == true ) {
+                        $.ajax({
+                            url: '@Url.Action("GetCustomerByZoneID", "TDDTC")',
+                            contentType: "application/json;charset=utf-8",
+                            data: { id: id , tsoId:tso},
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas != "" && datas != 0) {
+                                    addedItems = [];
+                                    $.each(datas.data, function (index, value) {
+                                        var item = { TsoID: 0, CustomerID: 0, Longitude: 0.0, Latitude: 0, TSOName: "", DealerName: "", Category: "", Date: "", s1: 0, PreviousDate: "", ZoneID: 0, Area: "" }
+                                        item.TsoID = value.TsoID;
+                                        item.CustomerID = value.CustomerID;
+                                        item.Longitude = value.Longitude;
+                                        item.Latitude = value.Latitude;
+                                        item.TSOName = value.TSOName;
+                                        item.DealerName = value.CustomerName;
+                                        item.Date = moment(value.Date).format("DD-MM-YYYY");
+                                        item.Area = value.Area;
+                                        var prvdate = $("#PreviousDate").val();
+                                        item.PreviousDate = prvdate;
+                                        item.s1 = value.s1;
+                                        item.Category = "Zone";
+                                        item.ZoneID = $("#ZoneID").val();
+                                        addedItems.push(item);
+                                    });
+                                   
+                                    ShowOnTable();
+                                    update = true;
+                                    $("#save").show();
+                                    $("#update").hide();
+                                    $("#delete").hide();
+                                }
+                                else {
+                                    table.clear().draw();
+                                }
+
+
+
+                            }
+                        });
+                    }
+                    else {
+                        table.clear().draw();
+                    }
+            
+               
+                });
+
+            $('.select2').select2();
+            var addItems = [];
+        
+
+            $("#refresh").on('click', function () {
+                window.location.reload(true);
+            });
+
+            $('input[type=radio][name=Category]').change(function () {
+                var data = $(this).val();
+                if (data == "Zone") {
+                    $("#zone").show();
+                    $("#Customer").hide();
+                    $("#area").hide();
+                    $("#PreDate").hide();
+                    $("#AreaName").val("").change();
+                    $("#ZoneID").val("").change();
+                    table.clear().draw();
+                } else if (data == "Area") {
+                    $("#area").show();
+                    $("#zone").hide();
+                   
+                    $("#Customer").hide();
+                    $("#PreDate").hide();
+                    $("#ZoneID").val("").change();
+                    $("#AreaName").val("").change();
+                    table.clear().draw();
+                } else if (data == "Manual") {
+                    
+                    $("#Customer").show();
+                    $("#zone").hide();
+                    $("#area").hide();
+                    $("#PreDate").hide();
+                    $("#CustomerID").val("").change();
+                    flagTso = false;
+                    table.clear().draw();
+                } else if (data == "PrevDate") {
+                    $("#PreDate").show();
+                    $("#zone").hide();
+                    $("#area").hide();
+                    $("#ZoneID").val("").change();
+                    $("#AreaName").val("").change();
+                    $("#Customer").hide();
+                }
+
+            });
+
+        $(document).on('change', "#PreviousDate", function () {
+            var tso = $("#TsoID").val();
+            var date = $("#PreviousDate").val();
+            if (date != null && prev == true) {
+                        $.ajax({
+                            url: '@Url.Action("GetCustomerPrevDate", "TDDTC")',
+                            contentType: "application/json;charset=utf-8",
+                            data: { date: date , tsoId : tso},
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas != "") {
+                                    addedItems = [];
+                                    $.each(datas.data, function (index, value) {
+                                        var item = { TsoID: 0, CustomerID: 0, Longitude: 0.0, Latitude: 0, TSOName: "", DealerName: "", Category: "", Date: "", s1: 0, PreviousDate: "", ZoneID: 0 , Area:"",TCTNo:0}
+                                        item.TsoID = value.TsoID;
+                                        item.CustomerID = value.CustomerID;
+                                        item.Longitude = value.Longitude;
+                                        item.Latitude = value.Latitude;
+                                        item.TSOName = value.TSOName;
+                                        item.DealerName = value.CustomerName;
+                                        item.Date = moment(value.Date).format("DD-MM-YYYY");
+                                        //item.date = $("#Date").val();
+                                        var prvdate = $("#PreviousDate").val();
+                                        item.PreviousDate = prvdate;
+                                        item.Area = value.Area;
+                                        item.s1 = value.s1;
+                                        item.Category = value.Category;
+                                        item.ZoneID = $("#ZoneID").val();
+                                        item.TCTNo = value.TCTNo;
+                                        addedItems.push(item);
+                                    });
+                                    //$("#acHide").add();
+                                    input = true;
+                                    ShowOnTable();
+                                    $("#save").show();
+                                    //$("#update").show();
+                                    //$("#delete").show();
+                                }
+                            }
+
+                        });
+                    } else {
+                        table.clear().draw();
+                    }
+            
+                   
+
+
+        });
+                $(document).on('change', "#CustomerID", function () {
+                    var id = $(this).val();
+                    if (id != "" && manual == true && load == true) {
+                        $.ajax({
+                            url: '@Url.Action("GetCustomerByCustomerID", "TDDTC")',
+                            contentType: "application/json;charset=utf-8",
+                            data: { id: id },
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas != "") {
+
+                                  
+                                    $("#CustomerName").val(datas.data[0].CustomerName);
+                                    $("#TCTNo").attr('disabled', true);
+                                    $("#PreviousDate").attr('disabled', true);
+                                    $('input[type=radio][name=Category]').attr('disabled', true);
+                                    $("#TsoName").val(datas.data[0].TSOName);
+                                    $("#Latitude").val(datas.data[0].Latitude);
+                                    $("#Longitude").val(datas.data[0].Longitude);
+                                    $("#CustID").val(datas.data[0].CustomerID);
+                                    $("#TID").val(datas.data[0].TsoID);
+                                    $("#AreaN").val(datas.data[0].CustomerID);
+                                    $("#ZID").val(datas.data[0].ZoneID);
+                                    $("#addToGrid").prop("disabled", false);
+                                    $("#save").show();
+                                    $("#update").hide();
+                                    $("#delete").hide();
+                                }
+                            }
+                        });
+                    } else {
+                        
+                    }
+                });
+
+                $(document).on('change', "#TsoID", function () {
+                    
+                    var id = $(this).val();
+                    var zoneId = $("#ZoneID").val();
+                    var area = $("#AreaName").val();
+                    var PreviousDate = $("#PreviousDate").val();
+                    if (id != "" && flagTso == false ) {
+                        $.ajax({
+                            url: '@Url.Action("LoadCustomerByTSO", "TDDTC")',
+                            contentType: "application/json;charset=utf-8",
+                            data: { id: id },
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (datas) {
+                                $("#CustomerID").empty();
+                                $("#CustomerID").prop("disabled", false);
+                                $.each(datas, function (index, value) {
+                                    $("#CustomerID").append($('<option />', {
+                                        value: value.Value,
+                                        text: value.Text
+                                    })).trigger('change');
+                                });
+                                if (custid != "") {
+                                    $("#CustomerID").val(custid).change();
+                                    $("#CustomerID").attr('disabled', true);
+                                }
+                                $("#CustomerID").focus();
+
+                            }
+                        });
+                    } else if (id != "" && zoneId != "") {
+                         $.ajax({
+                            url: '@Url.Action("GetCustomerByZoneID", "TDDTC")',
+                             contentType: "application/json;charset=utf-8",
+                             data: { tsoId: id, id: zoneId },
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas != "") {
+
+                                    addedItems = [];
+                                    $.each(datas.data, function (index, value) {
+                                        var item = { TsoID: 0, CustomerID: 0, Longitude: 0.0, Latitude: 0, TSOName: "", DealerName: "", Category: "", Date: "", s1: 0, PreviousDate: "", ZoneID: 0, Area: "", TCTNo: 0 }
+                                        item.TsoID = value.TsoID;
+                                        item.CustomerID = value.CustomerID;
+                                        item.Longitude = value.Longitude;
+                                        item.Latitude = value.Latitude;
+                                        item.TSOName = value.TSOName;
+                                        item.DealerName = value.CustomerName;
+                                        //item.Date = moment(value.Date).format("DD-MM-YYYY");
+                                        item.Date = $("#Date").val();
+                                        var prvdate = $("#PreviousDate").val();
+                                        item.PreviousDate = prvdate;
+                                        item.Area = value.Area;
+                                        item.s1 = value.s1;
+                                        item.Category = "Zone"
+                                        item.ZoneID = value.ZoneID;
+                                        item.TCTNo = value.TCTNo;
+                                        addedItems.push(item);
+                                    });
+                                    //$("#acHide").add();
+                                    input = true;
+                                    ShowOnTable();
+                                    $("#save").show();
+                                    //$("#update").show();
+                                    //$("#delete").show();
+                                }
+                            }
+                        });
+                    } else if (id != "" && area != "") {
+                         $.ajax({
+                            url: '@Url.Action("GetCustomerByArea", "TDDTC")',
+                             contentType: "application/json;charset=utf-8",
+                             data: { tsoId: id, area: area },
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas != "") {
+
+                                    addedItems = [];
+                                    $.each(datas.data, function (index, value) {
+                                        var item = { TsoID: 0, CustomerID: 0, Longitude: 0.0, Latitude: 0, TSOName: "", DealerName: "", Category: "", Date: "", s1: 0, PreviousDate: "", ZoneID: 0, Area: "", TCTNo: 0 }
+                                        item.TsoID = value.TsoID;
+                                        item.CustomerID = value.CustomerID;
+                                        item.Longitude = value.Longitude;
+                                        item.Latitude = value.Latitude;
+                                        item.TSOName = value.TSOName;
+                                        item.DealerName = value.CustomerName;
+                                        //item.Date = moment(value.Date).format("DD-MM-YYYY");
+                                        item.Date = $("#Date").val();
+                                        var prvdate = $("#PreviousDate").val();
+                                        item.PreviousDate = prvdate;
+                                        item.Area = value.Area;
+                                        item.s1 = value.s1;
+                                        item.Category = "Area"
+                                        item.ZoneID = $("#ZoneID").val();
+                                        item.TCTNo = value.TCTNo;
+                                        addedItems.push(item);
+                                    });
+                                    //$("#acHide").add();
+                                    input = true;
+                                    ShowOnTable();
+                                    $("#save").show();
+                                    //$("#update").show();
+                                    //$("#delete").show();
+                                }
+                            }
+                        });
+                    } else if (id != "" && PreviousDate != "") {
+                         $.ajax({
+                            url: '@Url.Action("GetCustomerPrevDate", "TDDTC")',
+                             contentType: "application/json;charset=utf-8",
+                             data: { tsoId: id, date: PreviousDate },
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas != "") {
+
+                                  
+                                    addedItems = [];
+                                    $.each(datas.data, function (index, value) {
+                                        var item = { TsoID: 0, CustomerID: 0, Longitude: 0.0, Latitude: 0, TSOName: "", DealerName: "", Category: "", Date: "", s1: 0, PreviousDate: "", ZoneID: 0, Area: "", TCTNo: 0 }
+                                        item.TsoID = value.TsoID;
+                                        item.CustomerID = value.CustomerID;
+                                        item.Longitude = value.Longitude;
+                                        item.Latitude = value.Latitude;
+                                        item.TSOName = value.TSOName;
+                                        item.DealerName = value.CustomerName;
+                                        item.Date = moment(value.Date).format("DD-MM-YYYY");
+                                        var prvdate = $("#PreviousDate").val();
+                                        item.PreviousDate = prvdate;
+                                        item.Area = value.Area;
+                                        item.s1 = value.s1;
+                                        item.Category = "PreviousDate";
+                                        item.ZoneID = $("#ZoneID").val();
+                                        item.TCTNo = value.TCTNo;
+                                        addedItems.push(item);
+                                    });
+                                    //$("#acHide").add();
+                                    input = true;
+                                    ShowOnTable();
+                                    $("#save").show();
+                                    //$("#update").show();
+                                    //$("#delete").show();
+                                }
+                            }
+                        });
+                    }
+
+                    else {
+                        $("#PreviousDate").val("10/10/1971").change();
+                        $("#CustomerID").prop("disabled", true);
+                    }
+
+                });
+                $(document).on('change', "#AreaName", function () {
+
+                    var AreaVal = $(this).val();
+                    var tso = $("#TsoID").val();
+                    if (AreaVal != "" && area == true && tso != "" || tso != 0) {
+                        $.ajax({
+                            url: '@Url.Action("GetCustomerByArea", "TDDTC")',
+                            contentType: "application/json;charset=utf-8",
+                            data: { area: AreaVal, tsoId : tso },
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas != "") {
+                                    addedItems = [];
+                                    table.clear();
+                                    $.each(datas.data, function (index, value) {
+                                        var item = { TsoID: 0, CustomerID: 0, Longitude: 0.0, Latitude: 0, TSOName: "", DealerName: "", Category: "", Date: "", s1: 0, PreviousDate: "", ZoneID: 0, Area:"" }
+                                        item.TsoID = value.TsoID;
+                                        item.CustomerID = value.CustomerID;
+                                        item.Longitude = value.Longitude;
+                                        item.Latitude = value.Latitude;
+                                        item.TSOName = value.TSOName;
+                                        item.DealerName = value.CustomerName;
+                                        item.Date = moment(value.Date).format("DD-MM-YYYY");
+                                        var prvdate = $("#PreviousDate").val();
+                                        if (prvdate != "" || prvdate != null) {
+                                            item.PreviousDate = prvdate;
+                                        }
+                                        else {
+                                            item.PreviousDate = "0000-0-0";
+                                        }
+                                        item.Area = value.Area;
+                                        item.s1 = value.s1;
+                                        item.Area = value.Area;
+                                        item.Category = "Area";
+                                        item.ZoneID = value.ZoneID;
+                                        addedItems.push(item);
+                                    });
+                                    ShowOnTable();
+                                    update = true;
+                                    $("#save").show();
+                                    $("#update").hide();
+                                    $("#delete").hide();
+                                }
+                            }
+                        });
+                    } else {
+                        table.clear().draw();
+                    }
+                });
+
+
+
+            $(document).on('change', '#Date', function () {
+                var date = $(this).val();
+                table.clear().draw();
+                if (date != "" && prev == true) {
+                   
+                    $.each(addedItems, function (index, value) {
+                        value.Date = date;
+                    });
+                    
+                    ShowOnTable();
+                    $("#save").show();
+                    $("#update").hide();
+                    $("#delete").hide();
+                }
+                else {
+                    table.clear().draw();
+                }
+            });
+
+          $(document).on('click','#save', function () {
+
+            $("#save").prop('disabled', true);
+             if (addedItems.length > 0)
+             {
+                if (confirm("Do you want to save?"))
+                {
+                    $.ajax({
+                        url: '@Url.Action("SaveTDDTC", "TDDTC")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ addedItems: addedItems }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas.Message == "0") {
+                                alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                $("#save").prop('disabled', false);
+                            }
+                            else if (datas.Message == "1") {
+                                $("#TCTNo").val(datas.id);
+                                alert("Sccessfully saved.")
+                                table.clear().draw();
+                            }
+                            else if (datas.Message == "2") {
+                                alert("This Delar already Exist.");
+                                $("#save").prop('disabled', false);
+                            }
+
+                        }
+                    });
+                }
+             }
+             else
+             {
+                var messageforEmpty = "The Item list is empty";
+                alert(messageforEmpty);
+                $("#save").prop('disabled', false);
+             }
+        });
+            $(document).on('click', '#search', function () {
+                var id = { id: $("#TCTNo").val() };
+                if (id != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetTCTById", "TDDTC")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            if (datas == 0) {
+                                alert("Your entered Dealer Location No. Doesn't exist");
+                            }
+                            else {
+                                addedItems = [];
+                                $.each(datas.data, function (index, value) {
+                                    var item = { TsoID: 0, CustomerID: 0, Longitude: 0.0, Latitude: 0, TSOName: "", DealerName: "", s1: 0, Category: "", Date: "", PreviousDate: "", ZoneID: 0, Area: "", TCTNo: 0 }
+                                    item.TsoID = value.TsoID;
+                                    item.CustomerID = value.CustomerID;
+                                    item.Longitude = value.Longitude;
+                                    item.Latitude = value.Latitude;
+                                    item.TSOName = value.TSOName;
+                                    item.DealerName = value.CustomerName;
+                                    item.Category = value.Category;
+                                    item.Date = moment(value.Date).format("DD-MM-YYYY");
+                                    item.PreviousDate = moment(value.PreviousDate).format("DD-MM-YYYY");
+                                    item.ZoneID = value.ZoneID;
+                                    item.Area = value.Area;
+                                    item.s1 = value.s1;
+                                    item.TCTNo = value.TCTNo;
+                                    $("#" + value.Category).prop('checked', true);
+                                    ChangebyCat(value.Category);
+                                    $('input[type=radio][name=Category]').attr('disabled', true);
+                                    $("#TsoID").attr('disabled', true);
+                                    //$("#CustomerID").attr('disabled', true);
+                                    $("#AreaName").attr('disabled', true);
+                                    $("#ZoneID").attr('disabled', true);
+                                    $("#PreviousDate").attr('disabled', true);
+                                    addedItems.push(item);
+                                });
+                                input = true;
+                                ShowOnTable();
+
+                                $("#save").hide();
+                                $("#update").show();
+                                $("#delete").show();
+                            }
+                        },
+                        error: function () {
+                            alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+
+                        }
+
+                    });
+                }
+                else {
+                    alert("Please Enter a TCT NO and Try Again..");
+                }
+
+            });
+
+           $(document).on('click', "#update", function () {
+            if (addedItems.length <= 0) {
+                alert("At least One Item should be added for save.");
+            }
+            else {
+                //ValidateSetGrn();
+
+                    if (confirm('Do you want to Update')) {
+                    var id = $("#TCTNo").val();
+                    $.ajax({
+                        url: '@Url.Action("UpdateTDDTC", "TDDTC")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({id, addedItems: addedItems }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Update failed");
+                                $("#update").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Updated.");
+                                $("#CLNo").val(datas.CLNo);
+                                $("#search").click();
+
+                                $("#update").hide();
+                            }
+                        }
+                    });
+                    }
+                    else {
+                        $("#update").show();
+                    }
+
+
+                  }
+            });
+
+                $(document).on('click', '#delete', function () {
+                $("#update").prop('disabled', true);
+                $("#delete").prop('disabled', true);
+                var id = $("#TCTNo").val();
+                if (confirm('Are you sure you want to delete this from the database?')) {
+                    $.ajax({
+                        url: '@Url.Action("DeleteTDDTC", "TDDTC")',
+                        contentType: "application/json;charset=utf-8",
+                        data: { id: id },
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Delete failed.");
+                                $("#delete").prop('disabled', false);
+                                $("#update").prop('disabled', false);
+                            }
+                            else {
+                                alert("Delete Successfull");
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+
+            });
+
+            $(document).on('click', "#addToGrid", function () {
+
+                var item = { TsoID: 0, CustomerID: 0, Category: "", Longitude: 0.0, Latitude: 0, TSOName: "", DealerName: "", Date: "", ZoneID: 0, Area: "", PreviousDate: "" }
+                item.TsoID = $("#TsoID").val();
+                item.CustomerID = $("#CustID").val();
+                item.Category = $('input[type=radio][name=Category]:checked').val();
+                item.Longitude = $("#Longitude").val();;
+                item.Latitude = $("#Latitude").val();
+                item.TSOName = $("#TsoName").val();
+                item.DealerName = $("#CustomerName").val();
+                item.ZoneID = $("#ZoneID").val();
+                item.Area = $("#AreaName").val();
+                item.PreviousDate = $("#PreviousDate").val();
+                item.Date = $("#Date").val();
+                addedItems.push(item);
+                ShowOnTable();
+                $("#TsoName").val("");
+                $("#Latitude").val("");
+                $("#Longitude").val("");
+                $("#CustID").val("");
+                $("#TID").val("");
+                $("#CustomerName").val("");
+                //ClearOnAddToGrid();
+                RemoveError();
+
+            });
+            function ShowOnTable() {
+                table.clear().draw();
+                var s1 = 0;
+                var item = [];
+                $.each(addedItems, function (index, value) {
+                    s1 = s1 + 1;
+                    value.s1 = s1;
+                    item.push(value);
+                    if (input == true) {
+                        table.row.add([value.TSOName, value.DealerName, value.Category, value.Longitude, value.Latitude, value.Date,
+                        '<a href="#"><i class="fa fa-edit edit" id="editRow" name="editRow" value="' +
+                        s1 + '"></i>']).draw();
+                    } else {
+                        table.row.add([value.TSOName, value.DealerName, value.Category, value.Longitude, value.Latitude, value.Date, '<a href="#"><i class="fa fa-edit edit ></i>']).draw();
+                    }
+
+
+                });
+                addedItems = item;
+            }
+
+            $(document).on('click', '[name="editRow"]', function (e) {
+                var s1 = $(this).attr("value");
+                $.each(addedItems, function (index, value) {
+                    if (value.s1 == s1) {
+
+
+                        $("#CustomerName").val(value.DealerName);
+                        $("#CustomerID").attr('disabled', true);
+                        $("#TCTNo").attr('disabled', true);
+                        $("#PreviousDate").attr('disabled', true);
+
+                        $('input[type=radio][name=Category]').attr('disabled', true);
+                        $("#Category").attr('disabled', true);
+                        $("#TsoName").val(value.TSOName);
+                        $("#Latitude").val(value.Latitude);
+                        $("#Longitude").val(value.Longitude);
+                        $("#Date").val(value.Date).change();
+                        $("#CustID").val(value.CustomerID);
+                        //$("#TID").val(value.TsoID);
+                        $("#TCTNo").val(value.TCTNo);
+                        $("#TsoID").val(value.TsoID).change();
+
+                        if (value.Category == "Zone") {
+                            zone = false;
+                            $("#ZoneID").val(value.ZoneID).change();
+                        }
+                        if (value.Category == "Area") {
+                            area = false;
+                            $("#AreaName").val(value.Area).change();
+                        }
+                        if (value.Category == "Manual") {
+                            manual = false;
+                            $("#TsoID").val(value.TsoID).change();
+                            custid = value.CustomerID;
+
+                        }
+                        if (value.Category == "PrevDate") {
+                            $("#PreviousDate").val(value.PreviousDate).change();
+                        }
+                        $("#addToGrid").prop("disabled", false);
+                        $("#save").hide();
+                        $("#update").show();
+                        $("#delete").show();
+
+                    }
+                });
+                DeleteRowFromGrid(s1);
+            });
+            function DeleteRowFromGrid(rowSL) {
+                var items = [];
+                $.each(addedItems, function (index, value) {
+                    if (value.s1 != rowSL) {
+                        items.push(value);
+                    }
+                });
+                addedItems = items;
+                ShowOnTable();
+
+            }
+
+
+            function ChangebyCat(val) {
+                if (val == "Zone") {
+                    $("#zone").show();
+                    $("#Customer").hide();
+                    $("#area").hide();
+                    $("#PreDate").hide();
+                    $("#ZoneID").val("").change();
+                    table.clear().draw();
+                } else if (val == "Area") {
+                    $("#area").show();
+                    $("#zone").hide();
+                    $("#Customer").hide();
+                    $("#PreDate").hide();
+                    $("#AreaName").val("").change();
+                    table.clear().draw();
+                } else if (val == "Manual") {
+                    $("#Customer").show();
+                    $("#zone").hide();
+                    $("#area").hide();
+                    $("#PreDate").hide();
+                    $("#CustomerID").val("").change();
+                    table.clear().draw();
+                } else if (val == "PrevDate") {
+                    $("#PreDate").show();
+                    $("#zone").hide();
+                    $("#area").hide();
+                    $("#Customer").hide();
+                }
+            }
+
+        });
+           
+
+      
+       
+
+    </script>
+
+}

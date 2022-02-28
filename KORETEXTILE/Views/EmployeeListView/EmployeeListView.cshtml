@@ -1,0 +1,241 @@
+﻿@model PagedList<BEEERP.Models.HRModule.Employee>
+@using PagedList
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "EmployeeListView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    body {
+        background: #F1F3FA;
+    }
+
+    /* Profile container */
+    .profile {
+        
+        border:1px solid red;
+    }
+
+    /* Profile sidebar */
+    .profile-sidebar {
+        padding: 20px 0px 10px 0px;
+        background: #d0d8dd;
+        min-height: 450px;
+        max-height: 450px;
+        width:240px;
+        border-radius: 10px;
+        border: 1px solid #6aadf7;
+    }
+
+        .profile-sidebar:hover {
+            background: #fff;
+            box-shadow: 10px 10px 50px grey;
+        }
+    .profile-userpic{
+        
+       
+    }
+    .profile-userpic img {
+        float: none;
+        margin: auto;
+        width: 50%;
+        height: 50%;
+        -webkit-border-radius: 50% !important;
+        -moz-border-radius: 50% !important;
+        border-radius: 50% !important;
+    }
+
+    .profile-usertitle {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .profile-usertitle-name {
+        color: #5a7391;
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 7px;
+    }
+
+    .profile-usertitle-job {
+        text-transform: uppercase;
+        color: #5b9bd1;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    .profile-userbuttons {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+        .profile-userbuttons .btn {
+            text-transform: uppercase;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 6px 15px;
+            margin-right: 5px;
+        }
+
+            .profile-userbuttons .btn:last-child {
+                margin-right: 0px;
+            }
+
+    .profile-usermenu {
+        margin-top: 30px;
+    }
+
+        .profile-usermenu ul li {
+            border-bottom: 1px solid #f0f4f7;
+        }
+
+            .profile-usermenu ul li:last-child {
+                border-bottom: none;
+            }
+
+            .profile-usermenu ul li a {
+                color: #93a3b5;
+                font-size: 14px;
+                font-weight: 400;
+            }
+
+                .profile-usermenu ul li a i {
+                    margin-right: 8px;
+                    font-size: 14px;
+                }
+
+                .profile-usermenu ul li a:hover {
+                    background-color: #fafcfd;
+                    color: #5b9bd1;
+                }
+
+            .profile-usermenu ul li.active {
+                border-bottom: none;
+            }
+
+                .profile-usermenu ul li.active a {
+                    color: #5b9bd1;
+                    background-color: #f6f9fb;
+                    border-left: 2px solid #5b9bd1;
+                    margin-left: -2px;
+                }
+
+    /* Profile Content */
+    .profile-content {
+        padding: 20px;
+        background: #fff;
+        min-height: 355px;
+    }
+    .well{
+        /*width:150vh!important;*/
+    }
+</style>
+<div class="container" style="padding:0px;margin:0px;padding-right:0px">
+    <div class="col-md-12 row well" style="padding:0px;margin:0px;padding-right:20px">
+        <form method="get" action="EmployeeListView" class="col-md-12" style="padding-right:0px;">
+            <div class="col-md-4" style="padding:0px;margin:0px">
+                <p style="font-size:17px"><b>Search employee</b></p>
+            </div>
+            <div class="col-md-4" style="padding:0px;margin:0px">
+                <input class=" form-control" type="text" style="border:1px solid rgba(16, 137, 239, 0.63);border-radius:6px" value="@Request["namelike"]" placeholder="write a little bit or full of name" name="namelike" />
+            </div>
+            <div class="col-md-2" style="padding:0px;margin:0px">
+                <input class=" btn btn-default" style="border:1px solid rgba(16, 137, 239, 0.63);" type="submit" value="Search" />
+                <button style="border:1px solid rgba(16, 137, 239, 0.63);" class="btn btn-default" id="refresh">Refresh</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-12 row well" style="margin-left:0px;padding:0px">
+        <div class="form-horizontal">
+            @if (Model != null)
+            {
+                int count = 0;
+                foreach (var employee in Model)
+                {
+                    count++;
+                    <div class="col-md-3" style="padding-bottom:20px;padding-top:20px;margin-top:0px">
+                        <button class="btn-default profile-sidebar" onclick="location.href='@Url.Action("EmployeeProfile", "EmployeeProfile", new {Id = employee.Id })'">
+                            <div class="" style="padding-bottom:0px" >
+
+                                @{
+                                    string pathFEmpImage = System.IO.Path.Combine(Server.MapPath("~/Image/Employees/"), employee.Id + "EmpImage.png");
+                                    var userImageProfileName = employee.Id + "EmpImage.png";
+                                }
+                                <div class="profile-userpic">
+                                    @if (File.Exists(pathFEmpImage))
+                                    {
+                                        <img src="~/Image/Employees/@userImageProfileName" style="height:150px;width:150px;" class="img-responsive thumbnail" alt="">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Image/Employees/profile-default.png" style="height:150px;width:150px;" class="img-responsive thumbnail" alt="">
+                                    }
+                                </div>
+                                <div class="profile-usertitle">
+                                    <div class="profile-usertitle-name">
+                                        @employee.Id
+                                    </div>
+                                    <div class="profile-usertitle-name">
+                                        @employee.Name
+                                    </div>
+                                    <div class="profile-usertitle-name">
+                                        @employee.DesignationName
+                                    </div>
+                                    <div class="profile-usertitle-name">
+                                        @employee.Department
+                                    </div>
+                                    <div class="profile-usertitle-name">
+                                        @employee.WorkStation
+                                    </div>
+                                    <div class="profile-usertitle-name">
+                                        @employee.Mobile
+                                    </div>
+                                    <div class="profile-usertitle-name">
+                                        @employee.Email
+                                    </div>
+                                </div>
+
+                                @*<div class="profile-usermenu">
+                                          <ul class="nav">
+                                            @{
+                                               if (student.IsCvUploaded)
+                                                   <li class="active">
+                                                       <a href="/StudentProfile/DownloadCv?cvid=@student.Email" class="btn btnDownload "><i class="fa fa-download"></i> Download CV</a>
+                                                   </li>
+                                               }
+                                               else
+                                               {
+                                                   <li class="active">
+                                                       <a href="#" class="btn btnDownload "><i class="fa fa-download"></i>No CV Uploaded</a>
+                                                   </li>
+                                               }
+                                             }
+                                        </ul>
+                                    </div>*@
+                            </div>
+                        </button>
+
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    <div align="center" style="padding:0px;margin:0px;">
+        @Html.PagedListPager(Model, page => Url.Action("EmployeeListView", new
+   {
+       page,
+       namelike= @Request["namelike"]
+   }))
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $(document).on("click", "#refresh", function () {
+                location.reload();
+            });
+        });
+    </script>
+    
+    }

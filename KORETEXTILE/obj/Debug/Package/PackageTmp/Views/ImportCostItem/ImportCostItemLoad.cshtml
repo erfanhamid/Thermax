@@ -1,0 +1,238 @@
+﻿@model BEEERP.Models.CommercialModule.Settings.ImportCostItem
+
+@{
+    ViewBag.Title = "ImportCostItemLoad";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    tbody tr:hover {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    .btn:hover {
+        color: blue !important;
+    }
+
+    .btn:focus {
+        background-color: aqua !important;
+    }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div>
+                    <h4 style="color:red">@ViewBag.messege</h4>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" align="center">
+                                <h3 class="box-title">Import Cost Item</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.SlnNo, "SL No", new { @class = "col-md-4 control-label digit" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.SlnNo, new { @class = "form-control digit", @Value = ViewBag.numberofImportCostItems, })
+                                        @Html.ValidationMessageFor(m => m.SlnNo, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.CostItem, "Cost Item", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.CostItem, new { @class = "form-control", })
+                                        @Html.ValidationMessageFor(m => m.CostItem, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.AccountHead, "Account", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8 col-xs-8 col-md-8 col-lg-8">
+                                        @Html.DropDownListFor(m => m.AccountHead, (IEnumerable<SelectListItem>)ViewBag.AccountHead, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.AccountHead, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-4"></div>
+                                    <div class="col-sm-8">
+                                        <input type="button" name="save" id="save" value="Save" class="btn skin-blue" />
+                                        <input type="button" name="update" id="update" value="Update" class="btn skin-blue" />
+                                        <input type="button" name="Refresh" id="refresh" value="Refresh" class="btn skin-blue" />
+                                    </div>
+                                </div>
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box ">
+                <div class="box-header with-border box-head-back" align="center">
+                    <h3 class="box-title">Imported Cost Item List</h3>
+                </div>
+                <div class="box-body">
+                    <table class="table table-responsive" id="ImportedCostItemList">
+                        <thead>
+                            <tr>
+                                <th>SL No</th>
+                                <th>Item Name</th>
+                                <th>Account Head</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var ici in ViewBag.ImportCostItemList)
+                            {
+                                <tr class='clickable-row' value="@ici.SlnNo">
+                                    <td>@ici.SlnNo</td>
+                                    <td>@ici.CostItem</td>
+                                    <td>@ici.AccountHeadName</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/CommercialModule/ImportCostItemInputFocus.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            ImportCostItemFieldEnterPress();
+            var message = "";
+            $('.select2').select2();
+            $('#update').hide();
+            var table = $('#ImportedCostItemList').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            });
+            $(".digit").keypress(function (e) {
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    $("#errormsg").html("Digits Only").show().fadeOut("slow");
+                    return false;
+                }
+            });
+
+            $(".clickable-row").on('click', function (e) {
+                var SLNo = $(this).attr("value");
+                 $.ajax({
+                    url: '@Url.Action("GetImpotCostItemById", "ImportCostItem")',
+                    contentType: "application/json;charset=utf-8",
+                     data: JSON.stringify({ SLno: SLNo }),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if(datas==0)
+                        {
+                            alert("This Import Cost Item   doesn't exist.");
+                        }
+                        else {
+                            $("#save").hide();
+                            $("#update").show();
+                            $("#SlnNo").val(datas.ImportCostItem.SlnNo);
+                            $("#CostItem").val(datas.ImportCostItem.CostItem);
+                            $("#AccountHead").val(parseInt(datas.ImportCostItem.AccountHead)).change();
+                        }
+                    }
+                });
+            });
+
+            $(document).on('click', '#refresh', function () {
+                location.reload();
+            });
+            $(document).on('click', '#save', function () {
+                $("#save").prop('disabled', true);
+                ValidateOnSaveClick();
+                if (message == "") {
+                    if (confirm("Do you want to save?")) {
+                        var ImportCostItem = { SlnNo: 0, CostItem: "", AccountHead: 0 };
+                        ImportCostItem.SlnNo = parseInt($("#SlnNo").val());
+                        ImportCostItem.CostItem = $("#CostItem").val();
+                        ImportCostItem.AccountHead = parseInt($("#AccountHead").val());
+                        $.ajax
+                        ({
+                            url: '@Url.Action("SaveImportCostItem", "ImportCostItem")',
+                                contentType: "application/json;charset=utf-8",
+                                data: JSON.stringify({ importCostItem: ImportCostItem }),
+                            type: 'Post',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas.Message == "0") {
+                                    alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                    $("#save").prop('disabled', false);
+                                }
+                                else if (datas.Message == "1") {
+                                    alert("Sccessfully saved.")
+                                    location.reload();
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+            $(document).on('click', '#update', function () {
+                $("#update").prop('disabled', true);
+                ValidateOnSaveClick();
+                if (message == "") {
+                    if (confirm("Do you want to update?")) {
+                        var ImportCostItem = { SlnNo: 0, CostItem: "", AccountHead: 0 };
+                        ImportCostItem.SlnNo = parseInt($("#SlnNo").val());
+                        ImportCostItem.CostItem = $("#CostItem").val();
+                        ImportCostItem.AccountHead = parseInt($("#AccountHead").val());
+                        $.ajax
+                        ({
+                            url: '@Url.Action("UpdateImportCostItem", "ImportCostItem")',
+                                contentType: "application/json;charset=utf-8",
+                                data: JSON.stringify({ importCostItem: ImportCostItem }),
+                            type: 'Post',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas.Message == "0") {
+                                    alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                    $("#update").prop('disabled', false);
+                                }
+                                else if (datas.Message == "1") {
+                                    alert("Sccessfully updated.")
+                                    location.reload();
+                                }
+                                else if (datas.Message == "2") {
+                                    alert("This Import cost item already Exist.");
+                                    $("#update").prop('disabled', false);
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+
+            function ValidateOnSaveClick() {
+                message = "";
+                if ($("#CostItem").val() == "") {
+                    setError("CostItem", "Cost Item is Required Field.");
+                    message = "Cost Item is Required Field.";
+                }
+                if ($("#AccountHead").val() == "") {
+                    setError("AccountHead", "Account Head is Required Field.\n");
+                    message = "Account Head is Required Field.";
+                }
+            }
+        });
+    </script>
+
+}

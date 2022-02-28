@@ -1,0 +1,309 @@
+﻿@model BEEERP.Models.Payroll.FunctionalDesignation
+
+
+@{
+    ViewBag.Title = "FunctionalDesignation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+<div class="row">
+    <div>
+        <div class="col-md-6">
+            <h3 style="text-align:center">Create Functional Designation</h3>
+
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div>
+                    <h4 style="color:red">@ViewBag.messege</h4>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h5 class="box-title">Functional Designation Details</h5>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ID, "Functional Designation ID", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.ID, new { @class = "form-control", @readonly = "readonly", @Value = ViewBag.ID })
+                                        @Html.ValidationMessageFor(m => m.ID)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.FuncDesignation, "Functional Designation Name", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.FuncDesignation, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.FuncDesignation, "", new { @style = "color:red" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="background-color:white; ">
+                            <div class="form-group">
+                                <div class="col-sm-4"></div>
+                                <div class="col-sm-8">
+                                    <input type="button" name="Save" id="save" value="Save" class="btn btn-primary" />
+                                    <input type="button" name="Upate" id="update" value="Update" class="btn btn-primary" />
+                                    <input type="button" name="delete" id="delete" value="Delete" class="btn btn-primary" />
+                                    <input type="button" name="Refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h5 class="box-title">Functional Designation List</h5>
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-responsive" id="funcDesignationList">
+                                    <thead>
+                                        <tr>
+                                            <th>Functional Designation ID</th>
+                                            <th>Functional Designation Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.FuncDesignation)
+                                        {
+                                            <tr value="@item.ID" class="clickable-row">
+                                                <td>@item.ID</td>
+                                                <td>@item.FuncDesignation</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script>
+        $(function () {
+            $('#funcDesignationList').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+
+        $(document).ready(function () {
+
+            $("#update").hide();
+            $("#delete").hide();
+        });
+
+        @*$(document).on('click', '#edit', function () {
+            $("#save").hide();
+            $("#update").show();
+            $("#delete").show();
+            var id = $(this).attr("value");
+            $.ajax({
+                url: '@Url.Action("GetFunctionalD", "FunctionalDesignation")',
+                contentType: "application/json;charset=utf-8",
+                data: id,
+                type: 'POST',
+                dataType: 'json',
+                success: function (datas) {
+                    $("#ID").val(datas.ID);
+                    $("#FuncDesignation").val(datas.FuncDesignation);
+                }
+            });
+        });*@
+
+        $(document).on('click', '#refresh', function () {
+            location.reload();
+        });
+
+        $(document).on('click', '#save', function () {
+            ValidateOnSaveClick()
+            $("#save").prop('disabled', true);
+            if (isValid == true)
+            {
+                var deg = { ID: 0, FuncDesignation: "" };
+                deg.ID = $("#ID").val();
+                deg.FuncDesignation = $("#FuncDesignation").val();
+                if (confirm('Do you want to Save?')) {
+                    $.ajax({
+                        url: '@Url.Action("SaveUpdateFunctionalDesignation", "FunctionalDesignation")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ deg: deg }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Save Failed");
+                                $("#save").prop('disabled', false);
+                            }
+                            else if (datas.Message == 2) {
+                                setError("FuncDesignation", "Functional Designation is Already Exist.");
+                                $("#save").prop('disabled', false);
+                            }
+                            else {
+                                alert("Save Successfull.");
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#save").prop('disabled', false);
+                }
+            }
+            else {
+                //alert(message);
+                $("#save").prop('disabled', false);
+            }
+        });
+
+        $(document).on('click', ".clickable-row", function () {
+            var id = $(this).attr("value");
+            $.ajax({
+                url: '@Url.Action("GetFunctionalDesignation", "FunctionalDesignation")',
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify({ id: id }),
+                type: 'POST',
+                dataType: 'json',
+                success: function (datas) {
+                    if (datas.Message==0)
+                    {
+                        alert("This Functional Designation  doesn't exist.");
+                    }
+                    else {
+                        $("#save").hide();
+                        $("#update").show();
+                        $("#delete").show();
+                        $("#ID").val(datas.fDesignation.ID);
+                        $("#FuncDesignation").val(datas.fDesignation.FuncDesignation);
+                    }
+                }
+            });
+        });
+
+         //update
+        $(document).on('click', '#update', function () {
+            ValidateOnSaveClick()
+            $("#update").prop('disabled', true);
+            if (isValid == true)
+            {
+                var deg = { ID: 0, FuncDesignation: "" };
+                deg.ID = $("#ID").val();
+                deg.FuncDesignation = $("#FuncDesignation").val();
+                if (confirm('Do you want to update?')) {
+                    $.ajax({
+                        url: '@Url.Action("SaveUpdateFunctionalDesignation", "FunctionalDesignation")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ deg: deg }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 4) {
+                                alert("Update Failed");
+                                $("#update").prop('disabled', false);
+                            }
+                            else if (datas.Message == 2) {
+                                setError("FuncDesignation", "Functional Designation is Already Exist.");
+                                $("#update").prop('disabled', false);
+                            }
+                            else {
+                                alert("Update Successfull.");
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#update").prop('disabled', false);
+                }
+            }
+            else {
+                //alert(message);
+                $("#update").prop('disabled', false);
+            }
+        });
+
+        //Delete
+        $(document).on('click', '#delete', function () {
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var id = $("#ID").val();
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteFDesignationByid", "FunctionalDesignation")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Delete failed.");
+                            $("#update").prop('disabled', false);
+                            $("#delete").prop('disabled', false);
+                        }
+                        else {
+                            alert("Delete Successfull");
+                            location.reload();
+                        }
+                    }
+                });
+            }
+            else {
+                $("#update").prop('disabled', false);
+                $("#delete").prop('disabled', false);
+            }
+        });
+
+        function ValidateOnSaveClick() {
+            isValid = true;
+            if ($("#FuncDesignation").val() == "") {
+                setError("FuncDesignation", "Functional Designation is Required Field.");
+                isValid = false;
+            }
+        }
+
+    </script>
+}

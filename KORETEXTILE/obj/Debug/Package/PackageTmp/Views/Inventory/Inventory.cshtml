@@ -1,0 +1,572 @@
+﻿@model BEEERP.Models.SalesModule.ChartOfInventory
+@using BEEERP.Models.CommonInformation
+
+@{
+    ViewBag.Title = "Inventory";
+}
+
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="col-md-10">
+                    <div class="box ">
+                        <div class="box-header with-border box-head-back">
+                            <h3 class="box-title">Create New Finished Goods</h3>
+                        </div>
+                        <div class="box-body form-horizontal">
+
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.parentId, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.DropDownListFor(m => m.parentId, (IEnumerable<SelectListItem>)ViewBag.Group, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(x => x.parentId, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.type, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.DropDownListFor(m => m.type, (IEnumerable<SelectListItem>)ViewBag.GroupOrItem, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(x => x.type, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ItemCode, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.ItemCode, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(x => x.ItemCode, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Name, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(x => x.Name, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ShortDesc, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.ShortDesc, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(x => x.ShortDesc, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.UoMID, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.DropDownListFor(m => m.UoMID, (IEnumerable<SelectListItem>)ViewBag.UOM, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(x => x.UoMID, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.PacSize, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.PacSize, new { @class = "form-control", @type = "number" })
+                                        @Html.ValidationMessageFor(x => x.PacSize, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.clmCartonCapacity, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.clmCartonCapacity, new { @class = "form-control", @type = "number" })
+                                        @Html.ValidationMessageFor(x => x.clmCartonCapacity, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.clmStandardCost, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+
+                                        @Html.TextBoxFor(m => m.clmStandardCost, new { @class = "form-control", @type = "number" })
+                                        @Html.ValidationMessageFor(x => x.clmStandardCost, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.RetailPrice, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.RetailPrice, new { @class = "form-control", @type = "number" })
+                                        @Html.ValidationMessageFor(x => x.RetailPrice, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.DisPerc, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.DisPerc, new { @class = "form-control", @type = "number" })
+                                        @Html.ValidationMessageFor(x => x.DisPerc, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.VatPerc, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.VatPerc, new { @class = "form-control", @type = "number" })
+                                        @Html.ValidationMessageFor(x => x.VatPerc, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.CountryId, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.DropDownListFor(m => m.CountryId, (IEnumerable<SelectListItem>)ViewBag.Country, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(x => x.CountryId, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <input type="hidden" id="Id" />
+
+                            <div class="form-group">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8" style="text-align:center;">
+                                    @*@if (UserAccessAction.HavePerOnSave)
+                                    {*@
+                                        <input type="button" value="Save" id="save" class="btn skin-blue" style="padding-left:20px;" />
+                                    @*}
+                                    @if (UserAccessAction.HavePerOnUpdate)
+                                    {*@
+                                        <input type="button" name="update" id="update" value="Update" class="btn skin-blue" />
+                                    @*}*@
+
+                                    <input type="button" name="clear" id="clear" value="Clear" class="btn skin-blue" />
+                                    
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                </div>
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Inventory Item List</h3>
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-responsive" id="InventoryList">
+                                    <thead>
+                                        <tr>
+                                            <th>Group Name</th>
+                                            <th>Item Code</th>
+                                            <th>Item Name</th>
+                                            <th>Group Or Item</th>
+                                            <th>UOM</th>
+                                            <th>Standerd Cost</th>
+                                            <th>Trade Price</th>
+                                            <th>Qty/Carton</th>
+                                            <th>Country of Origin</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Hidden("canBeUpdate", UserAccessAction.HavePerOnUpdate)
+@Html.Hidden("canBeSearch", UserAccessAction.HavePerOnSearch)
+
+@section scripts{
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/DataAdminModule/ChartOfInvInputFocus.js"></script>
+    <script>
+        var chartOfInv = { Name: "", parentId: 0, type: "", UoMID: 0, rootAccountType: "", RetailPrice: 0.0, clmLittre: 0, clmCartonCapacity: 0, clmStandardCost: 0, ItemCode: "", ShortDesc: "", PacSize: "", DisPerc: 0.0, VatPerc: 0.0, CountryId: 0 }
+        var allItems = [];
+
+        var table = $('#InventoryList').DataTable({
+            'paging': false,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+        $("#update").hide();
+
+        $(document).ready(function () {
+            var isValid = true;
+            ShowItemsInTable();
+            EnterPress();
+            $(document).on('click', '[name="editRow"]', function () {
+                var id = $(this).attr("value");
+                $("#update").show();
+                $("#save").hide();
+               $.ajax({
+                        url: '@Url.Action("GetItemById", "Inventory")',
+                   contentType: "application/json;charset=utf-8",
+                   data: { id: id },
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            $("#Name").val(datas.Name);
+                            $("#parentId").val(datas.parentId).change();
+                            $("#type").val(datas.type).change();
+                            $("#UoMID").val(datas.UoMID).change();
+                            $("#rootAccountType").val(datas.rootAccountType);
+                            $("#RetailPrice").val(datas.RetailPrice);
+                            $("#clmLittre").val(datas.clmLittre);
+                            if (datas.clmCartonCapacity == 0) {
+                                $("#clmCartonCapacity").val("");
+                            }
+                            else {
+                                $("#clmCartonCapacity").val(datas.clmCartonCapacity);
+                            }
+                            $("#clmStandardCost").val(datas.clmStandardCost);
+                            $("#ItemCode").val(datas.ItemCode);
+                            $("#ShortDesc").val(datas.ShortDesc);
+                            $("#PacSize").val(datas.PacSize);
+                            if (datas.VatPerc == 0) {
+                                $("#VatPerc").val("");
+                            }
+                            else {
+                                $("#VatPerc").val(datas.VatPerc);
+                            }
+
+                            if (datas.DisPerc == 0) {
+                                $("#DisPerc").val("");
+                            }
+                            else {
+                                $("#DisPerc").val(datas.DisPerc);
+                            }
+                            //$("#VatPerc").val(datas.VatPerc);
+                            //$("#DisPerc").val(datas.DisPerc);
+                            $("#Id").val(datas.Id);
+                            $("#CountryId").val(datas.CountryId).change();
+
+                        }
+                    });
+
+            });
+            $(document).on('click', '[name="deleteRow"]', function () {
+                var id = $(this).attr("value");
+                if (confirm('Are you sure you want to delete this from the database?')) {
+                    $.ajax({
+                        url: '@Url.Action("DeleteItemById", "Inventory")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ id: id }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas ==1) {
+                                alert("Sucessfully deleted.");
+                                ShowItemsInTable();
+                            }
+                            else if (datas == 2)
+                            {
+                                alert("We can't delete this item. Because this item is used for Transaction.")
+                            }
+                            else if (datas==0) {
+                                alert("Cannot delete Please Contact With Avalanche Technology Limited.");
+                            }
+                        }
+                    });
+                } else {
+                    // Do nothing!
+                }
+            });
+            $(document).on('click', '#clear', function () {
+                location.reload();
+            });
+            $(".select2").select2();
+            $(document).on('change', '#type', function () {
+                RemoveError();
+                if ($(this).val() == "G") {
+                    $("#UoMID").prop("disabled", true);
+                    $("#RetailPrice").prop("disabled", true);
+                    $("#PacSize").prop("disabled", true);
+                    $("#clmCartonCapacity").prop("disabled", true);
+                    $("#clmStandardCost").prop("disabled", true);
+                    $("#VatPerc").prop("disabled", true);
+                    $("#DisPerc").prop("disabled", true);
+                    $("#ItemCode").prop("disabled", true);
+                    $("#CountryId").prop('disabled', true);
+                    $("#RetailPrice").val("");
+                    $("#clmLittre").val("");
+                    $("#clmCartonCapacity").val("");
+                    $("#clmStandardCost").val("");
+                    $("#ItemCode").val("");
+                    $("#ShortDesc").val("");
+                    $("#PacSize").val("");
+                    $("#VatPerc").val("");
+                    $("#DisPerc").val("");
+                    $("#UoMID").val("").change();
+                    $("#CountryId").val("").change();
+                }
+                else {
+                    $("#UoMID").prop("disabled", false);
+                    $("#RetailPrice").prop("disabled", false);
+                    $("#PacSize").prop("disabled", false);
+                    $("#clmCartonCapacity").prop("disabled", false);
+                    $("#clmStandardCost").prop("disabled", false);
+                    $("#VatPerc").prop("disabled", false);
+                    $("#DisPerc").prop("disabled", false);
+                    $("#ItemCode").prop("disabled", false);
+                    $("#CountryId").prop('disabled', false);
+                    $("#RetailPrice").val("");
+                    $("#clmLittre").val("");
+                    $("#clmCartonCapacity").val("");
+                    $("#clmStandardCost").val("");
+                    $("#ItemCode").val("");
+                    $("#ShortDesc").val("");
+                    $("#PacSize").val("");
+                    $("#VatPerc").val("");
+                    $("#DisPerc").val("");
+                    $("#UoMID").val("").change();
+                    $("#CountryId").val("").change();
+                }
+            });
+
+            $(document).on('click', '#save', function () {
+                $("#save").prop("disabled",true);
+                RemoveError();
+                SetChartOfInv();
+                ValidateChartOfInv();
+                if (isValid == true) {
+                    if (confirm("Do you want to save?")) {
+                         $.ajax({
+                        url: '@Url.Action("SaveInventory","Inventory")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ chartOfInv: chartOfInv }),
+                        type: 'POST',
+                        dataType: 'html',
+                        success: function (datas) {
+
+                            if (datas == 1) {
+                                alert("Save Successully");
+                                ShowItemsInTable();
+                                $("#save").prop("disabled", false);
+                            }
+                            else {
+                                alert("This Item Code Already Exist or Data is not valid. \n Data Cannot be saved. Please rechek data and try again.");
+                                $("#save").prop("disabled", false);
+                            }
+
+                        }
+                    });
+                    }
+                   
+                }
+                else {
+                    $("#save").prop("disabled", false);
+                }
+
+            });
+            $(document).on('click', '#update', function () {
+                RemoveError();
+                SetChartOfInv();
+                ValidateChartOfInv();
+                if (isValid == true) {
+                    chartOfInv.Id = $("#Id").val();
+                    if (confirm("Do you want to update?")) {
+                        $.ajax({
+                        url: '@Url.Action("UpdateInventory","Inventory")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ chartOfInv: chartOfInv }),
+                        type: 'POST',
+                        dataType: 'html',
+                        success: function (datas) {
+
+                            if (datas == 1) {
+                                alert("Update Successully");
+                                ShowItemsInTable();
+                            }
+                            else {
+                                alert("This Item Code Already Exist or Data is not valid. \n Data Cannot be saved. Please rechek data and try again.");
+                            }
+
+                        }
+
+
+                    });
+                    }
+                }
+
+            });
+
+            function ShowItemsInTable() {
+                table.clear().draw();
+                $.ajax({
+                        url: '@Url.Action("GetAllInventoryItems", "Inventory")',
+                        contentType: "application/json;charset=utf-8",
+                        type: 'GET',
+                        dataType: 'json',
+                    success: function (datas) {
+                        var canBeUpdate = $("#canBeUpdate").val();
+                        if (canBeUpdate == "True") {
+                            $.each(datas, function (index, value) {
+                                table.row.add([value.GroupName, value.ItemCode, value.Name, value.GroupOrItem, value.UoMName, value.StandardCost, value.TradePrice, value.CartonCapacity, value.CountryName,
+                                '<a href="#"><i class="fa fa-edit" name="editRow" value="' +
+                                value.Id + '"></i></a>' + ' &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.Id + '"></i></a>']).draw();
+                            });
+
+                        }
+                        else if ($("#canBeSearch").val() == "True") {
+                            $.each(datas, function (index, value) {
+                                table.row.add([value.GroupName, value.ItemCode, value.Name, value.GroupOrItem, value.UoMName, value.StandardCost, value.TradePrice, value.CartonCapacity, value.CountryName,
+                                '<a href="#"><i class="fa fa-edit" name="editRow" value="' +
+                                value.Id + '"></i></a>']).draw();
+                            });
+                        }
+                        else {
+                            $.each(datas, function (index, value) {
+                                table.row.add([value.GroupName, value.ItemCode, value.Name, value.GroupOrItem, value.UoMName, value.StandardCost, value.TradePrice, value.CartonCapacity, value.CountryName, ""]).draw();
+                            });
+                            
+                        }
+
+                        }
+                    });
+
+            }
+            function ValidateChartOfInv() {
+                isValid = true;
+                if (chartOfInv.Name == "") {
+                    setError("Name", "Name is required field");
+                    isValid = false;
+                }
+                //if (chartOfInv.ItemCode == "") {
+                //    setError("ItemCode", "ItemCode is required field");
+                //    isValid = false;
+                //}
+                if (chartOfInv.type == "") {
+                    setError("type", "Group or Item is required field");
+                    isValid = false;
+                }
+                else if (chartOfInv.type != "") {
+                    if (chartOfInv.type != "G") {
+                        if (chartOfInv.UoMID == "")
+                        {
+                             setError("UoMID", "UoM is required field");
+                             isValid = false;
+                        }
+                        if (chartOfInv.CountryId == "") {
+                            setError("CountryId", "Country of Origin is required field");
+                            isValid = false;
+                        }
+                        if (chartOfInv.PacSize == "") {
+                             setError("PacSize", "Pac Size is required field");
+                             isValid = false;
+                        }
+                        if (chartOfInv.clmStandardCost == "") {
+                            setError("clmStandardCost", "Standard Cost is required field");
+                            isValid = false;
+                        }
+                        else if (chartOfInv.clmStandardCost <= 0 && chartOfInv.clmStandardCost != "") {
+                            setError("clmStandardCost", "Standard Cost Must be greater than zero(0).");
+                            isValid = false;
+                        }
+                        if (chartOfInv.RetailPrice == "") {
+                            setError("RetailPrice", "Trade Price is required field");
+                            isValid = false;
+                        }
+                        else if (chartOfInv.RetailPrice <= 0 && chartOfInv.RetailPrice != "") {
+                            setError("RetailPrice", "Retailer Price Must be greater than zero(0).");
+                            isValid = false;
+                        }
+                        if (chartOfInv.DisPerc <= 0 && chartOfInv.DisPerc != "") {
+                            setError("DisPerc", "Discount (%) Must be greater than zero(0).");
+                            isValid = false;
+                        }
+                        if (chartOfInv.VatPerc <= 0 && chartOfInv.VatPerc != "") {
+                            setError("VatPerc", "Vat (%) Must be greater than zero(0).");
+                            isValid = false;
+                        }
+                        if (chartOfInv.clmCartonCapacity <= 0 && chartOfInv.clmCartonCapacity != "") {
+                            setError("clmCartonCapacity", "Carton Capacity Must be greater than zero(0).");
+                            isValid = false;
+                        }
+                    }
+
+                }
+                //if (chartOfInv.parentId != "") {
+                //    if (chartOfInv)
+                //}
+                //if (chartOfInv.UoMID == "") {
+                //    setError("UoMID", "UoM is required field");
+                //    isValid = false;
+                //}
+                //if (chartOfInv.PacSize == "") {
+                //    setError("PacSize", "Pac Size is required field");
+                //    isValid = false;
+                //}
+                //if (chartOfInv.clmStandardCost == "") {
+                //    setError("clmStandardCost", "Standard Cost is required field");
+                //    isValid = false;
+                //}
+
+
+                //if (chartOfInv.clmStandardCost <= 0) {
+                //    setError("clmStandardCost", "Standard Cost Must be greater than zero(0).");
+                //}
+
+
+
+            }
+            function ClearChartOfInv() {
+                chartOfInv.Name = "";
+                chartOfInv.parentId = 0;
+                chartOfInv.type = "";
+                chartOfInv.UoMID = 0;
+                chartOfInv.rootAccountType = "";
+                chartOfInv.RetailPrice = 0.0;
+                chartOfInv.clmLittre = 0;
+                chartOfInv.clmCartonCapacity = 0;
+                chartOfInv.clmStandardCost = 0.0;
+                chartOfInv.ItemCode = "";
+                chartOfInv.ShortDesc = "";
+                chartOfInv.PacSize = "";
+                chartOfInv.VatPerc = 0.0;
+                chartOfInv.DisPerc = 0.0;
+            }
+            function SetChartOfInv() {
+                chartOfInv.Name = $("#Name").val();
+                chartOfInv.parentId = $("#parentId").val();
+                chartOfInv.type = $("#type").val();
+                chartOfInv.UoMID = $("#UoMID").val();
+                chartOfInv.rootAccountType = $("#rootAccountType").val();
+                chartOfInv.RetailPrice = $("#RetailPrice").val();
+                chartOfInv.clmLittre = $("#clmLittre").val();
+                chartOfInv.clmCartonCapacity = $("#clmCartonCapacity").val();
+                chartOfInv.clmStandardCost = $("#clmStandardCost").val();
+                chartOfInv.ItemCode = $("#ItemCode").val();
+                chartOfInv.ShortDesc = $("#ShortDesc").val();
+                chartOfInv.PacSize = $("#PacSize").val();
+                chartOfInv.VatPerc = $("#VatPerc").val();
+                chartOfInv.DisPerc = $("#DisPerc").val();
+                chartOfInv.CountryId = $("#CountryId").val();
+            }
+            function SetChartOfInvScreenvalue() {
+                 $("#Name").val(chartOfInv.Name);
+                 $("#parentId").val(chartOfInv.parentId);
+                 $("#type").val(chartOfInv.type);
+                 $("#UoMID").val(chartOfInv.UoMID);
+                 $("#rootAccountType").val(chartOfInv.rootAccountType);
+                 $("#RetailPrice").val(chartOfInv.RetailPrice);
+                 $("#clmLittre").val(chartOfInv.clmLittre);
+                 $("#clmCartonCapacity").val(chartOfInv.clmCartonCapacity);
+                 $("#clmStandardCost").val(chartOfInv.clmStandardCost);
+                 $("#ItemCode").val(chartOfInv.ItemCode);
+                 $("#ShortDesc").val(chartOfInv.ShortDesc);
+                 $("#PacSize").val(chartOfInv.PacSize);
+                 $("#VatPerc").val(chartOfInv.VatPerc);
+                 $("#DisPerc").val(chartOfInv.DisPerc);
+            }
+
+
+        });
+
+    </script>
+}

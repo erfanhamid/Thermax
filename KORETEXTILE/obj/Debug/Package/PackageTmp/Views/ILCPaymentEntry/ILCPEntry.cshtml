@@ -1,0 +1,915 @@
+﻿@model BEEERP.Models.ViewModel.CommercialVM.ILCPaymentVModel
+@{
+    ViewBag.Title = "ILCPEntry";
+}
+
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<h3 style="text-align:center">Import LC Payment (ILCP) Entry</h3>
+
+<form id="report" target="_blank">
+    <div id="debitError" style="text-align:center;font-size:20px;font-weight:bold;">
+        @Html.ValidationMessage("DebitError", "", new { @style = "color: red" })
+    </div>
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                    <h4 class="box-title">Import LC Payment Details</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.clmILCPNo, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:3.5%; padding-right:3.5%;">
+                                                @Html.TextBoxFor(m => m.clmILCPNo, new { @class = "form-control", @type = "number", @Value = ViewBag.ILCPNo })
+                                                @Html.ValidationMessageFor(m => m.clmILCPNo, "", new { @style = "color: red" })
+                                                <div class="input-group-btn">
+                                                    <input type="button" name="search" id="search" value="Search" class="btn btn-primary" style="min-width: 50px" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Date, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:3.5%; padding-right:3.5%">
+                                                @Html.TextBoxFor(m => m.Date, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                @Html.ValidationMessageFor(m => m.Date, "", new { @style = "color: red" })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        @*<div class="form-group">
+                                            @Html.LabelFor(m => m.ILCID, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:3.5%; padding-right:3.5%;">
+                                                @Html.TextBoxFor(m => m.ILCID, new { @class = "form-control", @type = "number" })
+                                                @Html.ValidationMessageFor(m => m.ILCID, "", new { @style = "color: red" })
+                                                <div class="input-group-btn">
+                                                    <input type="button" name="go" id="go" value="Go" class="btn btn-primary" style="min-width: 20px" />
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.ILCID, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.ILCID, (IEnumerable<SelectListItem>)ViewBag.ILC, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.ILCID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        @*<div class="form-group">
+                                            @Html.LabelFor(m => m.ILCNo, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.ILCNo, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.ILCNo, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>*@
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.AitILCNo, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.AitILCNo, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.AitILCNo, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.SupplierOfGoods, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.SupplierOfGoods, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.SupplierOfGoods, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.clmAccountID, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.clmAccountID, (IEnumerable<SelectListItem>)ViewBag.GlAccount, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.clmAccountID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="box">
+                                        <div class="box-body">
+                                            <div class="col-md-6" style="padding:0%">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.DebitAccID, new { @class = "col-md-4 control-label" })
+                                                    <div class="col-sm-8">
+                                                        @Html.DropDownListFor(m => m.DebitAccID, (IEnumerable<SelectListItem>)ViewBag.Account, new { @class = "form-control select2" })
+                                                        @Html.ValidationMessageFor(m => m.DebitAccID, "", new { @style = "color: red" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.clmTotalAmount, "Bill Total Value", new { @class = "col-md-4 control-label" })
+                                                    <div class="col-sm-8">
+                                                        @Html.TextBoxFor(m => m.clmTotalAmount, new { @class = "form-control", @disabled = "disabled" })
+                                                        @Html.ValidationMessageFor(m => m.clmTotalAmount, "", new { @style = "color: red" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="subLedger" class="col-md-12" style="padding-right:0%;padding-left:0%;border-color:lightseagreen;border-style:solid;border-width:2px;">
+                                                <br />
+                                                <div class="col-md-6" style="padding-right:0%;padding-left:0%;">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(m => m.SubLedgerID, new { @class = "col-md-4 control-label" })
+                                                        <div class="col-sm-8">
+                                                            @Html.DropDownListFor(m => m.SubLedgerID, (IEnumerable<SelectListItem>)ViewBag.SubLedger, new { @class = "form-control select2" })
+                                                            @Html.ValidationMessageFor(m => m.SubLedgerID, "", new { @style = "color: red" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(m => m.SubAmount, new { @class = "col-md-4 control-label" })
+                                                        <div class="col-sm-8">
+                                                            @Html.TextBoxFor(m => m.SubAmount, new { @class = "form-control", @type = "number" })
+                                                            @Html.ValidationMessageFor(m => m.SubAmount, "", new { @style = "color: red" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(m => m.SubDescription, new { @class = "col-md-4 control-label" })
+                                                        <div class="col-sm-8">
+                                                            @Html.TextBoxFor(m => m.SubDescription, new { @class = "form-control" })
+                                                            @Html.ValidationMessageFor(m => m.SubDescription, "", new { @style = "color: red" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(m => m.SubLedgerTotal, new { @class = "col-md-4 control-label" })
+                                                        <div class="col-sm-8">
+                                                            @Html.TextBoxFor(m => m.SubLedgerTotal, new { @class = "form-control", @disabled = "disabled" })
+                                                            @Html.ValidationMessageFor(m => m.SubLedgerTotal, "", new { @style = "color: red" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group" style="padding-top:1%;padding-left:50%;">
+                                                        <button type="button" id="subAddToGrid" name="addToGrid" style="height:300%; font-size:100%;" class="btn">Add To Grid</button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="col-md-2"></div>
+                                                    <div class="col-md-8" style="color:lightseagreen;">
+                                                        <div class="box-body">
+                                                            <table class="table table-responsive" id="subLedgerList">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Sub Ledger A/C</th>
+                                                                        <th>Amount</th>
+                                                                        <th>Note</th>
+                                                                        <th>Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody></tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2"></div>
+                                                </div>
+                                                <div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6" style="padding:0%">
+                                                <br />
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.Amount, new { @class = "col-md-4 control-label" })
+                                                    <div class="col-sm-8">
+                                                        @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", @type = "number" })
+                                                        @Html.ValidationMessageFor(m => m.Amount, "", new { @style = "color: red" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <br />
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.Description, new { @class = "col-md-4 control-label" })
+                                                    <div class="col-sm-8">
+                                                        @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                                                        @Html.ValidationMessageFor(m => m.Description, "", new { @style = "color: red" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="form-group" style="padding-top:2%;padding-left:50%;">
+                                                    <button type="button" id="addToGrid" name="addToGrid" style="height:300%; font-size:100%;" class="btn btn-primary">Add To Grid</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="box ">
+                                        <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                            <h4 class="box-title">Import LC Payment (ILCP) List</h4>
+                                        </div>
+                                        <div class="box-body">
+                                            <table class="table table-responsive" id="JVlist">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Debit A/C</th>
+                                                        <th>Amount</th>
+                                                        <th>Description</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="box">
+                                    <div class="box-footer">
+                                        <div class="form-group" , style="text-align:center">
+                                            <input type="button" value="Save" id="save" class="btn btn-primary" style="padding-left:20px;" />
+                                            <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                                            <input type="button" name="delete" id="delete" value="Delete" class="btn btn-primary" />
+                                            <input type="button" name="clear" id="clear" value="Clear" class="btn btn-primary" />
+                                            <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                            <input type="button" name="print" id="print" value="Print" class="btn btn-primary" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="TotalAmount" />
+</form>
+
+@section scripts
+{
+    <script src="~/Scripts/CommercialModule/ILCPInputFocus.js"></script>
+
+    <script>
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+
+        $(".select2").select2();
+
+        var subLId = "";
+        var accId = "";
+        var isValid = true;
+        var addedItems = [];
+        var addedItems1 = [];
+        var addedItemPB = [];
+        var ilcp = { clmILCPNo: 0, clmDate: "", clmILCID: 0, clmAccountID: "", clmTotalAmount: 0.0, Type: "" };
+
+        var table1 = $('#JVlist').DataTable({
+            'paging': false,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+        var PBTable = $('#PBList').DataTable({
+            'paging': false,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+        var table = $('#subLedgerList').DataTable({
+            'paging': false,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+
+        EnterPress();
+
+        $(document).ready(function () {
+            $("#subLedger").hide();
+            $("#ref").hide();
+            $("#update").hide();
+            $("#delete").hide();
+            $("#clear").hide();
+            $("#print").hide();
+            $("#ILCID").focus();
+            $("#debitError").hide();
+            $("#Total").attr('disabled', true);
+            @*$("#BranchId").val(@ViewBag.DepotId).change();*@
+        });
+
+        $(document).on('click', "#go", function () {
+            var id = { liId: $("#ILCID").val() };
+            if (id.liId != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetLcInfo", "ILCPaymentEntry")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            //if (datas.PreviousBill != 0) {
+                            //    addedItemPB = [];
+                            //    $.each(datas.PreviousBill, function (index, value) {
+                            //        var item = { DebitAccID: "", Amount: 0.0, Description: "", ILCBNo: 0 };
+                            //        item.clmDebitAccID = value.DebitAccID;
+                            //        item.clmAmount = value.Amount;
+                            //        item.clmDescription = value.Description;
+                            //        item.clmILCPNo = value.ILCBNo;
+                            //        addedItemPB.push(item);
+                            //    });
+                            //    //ShowOnTablePB();
+                            //} else {
+                            //    PBTable.clear().draw();
+                            //    $("#Total").val("");
+                            //}
+                            if (datas.lcDetails != "") {
+                                $("#ILCNo").val(datas.lcDetails.ILCNo);
+                                $("#AitILCNo").val(datas.lcDetails.AltILCNo);
+                                $("#SupplierOfGoods").val(datas.lcDetails.Supplier);
+                            }
+                            else {
+                                alert("Your Entered Lc Does Not exist.");
+                            }
+                        }
+                    });
+            }
+            else {
+                alert("ILC Can Not be empty.");
+            }
+        });
+
+        $(document).on('change', "#ILCID", function () {
+            //var id = { liId: $("#ILCID").val() };
+            $("#ILCID").prop('disabled', false);
+            var id = { liId: $(this).val() };
+            if (id.ilcid != "") {
+                $.ajax({
+                    url: '@Url.Action("GetLcInfo", "ILCPaymentEntry")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas.lcDetails != "") {
+                            $("#ILCNo").val(datas.lcDetails.ILCNo);
+                            $("#AitILCNo").val(datas.lcDetails.AltILCNo);
+                            $("#SupplierOfGoods").val(datas.lcDetails.Supplier);
+                        }
+                        else {
+                            alert("LC doesn't exist.");
+                        }
+                    }
+                });
+            }
+            else {
+                $("#ILCID").val("").change();
+                $("#ILCID").prop("disabled", true);
+            }
+
+        });
+
+        $(document).on('change', "#DebitAccID", function () {
+            RemoveError();
+            $("#SubLedgerID").prop('disabled', false);
+            var id = { accId: $(this).val() };
+            if (id.accId != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetSubLedgerByLedger", "ILCP")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas.Message == 1) {
+                                $("#subLedger").show();
+                                $("#SubLedgerID").empty();
+                                $("#SubLedgerID").prop("disabled", false);
+                                $.each(datas.subLed, function (index, value) {
+                                    $("#SubLedgerID").append($('<option />', {
+                                        value: value.Value,
+                                        text: value.Text
+                                    })).trigger('change');
+                                });
+                                $("#SubLedgerID").focus();
+                                if (accId != "") {
+                                    accId = "";
+                                }
+                                else {
+                                    table.clear().draw();
+                                }
+                            }
+                            if (datas.Message == 0) {
+                                $("#subLedger").hide();
+                                $("#SubLedgerID").empty();
+                                $("#SubLedgerID").prop("disabled", false);
+                                $.each(datas.subLed, function (index, value) {
+                                    $("#SubLedgerID").append($('<option />', {
+                                        value: value.Value,
+                                        text: value.Text
+                                    })).trigger('change');
+                                });
+                                $("#SubLedgerID").focus();
+                            }
+                            if (subLId != "") {
+                                $("#SubLedgerID").val(subLId).change();
+                                subLId = "";
+                            }
+                        }
+                    });
+            }
+            else {
+                $("#SubLedgerID").val("").change();
+                $("#SubLedgerID").prop("disabled", true);
+            }
+        });
+
+        $(document).on('click', "#subAddToGrid", function () {
+            RemoveError();
+
+            var item = { ILCBNo: 0, DebitAccID: 0, SubLedgerID: 0, Amount: 0.0, Description: "" };
+            ValidateAddToGrid();
+            if (isValid == true) {
+                item.DebitAccID = $("#DebitAccID").val();
+                item.SubLedgerID = $("#SubLedgerID").val();
+                item.SubLedgerName = $("#SubLedgerID :selected").text();
+                item.Amount = $("#SubAmount").val();
+                item.Description = $("#SubDescription").val();
+                addedItems.push(item);
+                ClearOnSearch();
+                ShowOnTable(item.DebitAccID);
+            }
+        })
+
+        function ValidateAddToGrid() {
+            isValid = true;
+            if ($("#SubLedgerID").val() == "") {
+                setError("SubLedgerID", "SubLedger is required field");
+                isValid = false;
+            }
+            if ($("#SubAmount").val() == "") {
+                setError("SubAmount", "Amount is required field");
+                isValid = false;
+            }
+            if ($("#SubAmount").val() <= 0) {
+                setError("SubAmount", "Amount must be grater than zero.");
+                isValid = false;
+            }
+            $.each(addedItems, function (index, value) {
+                if (value.SubLedgerID == $("#SubLedgerID").val() && value.DebitAccID == $("#DebitAccID").val()) {
+                    setError("SubLedgerID", "This Sub Ledger is Already Added To This Gl Account.");
+                    isValid = false;
+                }
+            });
+        }
+
+        function ClearOnSearch() {
+            $("#SubLedgerID").val("").change();
+            $("#SubAmount").val("");
+            $("#SubDescription").val("");
+        }
+
+        function ShowOnTable(accountId) {
+            table.clear().draw();
+            var totSubAmount = 0;
+            $.each(addedItems, function (index, value) {
+                if (accountId == value.DebitAccID) {
+                    table.row.add([value.SubLedgerName, value.Amount, value.Description,
+                    '<a href="#"><i class="fa fa-edit" name="editRow" value="' +
+                    value.SubLedgerID + '"></i></a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.SubLedgerID + '"></i></a>']).draw();
+                    totSubAmount += parseFloat(value.Amount);
+                }
+            });
+            $("#SubLedgerTotal").val(totSubAmount);
+            $("#Amount").val(totSubAmount);
+        }
+
+        function ShowOnTablePB() {
+            PBTable.clear().draw();
+            var totalAmount = 0;
+            $.each(addedItemPB, function (index, value) {
+
+                PBTable.row.add([value.DebitAccID, value.Amount, value.Description, value.ILCBNo]
+                ).draw();
+                totalAmount += parseFloat(value.Amount);
+            });
+
+            $("#Total").val(totalAmount);
+        }
+
+       
+
+
+        //edit Row
+        $(document).on('click', '[name="editRow"]', function () {
+            RemoveError();
+            var item = $(this).attr("value");
+            var newItem = [];
+            var acc = "";
+            $.each(addedItems, function (index, value) {
+                if (value.SubLedgerID == item) {
+                    //subLId = value.SubLedgerID;
+                    $("#SubLedgerID").val(value.SubLedgerID).change();
+                    $("#SubAmount").val(value.Amount);
+                    $("#SubDescription").val(value.Description);
+                }
+                else {
+                    newItem.push(value);
+                }
+                acc = value.DebitAccID;
+            });
+            addedItems = newItem;
+            ShowOnTable(acc);
+        });
+
+        $(document).on('click', "#addToGrid", function () {
+            $("#subLedger").hide();
+            $("#DebitAccID").prop("disabled", false);
+            RemoveError();
+            var item = { ILCBNo: 0, DebitAccID: 0, Amount: 0.0, Description: "" };
+            ValidateAddToGrid1();
+            if (isValid == true) {
+                item.DebitAccID = $("#DebitAccID").val();
+                item.Amount = $("#Amount").val();
+                item.Description = $("#Description").val();
+                item.DebitAccName = $("#DebitAccID :selected").text();
+                addedItems1.push(item);
+                ClearOnSearch1();
+                ShowOnTable1();
+            }
+
+        });
+
+        function ValidateAddToGrid1() {
+            isValid = true;
+            if ($("#DebitAccID").val() == "") {
+                setError("DebitAccID", "Debit Account is required field");
+                isValid = false;
+            }
+            if ($("#Amount").val() == "") {
+                setError("Amount", "Amount is required field");
+                isValid = false;
+            }
+            if ($("#Amount").val() <= 0) {
+                setError("Amount", "Amount must be grater than zero.");
+                isValid = false;
+            }
+            $.each(addedItems1, function (index, value) {
+                if (value.DebitAccID == $("#DebitAccID").val()) {
+                    setError("DebitAccID", "This Debit Account is Already Added.");
+                    isValid = false;
+                }
+            });
+        }
+
+        function ClearOnSearch1() {
+            $("#DebitAccID").val("").change();
+            $("#Amount").val("");
+            $("#Description").val("");
+            $("#SubLedgerTotal").val("");
+        }
+
+        function ShowOnTable1() {
+            table1.clear().draw();
+            var totAmount = 0;
+            $.each(addedItems1, function (index, value) {
+                table1.row.add([value.DebitAccName, value.Amount, value.Description,
+                '<a href="#"><i class="fa fa-edit" name="editRow1" value="' +
+                value.DebitAccID + '"></i></a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow1" value="' + value.DebitAccID + '"></i></a>']).draw();
+
+                totAmount += parseFloat(value.Amount);
+            });
+            $("#clmTotalAmount").val(totAmount);
+        }
+
+
+
+        //delete Row
+        $(document).on('click', '[name="deleteRow"]', function () {
+            RemoveError();
+            var item = $(this).attr("value");
+            var newItem = [];
+            var acc = "";
+            if (confirm('Are you sure you want to delete this from Grid ?')) {
+                $.each(addedItems, function (index, value) {
+                    if (value.SubLedgerID == item) {
+
+                    }
+                    else {
+                        newItem.push(value);
+                    }
+                    acc = value.DebitAccID;
+                });
+                addedItems = newItem;
+                ShowOnTable(acc);
+            }
+        });
+
+        //delete Row
+        $(document).on('click', '[name="deleteRow1"]', function () {
+            var item = $(this).attr("value");
+            var newItem = [];
+            if (confirm('Are you sure you want to delete this from Grid ?')) {
+                $.each(addedItems1, function (index, value) {
+                    if (value.DebitAccID == item) {
+
+                    }
+                    else {
+                        newItem.push(value);
+                    }
+
+                });
+                addedItems1 = newItem;
+                ShowOnTable1();
+            }
+        });
+
+        //edit Row
+        $(document).on('click', '[name="editRow1"]', function () {
+            var item = $(this).attr("value");
+            var newItem = [];
+            $.each(addedItems1, function (index, value) {
+                if (value.DebitAccID == item) {
+                    $.each(addedItems, function (index, v) {
+                        if (v.DebitAccID == item) {
+                            accId = v.DebitAccID;
+                            ShowOnTable(v.DebitAccID);
+                        }
+                    });
+                    $("#Amount").val(value.Amount);
+                    $("#DebitAccID").val(value.DebitAccID).change();
+                    $("#Description").val(value.Description);
+                }
+                else {
+                    newItem.push(value);
+                }
+
+            });
+            addedItems1 = newItem;
+            ShowOnTable1();
+        });
+
+        $(document).on('click', "#refresh", function () {
+            window.location.reload(true);
+        });
+
+        //
+        $(document).on('click', "#save", function () {
+            RemoveError();
+            $("#save").prop('disabled', true);
+            SetILCP();
+            if (addedItems1.length <= 0) {
+                alert("At least One Item should be added for save.");
+                $("#save").prop('disabled', false);
+            }
+            else {
+                ValidateILCP();
+                if (isValid == true) {
+                    if (confirm('Do you want to save')) {
+                        $.ajax({
+                            url: '@Url.Action("SaveAndUpdateILCP", "ILCPaymentEntry")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ ilcp: ilcp, addedItems: addedItems, addedItems1: addedItems1 }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Failed To Saved.");
+                                    $("#save").prop('disabled', false);
+                                } else if (datas == 3) {
+                                    alert("Please select a valid entry date");
+                                    $("#Date").focus();
+                                    $("#save").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully Saved.");
+                                    $("#clmILCPNo").val(datas.ilcp.clmILCPNO);
+                                    $("#save").prop('disabled', true);
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        $("#save").prop('disabled', false);
+                    }
+                }
+                else {
+                    $("#save").prop('disabled', false);
+                }
+            }
+        });
+
+        function SetILCP() {
+
+            ilcp.clmILCPNo = 0;
+            ilcp.clmDate = $("#Date").val();
+            ilcp.clmILCID = $("#ILCID").val();
+            ilcp.clmAccountID = $("#clmAccountID").val();
+            ilcp.clmTotalAmount = $("#clmTotalAmount").val();
+            ilcp.Type = "Create Payable";
+        }
+
+        function ValidateILCP() {
+            isValid = true;
+            if (ilcp.clmILCID == "") {
+                setError("ILCID", "ILCID is required field");
+                isValid = false;
+            }
+            if (ilcp.clmDate == "") {
+                setError("Date", "Date is required field");
+                isValid = false;
+            }
+            if (ilcp.clmAccountID == "") {
+                setError("clmAccountID", "Payment Account is required field");
+                isValid = false;
+            }
+        }
+
+        //search code
+        $(document).on('click', '#search', function () {
+            RemoveError();
+            var id = { id: $("#clmILCPNo").val() };
+            if ($("#clmILCPNo").val() != "") {
+                $.ajax({
+                    url: '@Url.Action("GetILCPById", "ILCPaymentEntry")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+
+                        if (datas == 0) {
+                            alert("Your entered ILCP No. Doesn't exist");
+                        }
+                        else {
+                            $("#save").hide();
+                            $("#update").show();
+                            $("#delete").show();
+                            $("#print").show();
+                            $("#Date").val((moment(datas.ilcpItem.clmDate).format("DD-MM-YYYY")));
+                            $("#ILCID").val(datas.ilcpItem.clmILCID);
+                            $("#clmAccountID").val(datas.ilcpItem.clmAccountID).change();
+                            $("#Total").val("");
+                            //$("#TotalAmount").val(datas.lcpItem.TotalAmount);
+                            addedItems = [];
+                            addedItems1 = [];
+                            $.each(datas.ilcpLineItem, function (index, value) {
+                                var item = { clmILCPNo: 0, DebitAccID: 0, Amount: 0.0, Description: "" };
+                                item.DebitAccID = value.DebitAccID;
+                                item.Amount = value.Amount;
+                                item.Description = value.Description;
+                                item.DebitAccName = value.DebitAccName;
+                                addedItems1.push(item);
+                            });
+                            $.each(datas.ilcbSubledgerLineItem, function (index, value) {
+                                var item = { ILCBNo: 0, DebitAccID: 0, SubLedgerID: 0, Amount: 0.0, Description: "" };
+                                item.DebitAccID = value.DebitAccID;
+                                item.SubLedgerID = value.SubLedgerID;
+                                item.SubLedgerName = value.SubLedgerName;
+                                item.Amount = value.Amount;
+                                item.Description = value.Description;
+                                addedItems.push(item);
+                            });
+
+                            ShowOnTable1();
+                            ShowOnTable();
+                            $("#go").click();
+                        }
+                    },
+                    error: function () {
+                        alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+                        $("#search").prop('disabled', false);
+                    }
+                });
+            }
+            else {
+                setError("ILCBNo", "ILCB No is required for Get Data.");
+            }
+
+        });
+
+        $(document).on('click', "#update", function () {
+            RemoveError();
+            RemoveError();
+            $("#update").prop('disabled', true);
+            SetILCP();
+            ilcp.clmILCPNo = $("#clmILCPNo").val();
+
+            if (addedItems1.length <= 0) {
+                alert("At least One Item should be added for Update.");
+                $("#update").prop('disabled', false);
+            }
+            else {
+                ValidateILCP();
+                if (isValid == true) {
+                    if (confirm('Do you want to Update')) {
+                    $.ajax({
+                        url: '@Url.Action("SaveAndUpdateILCP", "ILCPaymentEntry")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ ilcp: ilcp, addedItems: addedItems, addedItems1: addedItems1 }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Update.");
+                                $("#update").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Updated.");
+                                $("#update").prop('disabled', true);
+                            }
+                        }
+                    });
+                }
+                    else {
+                        $("#update").prop('disabled', false);
+                    }
+                }
+                else {
+                    $("#update").prop('disabled', false);
+                }
+            }
+        });
+        $(document).on('click', "#print", function (event) {
+            event.preventDefault();
+            if ($("#message").val() != "true") {
+                $("#report").attr("action", "/ILCPaymentEntry/GetILCPPreview")
+                $("#report").submit();
+            }
+        });
+        //delete code
+        $(document).on('click', '#delete', function () {
+            RemoveError();
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var id = $("#clmILCPNo").val();
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteILCPByid", "ILCPaymentEntry")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Delete failed.");
+                            $("#delete").prop('disabled', false);
+                            $("#update").prop('disabled', false);
+                        }
+                        else {
+                            alert("Delete Successfull");
+                            window.location.reload(true);
+                        }
+                    }
+                });
+            }
+            else {
+                $("#update").prop('disabled', false);
+                $("#delete").prop('disabled', false);
+            }
+        });
+
+    </script>
+}
+
+
+

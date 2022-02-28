@@ -1,0 +1,386 @@
+﻿@model BEEERP.Models.ViewModel.Sales.Report.RetailerReportVModel
+@using BEEERP.Models.CommonInformation
+@{
+    ViewBag.Title = "RetailerReport";
+    int i = 0;
+}
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        /*padding: 15px 32px;*/
+        /*text-align: center;*/
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 8px;
+        min-width: 400px;
+        /*height: 12px;*/
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+        }
+</style>
+
+<h3 style="text-align:center">Freezer Rent Report</h3>
+
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "RetailerReport", target = "_blank" }))
+{
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h4 class="box-title">Select Date Range and Parameters</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <br />
+                                    @Html.LabelFor(m => m.DepotId, "Depot", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DropDownListFor(m => m.DepotId, (IEnumerable<SelectListItem>)ViewBag.Depot, new { @class = "form-control  select2", })
+                                        @Html.ValidationMessageFor(m => m.DepotId, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.CustomerID, "Dealer", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DropDownListFor(m => m.CustomerID, (IEnumerable<SelectListItem>)ViewBag.Dealer, new { @class = "form-control  select2", })
+                                        @Html.ValidationMessageFor(m => m.CustomerID, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.RetailerId, "Retailer", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DropDownListFor(m => m.RetailerId, (IEnumerable<SelectListItem>)ViewBag.Retailer, new { @class = "form-control  select2", })
+                                        @Html.ValidationMessageFor(m => m.RetailerId, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.From, "From Date", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6 date input-group" style="padding-left:15px;padding-right:15px;">
+                                        @Html.TextBoxFor(m => m.From, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        @Html.ValidationMessageFor(m => m.From)
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.To, "To Date", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6 date input-group" style="padding-left:15px;padding-right:15px;">
+                                        @Html.TextBoxFor(m => m.To, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        @Html.ValidationMessageFor(m => m.To)
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.AsOnDate, "As on Date", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6 date input-group" style="padding-left:15px;padding-right:15px;">
+                                        @Html.TextBoxFor(m => m.AsOnDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        @Html.ValidationMessageFor(m => m.AsOnDate)
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h4 class="box-title">Retailer Report</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="SingleDepotRetailer" type="submit">@i. Single Depot Retailer Contact List</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h4 class="box-title">Rent Report</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="SingleDealerRentDetails" type="submit">@i. Single Dealer All Rent Details</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="SingleDepotRentSummary" type="submit">@i. Single Depot All Rent Summary</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="DepotWiseAllRentSummary" type="submit">@i. Depot Wise All Rent Summary</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="message" value="false" />
+    </div>
+}
+
+
+
+@section scripts{
+    <script src="~/Scripts/Search.js"></script>
+    <script src="~/Scripts/ReportSearch.js"></script>
+    @*<script src="~/Scripts/Common.js"></script>*@
+    <script>
+        $(document).ready(function () {
+            $(".select2").select2();
+            $('.date').datepicker({
+                autoclose: true,
+                format: "dd-mm-yyyy"
+
+            });
+            var isValid = true;
+
+            $(document).on('change', "#DepotId", function () {
+               // ClearOnDepotChange();
+                var id = { id: $(this).val() };
+                if (id.id != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetDealerByDepot", "MDSI")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify(id),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            $("#CustomerID").empty();
+                            $("#CustomerID").prop("disabled", false);
+                            $.each(datas, function (index, value) {
+                                $("#CustomerID").append($('<option />', {
+                                    value: value.Value,
+                                    text: value.Text
+                                })).trigger('change');
+                            });
+
+                            if (dealerId!="")
+                            {
+                                $("#CustomerID").val(dealerId).change();
+                                storeId = "";
+                            }
+
+                        }
+                    });
+                }
+                else {
+                    $("#CustomerID").empty();
+                    $("#CustomerID").prop("disabled", true);
+                }
+
+            });
+        $(document).on('change', "#CustomerID", function () {
+            // ClearOnDepotChange();
+            var id = { id: $(this).val() };
+            if (id.id != "") {
+                $.ajax({
+                    url: '@Url.Action("GetRetailerByDealer", "RetailerReport")',
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify(id),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+                        $("#RetailerId").empty();
+                        $("#RetailerId").prop("disabled", false);
+                        $.each(datas, function (index, value) {
+                            $("#RetailerId").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                    }
+                });
+            }
+            else {
+                $("#RetailerId").empty();
+                //$("#CustomerID").prop("disabled", true);
+            }
+        });
+
+
+
+            $(document).on('click', "#DealerReceiveable", function (event) {
+                event.preventDefault();
+                if ($("#DepotId").val() == "") {
+                    setError("DepotId", "Depot is required field");
+                    isValid = false;
+                } else {
+
+                    $("#RetailerReport").attr("action", "/CustomerReport/GetDealerReceiveableSummary");
+                    $("#RetailerReport").submit();
+                }
+            });
+            $(document).on('click', "#depotwisereceiveable", function (event) {
+                event.preventDefault();
+                $("#RetailerReport").attr("action", "/CustomerReport/GetDepotWiseReceivableSummary");
+                $("#RetailerReport").submit();
+            });
+            //  to show Single Depot Retailer contact summary
+            $(document).on('click', "#SingleDepotRetailer", function (event) {
+                event.preventDefault();
+                if ($("#DepotId").val() == "") {
+                    setError("DepotId", "Depot is required field");
+                    isValid = false;
+                } else {
+
+                    $("#RetailerReport").attr("action", "/RetailerReport/SingleDepotRetailer");
+                    $("#RetailerReport").submit();
+                }
+            });
+            //$(document).on('click', "#DealerContactSummary", function (event) {
+            //    event.preventDefault();
+            //        $("#DealerReport").attr("action", "/CustomerReport/GetDealerContactSummary");
+            //        $("#DealerReport").submit();
+            //});
+            //$(document).on('click', "#DealerCollection", function (event) {
+            //    event.preventDefault();
+            //    if ($("#DepotId").val() == "") {
+            //        setError("DepotId", "Depot is required field");
+            //        isValid = false;
+            //    } else {
+
+            //        $("#DealerReport").attr("action", "/CustomerReport/GetDealerCollectionSummary");
+            //        $("#DealerReport").submit();
+            //    }
+            //});
+            //$(document).on('click', "#DepotZoneCollection", function (event) {
+            //    event.preventDefault();
+
+            //    $("#DealerReport").attr("action", "/CustomerReport/GetDepotZoneWiseCollectionSummary");
+            //        $("#DealerReport").submit();
+
+            //});
+            //$(document).on('click', "#SingleDealerCollection", function (event) {
+            //    event.preventDefault();
+            //    if ($("#DepotId").val() == "") {
+            //        setError("DepotId", "Depot is required field");
+            //        isValid = false;
+            //    } else if ($("#CustomerID").val() == "") {
+            //        setError("CustomerID", "Dealer is required field");
+            //        isValid = false;
+            //    }
+            //    else
+            //    {
+
+            //        $("#DealerReport").attr("action", "/CustomerReport/GetDealerCollectionDetails");
+            //        $("#DealerReport").submit();
+            //    }
+            //});
+            //$(document).on('click', "#DepotWiseReceivable", function (event) {
+            //    event.preventDefault();
+
+            //    $("#DealerReport").attr("action", "/CustomerReport/GetDepotWiseReceiveableSummary");
+            //    $("#DealerReport").submit();
+
+            //});
+            //$(document).on('click', "#SingleDealerAllRentDetails", function (event) {
+            //    event.preventDefault();
+            //    if ($("#DepotId").val() == "") {
+            //        setError("DepotId", "Depot is required field");
+            //        isValid = false;
+            //    } else if ($("#CustomerID").val() == "") {
+            //        setError("CustomerID", "Dealer is required field");
+            //        isValid = false;
+            //    }
+            //    else {
+
+            //        $("#DealerReport").attr("action", "/CustomerReport/GetSingleDealerAllRentDetails");
+            //        $("#DealerReport").submit();
+            //    }
+            //});
+            //$(document).on('click', "#SingleDepotAllRentSummary", function (event) {
+            //    event.preventDefault();
+            //    if ($("#DepotId").val() == "") {
+            //        setError("DepotId", "Depot is required field");
+            //        isValid = false;
+            //    }
+            //    else {
+
+            //        $("#DealerReport").attr("action", "/CustomerReport/GetSingleDepotAllRentSummary");
+            //        $("#DealerReport").submit();
+            //    }
+            //});
+            // Single Dealer All Rent Details
+            $(document).on('click', "#SingleDealerRentDetails", function (event) {
+                event.preventDefault();
+                if ($("#DepotId").val() == "") {
+                    setError("DepotId", "Depot is required field");
+                    isValid = false;
+                } else if ($("#CustomerID").val() == "") {
+                    setError("CustomerID", "Dealer is required field");
+                    isValid = false;
+                }
+                else {
+
+                    $("#RetailerReport").attr("action", "/CustomerReport/GetSingleDealerAllRentDetails");
+                    $("#RetailerReport").submit();
+                }
+            });
+
+            $(document).on('click', "#SingleDepotRentSummary", function (event) {
+                event.preventDefault();
+                if ($("#DepotId").val() == "") {
+                    setError("DepotId", "Depot is required field");
+                    isValid = false;
+                }
+                else {
+
+                    $("#RetailerReport").attr("action", "/RetailerReport/SingleDepotRentSummary");
+                    $("#RetailerReport").submit();
+                }
+            });
+            $(document).on('click', "#DepotWiseAllRentSummary", function (event) {
+                event.preventDefault();
+                $("#RetailerReport").attr("action", "/RetailerReport/DepotWiseallRentSummary");
+                $("#RetailerReport").submit();
+            });
+            function validateLedger() {
+                isValid = true;
+
+                if ($("#CustomerID").val() == "") {
+                    setError("CustomerID", "Dealer is required field");
+                    isValid = false;
+                }
+            }
+
+            function validateLedger() {
+                isValid = true;
+
+                if ($("#CustomerID").val() == "") {
+                    setError("CustomerID", "Dealer is required field");
+                    isValid = false;
+                }
+            }
+        });
+    </script>
+
+}
+

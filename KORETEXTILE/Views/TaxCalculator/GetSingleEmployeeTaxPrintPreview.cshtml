@@ -1,0 +1,414 @@
+﻿@model BEEERP.Models.ViewModel.TaxCalculator.TaxRepotVModel
+@using BEEERP.Models.ViewModel.TaxCalculator
+@{
+    ViewBag.Title = "GetSingleEmployeeTaxPrintPreview";
+    Layout = null;
+
+}
+
+<style>
+</style>
+@if (ViewBag.Message != "")
+{
+    <h4 style="font-weight:bold">@ViewBag.Message</h4>
+}
+else
+{
+    foreach (var sigleEmployee in Model.TaxReportEmployee)
+    {
+
+        TaxCertificate taxCertificate = sigleEmployee.TaxCertificates;
+        TaxDetails taxDetails = sigleEmployee.TaxDetails;
+        <body>
+            <p style="font-weight:bold;text-align:center;">Employee Name:</p>
+            <p style="text-align:center;">@taxDetails.Corporation</p>
+            <p style="text-align:center;">Company Address:</p>
+            <p style="font-weight:bold;padding-left:2%">Employee Id&ensp;: &ensp; @taxDetails.EmployeeId&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; Assesment Year&ensp;: &ensp; @taxDetails.AssesmentYear&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Location &ensp;:&ensp;@taxDetails.Location</p>
+            <p style="padding-left:2%;">Income During Year&ensp;:&ensp;@taxDetails.FinancialYear</p>
+            <hr />
+            <table style="width:100%;">
+                <thead>
+                    <tr>
+                        <th style="width:20%;padding-right:5%">Gross Salary :</th>
+                        <th style="width:20%">Duration</th>
+                        <th style="width:20%">Amount (Tk.)</th>
+                        <th style="width:10%">Month</th>
+                        <th style="width:20%">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        var grossSalary = taxDetails.GrossSalarie;
+                    }
+                    @foreach (var item in grossSalary)
+                    {
+                        <tr>
+                            <td style="width:20%;"></td>
+                            <td style="width:20%;padding-left:4%;">@item.Month</td>
+                            <td style="width:20%;padding-left:6%;">@Math.Round(Convert.ToDouble(@item.MonthlyGross), 2)</td>
+                            <td style="width:20%;padding-left:12%;">@item.NoOfMonths</td>
+                            <td style="width:20%;padding-left:5%;">@Math.Round(Convert.ToDouble(@item.TotalGross), 2)</td>
+                        </tr>
+                    }
+                </tbody>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="width:25%;padding-left:10%;">Gross Total : </td>
+                        <td style="width:25%;padding-left:5%;">@Math.Round(Convert.ToDouble(taxDetails.TotGross), 2)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <br />
+            <table style="width:100%;">
+                <thead>
+                    <tr>
+                        <th style="width:15%;padding-bottom:2%;">Tax Details :</th>
+                        <th style="width:25%;padding-bottom:2%;">BreakeDown</th>
+                        <th style="width:10%;">Amount (Tk.)</th>
+                        <th style="width:10%;">Deduction (Tk.)</th>
+                        <th style="width:15%;">Net Of Deduction (Tk.)</th>
+                        <th style="width:10%;padding-bottom:2%;">Exempted(Tk.)</th>
+                        <th style="width:15%;">Taxable Amount (Tk.)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        var exemption = taxDetails.ExempCalculation;
+                    }
+                    @foreach (var item in exemption)
+                    {
+                        <tr>
+                            <td></td>
+                            <td>@item.BreakeDown</td>
+                            <td style="padding-left:2%;">@Math.Round(Convert.ToDouble(@item.Amount), 2)</td>
+                            <td style="padding-left:3%;">@Math.Round(Convert.ToDouble(@item.Deduction), 2)</td>
+                            <td style="padding-left:2%;">@Math.Round(Convert.ToDouble(@item.NetOfDeduction), 2)</td>
+                            <td style="padding-left:4%;">@Math.Round(Convert.ToDouble(@item.Exempted), 2)</td>
+                            <td style="padding-left:3%;">@Math.Round(Convert.ToDouble(@item.TaxableAmount), 2)</td>
+                        </tr>
+                    }
+
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="width:20%;font-weight:bold;">Total Income :</td>
+                        <td style="padding-left:3%;font-weight:bold;">@Math.Round(Convert.ToDouble(taxDetails.TotIncome), 2)</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Less Exempted :</td>
+                        <td style="padding-left:3%;">@Math.Round(Convert.ToDouble(taxDetails.LessExempted), 2)</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="font-weight:bold;">Taxable Income :</td>
+                        <td style="padding-left:3%;font-weight:bold;">@Math.Round(Convert.ToDouble(taxDetails.TaxableIncome), 2)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <br />
+            <table style="width:100%;">
+                <thead>
+                    <tr>
+                        <th style="padding-right:5%;">Income Tax Calculation :</th>
+                        <th style="padding-right:5%;width:15%;padding-bottom:2%;">Slab Name</th>
+                        <th style="padding-right:5%;width:15%;">Max Limit (Tk.)</th>
+                        <th style="padding-right:5%;width:15%;">Amount (Tk.)</th>
+                        <th style="padding-right:15%;width:15%;padding-bottom:2%;">Percentage</th>
+                        <th style="padding-right:5%;width:15%;">Taxable Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        var slabList = taxDetails.Slab;
+                    }
+                    @foreach (var item in slabList)
+                    {
+                        <tr>
+                            <td></td>
+                            <td style="padding-left:0%;">@item.SlabName</td>
+                            <td style="padding-left:2%;">@item.Limit</td>
+                            <td style="padding-left:2%;">@Math.Round(Convert.ToDouble(@item.Amount), 2)</td>
+                            <td style="padding-left:2%;">@item.Percentage %</td>
+                            <td style="padding-left:3%;">@Math.Round(Convert.ToDouble(@item.TaxableAmount), 2)</td>
+                        </tr>
+                    }
+                </tbody>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="padding-left:0%;font-weight:bold;">Income Tax Payable Without Investment : </td>
+                        <td style="padding-left:3%;font-weight:bold;">@Math.Round(Convert.ToDouble(taxDetails.IncomeTaxPayableWithoutInvestment), 2)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <br />
+
+            @if (@taxDetails.Type == "Without Investment")
+            {
+
+            }
+            else
+            {
+                <p id="hideInvAmount" style="font-weight:bold;padding-left:2%;">Total Investment Amount&ensp; (Tk.)&ensp; :&ensp; @Math.Round(Convert.ToDouble(taxDetails.InvestmentAmount), 2)</p>
+                <table style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th style="padding-right:11%">Rebate On Investment :</th>
+                            <th style="padding-right:5%">Max Limit (Tk.)</th>
+                            <th style="padding-right:5%">Investment Amount (Tk.)</th>
+                            <th style="padding-right:15%;padding-bottom:2%;">Percentage</th>
+                            <th style="padding-right:5%;">Rebate Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            var investment = taxDetails.Investment;
+                        }
+                        @foreach (var item in investment)
+                        {
+                            <tr>
+                                <td></td>
+                                <td style="padding-left:2%;">@item.MaxLimit</td>
+                                <td style="padding-left:4%;">@Math.Round(Convert.ToDouble(@item.InvestmentAmount), 2)</td>
+                                <td style="padding-left:5%;">@item.RebatePercent %</td>
+                                <td style="padding-left:2%;">@Math.Round(Convert.ToDouble(@item.RebateAmount), 2)</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td style="padding-left:0%;font-weight:bold;">Total Rebate on Investment : </td>
+                            <td style="padding-left:2%;font-weight:bold;">@Math.Round(Convert.ToDouble(taxDetails.TotalRebateOnInvestment), 2)</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td style="padding-left:0%;font-weight:bold;">Total Income Tax Payable With Investment : </td>
+                            <td style="padding-left:2%;font-weight:bold;">@Math.Round(Convert.ToDouble(taxDetails.IncometaxPayableWithInvestment), 2)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            }
+
+
+            <table style="width:100%;">
+                <thead>
+                    <tr>
+                        <th style="width:25%;padding-right:8%">Ait Challan Info :</th>
+                        <th style="width:25%;">Challan No</th>
+                        <th style="width:25%;">Date</th>
+                        <th style="width:25%;">Challan Amount (Tk.)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        var challan = taxDetails.ChallanList;
+                    }
+                    @foreach (var item in challan)
+                    {
+                        <tr>
+                            <td style=""></td>
+                            <td style="padding-left:10%;">@item.ChallanNo</td>
+                            <td style="padding-left:8%;">@item.Date</td>
+                            <td style="padding-left:8%;">@Math.Round(Convert.ToDouble(@item.Amount), 2)</td>
+                        </tr>
+                    }
+                </tbody>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td style="font-weight:bold;">Total Challan Amount : </td>
+                        <td style="padding-left:8%;font-weight:bold;">@Math.Round(Convert.ToDouble(taxDetails.TotChallan), 2)</td>
+                    </tr>
+                </tbody>
+            </table>
+            @if (@taxDetails.Type == "Without Investment")
+            {
+                <p id="totTaxAmountWithoutInv" style="font-weight:bold;">Net Tax payable Without Investment (Tk.) : @Math.Round(Convert.ToDouble(taxDetails.NetTaxWithoutInvestment), 2)</p>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+            }
+            else
+            {
+                <p id="totTaxAmountWithInv" style="font-weight:bold;">Net Tax payable With Investment (Tk.) : @Math.Round(Convert.ToDouble(taxDetails.NetTaxWithInvestment), 2)</p>
+            }
+
+        </body>
+
+
+
+        <body>
+            <br />
+            <br />
+            <p style="font-weight:bold;text-align:center;">TO WHOM IT MAY CONCERN</p>
+            <hr />
+            <br />
+            <p style="font-size:20px;">@taxCertificate.DescriptionOne</p>
+            <table style="padding-left:15px;width:100%;">
+                <tr>
+                    <td style="width:33%">
+                        <label style="font-size:20px;">i)&ensp;Basic Salary  &ensp;(Tk.)</label>
+                    </td>
+                    <td style="width:33%;text-align:right;"></td>
+                    <td style="font-size:20px;width:33%;text-align:right;">
+                        <text style="font-size:20px;">@Math.Round(Convert.ToDouble(@taxCertificate.BasicSalary), 2)</text>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td style="width:33%">
+                        <label style="font-size:20px;">ii)&ensp;House Rent &ensp;(Tk.)</label>
+                    </td>
+                    <td style="width:33%;text-align:right;"></td>
+                    <td style="font-size:20px;width:33%;text-align:right;">
+                        <text style="font-size:20px;">@Math.Round(Convert.ToDouble(@taxCertificate.HouseRent), 2)</text>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:33%">
+                        <label style="font-size:20px;">&ensp;&ensp;&ensp;Exepmted&ensp;(Tk.)</label>
+                    </td>
+                    <td style="width:33%;text-align:right;font-size:20px;">@Math.Round(Convert.ToDouble(@taxCertificate.ExemptedHouseRent), 2)</td>
+                    <td style="font-size:20px;width:33%;text-align:right;">
+                        <text style="font-size:20px;">@Math.Round(Convert.ToDouble(@taxCertificate.HouseRent - @taxCertificate.ExemptedHouseRent), 2)</text>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:33%">
+                        <label style="font-size:20px;">iii)&ensp;Conveyance Allowance &ensp;(Tk.)</label>
+                    </td>
+                    <td style="width:33%;text-align:right;"></td>
+                    <td style="font-size:20px;width:33%;text-align:right;">
+                        <text style="font-size:20px;">@Math.Round(Convert.ToDouble(@taxCertificate.ConveyanceAllowance), 2)</text>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:33%">
+                        <label style="font-size:20px;">&ensp;&ensp;&ensp;Exepmted&ensp;(Tk.)</label>
+                    </td>
+                    <td style="width:33%;text-align:right;font-size:20px;">@Math.Round(Convert.ToDouble(@taxCertificate.ExemptedCA), 2)</td>
+                    <td style="font-size:20px;width:33%;text-align:right;">
+                        <text style="font-size:20px;">@Math.Round(Convert.ToDouble(@taxCertificate.ConveyanceAllowance - @taxCertificate.ExemptedCA), 2)</text>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:33%">
+                        <label style="font-size:20px;">iv)&ensp;Medical Allowance &ensp;(Tk.)</label>
+                    </td>
+                    <td style="width:33%;text-align:right;"></td>
+                    <td style="font-size:20px;width:33%;text-align:right;">
+                        <text style="font-size:20px;">@Math.Round(Convert.ToDouble(@taxCertificate.MedicalAllowance), 2)</text>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:33%">
+                        <label style="font-size:20px;">&ensp;&ensp;&ensp;Exepmted&ensp;(Tk.)</label>
+                    </td>
+                    <td style="width:33%;text-align:right;font-size:20px;">@Math.Round(Convert.ToDouble(@taxCertificate.ExemptedMA), 2)</td>
+                    <td style="font-size:20px;width:33%;text-align:right;">
+                        <text style="font-size:20px;">@Math.Round(Convert.ToDouble(@taxCertificate.MedicalAllowance - @taxCertificate.ExemptedMA), 2)</text>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:33%">
+                        <label style="font-size:20px;">v)&ensp;Bonus &ensp;(Tk.) </label>
+                    </td>
+                    <td style="width:33%;text-align:right;"></td>
+                    <td style="font-size:20px;width:33%;text-align:right;">
+                        <text style="font-size:20px;">@Math.Round(Convert.ToDouble(@taxCertificate.Bonus), 2)</text>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:33%">
+                        <label style="font-size:20px;">vi)&ensp;Special Allowance &ensp;(Tk.) </label>
+                    </td>
+                    <td style="width:33%;text-align:right;"></td>
+                    <td style="font-size:20px;width:33%;text-align:right;">
+                        <text style="font-size:20px;">@Math.Round(Convert.ToDouble(@taxCertificate.SpecialAllowance), 2)</text>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:33%">
+                        <label style="font-size:20px;">vii)&ensp;PF Contribution &ensp;(Tk.) </label>
+                    </td>
+                    <td style="width:33%;text-align:right;"></td>
+                    <td style="font-size:20px;width:33%;text-align:right;">
+                        <text style="font-size:20px;">@Math.Round(Convert.ToDouble(@taxCertificate.PFContribution), 2)</text>
+                    </td>
+                </tr>
+
+            </table>
+            <br />
+            <p style="font-size:20px;">@taxCertificate.DescriptionTwo</p>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br /> <br />
+            <br /> <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br /> <br />
+            <br /> <br />
+            <br /> <br />
+            <br /> <br />
+
+        </body>
+
+    }
+}

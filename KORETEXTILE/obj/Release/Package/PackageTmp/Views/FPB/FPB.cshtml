@@ -1,0 +1,1293 @@
+﻿@using BEEERP.Models.Authentication
+@using BEEERP.Models.CommonInformation
+@model BEEERP.Models.ViewModel.Procurement.FPBVModel
+@{
+    ViewBag.Title = "FPB";
+}
+<style>
+
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+
+    .form-group.required .control-label:after {
+        content: "*";
+        color: red;
+    }
+   
+</style>
+
+
+<h3 style="text-align:center">Freezer Purchase Bill (FPB) Entry</h3>
+
+<div class="box">
+    <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+        <h4 class="box-title" style="text-align:center">FPB Details</h4>
+    </div>
+    <div class="box-body">
+        <div class="col-sm-9" style="padding-top:2%; border-right:2px solid #5aeff8;border-left:2px solid #5aeff8;border-top:2px solid #5aeff8;border-bottom:2px solid #5aeff8;">
+            <div class="row">
+                <div class="col-sm-12" style="border-bottom:2px solid #5aeff8;padding-bottom:2%">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="row">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.BillNo, "FPB No", new { @class = "col-sm-4 control-label", @Title = "Goods Purchase Bill" })
+                                    <div class="col-sm-8 input-group">
+                                        @Html.TextBoxFor(m => m.BillNo, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.BillNo, "", new { @style = "color: red" })
+                                        <div class="input-group-btn">
+                                            <input type="button" name="searchBillNo" id="searchBillNo" value="Search" class="btn btn-primary" style="min-width: 50px" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group required">
+                                    @Html.LabelFor(m => m.PDate, new { @class = "col-sm-4 control-label" })
+                                    <div class="col-sm-8 input-group">
+                                        @Html.TextBoxFor(m => m.PDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        @Html.ValidationMessageFor(m => m.PDate, "", new { @style = "color: red" })
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group required">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 form-horizontal">
+                                    <div class="form-group row">
+                                        @Html.LabelFor(m => m.DebitAccount, new { @class = "col-sm-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @*@Html.TextBoxFor(m => m.DebitAccount, new { @class = "form-control" })*@
+                                            @Html.DropDownListFor(m => m.DebitAccount, (IEnumerable<SelectListItem>)ViewBag.DebitAccount, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.DebitAccount, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        @Html.LabelFor(m => m.PurRef, new { @class = "col-sm-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.PurRef, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.PurRef, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        @Html.LabelFor(m => m.PurDescription, new { @class = "col-sm-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextAreaFor(m => m.PurDescription, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.PurDescription, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12" style="padding-top:2%;">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="row">
+                                <div class="form-group required">
+                                    @Html.LabelFor(m => m.FRNNo, "FRN No", new { @class = "col-sm-4 control-label", @Title = "Goods Receive Note" })
+                                    <div class="col-sm-8 input-group">
+                                        @Html.TextBoxFor(m => m.FRNNo, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.FRNNo, "", new { @style = "color: red" })
+                                        <div class="input-group-btn">
+                                            <input type="button" name="search" id="search" value="Go" class="btn btn-primary" style="min-width: 20px" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.SGroupId, new { @class = "col-sm-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.SGroupId, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.SGroupId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.SupplierID, new { @class = "col-sm-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.SupplierID, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.SupplierID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.WorkOrderId, "Work Order No", new { @class = "col-sm-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.WorkOrderId, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.WorkOrderId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.WorkOrderNo, "Work Order Code", new { @class = "col-sm-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.WorkOrderNo, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.WorkOrderNo, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12" style="padding-top:2%;border-bottom:2px solid #5aeff8">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-striped" id="FRNItemList">
+                                        <thead>
+                                            <tr>
+                                                <th>Item Name</th>
+                                                <th title="Unit of measurement">UoM</th>
+                                                <th>Received Qty</th>
+                                                <th>Rate</th>
+                                                <th>Value</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row box-footer" style="text-align:center;">
+                                <input type="button" value="Add To Grid" id="addToGrid" class="btn btn-primary" />
+                                <input type="button" value="Clear" id="ClearData" class="btn btn-primary" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="form-group input-group col-sm-12">
+                                    @Html.LabelFor(m => m.Total, new { @class = "col-sm-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.Total, new { @class = "form-control", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.Total, "", new { @style = "color: red", @type = "number" })
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div class="row">
+                                <div class="form-group input-group col-sm-12">
+                                    @Html.LabelFor(m => m.Vat, "VAT", new { @class = "col-sm-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.Vat, new { @class = "form-control", @type = "number", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.Vat, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group input-group col-sm-12">
+                                    @Html.LabelFor(m => m.Ait, new { @class = "col-sm-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.Ait, new { @class = "form-control", @type = "number", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.Ait, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                            </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12" style="padding-top:2%">
+                    <div class="row">
+                        @*<div class="col-sm-3" style="padding-top:34px;">
+                            <table class="table table-striped" id="gRNList">
+                                <thead>
+                                    <tr>
+                                        <th>FRN No</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>*@
+                        <div class="col-sm-12">
+                            <table class="table table-striped" id="SelectedFRNItemList">
+                                <thead>
+                                    <tr>
+                                        <th>FRN No</th>
+                                        <th>Item Name</th>
+                                        <th>UoM</th>
+                                        <th>Quantity</th>
+                                        <th>Rate</th>
+                                        <th>Value</th>
+                                        <th>Action</th>
+                                       
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+
+            <div class="form-group input-group">
+                @Html.LabelFor(m => m.FPBTotal, new { @class = "col-sm-4 control-label" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.FPBTotal, new { @class = "form-control", @type = "number", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m => m.FPBTotal, "", new { @style = "color: red" })
+                </div>
+            </div>
+
+
+            <div class="form-group input-group">
+                @Html.LabelFor(m => m.Discount, new { @class = "col-sm-4 control-label" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.Discount, new { @class = "form-control", @type = "number" })
+                    @Html.ValidationMessageFor(m => m.Discount, "", new { @style = "color: red" })
+                </div>
+            </div>
+
+
+            <div class="form-group input-group">
+                @Html.LabelFor(m => m.NetAmount, new { @class = "col-sm-4 control-label" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.NetAmount, new { @class = "form-control", @type = "number", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m => m.NetAmount, "", new { @style = "color: red" })
+                </div>
+            </div>
+            <div class="form-group input-group">
+                <label for="VatPerc" class="col-sm-4 control-label">VAT (%)</label>
+
+                <div class="col-sm-8">
+                    <input type="number" class="form-control" id="VatPerc" />
+
+                </div>
+            </div>
+
+            <div class="form-group input-group">
+                @Html.LabelFor(m => m.VatAmount, "VAT Amount", new { @class = "col-sm-4 control-label" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.VatAmount, new { @class = "form-control", @type = "number" })
+                    @Html.ValidationMessageFor(m => m.VatAmount, "", new { @style = "color: red" })
+                </div>
+            </div>
+
+            <div class="form-group input-group">
+                @Html.LabelFor(m => m.NetOfVatAmount, "Total Amount", new { @class = "col-sm-4 control-label" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.NetOfVatAmount, new { @class = "form-control", @type = "number", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m => m.NetOfVatAmount, "", new { @style = "color: red" })
+                </div>
+            </div>
+
+
+            <div class="form-group input-group">
+                <label for="VDAPerc" class="col-sm-4 control-label">VDS (%)</label>
+
+                <div class="col-sm-8">
+                    <input type="number" class="form-control" id="VDAPerc" />
+
+                </div>
+            </div>
+
+            <div class="form-group input-group">
+                @Html.LabelFor(m => m.VDAAmount, new { @class = "col-sm-4 control-label" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.VDAAmount, new { @class = "form-control", @type = "number" })
+                    @Html.ValidationMessageFor(m => m.VDAAmount, "", new { @style = "color: red" })
+                </div>
+            </div>
+
+
+
+            <div class="form-group input-group">
+                <label for="AitPerc" class="col-sm-4 control-label">AIT (%)</label>
+
+                <div class="col-sm-8">
+                    <input type="number" class="form-control" id="AitPerc" />
+
+                </div>
+            </div>
+
+
+            <div class="form-group input-group">
+                @Html.LabelFor(m => m.AitAmount, new { @class = "col-sm-4 control-label" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.AitAmount, new { @class = "form-control", @type = "number" })
+                    @Html.ValidationMessageFor(m => m.AitAmount, "", new { @style = "color: red" })
+                </div>
+            </div>
+
+            @*<div class="col-sm-12">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.NetOfAitAmt, new { @class = "col-sm-4 control-label" })
+                        <div class="col-sm-8 input-group" storeRequisition">
+                            @Html.TextBoxFor(m => m.NetOfAitAmt, new { @class = "form-control", @type = "number", @readonly = "readonly" })
+                            @Html.ValidationMessageFor(m => m.NetOfAitAmt, "", new { @style = "color: red" })
+
+                        </div>
+                    </div>
+                </div>*@
+
+            <div class="form-group input-group">
+                @Html.LabelFor(m => m.TotalPayable, new { @class = "col-sm-4 control-label" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.TotalPayable, new { @class = "form-control", @type = "number", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m => m.TotalPayable, "", new { @style = "color: red" })
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="box-footer">
+        <div class="col-sm-12" style="text-align:center;">
+            @if (User.IsInRole("ProcurementOperator"))
+            {
+                <input type="button" value="Save" id="save" class="btn btn-primary" />
+                <input type="button" value="Update" id="update" class="btn btn-primary" disabled />
+                <input type="button" name="update" id="delete" value="Delete" class="btn btn-primary" disabled />
+                <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                <input type="button" name="print" id="print" value="Print" class="btn btn-primary" />
+            }
+            else
+            {
+                <input type="button" value="Save" id="save" class="btn btn-primary" />
+                <input type="button" value="Update" id="update" class="btn btn-primary" />
+                <input type="button" name="update" id="delete" value="Delete" class="btn btn-primary" />
+                <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                <input type="button" name="print" id="print" value="Print" class="btn btn-primary" />
+            }
+        </div>
+    </div>
+</div>
+<input type="hidden" id="supplierId" />
+@section scripts{
+    <script src="~/Scripts/Procurement/FPB.js"></script>
+    <script>
+        EnterPress();
+        $("#FRNNo").focus();
+        $("#update").hide();
+        $("#print").hide();
+        $("#delete").hide();
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+        $("#refresh").on("click", function(){
+            window.location.reload(true);
+        });
+
+        var fRNList = $("#FRNItemList").DataTable({
+            'paging': false,
+            'lengthChange': false,
+            'searching': false,
+            'ordering': true,
+            'info': false,
+            'autoWidth': false,
+            "scrollX": true
+        });
+
+        var table = $("#SelectedFRNItemList").DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false,
+            "scrollX": true
+        });
+        $(document).ready(function () {
+            $("#FPBTotal").val(parseFloat(0));
+            $("#Discount").val(parseFloat(0));
+            $("#NetAmount").val(parseFloat(0.0));
+            $("#VatPerc").val(parseFloat(0));
+            $("#VatAmount").val(parseFloat(0));
+            $("#NetOfVatAmount").val(parseFloat(0));
+            $("#VDAPerc").val(parseFloat(0));
+            $("#VDAAmount").val(parseFloat(0));
+            $("#AitPerc").val(parseFloat(0));
+            $("#AitAmount").val(parseFloat(0));
+            $("#TotalPayable").val(parseFloat(0));
+
+            var vatA = 0.0;
+            var aitA = 0.0;
+            var vdaA = 0.0;
+            var vatPerc = 0.0;
+            var aitPerc = 0.0;
+            var vdaPerc = 0.0;
+            var frnItemList = [];
+            var addedItems = [];
+            var frnList = [];
+            var supplierId = 0;
+            var supplierIdfb = 0;
+            var isValid = "";
+            var isSearch = false;
+            var isRowDelete = false;
+            var purchaseEntry = { BillNo: "", PDate: "", BillDate:"", SupplierId: "", BillTotalValue: "", PurRef: "", PurDescription: "", DiscountAmt: "", TotalDiscount: "", VatAmount: "", AitAmount: "", TotalPayable: "", PaidAmount:""};
+            
+            //var gRNList = $("#gRNList").DataTable({
+            //    'paging': false,
+            //    'lengthChange': false,
+            //    'searching': false,
+            //    'ordering': true,
+            //    'info': false,
+            //    'autoWidth': false,
+            //    "scrollX": true
+            //});
+            $(document).on('click', '#print', function () {
+                if ($("#BillNo").val() != "") {
+                    window.open("/FPB/PrintBill?FPBNo=" + $("#BillNo").val(), "_blank");
+                }
+                else {
+                    alert("Bill-No is required");
+                }
+            });
+            $(document).on('click', '#ClearData', function () {
+                if (confirm("Do you want to clear datas ?")) {
+                    frnItemList = [];
+                    $("#FRNNo").val("");
+                    $("#WorkOrderId").val("");
+                    $("#WorkOrderNo").val("");
+                    $("#SGroupId").val("");
+                    $("#SupplierID").val("");
+                    $("#Total").val("");
+                    $("#Vat").val("");
+                    $("#Ait").val("");
+                    fRNItemList.clear().draw();
+                }
+            });
+            $(document).on('keyup', '#AitPerc', function () {
+                var fpbTotal = parseFloat($("#FPBTotal").val());
+
+                if (fpbTotal > 0) {
+                    var aitPerc = parseFloat($("#AitPerc").val());
+                    var aitAmount = parseFloat((fpbTotal * aitPerc) / 100).toFixed(2);
+                    $("#AitAmount").val(aitAmount);
+                }
+                var totalPayable = (parseFloat($("#VatAmount").val()) + parseFloat($("#NetAmount").val())) - (parseFloat($("#AitAmount").val()) + parseFloat($("#VDAAmount").val()));
+                $("#TotalPayable").val(totalPayable);
+
+            });
+            $(document).on('keyup', '#VDAPerc', function () {
+                var fpbTotal = parseFloat($("#FPBTotal").val());
+
+                if (fpbTotal > 0) {
+                    var vdaPerc = parseFloat($("#VDAPerc").val());
+                    var vdaAmount = parseFloat((fpbTotal * vdaPerc) / 100).toFixed(2);
+                    $("#VDAAmount").val(vdaAmount);
+                }
+                var totalPayable = (parseFloat($("#VatAmount").val()) + parseFloat($("#NetAmount").val())) - (parseFloat($("#AitAmount").val()) + parseFloat($("#VDAAmount").val()));
+                $("#TotalPayable").val(totalPayable);
+            });
+            $(document).on('keyup', '#VatPerc', function () {
+                var fpbTotal = parseFloat($("#FPBTotal").val());
+
+                if (fpbTotal > 0) {
+                    var vatPerc = parseFloat($("#VatPerc").val());
+                    var vatAmount = parseFloat((fpbTotal * vatPerc) / 100).toFixed(2);
+                    $("#VatAmount").val(vatAmount);
+                }
+                var totalPayable = parseFloat($("#VatAmount").val()) + parseFloat($("#NetAmount").val()) - parseFloat($("#AitAmount").val());
+                $("#TotalPayable").val(totalPayable);
+                $("#NetOfVatAmount").val(parseFloat($("#NetAmount").val()) + parseFloat($("#VatAmount").val()));
+
+            });
+
+            $(document).on('click', '#search', function () {
+                var frnNo = $("#FRNNo").val();
+                var id = { id: $("#FRNNo").val() };
+                RemoveError();
+                if (frnNo == "") {
+                    setError("FRNNo","FRN No is required for search.")
+                }
+                else {
+                    $.ajax({
+                    url: "@Url.Action("GetFRNInfo", "FPB")",
+                    dataType: "json",
+                    contentType: "application/json;chartset=utf8;",
+                        type: "GET", 
+                        data: id,
+                         success: function (data) {
+                             if (data.Message == "2") {
+                                 alert("Already added to FPB. Which FPB No is ." + data.FPBNo);
+                             }
+                             else if (data.Message == "3") {
+                                 alert("Please enter valid FRN No.");
+                             }
+                             //else if (data.Message == "4") {
+                             //    alert("Update The GRN No " + data.GRNo);
+                             //}
+                             //else if (data.Message == "5")
+                             //{
+                             //    alert("Supplier does not match with previous GRN Supplier.\n Different supplier GRN cannot add at same time.");
+                             //}
+                             else if (data.Message=="1") {
+                                 frnItemList = [];
+                                 $.each(data.frnLineL, function (index, value) {
+                                     //GRNNo, ItemGrpID, ItemID, UOMID, Qty, CostRt, CostVal, ItemName, GroupName, Unit, PackSize, VatPer, AitPer
+                                     frnItem = { ItemName: "", ItemId: "", GroupId: 0, PacSize: "", UOMId: 0, UomName: "", Qty: 0, TotalCost: 0, UnitCost: 0, GRNNo: "",BusinessUnitName:""};
+                                     frnItem.ItemName = value.ItemName;
+                                     frnItem.ItemId = value.ItemID;
+                                     //frnItem.GroupId = value.ItemGrpID;
+                                     //frnItem.PacSize = value.PacSize;
+                                     frnItem.UomName = value.Unit;
+                                     frnItem.UOMId = value.UOMID;
+                                     frnItem.Qty = value.Qty;
+                                     //grnItem.AdjustedAit = value.CostVal * (value.AitPer/100);
+                                     //grnItem.AdjustedVat = value.CostVal * (value.VatPer/100);
+                                     frnItem.TotalCost = value.CostVal;
+                                     frnItem.UnitCost = value.CostRt;
+                                     frnItem.GRNNo = value.GRNNo;
+                                     
+                                     //grnItem.BusinessUnit = value.BusinessUnit;
+                                     //grnItem.JobNo = value.JobNo;
+                                     //grnItem.BusinessUnitName = value.BusinessUnitName;
+                                     frnItemList.push(frnItem);
+                                 });
+                                 supplierId = data.supplierId;
+
+                                // alert(supplierId);
+                                 $("#SGroupId").val(data.supplierGroup);
+                                 $("#SupplierID").val(data.supplierName);
+                                 $("#WorkOrderId").val(data.WorkOrderId);
+                                 $("#WorkOrderNo").val(data.WorkOrderCode);
+                                 $("#SGroupId").prop('title', $("#SGroupId").val());
+                                 $("#SupplierID").prop('title', $("#SupplierID").val());
+                                 $("#WorkOrderId").prop('title', $("#WorkOrderId").val());
+                                 $("#WorkOrderNo").prop('title', $("#WorkOrderNo").val());
+                                 $("#PurRef").prop('title', $("#PurRef").val());
+                                 $("#PDate").prop('title', $("#PDate").val());
+                                 $("#BillDate").prop('title', $("#BillDate").val());
+                                 $("#PurDescription").prop('title', $("#PurDescription").val());
+                                 ShowOnFrnItems();
+                             }
+                    },
+                    error: function (data) {
+                        alert("Please check your internet connection.\n If your connection is ok then contact with Paankouri Software & Services");
+                    },
+                });
+                }
+
+            });
+             $(document).on('click', "#addToGrid", function () {
+                 var frnNo = '';
+                 
+                 var samesupplier = true;
+                 if (addedItems.length > 0) {
+                     $.each(addedItems, function (index, value) {
+                         if (isSearch == true) {
+                             if (supplierIdfb != supplierId) {
+
+                                 samesupplier = false;
+                                 alert("FRNs Supplier should be same as the previous one");
+
+                             }
+                         }
+                         else {
+                             if (value.SupplierId != supplierId) {
+
+                                 samesupplier = false;
+                                 alert("FRNs Supplier should be same as the previous one");
+
+                             }
+                         }
+                        
+                         
+                     });
+                 }
+                 if (samesupplier && frnItemList.length > 0) {
+                     validationCheckOnAddToGrid();
+                     if (isValid == "") {
+                         $.each(frnItemList, function (index, value) {
+                             //BillNo, GroupId, ItemId, UOMId, Qty, UnitCost, TotalCost, GRNNo
+                             frnItem = { BillNo: 0, ItemName: "", ItemId: "", GroupId: 0, UOMId: 0, UomName: "", Qty: 0, TotalCost: 0, UnitCost: 0,FRNNo:"", GRNNo: "", JobNo: "", BusinessUnit: 0, BusinessUnitName: "", SupplierId: 0,aitAmount:0.0,vatAmount:0.0,vdaAmount:0.0 };
+                             frnItem.BillNo = value.GRNNo;
+                             frnItem.ItemName = value.ItemName;
+                             frnItem.ItemId = value.ItemId;
+                             frnItem.GroupId = value.GroupId;
+                             //frnItem.PacSize = value.PacSize;
+                             frnItem.UOMId = value.UOMId;
+                             frnItem.UomName = value.UomName;
+                             frnItem.Qty = value.Qty;
+                             //frnItem.aitAmount = parseFloat($("AitAmount").val());
+                             //frnItem.vatAmount = $("VatAmount").val();
+                             //frnItem.vdaAmount = parseFloat($("VDAAmount").val());
+                             frnItem.TotalCost = value.TotalCost;
+                             frnItem.UnitCost = value.UnitCost;
+                             frnItem.FRNNo = $("#FRNNo").val();
+                             //frnItem.JobNo = value.JobNo;
+                             //frnItem.BusinessUnit = value.BusinessUnit;
+                             //frnItem.BusinessUnitName = value.BusinessUnitName;
+                             frnItem.SupplierId = supplierId;
+                             frnNo = value.GRNNo;
+                             addedItems.push(frnItem);
+                         });
+                         frnList.push(frnNo);
+                         var totalPayable = (parseFloat($("#VatAmount").val()) + parseFloat($("#NetAmount").val())) - (parseFloat($("#AitAmount").val()) + parseFloat($("#VDAAmount").val()));
+                         $("#TotalPayable").val(totalPayable);
+                         ShowOnAddedFrnItems();
+                         isValid = "";
+                     }
+                     else {
+                         alert("This FRN No already added");
+                     }
+                 }
+                 else {
+                     alert("No FRN for add");
+                 }
+                 var aitPerc = parseFloat($("#AitPerc").val());
+                 if (aitPerc > 0) {
+                     var gpbTotal = parseFloat($("#FPBTotal").val());
+                     var aitAmount = parseFloat((gpbTotal * aitPerc) / 100).toFixed(2);
+                     $("#AitAmount").val(aitAmount);
+                 }
+                 var vdaperc = parseFloat($("#VDAPerc").val());
+                 if (vdaperc > 0) {
+                     var gpbTotal = parseFloat($("#FPBTotal").val());
+                     var vdaAmount = parseFloat((gpbTotal * vdaperc) / 100).toFixed(2);
+                     $("#VDAAmount").val(vdaAmount);
+                 }
+                 var vatPerc = parseFloat($("#VatPerc").val());
+                 if (vatPerc > 0) {
+                     var gpbTotal = parseFloat($("#FPBTotal").val());
+                     var vatAmount = parseFloat((gpbTotal * vatPerc) / 100).toFixed(2);
+                     $("#VatAmount").val(vatAmount);
+                 }
+                 //var totalPayable = (parseFloat($("#VatAmount").val()) + parseFloat($("#NetAmount").val())) - (parseFloat($("#AitAmount").val()) + parseFloat($("#VDAAmount").val()));
+                 //$("#TotalPayable").val(totalPayable);
+            });
+            $(document).on('click', "#searchBillNo", function () {
+                $("#DebitAccount").prop('disabled', true);
+                $("#FRNNo").val("");
+                var id = { id: $("#BillNo").val() };
+                $.ajax({
+                    url: "@Url.Action("GetFPBDetails", "FPB")",
+                    dataType: "json",
+                    contentType: "application/json;chartset=utf-8;",
+                    type: "get",
+                    data: id,
+                        success: function (data) {
+                            if (data.Message == "1") {
+                                isSearch = true;
+                                $("#DebitAccount").val(data.fpb[0].DebitAcc);
+                                $("#SGroupId").val(data.fpb[0].supplierGroup);
+                                $("#SupplierID").val(data.fpb[0].supplierName);
+                                //$("#WorkOrderId").val(data.purchaseentry[0].workorderid);
+                                //$("#WorkOrderNo").val(data.purchaseentry[0].workorderno);
+                                $("#FPBTotal").val(data.fpb[0].pe.BillTotalValue);
+
+                                $("#PDate").val(moment(data.fpb[0].PDate).format("DD-MM-YYYY"));
+                               // $("#BillDate").val(moment(data.purchaseentry[0].BillDate).format("DD-MM-YYYY"));
+                                $("#PurRef").val(data.fpb[0].PurRef);
+                                $("#PurDescription").val(data.fpb[0].PurDescription);
+                                $("#VatAmount").val(data.fpb[0].pe.VatAmount);
+                                vatA = data.fpb[0].pe.VatAmount;
+                                $("#VDAAmount").val(data.fpb[0].pe.VDAAmnt);
+                                vdaA = data.fpb[0].pe.VDAAmnt;
+
+                                vatPerc = parseFloat((data.fpb[0].pe.VatAmount * 100) / data.fpb[0].pe.BillTotalValue);
+                                $("#VatPerc").val(vatPerc.toFixed(2));
+                                aitPerc = parseFloat((data.fpb[0].pe.AitAmount * 100) / data.fpb[0].pe.BillTotalValue);
+                                $("#AitPerc").val(aitPerc.toFixed(2));
+                                vdaPerc = parseFloat((data.fpb[0].pe.VDAAmnt * 100) / data.fpb[0].pe.BillTotalValue);
+                                $("#VDAPerc").val(vdaPerc.toFixed(2));
+                                $("#NetOfVatAmount").val(data.fpb[0].pe.BillTotalValue - data.fpb[0].pe.DiscountAmt + data.fpb[0].pe.VatAmount);
+                                $("#AitAmount").val(data.fpb[0].pe.AitAmount);
+                                aitA = data.fpb[0].pe.AitAmount;
+                                $("#Discount").val(data.fpb[0].pe.DiscountAmt);
+                                $("#NetAmount").val(data.fpb[0].pe.BillTotalValue - data.fpb[0].pe.DiscountAmt);
+                                $("#TotalPayable").val(data.fpb[0].pe.TotalPayable);
+                                //if (data.purchaseentry[0].pe.VatAmount >= 0) {
+                                //
+                                //}
+
+                                $("#SGroupId").prop('title', $("#SGroupId").val());
+                                $("#SupplierID").prop('title', $("#SupplierID").val());
+                               // $("#WorkOrderId").prop('title', $("#WorkOrderId").val());
+                               //$("#WorkOrderNo").prop('title', $("#WorkOrderNo").val());
+                                $("#PurRef").prop('title', $("#PurRef").val());
+                                $("#DebitAccount").prop('title', $("#DebitAccount").val());
+                                $("#PDate").prop('title', $("#PDate").val());
+                                $("#BillDate").prop('title', $("#BillDate").val());
+                                $("#PurDescription").prop('title', $("#PurDescription").val());
+                                supplierIdfb = data.fpb[0].pe.SupplierId;
+                                //alert(supplierIdfb);
+                                frnItemList = [];
+                                addedItems = [];
+                                frnList = [];
+                                //$.each(data.fpbLine, function (index, value) {
+                                //    var found = false;
+                                //    if (frnList.length > 0) {
+                                //        $.each(grnList, function (index, v){
+                                //            if (v == value.pel.GRNNo) {
+                                //                found = true;
+                                //            }
+                                //        });
+                                //    }
+                                //    if (!found) {
+                                //        grnList.push(value.pel.GRNNo);
+                                //    }
+                                //});
+                                $.each(data.fpbLine, function (index, value) {
+                                    frnItem = { BillNo: 0, ItemName: "", ItemId: "", GroupId: 0, PacSize: "", UOMId: 0, UomName: "", Qty: 0, TotalCost: 0, UnitCost: 0, FRNNo: "", JobNo: "", BusinessUnit: 0, BusinessUnitName: "" };
+
+                                    frnItem.ItemName = value.pel.ItemName;
+                                    frnItem.ItemId = value.pel.ItemId;
+                                    frnItem.GroupId = value.pel.GroupId;
+                                    //frnItem.PacSize = value.pel.PacSize;
+                                    frnItem.UOMId = value.pel.UOMId;
+                                    frnItem.UomName = value.pel.Unit;
+                                    frnItem.Qty = value.pel.Qty;
+                                    //frnItem.AdjustedAit = value.pel.Ait;
+                                    //frnItem.AdjustedVat = value.pel.Vat;
+                                    frnItem.TotalCost = value.pel.TotalCost;
+                                    frnItem.UnitCost = value.pel.UnitCost;
+                                    frnItem.FRNNo = value.pel.FRNNo;
+                                    //frnItem.JobNo = value.pel.JobNo;
+                                    //frnItem.BusinessUnit = value.pel.BusinessUnit;
+                                    //frnItem.BusinessUnitName = value.pel.BusinessUnitName;
+                                    frnItem.BillNo = value.pel.FRNNo;
+                                    addedItems.push(frnItem);
+                                    $("#save").hide();
+                                    $("#update").show();
+                                    $("#delete").show();
+                                    $("#print").show();
+                                    //$("#delete").show();
+                                });
+                                ShowOnAddedFrnItems();
+
+                            }
+                            else if (data.Message == "0") {
+                                alert("This FPB No Does not exist.\n Try with different No");
+                            }
+
+                        },
+                        error: function () {
+                            alert("Please check your internet connection.\n If your connection is ok then contact with Paankouri Software & Services");
+                        }
+                });
+
+            });
+            $(document).on('click', "#save", function () {
+                ValidateSave();
+                if (addedItems.length > 0 ) {
+                    if (isValid == true) {
+                            if (confirm("Do you want save ?")) {
+                            var fpb = { BillNo: "", PDate: "", BillDate: "", SupplierId: "", BillTotalValue: "", PurRef: "", PurDescription: "", DiscountAmt: "", TotalDiscount: "", VatAmount: "", VDAAmnt: "", AitAmount: "", TotalPayable: "", PaidAmount: "", Debit: "", AssetType: "", DebtAccID: "", FrnNo:""};
+                            fpb.BillNo = 0;
+                            fpb.PDate = $("#PDate").val();
+                            fpb.BillDate = $("#BillDate").val();
+                            fpb.SupplierId = supplierId;
+                            fpb.BillTotalValue = $("#FPBTotal").val();
+                            fpb.PurRef = $("#PurRef").val();
+                            fpb.PurDescription = $("#PurDescription").val();
+                            fpb.DiscountAmt = $("#Discount").val();
+                            //purchaseEntry.TotalDiscount = $("#NetAmount").val();
+                            fpb.TotalDiscount = $("#Discount").val();
+                            fpb.VatAmount = $("#VatAmount").val();
+                            fpb.VDAAmnt = $("#VDAAmount").val();
+                            fpb.AitAmount = $("#AitAmount").val();
+                            fpb.TotalPayable = $("#TotalPayable").val();
+                            fpb.DebtAccID = parseInt($("#DebitAccount").val());
+                            fpb.Debit = $("#DebitAccount").val();
+                            fpb.AssetType="Freezer"
+                            fpb.PaidAmount = 0.0;
+                            $.ajax({
+                                url: "@Url.Action("SaveFPB", "FPB")",
+                                dataType: "json",
+                                contentType: "application/json;chartset=utf-8;",
+                                type: "post",
+                                data: JSON.stringify({ fpb: fpb, addedItems: addedItems }),
+                                success: function (data) {
+                                    if (data.Message == "1") {
+                                        $("#BillNo").val(data.BillNo);
+                                        $("#save").remove();
+                                        alert("Successfully Saved.")
+                                        $("#print").show();
+                                        $("#print").focus();
+                                    }
+                                    else if (data.Message == "0") {
+                                        alert("Failed to Save. Try Again");
+                                    }
+                                    else {
+                                        alert("Critical Error!.\n Contact with Paankouri Software & Services");
+                                    }
+
+                                },
+                                error: function () {
+                                    alert("Please check your internet connection.\n If your connection is ok then contact with Paankouri Software & Services");
+                                }
+                            });
+                        }
+                    } 
+                    
+                }
+                else {
+                    alert("Atleast one item should be added");
+                }
+            });
+            $(document).on('click', "#update", function () {
+                if (addedItems.length > 0){
+                    if (confirm("Do you want update ?")) {
+                        supplierId = supplierIdfb;
+                        var fpb = { BillNo: "", PDate: "", BillDate: "", SupplierId: "", BillTotalValue: "", PurRef: "", PurDescription: "", DiscountAmt: "", TotalDiscount: "", VatAmount: "", VDAAmnt: "", AitAmount: "", TotalPayable: "", PaidAmount: "", Debit: "", AssetType: "", DebtAccID: "", FrnNo: "" };
+                        fpb.BillNo = $("#BillNo").val();
+                        fpb.PDate = $("#PDate").val();
+                        fpb.BillDate = $("#BillDate").val();
+                        fpb.SupplierId = supplierId;
+                        fpb.BillTotalValue = $("#FPBTotal").val();
+                        fpb.PurRef = $("#PurRef").val();
+                        fpb.PurDescription = $("#PurDescription").val();
+                        fpb.DiscountAmt = $("#Discount").val();
+                        //purchaseEntry.TotalDiscount = $("#NetAmount").val();
+                        fpb.TotalDiscount = $("#Discount").val();
+                        fpb.VatAmount = $("#VatAmount").val();
+                        fpb.VDAAmnt = $("#VDAAmount").val();
+                        fpb.AitAmount = $("#AitAmount").val();
+                        fpb.TotalPayable = $("#TotalPayable").val();
+                        fpb.DebtAccID = parseInt($("#DebitAccount").val());
+                        fpb.Debit = $("#DebitAccount").val();
+                        fpb.AssetType = "Freezer"
+                        
+                        fpb.PaidAmount = 0.0;
+                        $.ajax({
+                            url: "@Url.Action("UpdateFPB", "FPB")",
+                            dataType: "json",
+                            contentType: "application/json;chartset=utf-8;",
+                            type: "post",
+                            data: JSON.stringify({ fpb: fpb, addedItems: addedItems }),
+                            success: function (data) {
+                                if (data.Message == "1") {
+                                    $("#BillNo").val(data.BillNo);
+                                    $("#update").remove();
+                                    alert("Successfully updated.")
+                                    $("#print").show();
+                                    $("#print").focus();
+                                }
+                                else if (data.Message == "0") {
+                                    alert("Failed to update. Try Again");
+                                }
+                                else {
+                                    alert("Critical Error!.\n Contact with Paankouri Software & Services");
+                                }
+
+                            },
+                            error: function () {
+                                alert("Please check your internet connection.\n If your connection is ok then contact with Paankouri Software & Services");
+                            }
+                        });
+                    }
+                }
+                else {
+                    alert("Atleast one item should be added");
+                }
+            });
+
+            //delete
+            $(document).on('click', '#delete', function () {
+                $("#update").prop('disabled', true);
+                $("#delete").prop('disabled', true);
+                var id = $("#BillNo").val();
+                if (confirm('Are you sure you want to delete this from the database?')) {
+                    $.ajax({
+                        url: '@Url.Action("DeleteFPB", "FPB")',
+                        contentType: "application/json;charset=utf-8",
+                        data: { id: id },
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed to delete.");
+                                $("#delete").prop('disabled', false);
+                                $("#update").prop('disabled', false);
+                            }
+                            else {
+                                alert("Delete Successfull");
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            });
+
+            $(document).on('change', "#Discount", function () {
+                var vat = 0, ait = 0,dis=0, vda=0;
+                if ($("#VatAmount").val() >= 0) {
+                    vat = parseFloat($("#VatAmount").val());
+                }
+                if ($("#VatAmount").val() == "") {
+                    vat = 0;
+                }
+                if ($("#VDAAmount").val() >= 0) {
+                    vda = parseFloat($("#VDAAmount").val());
+                }
+                if ($("#VDAAmount").val() == "") {
+                    vda = 0;
+                }
+                if ($("#AitAmount").val() >= 0) {
+                    ait = parseFloat($("#AitAmount").val());
+                }
+                if ($("#AitAmount").val() == "") {
+                    ait = 0;
+                }
+                if ($("#Discount").val() >= 0) {
+                    dis = parseFloat($("#Discount").val());
+                }
+                if ($("#Discount").val() =="")
+                    {
+                        dis=0;
+                    }
+                var netAmount = $("#FPBTotal").val() - dis;
+                $("#NetAmount").val(netAmount);
+                if ($("#Discount").val() >= 0) {
+                    $("#TotalPayable").val((netAmount + vat) - (ait + vda));
+                    if ($("#TotalPayable").val() < 0) {
+                        setError("Discount", "Discount Cannot be greater than Total Payable");
+                        $("#update").attr("disabled", true);
+                        $("#save").attr("disabled", true);
+                    }
+                    if ($("#TotalPayable").val() >= 0) {
+                        setError("Discount", "");
+                        $("#update").attr("disabled", false);
+                        $("#save").attr("disabled", false);
+                    }
+                }
+                else {
+                    $("#TotalPayable").val((netAmount + vat) - (ait + vda));
+                }
+            });
+            $(document).on('keyup', "#Discount", function () {
+                KeyUpFunc();
+            });
+            $(document).on('change', "#VatAmount", function () {
+                KeyUpFunc();
+            });
+            $(document).on('change', "#VDAAmount", function () {
+                KeyUpFunc();
+            });
+            $(document).on('change', "#AitAmount", function () {
+                KeyUpFunc();
+            });
+            $(document).on('keyup', "#VatAmount", function () {
+                KeyUpFunc();
+            });
+            $(document).on('keyup', "#AitAmount", function () {
+                KeyUpFunc();
+            });
+            function KeyUpFunc() {
+                var vat = 0, ait = 0, dis = 0, vda = 0;
+                if ($("#VatAmount").val() >= 0) {
+                    vat = parseFloat($("#VatAmount").val());
+                }
+                if ($("#VatAmount").val() == "") {
+                    vat = 0;
+                }
+                if ($("#VDAAmount").val() >= 0) {
+                    vda = parseFloat($("#VDAAmount").val());
+                }
+                if ($("#VDAAmount").val() == "") {
+                    vda = 0;
+                }
+                if ($("#AitAmount").val() >= 0) {
+                    ait = parseFloat($("#AitAmount").val());
+                }
+                if ($("#AitAmount").val() == "") {
+                    ait = 0;
+                }
+                if ($("#Discount").val() >= 0) {
+                    dis = parseFloat($("#Discount").val());
+                }
+                if ($("#Discount").val() == "") {
+                    dis = 0;
+                }
+                var netAmount = $("#FPBTotal").val() - dis;
+                $("#NetAmount").val(netAmount);
+                $("#NetOfVatAmount").val(netAmount + vat);
+                if ($("#Discount").val() >= 0) {
+                    $("#TotalPayable").val((netAmount + vat) - (ait + vda));
+                    if ($("#TotalPayable").val() < 0) {
+                        setError("Discount", "Discount Cannot be greater than Total Payable");
+                        $("#update").attr("disabled", true);
+                        $("#save").attr("disabled", true);
+                    }
+                    if ($("#TotalPayable").val() >= 0) {
+                        setError("Discount", "");
+                        $("#update").attr("disabled", false);
+                        $("#save").attr("disabled", false);
+                    }
+                }
+                else {
+                    $("#TotalPayable").val((netAmount + vat) - (ait + vda));
+                }
+
+
+            }
+            function validationCheckOnAddToGrid() {
+                $.each(frnList, function (index, value) {
+                    if (value == $("#FRNNo").val()) {
+                        isValid = "Not valid";
+                        return false;
+                    }
+                });
+            }
+            function ValidateSave() {
+                isValid = true;
+                if ($("#DebitAccount").val() == "") {
+                    setError("DebitAccount", "Debit Account Required");
+                    isValid = false;
+                    return false;
+                }
+               
+            }
+            //$(document).on('click', '[name="deleteRow"]', function () {
+            //    var frnno = $(this).attr("value");
+            //    if (confirm('Are you sure you want to delete this from grid ?')) {
+            //        var newItemfrn = [];
+            //        var newAddedItemList = [];
+            //        $.each(addedItems, function (index, value) {
+            //            if (value.FRNNo == frnno) {
+
+            //            }
+            //            else {
+            //                newAddedItemList.push(value);
+            //            }
+            //        });
+            //        $.each(grnList, function (index, value) {
+            //            if (value == frnno) {
+
+            //            }
+            //            else {
+            //                newItemfrn.push(value);
+            //            }
+            //        });
+            //        addedItems = newAddedItemList;
+            //        frnList = newItemfrn;
+            //        ShowOnAddedFrnItems();
+            //    }
+            //});
+
+            $(document).on('click', '[name="deleteRow"]', function () {
+                isRowDelete = true;
+                var item = $(this).attr("value");
+                //alert(item);
+                var newItem = [];
+                if (confirm('Are you sure you want to delete this from Grid ?')) {
+                    $.each(addedItems, function (index, value) {
+                        //alert(value.FRNNo);
+                        if (value.BillNo == item) {
+
+                        }
+                        else {
+                            newItem.push(value);
+                        }
+
+                    });
+                    addedItems = newItem;
+                    //if (isSearch == false) {
+                        ShowOnAddedFrnItems();
+                    //} else {
+                    //    ShowOnTableforaddtogrid();
+                    //}
+                    supplierId = supplierIdfb;
+                }
+                
+            });
+            function ShowOnFrnItems() {
+                fRNList.clear().draw(); 
+
+                var total = 0.0;
+                $.each(frnItemList, function (index, value) {
+                    total += value.TotalCost;
+                    fRNList.row.add([value.ItemName, value.UomName, value.Qty, value.UnitCost, value.TotalCost]).draw();
+
+                });
+
+                $("#Total").val(total);
+            }
+            function ShowOnAddedFrnItems() {
+                table.clear().draw();
+                //gRNList.clear().draw();
+                var total = 0.0;
+                var vat = 0.0;
+                var ait = 0.0;
+                var netAmount = 0.0;
+                var netOfvat = 0.0;
+                var netOfAit = 0.0;
+                var netofVds = 0.0;
+                var totalPayable = 0.0;
+                
+                $.each(addedItems, function (index, value) {
+                    
+                    table.row.add([value.BillNo, value.ItemName, value.UomName, value.Qty, value.UnitCost, value.TotalCost,
+                    '</a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.FRNNo + '"></i></a>']).draw();
+                    total += parseFloat(value.TotalCost);
+                });
+                var discountAmt = parseFloat($("#Discount").val());
+                netOfvat += vat;//total + vat;
+                netOfAit += ait//total - ait;
+                totalPayable += (total + netOfvat) - netOfAit;
+                if (discountAmt != "") {
+                    totalPayable -= discountAmt;
+                }
+                frnItemList = [];
+
+                var vatAmount = parseFloat((vatPerc * total) / 100).toFixed(2);
+                var aitAmount = parseFloat((aitPerc * total) / 100).toFixed(2);
+                var vdaAmount = parseFloat((vdaPerc * total) / 100).toFixed(2);
+                $("#FPBTotal").val(total);
+                if (isSearch == false) {
+                    
+                    if (discountAmt != "") {
+                        $("#NetAmount").val(total - $("#Discount").val());
+                    }
+                    else {
+                        $("#NetAmount").val(total);
+                    }
+                    $("#NetOfVatAmount").val(total);
+                    $("#TotalPayable").val(total);
+                } else {
+                    
+                    if (isRowDelete == false) {
+                        var a = 0.0;
+                       // if (discountAmt != "") {
+                        $("#NetAmount").val(total - discountAmt);
+                        $("#NetOfVatAmount").val(total - discountAmt + parseFloat(vatAmount));
+                         a = (((total - discountAmt) + parseFloat(vatAmount)) - parseFloat(aitAmount) - parseFloat(vdaAmount)).toFixed(2);
+                        $("#TotalPayable").val(a);
+                        //}
+                        //else {
+                        //    $("#NetAmount").val(total);
+                            
+                        //}  
+                    } else {
+                        //var vatAmount = parseFloat((vatPerc * 100) / total).toFixed(2);
+                        //$("#VatAmount").val(vatAmount);
+                        if (discountAmt != "") {
+                           
+                            
+                            
+                            $("#VatAmount").val(vatAmount);
+                            $("#VDAAmount").val(vdaAmount);
+                            $("#AitAmount").val(aitAmount);
+                            $("#NetAmount").val(total - discountAmt);
+                            $("#NetOfVatAmount").val(total - discountAmt + vatAmount);
+                            $("#TotalPayable").val(total - discountAmt + vatAmount - (aitAmount + vdaAmount));
+                        }
+                        else {
+                            //var vatAmount = parseFloat((vatPerc * total) / 100).toFixed(2);
+                            //var aitAmount = parseFloat((aitPerc * total) / 100).toFixed(2);
+                            //var vdaAmount = parseFloat((vdaPerc * total) / 100).toFixed(2);
+                            $("#VatAmount").val(vatAmount);
+                            $("#VDAAmount").val(vdaAmount);
+                            $("#AitAmount").val(aitAmount);
+                            $("#NetAmount").val(total - discountAmt);
+                            $("#NetOfVatAmount").val(total - discountAmt + parseFloat(vatAmount));
+                            $("#TotalPayable").val(total - discountAmt + parseFloat(vatAmount) - (parseFloat(aitAmount) + parseFloat( vdaAmount)));
+                        }  
+                    }
+                    
+                }
+
+            }
+
+            //function ShowOnAddedfrnItemsforsearch() {
+            //    table.clear().draw();
+            //    //gRNList.clear().draw();
+            //    var total = 0.0;
+            //    var vat = 0.0;
+            //    var ait = 0.0;
+            //    var netAmount = 0.0;
+            //    var netOfvat = 0.0;
+            //    var netOfAit = 0.0;
+            //    var totalPayable = 0.0;
+            //    //$.each(grnList, function (index, value) {
+
+            //    //    gRNList.row.add([value, '<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value + '"></i></a>']).draw();
+
+            //    //});
+            //    $.each(addedItems, function (index, value) {
+            //        total += value.TotalCost;
+            //        vat += value.AdjustedVat;
+            //        ait += value.AdjustedAit;
+            //        table.row.add([value.BillNo, value.ItemName, value.UomName, value.Qty, value.UnitCost, value.TotalCost,
+            //        '</a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.ItemID + '"></i></a>']).draw();
+            //        netAmount += total;
+            //    });
+            //    var discountAmt = $("#Discount").val();
+            //    netOfvat += vat;//total + vat;
+            //    netOfAit += ait//total - ait;
+            //    totalPayable += (total + netOfvat) - netOfAit;
+            //    if (discountAmt != "") {
+            //        totalPayable -= discountAmt;
+            //    }
+            //    //else {
+            //    //    totalPayable += (total + netOfvat) - netOfAit;
+            //    frnItemList = [];
+            //    ShowOnFrnItems();
+            //    if (isSearch == false) {
+            //        $("#FPBTotal").val(total);
+            //        $("#VatAmount").val(vat);
+            //        $("#AitAmount").val(ait);
+            //        if (discountAmt != "") {
+            //            $("#NetAmount").val(total - $("#Discount").val());
+            //        }
+            //        else {
+            //            $("#NetAmount").val(total);
+            //        }
+            //        $("#NetOfVatAmount").val(total);
+            //        $("#TotalPayable").val(total);
+            //    }
+
+            //}
+        });
+
+
+
+    </script>
+}

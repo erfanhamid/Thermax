@@ -1,0 +1,307 @@
+﻿@model BEEERP.Models.TaxCalculator.SLabList
+@{
+    ViewBag.Title = "SLabList";
+}
+
+<style>
+    tbody tr:hover {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    .btn:hover {
+        color: blue !important;
+    }
+
+    .btn:focus {
+        background-color: aqua !important;
+    }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Create Slab</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Id, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.Id, new { @class = "form-control", @readonly = "readonly", @Value = ViewBag.SlabId })
+                                        @Html.ValidationMessageFor(m => m.Id, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Slab, "Slab Name", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.Slab, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.Slab, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Percentage, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8" style="padding-left:0%; padding-right:0%;">
+                                        <div class="col-sm-8" style="padding-right:0%;">
+                                            @Html.TextBoxFor(m => m.Percentage, new { @class = "form-control", @type = "number" })
+                                        </div>
+                                        <label class="col-sm-1" style="padding-left:0%;font-size:150%;text-align:center;color:green">%</label>
+                                        @Html.ValidationMessageFor(m => m.Percentage, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.MaxLimit, "Max Limit", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.MaxLimit, new { @class = "form-control", @type = "number" })
+                                        @Html.ValidationMessageFor(m => m.MaxLimit, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-8">
+                                        <input type="button" name="Save" id="save" value="Save" class="btn skin-blue" />
+                                        <input type="button" name="Upate" id="update" value="Update" class="btn skin-blue" />
+                                        <input type="button" name="Delete" id="delete" value="Delete" class="btn skin-blue" />
+                                        <input type="button" name="Refresh" id="refresh" value="Refresh" class="btn skin-blue" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Slab List</h3>
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-responsive" id="ExemtionList">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Slab Name</th>
+                                            <th>Percentage</th>
+                                            <th>Max Limit</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.Slab)
+                                        {
+                                            <tr class='clickable-row' value="@item.Id">
+                                                <td>@item.Id</td>
+                                                <td>@item.Slab</td>
+                                                <td>@item.Percentage</td>
+                                                 <td>@item.MaxLimit</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/Scripts/TaxCalculator/SLabListInputFocus.js"></script>
+    <script>
+        $('#ExemtionList').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        })
+
+        EnterPress();
+
+        $(document).on('click', '#refresh', function () {
+            location.reload();
+        });
+
+        var slab = { Id: 0, Slab: "", MaxLimit: 0, Percentage: 0 }
+        var isValid = true;
+
+        $(document).ready(function () {
+            $("#update").hide();
+            $("#delete").hide();
+            $("#Slab").focus();
+        });
+
+        $(".clickable-row").on('click', function (e) {
+             var id = $(this).attr("value");
+             $.ajax({
+                url: '@Url.Action("GetSlabById", "SLabList")',
+                contentType: "application/json;charset=utf-8",
+                data: { id: id },
+                type: 'GET',
+                dataType: 'json',
+                success: function (datas) {
+                    if(datas==0)
+                    {
+                        alert("This Exemtion no doesn't exist.");
+                    }
+                    else {
+                        $("#save").hide();
+                        $("#update").show();
+                        $("#delete").show();
+                        $("#Id").val(datas.Id);
+                        $("#Slab").val(datas.Slab)
+                        $("#Percentage").val(datas.Percentage);
+                        $("#MaxLimit").val(datas.MaxLimit)
+                    }
+                }
+            });
+        });
+
+        $(document).on('click', '#save', function () {
+            ValidateOnSaveClick();
+            $("#save").prop('disabled', true);
+            if (isValid == true)
+            {
+                SetSlab();
+                if (confirm("Do you want to save?")) {
+                    $.ajax({
+                        url: '@Url.Action("SaveSlab", "SLabList")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ slab: slab }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas != 0) {
+                                alert("Save Sucessfull.");
+                                location.reload();
+                            }
+                            else {
+                                setError("Item", "Exemtion Name Is Already Exists.");
+                                $("#save").prop('disabled', false);
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#save").prop('disabled', false);
+                }
+            }
+            else {
+                $("#save").prop('disabled', false);
+            }
+        });
+
+        $(document).on('click', '#update', function () {
+            ValidateOnSaveClick();
+            $("#update").prop('disabled', true);
+            if (isValid == true)
+            {
+                SetSlab();
+                if (confirm("Do you want to Update?")) {
+                    $.ajax({
+                        url: '@Url.Action("UpdateSlab", "SLabList")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ slab: slab }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Update Failed");
+                                $("#update").prop('disabled', false);
+                            }
+                            else {
+                                alert("Update Sucessfull.");
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#update").prop('disabled', false);
+                }
+            }
+            else {
+                $("#update").prop('disabled', false);
+            }
+
+        });
+
+        $(document).on('click', '#delete', function () {
+
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var id = $("#Id").val();
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteSlabByid", "SLabList")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Delete failed.");
+                            $("#update").prop('disabled', true);
+                            $("#delete").prop('disabled', true);
+                        }
+                        else {
+                            alert("Delete Successfull");
+                            location.reload();
+                        }
+                    }
+                });
+            }
+            else {
+                $("#update").prop('disabled', false);
+                $("#delete").prop('disabled', false);
+            }
+        });
+
+        function SetSlab() {
+            slab.Id = $("#Id").val();
+            slab.Slab = $("#Slab").val();
+            slab.Percentage = $("#Percentage").val();
+            slab.MaxLimit = $("#MaxLimit").val();
+        }
+
+        function ValidateOnSaveClick() {
+            isValid = true;
+            if ($("#Slab").val() == "") {
+                setError("Slab", "Slab Name is required field");
+                isValid = false;
+            }
+            if ($("#Percentage").val() == "") {
+                setError("Percentage", "Percentage is required field");
+                isValid = false;
+            }
+            if ($("#Percentage").val() != "") {
+                if ($("#Percentage").val() <= 0) {
+                    setError("Percentage", "Percentage must be grater than zero.");
+                    isValid = false;
+                }
+            }
+            if ($("#MaxLimit").val() == "") {
+                setError("MaxLimit", "Max Limit is required field");
+                isValid = false;
+            }
+            if ($("#MaxLimit").val() != "") {
+                if ($("#MaxLimit").val() <= 0) {
+                    setError("MaxLimit", "Max Limit must be grater than zero.");
+                    isValid = false;
+                }
+            }
+        }
+
+    </script>
+}

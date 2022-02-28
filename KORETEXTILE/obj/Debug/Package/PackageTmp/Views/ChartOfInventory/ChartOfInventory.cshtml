@@ -1,0 +1,600 @@
+﻿@model BEEERP.Models.SalesModule.ChartOfInventory
+@{
+    ViewBag.Title = "ChartOfInventory";
+}
+
+
+<head>
+    <link href="~/App_Themes/vakata-jstree-4a77e59/dist/themes/default/style.min.css" rel="stylesheet" />
+    @*<style>
+            .jstree-anchor, .jstree-anchor:link, .jstree-anchor:visited, .jstree-anchor:hover, .jstree-anchor:active {
+                text-decoration: none;
+                color:#ffffff !important;
+            }
+        </style>*@
+<style>
+    .title_box {
+        border: #5aeff8 2px solid;
+    }
+
+        .title_box #title {
+            position: relative;
+            top: -0.5em;
+            margin-left: 1em;
+            display: inline;
+            background-color: white;
+            font-size:larger;
+        }
+
+        .title_box #content {
+            padding-left:2%;
+        }
+    .select2-selection--single:focus {
+        background-color: white !important;
+    }
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+    .btn:hover {
+        background-color: #82E0AA;
+        color: #02110E;
+    }
+</style>
+</head>
+<h2>Inventory Item List</h2>
+<div class="col-md-4 panel" style="padding: 20px 20px; overflow: auto; height:650px; border:solid">
+    <div id="jstreeChart"></div>
+
+</div>
+<div class="col-md-1"></div>
+<div class="col-md-6 panel" style="padding: 20px 20px;  ">
+    <div class="row">
+
+        <div class="">
+            @*<div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                    <h4 class="box-title" style="text-align:center">Item Details</h4>
+                </div>*@
+            <div class="box-body">
+                <div class="col-sm-12" style="padding-top:2%; border-right:2px solid #5aeff8;border-left:2px solid #5aeff8;border-top:2px solid #5aeff8;border-bottom:2px ">
+                    <div class="row">
+                        <div class="col-sm-12" style="border-bottom:2px solid #5aeff8;">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row">
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Id, "Item Code", new { @class = "col-sm-3 control-label", @Title = "Item" })
+                                            <div class="col-sm-7 input-group">
+                                                @Html.TextBoxFor(m => m.Id, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.Id, "", new { @style = "color: red" })
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.NameForShow, "Item Name", new { @class = "col-sm-3 control-label", @Title = "Item" })
+                                            <div class="col-sm-7 input-group">
+                                                @Html.TextBoxFor(m => m.NameForShow, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.NameForShow, "", new { @style = "color: red" })
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label" title="Item">Group / Item</label>
+                                            <div class="col-sm-7 input-group">
+                                                @Html.DropDownListFor(m => m.TypeForShow, (IEnumerable<SelectListItem>)ViewBag.GroupOrItem, new { @class = "form-control ", @readonly = "readonly" })
+
+                                                <span class="field-validation-valid" data-valmsg-for="TypeForShow" data-valmsg-replace="true" style="color: red"></span>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.parentId, "Group Name", new { @class = "col-sm-3 control-label", @Title = "Item" })
+                                            <div class="col-sm-7 input-group">
+                                                @Html.DropDownListFor(m => m.parentId, (IEnumerable<SelectListItem>)ViewBag.AllInventory, new { @class = "form-control ", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.parentId, "", new { @style = "color: red" })
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.rootAccountType, "Account Type", new { @class = "col-sm-3 control-label", @Title = "Item" })
+                                            <div class="col-sm-7 input-group">
+                                                @Html.TextBoxFor(m => m.rootAccountType, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.rootAccountType, "", new { @style = "color: red" })
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="padding-top:40%;"></div>
+                <div class="box-footer">
+
+                    <div id="item" hidden>
+                        <div style="padding-top:2%;"></div>
+                        <div class="row">
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" title="Item">Group / Item</label>
+                                <div class="col-sm-7 input-group">
+                                    @Html.DropDownListFor(m => m.type, (IEnumerable<SelectListItem>)ViewBag.GroupOrItem, new { @class = "enterTab form-control select2" })
+
+                                    <span class="field-validation-valid" data-valmsg-for="type" data-valmsg-replace="true" style="color: red"></span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Name, "Item Name", new { @class = "col-sm-3 control-label", @Title = "Item" })
+                                <div class="col-sm-7 input-group">
+                                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Name, "", new { @style = "color: red" })
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.UoMID, "UoM", new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-7 input-group">
+                                    @Html.DropDownListFor(m => m.UoMID, (IEnumerable<SelectListItem>)ViewBag.AllUOM, new { @class = "enterTab form-control select2 " })
+                                    @Html.ValidationMessageFor(m => m.UoMID, "", new { @style = "color: red" })
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <div style="padding-top:2%;"></div>
+                    <div class="col-sm-12" style="text-align:center;">
+                        @if (User.IsInRole("ProcurementOperator"))
+                        {
+                            <input type="button" value="Add" id="add" class="btn btn-primary" />
+
+                            <input type="button" value="Save" id="save" class="btn btn-primary" />
+                            <input type="button" value="Update" id="update" class="btn btn-primary" disabled />
+                            <input type="button" name="update" id="delete" value="Delete" class="btn btn-primary" disabled />
+                            @*<input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                           <input type="button" name="print" id="print" value="Print" class="btn btn-primary" />*@
+                        }
+                        else
+                        {
+
+                            <input type="button" class="btn btn-primary" id="Add" data-toggle="modal" value="Add" data-target="#modal-default" />
+                            @*<input type="button" value="Add" id="add" class="btn btn-primary" />*@
+                            <input type="button" value="Save" id="save" class="btn btn-primary" />
+                            <input type="button" value="Update" id="update" class="btn btn-primary" />
+                            <input type="button" name="update" id="delete" value="Delete" class="btn btn-primary" />
+                            @*<input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                           <input type="button" name="print" id="print" value="Print" class="btn btn-primary" />*@
+                        }
+                    </div>
+               
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--<div class="modal fade" id="modal-default">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Today Total Investment List</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                    
+
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>-->
+                @*<button type="button" class="btn btn-primary">Save changes</button>*@
+            <!--</div>
+        </div>-->
+        <!-- /.modal-content -->
+    <!--</div>-->
+    <!-- /.modal-dialog -->
+<!--</div>-->
+
+    @section scripts{
+        <script src="~/App_Themes/vakata-jstree-4a77e59/dist/jstree.js"></script>
+        <script src="~/App_Themes/vakata-jstree-4a77e59/dist/jstree.min.js"></script>
+        <script>
+            $(".select2").select2();
+            $('#TypeForShow').attr("style", "pointer-events: none;");
+            $('#parentId').attr("style", "pointer-events: none;");
+            $('#save').hide();
+            $('#update').hide();
+            $('#delete').hide();
+            var isValid = true;
+            //$('#Lager').hide();
+
+            $.ajax({
+                async: true,
+                type: "Post",
+                url: "/ChartOfInventory/LoadAllChartOfInventory",
+                dataType: "json",
+
+                success: function (json) {
+                    //Bind Data Function
+                    createJSTrees(json.jsonvar);
+                    //For Refresh Chart
+                    //$('#jstreeChart').jstree(true).refresh();
+                }
+            });
+
+
+
+            function createJSTrees(jsonparams) {
+                $('#jstreeChart').jstree({
+                    "core": {
+                        "themes": {
+                            "stripes": true,
+
+                        },
+                        "data": jsonparams,
+
+                    },
+                    "checkbox": {
+                        "keep_selected_style": false
+                    },
+                    plugins: ["search", "themes", "types"]
+                    }).on('open_node.jstree', function (e, data) {
+                        data.instance.set_icon(data.node, "glyphicon glyphicon-folder-open");
+                    }).on('close_node.jstree', function (e, data) {
+                        data.instance.set_icon(data.node, "glyphicon glyphicon-folder-close");
+                 });
+
+
+
+            }
+            //$('#jstreeChart').on('open_node.jstree', function (e, data) {
+            //    $('#' + data.node.id).find('i.jstree-icon.jstree-themeicon').first()
+            //        .removeClass('glyphicon glyphicon-folder-close').addClass('glyphicon glyphicon-folder-open');
+            //    //$('#' + data.node.id).find('i.jstree-icon.jstree-themeicon')
+            //    //    .addClass('glyphicon glyphicon-leaf');
+            //});
+            //// bind customize icon change function in jsTree close_node event.
+            //$('#jstreeChart').on('close_node.jstree', function (e, data) {
+            //    $('#' + data.node.id).find('i.jstree-icon.jstree-themeicon').first()
+            //        .removeClass('glyphicon glyphicon-folder-open').addClass('glyphicon glyphicon-folder-close');
+            //    //$('#' + data.node.id).find('i.jstree-icon.jstree-themeicon')
+            //    //    .addClass('glyphicon glyphicon-leaf');
+            //});
+
+            //function createJSTrees(jsonparams) {
+            //    $("#jstreeChart").jstree({
+            //        "core": {
+            //            "data": jsonparams
+
+            //        },
+
+            //        "plugins": [
+            //            "contextmenu", "dnd", "search",
+            //            "state", "types", "wholerow"
+            //        ]
+            //    });
+            //}
+            //function createJSTrees(jsonparams) {
+            //    $('#jstreeChart')
+            //        .jstree({
+            //            core: {
+            //                data: jsonparams
+            //            },
+            //            types: {
+            //                "root": {
+            //                    "icon": "glyphicon-plus"
+            //                },
+            //                "child": {
+            //                    "icon": "glyphicon glyphicon-leaf"
+            //                },
+            //                "default": {
+            //                }
+            //            },
+            //            plugins: ["search", "themes", "types"]
+            //        }).on('open_node.jstree', function (e, data) {
+            //            data.instance.set_icon(data.node, "glyphicon glyphicon-minus");
+            //        }).on('close_node.jstree', function (e, data) { data.instance.set_icon(data.node, "glyphicon glyphicon-plus"); });
+
+            //}
+
+            //$('#tree').on("select_node.jstree", function (e, data) {
+            //    alert("node_id: " + data.node.id);
+            //});
+
+
+            //$("#treeContainer").on(
+            //    "select_node.jstree", function (evt, data) {
+            //        alert("meee");
+            //    }
+            //);
+
+
+            $("#jstreeChart").on("select_node.jstree",
+                function (evt, data) {
+                    //alert(data.node.id);
+                    var id = { id: parseInt(data.node.id) };
+                    $.ajax({
+                    url: "@Url.Action("GetGroupItemInfo", "ChartOfInventory")",
+                    dataType: "json",
+                    contentType: "application/json;chartset=utf8;",
+                        type: "GET",
+                        data: id,
+                        success: function (data) {
+                            $("#NameForShow").attr("readonly", false);
+                            $("#update").show();
+                            $("#delete").show();
+                            $("#Add").show();
+                            $("#Leager").hide();
+                            $("#Id").val(data.inventory.Id);
+                            $("#NameForShow").val(data.inventory.Name);
+                            $("#TypeForShow").val(data.inventory.type).change();
+                            $("#parentId").val(data.inventory.parentId).change();
+                            $("#rootAccountType").val(data.inventory.rootAccountType);
+                            if (data.inventory.type == "l") {
+                                $("#item").hide();
+                                $("#Add").hide();
+                                $("#Leager").show();
+                                $("#UoMID").val(data.inventory.UoMID).change();
+                                $("#RetailPrice").val(data.inventory.RetailPrice);
+                                $("#clmLittre").val(data.inventory.clmLittre);
+                                $("#clmCartonCapacity").val(data.inventory.clmCartonCapacity);
+                                $("#clmStandardCost").val(data.inventory.clmStandardCost);
+                            } else {
+                                $("#save").hide();
+                                $("#item").hide();
+                                $("#type").val("");
+
+
+                            }
+                    },
+                    error: function (data) {
+                        alert("Please check your internet connection.\n If your connection is ok then contact with Paankouri Software & Services");
+                    },
+                });
+                }
+            );
+
+            $(document).on('change', "#type", function () {
+
+
+                    var value = $("#type").val();
+                    if (value === 'l') {
+                        $("#Leager").show();
+                    } else {
+                        $("#Leager").hide();
+                    }
+
+
+            });
+            $(document).on('click', "#Add", function () {
+                $("#Add").hide();
+                $("#update").hide();
+                $("#delete").hide();
+                $("#save").show();
+
+                var id = $("#Id").val();
+                var type = $("#TypeForShow").val();
+                if (id == ''|| type=='l') {
+                    alert("Please select a group first.")
+                } else {
+
+                    $("#item").show();
+                    $("#Leager").hide();
+                    $("#NameForShow").attr("readonly", true);
+                }
+            });
+            $(document).on('click', "#save", function () {
+                RemoveError();
+                SetGroupItemData();
+                ValidateForSave();
+                if (isValid == true) {
+
+                    if (confirm('Do you want to save')) {
+                        $.ajax({
+                            url: '@Url.Action("SaveItemOrGroup", "ChartOfInventory")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ inventoryData: inventoryData }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas.Message == 0) {
+                                    alert("This Group or Item Name already exists, please check");
+                                    $("#save").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully Saved.");
+                                    location.reload();
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        $("#save").show();
+                    }
+                }
+            });
+
+            $(document).on('click', "#update", function () {
+                 RemoveError();
+                SetGroupItemDataForUpdate();
+                ValidateForUpdate();
+                if (isValid == true) {
+
+                    if (confirm('Do you want to update')) {
+                        $.ajax({
+                            url: '@Url.Action("UpdateItemOrGroup", "ChartOfInventory")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ inventoryData: inventoryData }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas.Message == 0) {
+                                    alert("Failed To Update.");
+                                    $("#save").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully Updated.");
+                                    location.reload();
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        $("#save").show();
+                    }
+                }
+            });
+
+            $(document).on('click', "#delete", function () {
+                var id = { id: parseInt( $("#Id").val() )};
+
+                if (confirm('Do you want to Delete')) {
+                        $.ajax({
+                            url: '@Url.Action("DeleteItemOrGroup", "ChartOfInventory")',
+                            contentType: "application/json;charset=utf-8",
+                            data: id,
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas.Message == 0) {
+                                    alert("Failed To delete.");
+                                    //$("#save").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully deleted.");
+                                    location.reload();
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        //$("#save").show();
+                    }
+            });
+
+            $(document).on('change', "#OBQty", function () {
+                calculateTotalAmount();
+            });
+            $(document).on('change', "#OBRate", function () {
+                calculateTotalAmount();
+            });
+
+            function calculateTotalAmount() {
+                var obQty = $("#OBQty").val() == "" ? 0 : parseFloat($("#OBQty").val());
+                var obRate = $("#OBRate").val() == "" ? 0 : parseFloat($("#OBRate").val());
+                var totval = obQty * obRate
+                var tval = totval.toFixed(2)
+                $("#OBValue").val(tval);
+            }
+            var inventoryData = { Id: 0, Name: '', parentId: 0, type: '', UoMID: 0, rootAccountType: '', OBQty: 0, OBRate: 0, OBValue: 0, clmStandardCost: 0, StoreID: 0, OBDate: ""}
+            function SetGroupItemData() {
+                var Name = $("#Name").val();
+                var parentId = $("#Id").val();
+                var type = $("#type").val();
+                var UoMID = $("#UoMID").val();
+                var rootAccountType = $("#rootAccountType").val();
+                var OBQty = $("#OBQty").val();
+                var OBRate = $("#OBRate").val();
+                var OBValue = $("#OBValue").val();
+                var clmStandardCost = $("#clmStandardCost").val();
+                var StoreID = $("#StoreID").val();
+                var OBDate = $("#OBDate").val();
+
+                inventoryData.Name = Name;
+                inventoryData.parentId = parentId;
+                inventoryData.type = type;
+                inventoryData.UoMID = UoMID == '' ? 0 : UoMID;
+                inventoryData.rootAccountType = rootAccountType;
+                inventoryData.OBQty = OBQty == '' ? 0.00 : OBQty;
+                inventoryData.OBRate = OBRate == '' ? 0.00 : OBRate;
+                inventoryData.OBValue = OBValue == '' ? 0.00 : OBValue;
+                inventoryData.clmStandardCost = clmStandardCost == '' ? 0.00 : clmStandardCost;
+                inventoryData.StoreID = StoreID == '' ? 0 : StoreID;
+                inventoryData.OBDate = OBDate;
+
+
+                //inventoryData.Name= Name==
+            }
+            function SetGroupItemDataForUpdate() {
+                var Name = $("#NameForShow").val();
+                var Id = $("#Id").val();
+                var type = $("#type").val();
+                var UoMID = $("#UoMID").val();
+                var rootAccountType = $("#rootAccountType").val();
+                var RetailPrice = $("#RetailPrice").val();
+                var clmLittre = $("#clmLittre").val();
+                var clmCartonCapacity = $("#clmCartonCapacity").val();
+                var clmStandardCost = $("#clmStandardCost").val();
+                inventoryData.Name = Name;
+                inventoryData.Id = Id;
+                inventoryData.type = type;
+                inventoryData.UoMID = UoMID == '' ? 0 : UoMID;
+                inventoryData.rootAccountType = rootAccountType;
+                inventoryData.RetailPrice = RetailPrice == '' ? 0.00 : RetailPrice;
+                inventoryData.clmLittre = clmLittre == '' ? 0.00 : clmLittre;
+                inventoryData.clmCartonCapacity = clmCartonCapacity == '' ? 0.00 : clmCartonCapacity;
+                inventoryData.clmStandardCost = clmStandardCost == '' ? 0.00 : clmStandardCost;
+
+                //inventoryData.Name= Name==
+            }
+            function ValidateForSave() {
+                isValid = true;
+                if (inventoryData.Name == "") {
+                    setError("Name", "Name is required field");
+                    isValid = false;
+                }
+                if (inventoryData.type == "") {
+                    setError("type", "This is required field");
+                    isValid = false;
+                }
+                //if (inventoryData.StoreID == "") {
+                //    setError("StoreID", "Please select store");
+                //    isValid = false;
+                //}
+                if (inventoryData.UoMID == "") {
+                    setError("UoMID", "Please select UoM");
+                    isValid = false;
+                }
+            }
+
+            function ValidateForUpdate() {
+                isValid = true;
+                if (inventoryData.Name == "") {
+                    setError("NameForShow", "Name is required field");
+                    isValid = false;
+                }
+                //if (inventoryData.type == "") {
+                //    setError("type", "This is required field");
+                //    isValid = false;
+                //}
+            }
+
+        </script>
+
+    }

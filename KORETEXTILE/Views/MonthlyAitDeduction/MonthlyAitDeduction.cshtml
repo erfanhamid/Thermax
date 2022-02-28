@@ -1,0 +1,529 @@
+﻿@model BEEERP.Models.TaxCalculator.MonthlyAITDeduction
+@{
+    ViewBag.Title = "MonthlyAitDeduction";
+}
+
+<link href="~/Content/loading.css" rel="stylesheet" />
+
+<style>
+    /*tbody tr:hover {
+        background-color: dodgerblue;
+        color: white;
+    }*/
+
+    .btn:hover {
+        color: blue !important;
+    }
+
+    .btn:focus {
+        background-color: aqua !important;
+    }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+<form id="report" target="_blank" method="post">
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 class="box-title">Monthly Ait Deduction Statement</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.ID, "MADS ID", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:2%; padding-right:2%;">
+                                                @Html.TextBoxFor(m => m.ID, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.ID, "", new { @style = "color: red" })
+                                                <div class="input-group-btn">
+                                                    <input type="button" name="searchId" id="searchId" value="Search" class="btn skin-blue" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.FinancialYear, "Financial Year", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.FinancialYear, (IEnumerable<SelectListItem>)ViewBag.AssesmentYear, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.FinancialYear, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Location, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.Location, (IEnumerable<SelectListItem>)ViewBag.LoadLocation, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.Location, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Corporation, "Corporation", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.Corporation, (IEnumerable<SelectListItem>)ViewBag.Cororation, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.Corporation, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <div class="col-sm-4"></div>
+                                                <div class="col-sm-8">
+                                                    <input type="button" name="Search" id="search" value="Generate Info" class="btn skin-blue" />
+                                                    <input type="button" name="Save" id="save" value="save" class="btn skin-blue" />
+                                                    <input type="button" name="Refresh" id="refresh" value="Refresh" class="btn skin-blue" />
+                                                    <div class="sk-fading-circle">
+                                                        <div class="sk-circle1 sk-circle"></div>
+                                                        <div class="sk-circle2 sk-circle"></div>
+                                                        <div class="sk-circle3 sk-circle"></div>
+                                                        <div class="sk-circle4 sk-circle"></div>
+                                                        <div class="sk-circle5 sk-circle"></div>
+                                                        <div class="sk-circle6 sk-circle"></div>
+                                                        <div class="sk-circle7 sk-circle"></div>
+                                                        <div class="sk-circle8 sk-circle"></div>
+                                                        <div class="sk-circle9 sk-circle"></div>
+                                                        <div class="sk-circle10 sk-circle"></div>
+                                                        <div class="sk-circle11 sk-circle"></div>
+                                                        <div class="sk-circle12 sk-circle"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Month, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.Month, (IEnumerable<SelectListItem>)ViewBag.Month, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.Month, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Date, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:2%; padding-right:2%">
+                                                @Html.TextBoxFor(m => m.Date, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                @Html.ValidationMessageFor(m => m.Date, "", new { @style = "color: red" })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 class="box-title">Monthly Ait Deduction Details</h3>
+                                </div>
+                                <div class="box-body">
+                                    <table class="table table-responsive" id="EmpList">
+                                        <thead>
+                                            <tr>
+                                                @*<th><input type="checkbox" id="select_all" name="select_all" /></th>*@
+                                                <th>Employee No</th>
+                                                <th>Employee Name</th>
+                                                <th>Designation</th>
+                                                <th>Type</th>
+                                                <th>Forecasted Amount (Tk.)</th>
+                                                <th>Monthly Ait Amount (Tk.)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="empId" name="empId" />
+    <input type="hidden" id="duringYear" name="duringYear" />
+    <input type="hidden" id="assesmentYear" name="assesmentYear" />
+    <input type="hidden" id="TotAmount" />
+</form>
+
+
+@section scripts
+{
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/TaxCalculator/MonthlyAitInputFocus.js"></script>
+    <script>
+        $(".select2").select2();
+        var isValid = true;
+        var addedItems = [];
+        var rows_selected = [];
+        var totalAmount = 0.0;
+        var isSearch = false;
+        //var isChecked = false;
+        var monthlyAit = { ID: 0, Date: "", FinancialYear: "", Month: "", Corporation: 0, Location: "", TotalAmount: 0 }
+
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+
+        var table = $('#EmpList').DataTable({
+            'paging': false,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+
+        //var table = $('#EmpList').DataTable({
+
+        //    'columnDefs': [{
+        //        'targets': 0,
+        //        'searchable': false,
+        //        'width': '1%',
+        //        'className': 'dt-body-center',
+        //        "paging": false,
+        //        'render': function (data, type, full, meta) {
+        //            return '<input type="checkbox">';
+        //        },
+        //    }],
+        //    'autoWidth': false,
+        //    'order': [[1, 'asc']],
+        //    'rowCallback': function (row, data, dataIndex) {
+        //        // Get row ID
+        //        var rowId = data[0];
+
+        //        // If row ID is in the list of selected row IDs
+        //        if ($.inArray(rowId, rows_selected) !== -1) {
+        //            $(row).find('input[type="checkbox"]').prop('checked', true);
+        //            $(row).addClass('selected');
+        //        }
+        //    }
+        //});
+
+        //function updateDataTableSelectAllCtrl(table) {
+        //    var $table = table.table().node();
+        //    var $chkbox_all = $('tbody input[type="checkbox"]', $table);
+        //    var $chkbox_checked = $('tbody input[type="checkbox"]:checked', $table);
+        //    var chkbox_select_all = $('thead input[name="select_all"]', $table).get(0);
+
+        //    // If none of the checkboxes are checked
+        //    if ($chkbox_checked.length === 0) {
+        //        chkbox_select_all.checked = false;
+        //        if ('indeterminate' in chkbox_select_all) {
+        //            chkbox_select_all.indeterminate = false;
+        //        }
+
+        //        // If all of the checkboxes are checked
+        //    } else if ($chkbox_checked.length === $chkbox_all.length) {
+        //        chkbox_select_all.checked = true;
+        //        if ('indeterminate' in chkbox_select_all) {
+        //            chkbox_select_all.indeterminate = false;
+        //        }
+
+        //        // If some of the checkboxes are checked
+        //    } else {
+        //        chkbox_select_all.checked = true;
+        //        if ('indeterminate' in chkbox_select_all) {
+        //            chkbox_select_all.indeterminate = true;
+        //        }
+        //    }
+        //}
+
+        //$('#EmpList tbody').on('click', 'input[type="checkbox"]', function (e) {
+        //    var $row = $(this).closest('tr');
+        //    var data = table.row($row).data();
+        //    var rowId = data[0];
+        //    var index = $.inArray(rowId, rows_selected);
+        //    var selectedItem = { EmployeeID: 0, Amount: 0, WIth_Without: "" };
+        //    if (this.checked) {
+        //        //isChecked = true;
+        //        $('input[name="' + data[0] + '"]').val(data[5]).focus();
+        //        $row.addClass('selected');
+        //        $.each(addedItems, function (indx, value) {
+        //            if (value.EmployeeID == data[0]) {
+        //                rows_selected.splice(index, 1);
+        //                selectedItem.EmployeeID = data[1];
+        //                selectedItem.Amount = data[5];
+        //                rows_selected.push(selectedItem);
+        //            }
+        //        });
+        //    }
+        //    else if (!this.checked) {
+        //        rows_selected.splice(index, 1);
+        //        $row.removeClass('selected');
+        //        $('input[name="' + data[0] + '"]').val("");
+              
+        //        $.each(addedItems, function (index, value) {
+        //            if (value.EmployeeID != data[0]) {
+        //                selectedItem.EmployeeID = data[1];
+        //                selectedItem.Amount = data[5];
+        //                rows_selected.push(selectedItem);
+        //            }
+        //        });
+        //    }
+            
+        //    updateDataTableSelectAllCtrl(table);
+
+
+        //    e.stopPropagation();
+        //});
+
+        //$('#EmpList').on('click', 'tbody td, thead th:first-child', function (e) {
+        //    $(this).parent().find('input[type="checkbox"]').trigger('click');
+        //});
+
+
+        //$('thead input[name="select_all"]', table.table().container()).on('click', function (e) {
+        //    if (this.checked) {
+        //        $('#EmpList tbody input[type="checkbox"]:not(:checked)').trigger('click');
+        //    } else {
+        //        $('#EmpList tbody input[type="checkbox"]:checked').trigger('click');
+        //    }
+
+        //    // Prevent click event from propagating to parent
+        //    e.stopPropagation();
+        //});
+
+
+        //table.on('draw', function () {
+        //    // Update state of "Select all" control
+        //    updateDataTableSelectAllCtrl(table);
+        //});
+
+        
+        $(document).on('click', "#refresh", function () {
+            location.reload();
+        });
+
+        $(document).ready(function () {
+            $(".sk-fading-circle").hide();
+            $("#save").hide();
+            $("#FinancialYear").focus();
+        });
+
+        EnterPress();
+
+        $(document).on('click', "#search", function () {
+            $("#search").prop('disabled', true);
+            //table.clear().draw();
+            RemoveError();
+            var id = { location: $("#Location").val(), corpuration: $("#Corporation").val(), assesmentY: $("#FinancialYear").val(), month: $("#Month").val() };
+            ValidateSearchClick();
+            if (isValid == true) {
+                $(".sk-fading-circle").show();
+                $.ajax({
+                    url: '@Url.Action("GetEmployees", "MonthlyAitDeduction")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas != 0) {
+                            $.each(datas, function (index, value) {
+                                var item = { EmployeeID: 0, Amount: 0, WIth_Without: "", EmployeeDesignation: "" };
+                                item.EmployeeID = value.EmployeeID;
+                                item.Amount = value.MonthlyAIT;
+                                item.EmployeeDesignation = value.EmployeeDesignation;
+                                item.WIth_Without = value.WIth_Without;
+                                addedItems.push(item);
+                            });
+
+                            ShowOnTable();
+                            $(".sk-fading-circle").hide();
+                            $("#save").show();
+                            $("#search").prop('disabled', true);
+                        }
+                        else {
+                            alert("No Employee Found for This Search Combination.");
+                            $(".sk-fading-circle").hide();
+                            $("#search").prop('disabled', false);
+                        }
+
+                    }
+                });
+            }
+            else {
+                $("#search").prop('disabled', false);
+            }
+        });
+        
+        $(document).on('click', "#save", function () {
+            RemoveError();
+            $("#save").prop('disabled', true);
+            SetMonthlyAit();
+            if (addedItems.length <= 0) {
+                alert("At least One Item should be selected for save.");
+                $("#save").prop('disabled', false);
+            }
+            else {
+                ValidateSearchClick();
+                if (isValid == true) {
+                    if (confirm('Do you want to save')) {
+                        $.ajax({
+                            url: '@Url.Action("SaveMonthlyAit", "MonthlyAitDeduction")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ monthlyAit: monthlyAit, addedItems: addedItems }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Failed To Saved.");
+                                    $("#save").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully Saved.");
+                                    $("#ID").val(datas.monthlyAit.ID);
+                                    $("#save").prop('disabled', true);
+                                    $("#refresh").focus();
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        $("#save").prop('disabled', false);
+                    }
+                }
+                else {
+                    $("#save").prop('disabled', false);
+                }
+            }
+        });
+
+        //search code
+        $(document).on('click', '#searchId', function () {
+            isSearch = true;
+            RemoveError();
+            var id = { id: $("#ID").val() };
+            if ($("#ID").val() != "") {
+                $.ajax({
+                    url: '@Url.Action("GetMonthlyAitDeductionById", "MonthlyAitDeduction")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+
+                        if (datas == 0) {
+                            alert("Your entered ID Doesn't exist");
+                            $("#search").prop('disabled', false);
+                            location.reload();
+                        }
+                        else {
+                            $("#save").hide();
+                            $("#ID").val(datas.dedudctionItem.ID);
+                            $("#FinancialYear").val(datas.dedudctionItem.FinancialYear).change();
+                            $("#Date").val((moment(datas.dedudctionItem.Date).format("DD-MM-YYYY")));
+                            $("#Location").val(datas.dedudctionItem.Location).change();
+                            $("#Month").val(datas.dedudctionItem.Month).change();
+                            $("#Corporation").val(datas.dedudctionItem.Corporation).change();
+                            addedItems = [];
+                            $.each(datas.deductiontLineItem, function (index, value) {
+                                var item = { ID: 0, EmployeeID: 0, Amount: 0.0, WIth_Without: "", ForcastAmount: 0.0, EmployeeDesignation: "" }
+                                item.EmployeeID = value.EmployeeID;
+                                item.EmployeeName = "";
+                                item.Amount = value.Amount;
+                                item.WIth_Without = value.WIth_Without;
+                                item.ForcastAmount = value.ForcastAmount;
+                                item.EmployeeDesignation = value.EmployeeDesignation;
+                                addedItems.push(item);
+                            });
+                            ShowOnTable();
+                            //$("#search").prop('disabled', true);
+                            $("#search").prop('disabled', true);
+                        }
+                    },
+                    error: function () {
+                        alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+                        $("#search").prop('disabled', false);
+                    }
+                });
+            }
+            else {
+                setError("ID", "ID is required To Get Data.");
+            }
+        });
+
+        //data table fill up
+        function ShowOnTable() {
+            table.clear().draw();
+            $.each(addedItems, function (index, value) {
+
+                if (isSearch == true) {
+                    table.row.add([value.EmployeeID, "Employee Name", value.EmployeeDesignation, value.WIth_Without, value.ForcastAmount, '<input type="number" disabled="disabled" name="' + value.EmployeeID + '" value="' + value.Amount + '"/>']).draw();
+                }
+                else {
+                    table.row.add([value.EmployeeID, "Employee Name", value.EmployeeDesignation, value.WIth_Without, value.Amount, '<input type="number" name="' + value.EmployeeID + '" value="' + value.Amount + '"/>']).draw();                
+                }
+            });
+        }
+
+        function ValidateSearchClick() {
+            isValid = true;
+            if ($("#FinancialYear").val() == "") {
+                setError("FinancialYear", "Assesment Year is required field");
+                isValid = false;
+            }
+
+            if ($("#Location").val() == "") {
+                setError("Location", "Location is required field");
+                isValid = false;
+            }
+
+            if ($("#Corporation").val() == "") {
+                setError("Corporation", "Corpuration is required field");
+                isValid = false;
+            }
+
+            if ($("#Month").val() == "") {
+                setError("Month", "Month is required field");
+                isValid = false;
+            }
+
+            if ($("#Date").val() == "") {
+                setError("Date", "Date is required field");
+                isValid = false;
+            }
+        }
+
+        //get value from textbox
+        function SetMonthlyAit() {
+            $.each(addedItems, function (index, value) {
+                value.Amount = $('input[name="' + value.EmployeeID + '"]').val();
+                totalAmount = totalAmount + parseFloat(value.Amount);
+            });
+            var newItem = [];
+            $.each(addedItems, function (index, value) {
+                if (value.Amount == 0) {
+
+                }
+                else {
+                    newItem.push(value);
+                }
+            });
+            addedItems = newItem;
+            
+            $("#TotAmount").val(parseFloat(totalAmount).toFixed(2));
+
+            monthlyAit.ID = 0;
+            monthlyAit.Date = $("#Date").val();
+            monthlyAit.FinancialYear = $("#FinancialYear").val();
+            monthlyAit.Month = $("#Month").val();
+            monthlyAit.Corporation = $("#Corporation").val();
+            monthlyAit.Location = $("#Location").val();
+            monthlyAit.TotalAmount = $("#TotAmount").val();
+            
+        }
+        
+    </script>
+}
+
+

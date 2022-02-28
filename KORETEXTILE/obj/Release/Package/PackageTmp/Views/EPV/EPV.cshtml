@@ -1,0 +1,563 @@
+﻿@model BEEERP.Models.ViewModel.Account.EPVVModel
+
+@{
+    ViewBag.Title = "EPV";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .btn:hover {
+        color: blue !important;
+    }
+
+    .btn:focus {
+        background-color: aqua !important;
+    }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="col-md-8">
+                <div class="box ">
+                    <div class="box-header with-border box-head-back" align="center">
+                        <h3 class="box-title">Employee Payment Voucher (EPV) Entry</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                @*<div class="form-group">
+                                    @Html.LabelFor(m => m.EPVNo, new { @class = "col-md-4 control-label " })
+                                    <div class="col-sm-8 input-group" style="padding-left:3%;padding-right:3%;">
+                                        @Html.TextBoxFor(m => m.EPVNo, new { @class = "form-control input-group-sm " })
+                                        @Html.ValidationMessageFor(m => m.EPVNo)
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn skin-blue btn-flat enterTab" id="Search">Search</button>
+                                        </span>
+                                    </div>
+                                </div>*@
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.EPVNo, new { @class = "col-md-4 control-label " })
+                                    <div style="padding-left:3%;padding-right:3%;" class="input-group input-group">
+                                        @Html.TextBoxFor(m => m.EPVNo, new { @class = "form-control digit" })
+                                        @Html.ValidationMessageFor(m => m.EPVNo)
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn skin-blue btn-flat enterTab" id="Search">Search</button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.PayAccId, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.DropDownListFor(m => m.PayAccId, (IEnumerable<SelectListItem>)ViewBag.accounts, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.PayAccId, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Description, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.Description, new { @class = "form-control  " })
+                                        @Html.ValidationMessageFor(m => m.Description, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Date, new { @class = "col-md-4 control-label" })
+                                    <div style="padding-left:3%;padding-right:3%;" class="col-sm-8 input-group">
+                                        @Html.TextBoxFor(m => m.Date, new { @class = "form-control date ", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        @Html.ValidationMessageFor(m => m.Date, "", new { @style = "color: red" })
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.RefNo, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.RefNo, new { @class = "form-control  " })
+                                        @Html.ValidationMessageFor(m => m.RefNo, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-header with-border box-head-back" align="center">
+                    </div>
+                    <div class="box-body">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div style="padding-left:6%;padding-right:3%;" class="form-group">
+                                    @Html.LabelFor(m => m.EmployeeId, new { @class = "col-md-4 control-label " })
+                                    <div class="col-sm-8 input-group">
+                                        @Html.TextBoxFor(m => m.EmployeeId, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.EmployeeId)
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn skin-blue btn-flat enterTab" id="go">Go</button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Amount, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8 ">
+                                        @Html.TextBoxFor(m => m.Amount, new { @class = "form-control  " })
+                                        @Html.ValidationMessageFor(m => m.Amount, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Name, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8 ">
+                                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @ReadOnly = "ReadOnly" })
+                                        @Html.ValidationMessageFor(m => m.Name, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.WorkStation, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8 ">
+                                        @Html.TextBoxFor(m => m.WorkStation, new { @class = "form-control  ", @ReadOnly = "ReadOnly" })
+                                        @Html.ValidationMessageFor(m => m.WorkStation, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.OrganicDesignation, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8 ">
+                                        @Html.TextBoxFor(m => m.OrganicDesignation, new { @class = "form-control  ", @ReadOnly = "ReadOnly" })
+                                        @Html.ValidationMessageFor(m => m.OrganicDesignation, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.FunctionalDesignation, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8 ">
+                                        @Html.TextBoxFor(m => m.FunctionalDesignation, new { @class = "form-control", @ReadOnly = "ReadOnly" })
+                                        @Html.ValidationMessageFor(m => m.FunctionalDesignation, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                                            
+                     </div>
+                  </div>
+                <div class="form-group">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8" align="center">
+                        <input type="button" name="add" id="add" value="Add" class="btn skin-blue" />
+                        <input type="button" value="Save" id="save" class="btn skin-blue" style="padding-left:20px;" />
+                        <input type="button" name="refresh" id="refresh" value="Refresh" class="btn skin-blue" />
+                        <input type="button" name="update" id="update" value="Update" class="btn skin-blue" />
+                        <input type="button" name="delete" id="delete" value="Delete" class="btn skin-blue" />
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="box-header with-border box-head-back" align="center">
+
+                    </div>
+                    <div class="box-body">
+                        <table class="table table-responsive" id="EPVList">
+                            <thead>
+                                <tr>
+                                    <th>Employee ID</th>
+                                    <th>Employee Name</th>
+                                    <th>Amount</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="box ">
+                <div class="box-header with-border box-head-back" align="center">
+                    <h3 class="box-title"></h3>
+                </div>
+                <div class="box-body">
+                    <div class="col-md-12">
+                        @*<div class="form-group">
+                            @Html.LabelFor(m => m.EPVTotal, new { @class = "col-md-4 control-label " })
+                            <div class="input-group input-group-md">
+                                @Html.TextBoxFor(m => m.EPVTotal, new { @class = "form-control enterTab digit", @ReadOnly = "ReadOnly" })
+                                @Html.ValidationMessageFor(m => m.EPVTotal)
+                            </div>
+                        </div>*@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.EPVTotal, new { @class = "col-md-4 control-label" })
+                            <div class="col-sm-8 ">
+                                @Html.TextBoxFor(m => m.EPVTotal, new { @class = "form-control", @ReadOnly = "ReadOnly" })
+                                @Html.ValidationMessageFor(m => m.EPVTotal, "", new { @style = "color: red" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/AccountModule/EPVInputFocus.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $('.select2').select2();
+            EPVFieldEnterPress();
+            $("#delete").hide();
+            $("#update").hide();
+           
+            var addedItems = [];
+            var message = "";
+            var table = $('#EPVList').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            });
+            $(document).on('click', "#go", function () {
+                var empId = { emId: $("#EmployeeId").val() };
+
+                $.ajax({
+                        url: '@Url.Action("GetEmployeeById", "EPV")',
+                        contentType: "application/json;charset=utf-8",
+                        data: empId,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.Message == 0) {
+                                alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+
+                            }
+                            else if (data.Message == 2) {
+                                alert("No Employee is available there against the entered ID");
+
+                            }
+                            else {
+                                $("#EmployeeId").val(empId.emId);
+                                $("#Name").val(data.name);
+                                $("#WorkStation").val(data.workstation);
+                                $("#OrganicDesignation").val(data.organicDesignation);
+                                $("#FunctionalDesignation").val(data.functionalDesignation);
+                                
+                            }
+                        }
+                });
+            });
+            $(document).on('click', '#add', function () {
+                RemoveError();
+                ValidateOnAddClick();
+                if (message == "") {
+                    var epv = { EPVNo: 0, EmployeeId: 0, Name: "", Amount: 0.0 }
+                    epv.EPVNo = parseInt($("#EPVNo").val());
+                    epv.EmployeeId = $("#EmployeeId").val();
+                    epv.Name = $("#Name").val();
+                    epv.Amount = parseFloat($("#Amount").val());
+                    addedItems.push(epv);
+                    ShowOnTable();
+                }
+                else {
+                    //alert(message);
+                }
+            });
+
+            $(document).on('click', '[name="deleteRow"]', function () {
+                var item = $(this).attr("value");
+                if (confirm('Are you sure you want to delete this from grid ?')) {
+                    var newItem = [];
+                    $.each(addedItems, function (index, value) {
+                        if (value.EmployeeId == item) {
+
+                        }
+                        else {
+                            newItem.push(value);
+                        }
+                    });
+                    addedItems = newItem;
+                    ShowOnTable();
+
+                }
+            });
+            $(document).on('click', '[name="editRow"]', function (e) {
+                var item = $(this).attr("value");
+                var newItem = [];
+                $.each(addedItems, function (index, value) {
+                    if (value.EmployeeId == item) {
+                        $("#EmployeeId").val(value.EmployeeId);
+                        $("#go").click();
+                        //$("#EmployeeId").val(value.EmployeeId);
+                        $("#Amount").val(value.Amount);
+                    }
+                    else {
+                        newItem.push(value);
+                    }
+                });
+                addedItems = newItem;
+                ShowOnTable();
+
+            });
+            $(document).on('click', '#Search', function () {
+                ClearOnSearch();
+                var epvNo = { epvNo: parseInt($('#EPVNo').val()) };
+                $.ajax({
+                    url: '@Url.Action("GetEPV", "EPV")',
+                    contentType: "application/json;charset=utf-8",
+                    data:epvNo,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.Message == 0) {
+                            alert("No EPV is available here for your EPV No");
+                        } else if (data.Message ==2) {
+                            alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                        } else
+                        {
+                            $("#update").show();
+                            $("#delete").show();
+                            $("#save").hide();
+                            $("#EPVNo").val(data.epv.EPVNo);
+                            $("#Date").val(moment(data.epv.Date).format("DD-MM-YYYY")).change();
+                            $("#PayAccId").val(data.epv.PayAccId).change();
+                            $("#RefNo").val(data.epv.RefNo);
+                            $("#Description").val(data.epv.Description);
+
+                            $.each(data.epvLineItems, function (index, value) {
+                                var epv = { EPVNo: 0, EmployeeId: 0, Name: "", Amount: 0.0, };
+                                epv.EPVNo = value.EPVNo;
+                                epv.EmployeeId = value.EmployeeId;
+                                epv.Name = value.Name;
+                                epv.Amount = value.Amount;
+                                addedItems.push(epv);
+                            });
+                            ShowOnTable();
+                        }
+                    }
+                });
+            });
+            $(document).on('click', '#save', function () {
+                RemoveError();
+
+                   if (addedItems.length > 0)
+                   {
+                       ValidateSaveClick();
+                       if (message == "") {
+                           if (confirm("Do you want to save?"))
+                           {
+                               $("#save").prop('disabled', true);
+                               var epVoucher = { EPVNo: 0, PayAccId: 0, Date: "", RefNo: "", Description: "", EPVTotal: 0.0 }
+                               epVoucher.EPVNo = $("#EPVNo").val();
+                               epVoucher.PayAccId = $("#PayAccId").val();
+                               epVoucher.RefNo = $("#RefNo").val();
+                               epVoucher.Description = $("#Description").val();
+                               epVoucher.EPVTotal = $("#EPVTotal").val();
+                               epVoucher.Date = $("#Date").val();
+
+                               $.ajax
+                              ({
+                                url: '@Url.Action("SaveEPV", "EPV")',
+                                contentType: "application/json;charset=utf-8",
+                                data: JSON.stringify({epv: epVoucher, epvLineItems: addedItems }),
+                                type: 'POST',
+                                dataType: 'json',
+                                success: function (datas) {
+                                    if (datas.Message == "0") {
+                                        alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                    $("#save").prop('disabled', false);
+                                    }
+                                    else if (datas.Message == "1") {
+                                        alert("Sccessfully saved.");
+                                        location.reload();
+                                    }
+                                    else{
+                                    alert("This MRVA already Exist.");
+                                    $("#save").prop('disabled', false);
+                                    }
+                                }
+                            });
+                           }
+                       }
+
+                   }
+                   else
+                   {
+                    var messageforEmpty = "The Item list is empty";
+                    alert(messageforEmpty);
+                    $("#save").prop('disabled', false);
+                   }
+
+            });
+            $(document).on('click', '#update', function () {
+                RemoveError();
+
+                   if (addedItems.length > 0)
+                   {
+                       ValidateSaveClick();
+                       if (message == "") {
+                           if (confirm("Do you want to update?"))
+                           {
+                               $("#update").prop('disabled', true);
+                               var epVoucher = { EPVNo: 0, PayAccId: 0, Date: "", RefNo: "", Description: "", EPVTotal: 0.0 }
+                               epVoucher.EPVNo = $("#EPVNo").val();
+                               epVoucher.PayAccId = $("#PayAccId").val();
+                               epVoucher.RefNo = $("#RefNo").val();
+                               epVoucher.Description = $("#Description").val();
+                               epVoucher.EPVTotal = $("#EPVTotal").val();
+                               epVoucher.Date = $("#Date").val();
+
+                               $.ajax
+                              ({
+                                url: '@Url.Action("UpdateEPV", "EPV")',
+                                contentType: "application/json;charset=utf-8",
+                                data: JSON.stringify({epv: epVoucher, epvLineItems: addedItems }),
+                                type: 'POST',
+                                dataType: 'json',
+                                success: function (datas) {
+                                    if (datas.Message == "0") {
+                                        alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                    $("#save").prop('disabled', false);
+                                    }
+                                    else{
+                                        alert("Sccessfully updated.");
+                                        location.reload();
+                                    }
+                                }
+                            });
+                           }
+                       }
+
+                   }
+                   else
+                   {
+                    var messageforEmpty = "The Item list is empty";
+                    alert(messageforEmpty);
+                    $("#update").prop('disabled', false);
+                   }
+
+            });
+            $(document).on('click', '#delete', function () {
+                RemoveError();
+
+                   if (addedItems.length > 0)
+                   {
+                       ValidateSaveClick();
+                       if (message == "") {
+                           if (confirm("Do you want to delete?"))
+                           {
+                               $("#update").prop('disabled', true);
+                               var epVoucher = { EPVNo: 0, PayAccId: 0, Date: "", RefNo: "", Description: "", EPVTotal: 0.0 }
+                               epVoucher.EPVNo = $("#EPVNo").val();
+                               epVoucher.PayAccId = $("#PayAccId").val();
+                               epVoucher.RefNo = $("#RefNo").val();
+                               epVoucher.Description = $("#Description").val();
+                               epVoucher.EPVTotal = $("#EPVTotal").val();
+                               epVoucher.Date = $("#Date").val();
+
+                               $.ajax
+                              ({
+                                url: '@Url.Action("DeleteEPV", "EPV")',
+                                contentType: "application/json;charset=utf-8",
+                                data: JSON.stringify({epv: epVoucher, epvLineItems: addedItems }),
+                                type: 'POST',
+                                dataType: 'json',
+                                success: function (datas) {
+                                    if (datas.Message == "0") {
+                                        alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                    $("#save").prop('disabled', false);
+                                    }
+                                    else{
+                                        alert("Sccessfully deleted.");
+                                        location.reload();
+                                    }
+                                }
+                            });
+                           }
+                       }
+
+                   }
+                   else
+                   {
+                    var messageforEmpty = "The Item list is empty";
+                    alert(messageforEmpty);
+                    $("#update").prop('disabled', false);
+                   }
+
+            });
+            function ValidateOnAddClick() {
+                message = "";
+                if ($("#PayAccId").val() == "") {
+                    setError("PayAccId", "Payment Account  is Required Field.");
+                    message = "PayAccId is Required Field."
+                }
+                if ($("#EmployeeId").val() == "") {
+                    setError("EmployeeId", "Employee Id  is Required Field.");
+                    message = "Employee Id is Required Field."
+                }
+                if ($("#Amount").val() == "") {
+                    setError("Amount", "Amount is Required Field.");
+                    message = "Amount  is Required Field."
+                }
+                var emId = $("#EmployeeId").val();
+                $.each(addedItems, function (i, v) {
+                    if (v.EmployeeId == emId) {
+                        alert("The Employee is already added");
+                        message = "Amount  is Required Field."
+                    }
+                });
+
+            }
+            function ValidateSaveClick() {
+                message = "";
+                if ($("#PayAccId").val() == "") {
+                    setError("PayAccId", "Payment Account  is Required Field.");
+                    message = "PayAccId is Required Field."
+                }
+            }
+            $(document).on('click', '#refresh', function () {
+                location.reload();
+            });
+            function ShowOnTable() {
+                table.clear().draw();
+                $.each(addedItems, function (index, value) {
+                    table.row.add([value.EmployeeId, value.Name, value.Amount,
+                    '<a href="#"><i class="fa fa-edit" name="editRow" value="' +
+                        value.EmployeeId + '"></i></a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.EmployeeId + '"></i></a>']).draw();
+                    totalCount();
+                    ClearOnAdd();
+                });
+            }
+            function totalCount() {
+                var total = 0;
+                $.each(addedItems, function (i, v) {
+                    total += v.Amount;
+                });
+                $("#EPVTotal").val(total);
+            }
+            function ClearOnAdd() {
+                $("#EmployeeId").val("");
+                $("#Amount").val("");
+                $("#Name").val("");
+                $("#WorkStation").val("");
+                $("#OrganicDesignation").val("");
+                $("#FunctionalDesignation").val("");
+            }
+            function ClearOnSearch() {
+                $("#PayAccId").val("").change();
+                $("#Date").val("");
+                $("#EPVTotal").val("");
+                $("#Amount").val("");
+                $("#RefNo").val("");
+                $("#Description").val("").change();
+                $("#EmployeeId").val("");
+                $("#Name").val("");
+                $("#WorkStation").val("");
+                $("#OrganicDesignation").val("");
+                $("#FunctionalDesignation").val("");
+            }
+        });
+    </script>
+}

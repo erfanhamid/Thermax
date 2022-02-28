@@ -1,0 +1,1341 @@
+﻿@model BEEERP.Models.CommercialModule.CommercialVM.ImportProformaInvoiceVM
+
+@{
+    ViewBag.Title = "ImportProformaInvoice";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+    .my-tooltip {
+        position: relative;
+        display: inline-block;
+    }
+
+        .my-tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            /* Position the tooltip */
+            position: absolute;
+            z-index: 1;
+            top: -5px;
+            left: 105%;
+            opacity: 0;
+            transition: opacity 0.5s linear;
+        }
+
+        .my-tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+<h3 style="text-align:center">Import Proforma Invoice (IPI) Entry</h3>
+
+
+<form id="report" target="_blank">
+    <div class="content">
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                        <h4 class="box-title"><b>Import Proforma Invoice (IPI) Entry</b></h4>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="box-body" style="background-color:white">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.IPIId, new { @class = "col-md-4 control-label  ", @id = "show" })
+                                        <div class="input-group input-group-sm" style="padding-right:15px;padding-left:14px;">
+                                            @Html.TextBoxFor(m => m.IPIId, new { @class = "form-control enterTab digit", @Value = ViewBag.numberOfIPI })
+
+                                            @*<span class="tooltiptext">Import Proforma Invoice ID</span>*@
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-primary" id="IPIDSearch" style="min-width: 50px">Search</button>
+                                            </span>
+                                        </div>
+                                        <div class="col-md-4"></div>
+                                        <div class="col-md-8">
+                                            @Html.ValidationMessageFor(m => m.IPIId)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.IPINO, "IPI No", new { @class = "col-md-4 control-label " })
+                                        <div class="input-group input-group-sm" style="padding-right:15px;padding-left:14px;">
+                                            @Html.TextBoxFor(m => m.IPINO, new { @class = "form-control enterTab ", @Value = ViewBag.supplierNo })
+
+                                            @*<span class="tooltiptext">Import Proforma Invoice No</span>*@
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-primary" id="IPINOSearch" style="min-width: 20px">Go</button>
+                                            </span>
+                                        </div>
+                                        <div class="col-md-4"></div>
+                                        <div class="col-md-8">
+                                            @Html.ValidationMessageFor(m => m.IPINO)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.IPIDate, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 input-group" style="padding-right:15px;padding-left:14px;">
+                                            @Html.TextBoxFor(m => m.IPIDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            @Html.ValidationMessageFor(m => m.IPIDate, "", new { @style = "color: red" })
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.LCType, new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8 ">
+                                            @Html.DropDownListFor(m => m.LCType, (IEnumerable<SelectListItem>)ViewBag.LcType, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.LCType, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <br /><br />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="box-body" style="background-color:white;padding-bottom:12%;">
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.SupplierId, new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8 ">
+                                            @Html.DropDownListFor(m => m.SupplierId, (IEnumerable<SelectListItem>)ViewBag.Supplier, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.SupplierId, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.IncotermsId, "Inco Term", new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8 ">
+                                            @Html.DropDownListFor(m => m.IncotermsId, (IEnumerable<SelectListItem>)ViewBag.Incoterms, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.IncotermsId, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.CurrencyId, new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8 ">
+                                            @Html.DropDownListFor(m => m.CurrencyId, (IEnumerable<SelectListItem>)ViewBag.Currency, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.CurrencyId, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.MoPId, "MoP", new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8 ">
+                                            @Html.DropDownListFor(m => m.MoPId, (IEnumerable<SelectListItem>)ViewBag.MOP, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.MoPId, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 ">
+                                <div class="box-body" style="background-color:white;padding-bottom:8%;">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.LoadingPortId, new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8 ">
+                                            @Html.DropDownListFor(m => m.LoadingPortId, (IEnumerable<SelectListItem>)ViewBag.Ports, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.LoadingPortId, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.DischargePortId, new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8 ">
+                                            @Html.DropDownListFor(m => m.DischargePortId, (IEnumerable<SelectListItem>)ViewBag.Ports, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.DischargePortId, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.IssuingBankId, new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8 ">
+                                            @Html.DropDownListFor(m => m.IssuingBankId, (IEnumerable<SelectListItem>)ViewBag.IssuingBanks, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.IssuingBankId, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.BeneficiaryBankId, new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8 ">
+                                            @Html.DropDownListFor(m => m.BeneficiaryBankId, (IEnumerable<SelectListItem>)ViewBag.BeneficiaryBanks, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.BeneficiaryBankId, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 ">
+                    <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                        <h4 class="box-title"><b>IPI Item</b></h4>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="box-body" style="background-color:white; padding-bottom:27%;">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.GroupId, "Group", new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.DropDownListFor(m => m.GroupId, (IEnumerable<SelectListItem>)ViewBag.Group, new { @class = "form-control select2" })
+                                    @Html.ValidationMessageFor(m => m.GroupId, "", new { @style = "color: red" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ItemId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.DropDownListFor(m => m.ItemId, (IEnumerable<SelectListItem>)ViewBag.Items, new { @class = "form-control select2" })
+                                    @Html.ValidationMessageFor(m => m.ItemId, "", new { @style = "color: red" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.UOM, "UoM", new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.TextBoxFor(m => m.UOM,  new { @class = "form-control", @ReadOnly = "Readonly" })
+                                    @Html.ValidationMessageFor(m => m.UOM, "", new { @style = "color: red" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="box-body" style="background-color:white;padding-bottom:24%;">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Qty, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.TextBoxFor(m => m.Qty, new { @class = "form-control ", @type = "number" })
+                                    @Html.ValidationMessageFor(m => m.Qty, "", new { @style = "color: red" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Rate, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.TextBoxFor(m => m.Rate, new { @class = "form-control ", @type = "number" })
+                                    @Html.ValidationMessageFor(m => m.Rate, "", new { @style = "color: red" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Value, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 col-sm-8 col-xs-8 col-lg-8">
+                                    @Html.TextBoxFor(m => m.Value, new { @class = "form-control ", @ReadOnly = "Readonly" })
+                                    @Html.ValidationMessageFor(m => m.Value, "", new { @style = "color: red" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="box-body" style="background-color:white;padding-bottom:27%;">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.HSCode,"HS Code", new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.TextBoxFor(m => m.HSCode, "HS Code", new { @class = "form-control", @Value = "" })
+                                    @Html.ValidationMessageFor(m => m.HSCode, "", new { @style = "color: red" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.PackingNote, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.TextBoxFor(m => m.PackingNote, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.PackingNote, "", new { @style = "color: red" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="box-body" style="background-color:white;padding-bottom:0%;">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ItemTotal, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.TextBoxFor(m => m.ItemTotal, new { @class = "form-control digit", @ReadOnly = "Readonly" })
+                                    @Html.ValidationMessageFor(m => m.ItemTotal, "", new { @style = "color: red" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Freight, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.TextBoxFor(m => m.Freight, new { @class = "form-control ", @type = "number" })
+                                    @Html.ValidationMessageFor(m => m.Freight, "", new { @style = "color: red" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.GrandTotal, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.TextBoxFor(m => m.GrandTotal, new { @class = "form-control digit ", @ReadOnly = "Readonly" })
+                                    @Html.ValidationMessageFor(m => m.GrandTotal, "", new { @style = "color: red" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12 ">
+
+                                </div>
+                            </div>
+                            <div style="padding-top:10%;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box">
+                <div class="box-footer">
+                    <div class="form-group" , style="text-align:center">
+                        <input type="button" name="add" id="add" value="Add To Grid" class="btn skin-blue" style="border:solid white" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                        <h2 class="box-title"><b>IPI Item List</b></h2>
+                    </div>
+                    <div class="box-body">
+                        <table class="table table-responsive" id="ItemList">
+                            <thead>
+                                <tr>
+                                    <th>Group</th>
+                                    <th>Item</th>
+                                    <th>Qty</th>
+                                    <th>Rate</th>
+                                    <th>Value</th>
+                                    <th>HS Code</th>
+                                    <th>Packing  Descriptions</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="box">
+                <div class="box-footer">
+                    <div class="form-group" , style="text-align:center">
+                        <input type="button" name="save" value="Save" id="save" class="btn btn-primary"  />
+                        <input type="button" name="delete" value="Delete" id="delete" class="btn btn-primary" />
+                        <input type="button" name="update" value="Update" id="update" class="btn btn-primary" />
+                        <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                        <input type="button" name="print" id="print" value="Print" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+<input type="hidden" id="message" value="false" />
+@section scripts{
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/CommercialModule/ImportProformaInvoiceInputFocua.js"></script>
+    <script>
+       $(document).ready(function () {
+           ImportProformaInvoiceEnterPress();
+
+           var itemid = 0;
+           var isValid = true;
+           var supplierAccNo = "";
+           var supplierBankName = "";
+           var supplierBankAddress = "";
+
+           $('.select2').select2();
+           var addedItems = [];
+           var message = "";
+           var poNo = 0;
+           var isSearch = false;
+           $('.date').datepicker({
+               autoclose: true,
+               format: 'dd-mm-yyyy',
+           });
+           $("#update").hide();
+           $("#delete").hide();
+           var table = $('#ItemList').DataTable({
+               'paging': true,
+               'lengthChange': false,
+               'searching': true,
+               'ordering': true,
+               'info': true,
+               'autoWidth': false
+           });
+           $(".digit").keypress(function (e) {
+               if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                   $("#errormsg").html("Digits Only").show().fadeOut("slow");
+                   return false;
+               }
+           });
+
+           $(document).on('click', '#add', function () {
+               RemoveError();
+               ValidateOnAddClick();
+               var IPIItem = { IPIId: 0, GroupId: 0, GroupName: "", ItemId: 0, ItemName: "", Qty: 0, Rate: 0, Value: 0, HSCode: "", PackingNote: "" };
+
+               if (message == "") {
+                   IPIItem.IPIId = $("#IPIId").val();
+                   IPIItem.GroupId = $("#GroupId").val();
+                   IPIItem.GroupName = $("#GroupId :selected").text();
+                   IPIItem.ItemId = $("#ItemId").val();
+                   IPIItem.ItemName = $("#ItemId :selected").text();
+                   IPIItem.Qty = $("#Qty").val();
+                   IPIItem.Rate = $("#Rate").val();
+                   IPIItem.Value = $("#Value").val();
+                   IPIItem.HSCode = $("#HSCode").val();
+                   IPIItem.PackingNote = $("#PackingNote").val();
+                   addedItems.push(IPIItem);
+                   ShowOnTable();
+                   clearOnAddClick();
+               }
+               else {
+
+               }
+           });
+           $(document).on('click', "#print", function (event) {
+               //event.preventDefault();
+               //if ($("#message").val() != "true") {
+               //    $("#report").attr("action", "/ImportProformaInvoice/GetIPIPreview")
+               //    $("#report").submit();
+               //}
+           });
+           //$('input[type=radio][name=radio]').change(function ()
+           //$(document).on('change', "#LCType", function ()
+           $("#LCType").change(function (){
+
+               var data = $(this).val();
+
+               if (data =="Fixed Asset") {
+                   data = "FA";
+               }
+               else {
+                   data = "RM";
+               }
+               console.log(data);
+            if (data == "RM") {
+                $.ajax({
+                    url: '@Url.Action("LoadRMGroup", "WorkOrder")',
+                    contentType: "application/json;charset=utf-8",
+                    //data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        $("#GroupId").empty();
+                        $("#GroupId").prop("disabled", false);
+                        $.each(datas, function (index, value) {
+                            $("#GroupId").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                        $("#GroupId").focus();
+                        //if (itemId != "") {
+                        //    $("#GroupID").val(itemId).change();
+                        //    itemId = "";
+                        //}
+                    }
+                });
+            }
+            else if (data == "FA") {
+                $.ajax({
+                    url: '@Url.Action("LoadFAGroup", "WorkOrder")',
+                    contentType: "application/json;charset=utf-8",
+                    //data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        $("#GroupId").empty();
+                        $("#GroupId").prop("disabled", false);
+                        $.each(datas, function (index, value) {
+                            $("#GroupId").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                        $("#GroupId").focus();
+                        //if (itemId != "") {
+                        //    $("#GroupID").val(itemId).change();
+                        //    itemId = "";
+                        //}
+                    }
+                });
+            }
+            else {
+                $("#ItemID").val("").change();
+                $("#ItemID").prop("disabled", true);
+            }
+        });
+           $(document).on('change', '#SupplierId', function () {
+               RemoveError();
+               var sId = { sid: parseInt($("#SupplierId").val()) };
+               $.ajax({
+                   url: '@Url.Action("GetPuechaseOderNoBySupplierId", "ImportProformaInvoice")',
+                   contentType: "application/json;charset=utf-8",
+                   data: sId,
+                   type: 'GET',
+                   dataType: 'json',
+                   success: function (data) {
+                       $("#PurchaseOrderNo").empty();
+                       $.each(data.purchaseOrders, function (index, value) {
+                           $("#PurchaseOrderNo").append($('<option/>', {
+                               value: value.Value,
+                               text: value.Text
+                           })).trigger('change');
+                       });
+                       //if (isSearch == true) {
+                       //    $("#PurchaseOrderNo").val(poNo).change();
+                       //    poNo = 0;
+                       //}
+                       if (supplierAccNo != "" && supplierAccNo != null) {
+                           $("#SupplierAccNo").val(supplierAccNo);
+                           supplierAccNo = "";
+                       }
+                       else {
+                           $("#SupplierAccNo").val(data.suplier.BankAccountNumber);
+                       }
+                       if (supplierBankName != "" && supplierBankName != null) {
+                           $("#SupBankName").val(supplierBankName);
+                           supplierBankName = "";
+                       }
+                       else {
+                           $("#SupBankName").val(data.suplier.BankName);
+                       }
+                       if (supplierBankAddress != "" && supplierBankAddress != null) {
+                           $("#SupBankAddress").val(supplierBankAddress);
+                           supplierBankAddress = "";
+                       }
+                       else {
+                           $("#SupBankAddress").val(data.suplier.BankAddress);
+                       }
+                   }
+               });
+           })
+
+           $(document).on('click', '#save', function () {
+               RemoveError();
+             $("#save").prop('disabled', true);
+             if (addedItems.length > 0)
+             {
+                 ValidateToSaveClick();
+                 if (isValid == true) {
+                     if (confirm("Do you want to save?")) {
+                         var IPI = { IPIId: 0, IPINO: "", SupplierId: 0, IPIDate: "", LCType: "", CurrencyId: 0, MoPId: 0, LoadingPortId: 0, DischargePortId: 0, IncotermsId: 0, BeneficiaryBankId: 0, IssuingBankId: 0, ItemTotal: 0, Freight: 0, GrandTotal: 0};
+                         IPI.IPIId = $("#IPIId").val();
+                         IPI.IPINO = $("#IPINO").val();
+                         IPI.SupplierId = $("#SupplierId").val();
+                         IPI.IPIDate = $("#IPIDate").val();
+                         IPI.LCType = $("#LCType").val();
+                         IPI.CurrencyId = $("#CurrencyId").val();
+                         IPI.MoPId = $("#MoPId").val();
+                         IPI.LoadingPortId = $("#LoadingPortId").val();
+                         IPI.DischargePortId = $("#DischargePortId").val();
+                         IPI.IncotermsId = $("#IncotermsId").val();
+                         IPI.BeneficiaryBankId = $("#BeneficiaryBankId").val();
+                         IPI.IssuingBankId = $("#IssuingBankId").val();
+                         IPI.ItemTotal = $("#ItemTotal").val();
+                         IPI.Freight = $("#Freight").val();
+                         IPI.GrandTotal = $("#GrandTotal").val();
+
+
+                         $.ajax({
+                             url: '@Url.Action("SaveIPI", "ImportProformaInvoice")',
+                             contentType: "application/json;charset=utf-8",
+                             data: JSON.stringify({ importProformaInvoice: IPI, addedItems: addedItems }),
+                             type: 'POST',
+                             dataType: 'json',
+                             success: function (datas) {
+                                 if (datas.Message == "0") {
+                                     alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                     $("#save").prop('disabled', false);
+                                 }
+                                 else if (datas.Message == "1") {
+                                     alert("Sccessfully saved.")
+                                     //location.reload();
+                                 }
+                                 else if (datas.Message == "2") {
+                                     alert("This IPI already Exist.");
+                                     $("#save").prop('disabled', false);
+                                 }
+
+                             }
+                         });
+                     }
+                     else{
+                         $("#save").prop('disabled', false);
+                     }
+
+                 }
+                 else {
+                     $("#save").prop('disabled', false);
+                 }
+
+             }
+             else
+             {
+                var messageforEmpty = "The Item list is empty";
+                alert(messageforEmpty);
+                $("#save").prop('disabled', false);
+             }
+           });
+
+           $(document).on('click', "#IPIDSearch", function ()
+           {
+               RemoveError();
+               isSearch = true;
+               var id = { ipiid: parseInt($("#IPIId").val()) };
+               if ($("#IPIId").val() != "") {
+                   $.ajax(
+                       {
+                           url: '@Url.Action("GetIPIByIPIId", "ImportProformaInvoice")',
+                           contentType: "application/json;charset=utf-8",
+                           data: id,
+                           type: 'GET',
+                           dataType: 'json',
+                           success: function (datas) {
+                               if (datas.Message == 0) {
+                                   alert("Your entered IPI No. Doesn't exist");
+                               }
+                               if (datas.Message == 2) {
+                                   alert("Fatal Error! Please Recheck your data");
+                               }
+                               else {
+                                   $("#save").hide();
+                                   $("#update").show();
+                                   $("#delete").show();
+                                   $("#update").prop('disabled', false);
+                                   $("#delete").prop('disabled', false);
+                                   $("#IPIId").val(datas.ipi.IPIId);
+                                   $("#IPINO").val(datas.ipi.IPINO);
+                                   $("#MoPId").val(datas.ipi.MoPId).change();
+                                   $("#IncotermsId").val(datas.ipi.IncotermsId).change();
+                                   $("#SupplierId").val(datas.ipi.SupplierId).change();
+                                   $("#LCType").val(datas.ipi.LCType).change();
+                                   $("#LoadingPortId").val(datas.ipi.LoadingPortId).change();
+                                   $("#BeneficiaryBankId").val(datas.ipi.BeneficiaryBankId).change();
+                                   $("#IPIDate").val((moment(datas.ipi.IPIDate).format("DD-MM-YYYY"))).change();
+                                   $("#CurrencyId").val(datas.ipi.CurrencyId).change();
+                                   $("#DischargePortId").val(datas.ipi.DischargePortId).change();
+                                   $("#IssuingBankId").val(datas.ipi.IssuingBankId).change();
+                                   //$("#ItemTotal").val(datas.ipi.ItemTotal);
+                                   $("#Freight").val(datas.ipi.Freight);
+                                   //$("#GrandTotal").val(datas.ipi.GrandTotal);
+
+                                   $("#PartialShipment").val(datas.ipi.PartialShipment).change();
+                                   $("#Transhipment").val(datas.ipi.Transhipment).change();
+                                   $("#SwiftCode").val(datas.ipi.SwiftCode);
+                                   //$("#SupBankName").val(datas.ipi.SupBankName);
+                                   //$("#SupBankAddress").val(datas.ipi.SupBankAddress);
+                                   //poNo = datas.ipi.PurchaseOrderNo;
+                                   supplierAccNo = datas.ipi.SupplierAccNo;
+                                   supplierBankName = datas.ipi.SupBankName;
+                                   supplierBankAddress = datas.ipi.SupBankAddress;
+                                   //$("#PurchaseOrderNo").val(datas.ipi.PurchaseOrderNo).change();
+                                   addedItems = [];
+                                   $.each(datas.ipilineItems, function (index, value) {
+                                       var IPIItem = { IPIId: 0, GroupId: 0, GroupName: "", ItemId: 0, ItemName: "", Qty: 0, Rate: 0, Value: 0, HSCode: "", PackingNote: "", PurchaseOrderNo: 0, RatePerLiter: 0 };
+                                       IPIItem.IPIId = value.IPIId;
+                                       IPIItem.GroupId = value.GroupId;
+                                       IPIItem.GroupName = value.GroupName;
+                                       IPIItem.ItemId = value.ItemId;
+                                       IPIItem.ItemName = value.ItemName;
+                                       IPIItem.Qty = value.Qty;
+                                       IPIItem.Rate = value.Rate;
+                                       IPIItem.Value = value.Value;
+                                       IPIItem.HSCode = value.HSCode;
+                                       IPIItem.PackingNote = value.PackingNote;
+                                       IPIItem.PurchaseOrderNo = value.PurchaseOrderNo;
+                                       IPIItem.RatePerLiter = value.RatePerLiter;
+                                       addedItems.push(IPIItem);
+                                   });
+                                   ShowOnTable();
+                               }
+                           },
+                           error: function () {
+                               alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+
+                           }
+                       });
+               }
+               else {
+                   setError("IPIId", "IPIId is Required for get data.");
+               }
+                //ClearOnSearch();
+
+           });
+           $(document).on('click', "#IPINOSearch", function ()
+           {
+               RemoveError();
+               var id = { ipiNo: parseInt($("#IPINO").val()) };
+               //ClearOnSearch();
+               if ($("#IPINO").val() != "") {
+                   $.ajax(
+                       {
+                           url: '@Url.Action("GetIPIByIPINo", "ImportProformaInvoice")',
+                           contentType: "application/json;charset=utf-8",
+                           data: id,
+                           type: 'GET',
+                           dataType: 'json',
+                           success: function (datas) {
+                               if (datas.Message == 0) {
+                                   alert("Your entered IPI No. Doesn't exist");
+                               }
+                               if (datas.Message == 2) {
+                                   alert("Fatal Error! Please Recheck your data");
+                               }
+                               else {
+                                   $("#save").hide();
+                                   $("#update").show();
+                                   $("#delete").show();
+                                   $("#update").prop('disabled', false);
+                                   $("#delete").prop('disabled', false);
+                                   $("#IPIId").val(datas.ipi.IPIId);
+                                   $("#IPINO").val(datas.ipi.IPINO);
+                                   $("#MoPId").val(datas.ipi.MoPId).change();
+                                   $("#IncotermsId").val(datas.ipi.IncotermsId).change();
+                                   $("#SupplierId").val(datas.ipi.SupplierId).change();
+                                   $("#LCType").val(datas.ipi.LCType).change();
+                                   $("#LoadingPortId").val(datas.ipi.LoadingPortId).change();
+                                   $("#BeneficiaryBankId").val(datas.ipi.BeneficiaryBankId).change();
+                                   $("#IPIDate").val((moment(datas.ipi.IPIDate).format("DD-MM-YYYY"))).change();
+                                   $("#CurrencyId").val(datas.ipi.CurrencyId).change();
+                                   $("#DischargePortId").val(datas.ipi.DischargePortId).change();
+                                   $("#IssuingBankId").val(datas.ipi.IssuingBankId).change();
+                                   //$("#ItemTotal").val(datas.ipi.ItemTotal);
+                                   $("#Freight").val(datas.ipi.Freight);
+                                   //$("#GrandTotal").val(datas.ipi.GrandTotal);
+                                   $("#PartialShipment").val(datas.ipi.PartialShipment).change();
+                                   $("#Transhipment").val(datas.ipi.Transhipment).change();
+                                   $("#SwiftCode").val(datas.ipi.SwiftCode);
+                                   //$("#SupBankName").val(datas.ipi.SupBankName);
+                                   //$("#SupBankAddress").val(datas.ipi.SupBankAddress);
+                                   supplierAccNo = datas.ipi.SupplierAccNo;
+                                   supplierBankName = datas.ipi.SupBankName;
+                                   supplierBankAddress = datas.ipi.SupBankAddress;
+
+                                   addedItems = [];
+                                   $.each(datas.ipilineItems, function (index, value) {
+                                       var IPIItem = { IPIId: 0, GroupId: 0, GroupName: "", ItemId: 0, ItemName: "", Qty: 0, Rate: 0, Value: 0, HSCode: "", PackingNote: "", PurchaseOrderNo: 0, RatePerLiter: 0 };
+                                       IPIItem.IPIId = value.IPIId;
+                                       IPIItem.GroupId = value.GroupId;
+                                       IPIItem.GroupName = value.GroupName;
+                                       IPIItem.ItemId = value.ItemId;
+                                       IPIItem.ItemName = value.ItemName;
+                                       IPIItem.Qty = value.Qty;
+                                       IPIItem.Rate = value.Rate;
+                                       IPIItem.Value = value.Value;
+                                       IPIItem.HSCode = value.HSCode;
+                                       IPIItem.PackingNote = value.PackingNote;
+                                       IPIItem.PurchaseOrderNo = value.PurchaseOrderNo;
+                                       IPIItem.RatePerLiter = value.RatePerLiter;
+                                       addedItems.push(IPIItem);
+                                   });
+                                   ShowOnTable();
+                               }
+                           },
+                           error: function () {
+                               alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+
+                           }
+                       });
+               }
+               else {
+                   setError("IPINO", "IPINO is required for get data.");
+               }
+
+           });
+            $(document).on('click', '#update', function () {
+               if (addedItems.length > 0) {
+                   $("#update").prop('disabled', true);
+                   ValidateToSaveClick();
+                   if (isValid == true) {
+                       if (confirm("Do you want to update?")) {
+
+                           var IPI = { IPIId: 0, IPINO: "", SupplierId: 0, IPIDate: "", LCType: "", CurrencyId: 0, MoPId: 0, LoadingPortId: 0, DischargePortId: 0, IncotermsId: 0, BeneficiaryBankId: 0, IssuingBankId: 0, ItemTotal: 0, Freight: 0, GrandTotal: 0, PartialShipment: "", Transhipment: "", SwiftCode: "", SupplierAccNo: "", SupBankName: "", SupBankAddress: "" };
+                           IPI.IPIId = $("#IPIId").val();
+                           IPI.IPINO = $("#IPINO").val();
+                           IPI.SupplierId = $("#SupplierId").val();
+                           IPI.IPIDate = $("#IPIDate").val();
+                           IPI.LCType = $("#LCType").val();
+                           IPI.CurrencyId = $("#CurrencyId").val();
+                           IPI.MoPId = $("#MoPId").val();
+                           IPI.LoadingPortId = $("#LoadingPortId").val();
+                           IPI.DischargePortId = $("#DischargePortId").val();
+                           IPI.IncotermsId = $("#IncotermsId").val();
+                           IPI.BeneficiaryBankId = $("#BeneficiaryBankId").val();
+                           IPI.IssuingBankId = $("#IssuingBankId").val();
+                           IPI.ItemTotal = $("#ItemTotal").val();
+                           IPI.Freight = $("#Freight").val();
+                           IPI.GrandTotal = $("#GrandTotal").val();
+                           //IPI.PurchaseOrderNo = $("#PurchaseOrderNo").val();
+                           //IPI.PartialShipment = $("#PartialShipment").val();
+                           //IPI.Transhipment = $("#Transhipment").val();
+                           //IPI.SwiftCode = $("#SwiftCode").val();
+                           //IPI.SupplierAccNo = $("#SupplierAccNo").val();
+                           //IPI.SupBankName = $("#SupBankName").val();
+                           //IPI.SupBankAddress = $("#SupBankAddress").val();
+
+                           $.ajax({
+                               url: '@Url.Action("UpdateIPI", "ImportProformaInvoice")',
+                               contentType: "application/json;charset=utf-8",
+                               data: JSON.stringify({ importProformaInvoice: IPI, addedItems: addedItems }),
+                               type: 'POST',
+                               dataType: 'json',
+                               success: function (datas) {
+                                 if (datas.Message == "0") {
+                                     alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                    $("#save").prop('disabled', false);
+                                 }
+                                 else if (datas.Message == "1") {
+                                     alert("Sccessfully Updated.")
+                                     //location.reload();
+                                 }
+                                 else if (datas.Message == "2") {
+                                    alert("This IPI already Exist.");
+                                     $("#update").prop('disabled', false);
+                                 }
+
+                               }
+                           });
+                       }
+                       else{
+                           $("#update").prop('disabled', false);
+                       }
+                   }
+                   else{
+                       $("#update").prop('disabled', false);
+                   }
+
+               }
+               else {
+                   var messageforEmpty = "The Item list is empty";
+                   alert(messageforEmpty);
+                   $("#update").prop('disabled', false);
+               }
+           });
+           //$(document).on('keyup', '#Qty', function () {
+           //    if ($("#Qty").val() == "") {
+           //        $("#Qty").val(parseFloat(0));
+           //    }
+           //    else {
+           //        $("#Qty").val(parseFloat($("#Qty").val()));
+           //    }
+           //    if ($("#Rate").val() == "") {
+           //        $("#Rate").val(parseFloat(0));
+           //    }
+           //    else {
+           //        $("#Rate").val(parseFloat($("#Rate").val()));
+           //    }
+
+           //    $('#Value').val((parseFloat($('#Qty').val()) * parseFloat($("#Rate").val())));
+           //});
+           //$(document).on('keyup', '#Rate', function () {
+           //    if ($("#Qty").val() == "") {
+           //        $("#Qty").val(parseFloat(0));
+           //    }
+           //    else {
+           //        $("#Qty").val(parseFloat($("#Qty").val()));
+           //    }
+           //    if ($("#Rate").val() == "") {
+           //        $("#Rate").val(parseFloat(0));
+           //    }
+           //    else {
+           //        $("#Rate").val(parseFloat($("#Rate").val()));
+           //    }
+           //    $('#Value').val((parseFloat($('#Rate').val()) * parseFloat($("#Qty").val())));
+           //});
+           $(document).on('click', '#delete', function () {
+
+               $("#delete").prop('disabled', true);
+               if (confirm("Do you want to delete?")) {
+                   var ipiid = { ipinvoiceId: parseInt( $("#IPIId").val()) };
+                       $.ajax({
+                           url: '@Url.Action("DeleteIPI", "ImportProformaInvoice")',
+                           contentType: "application/json;charset=utf-8",
+                           data: ipiid,
+                           //data: JSON.stringify({ ipiid }),
+                           type: 'GET',
+                           dataType: 'json',
+                           success: function (datas) {
+                               if (datas.Message == "0") {
+                                   alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                   $("#delete").prop('disabled', false);
+                               }
+                               else if (datas.Message == "1") {
+                                   alert("Sccessfully deleted.")
+                                   location.reload();
+                               }
+                               else if (datas.Message == "2") {
+                                   alert("This Import Proforma invoice is not available")
+                               }
+                               else {
+                                   alert("This Import Proforma invoice can not be deleted because It is Letter of credit now")
+                               }
+                           }
+                       });
+                   }
+
+           });
+           function ValidateOnAddClick() {
+
+               message = "";
+               //if ($("#SupplierId").val() == "") {
+               //    setError("SupplierId", "Supplier is Required Field.\n");
+               //    message = "SupplierId Name is Required Field."
+               //}
+               if ($("#ItemId").val() == "") {
+                   setError("ItemId", "Item is Required Field.\n");
+                   message = "ItemId  is Required Field."
+               }
+               if ($("#Qty").val() == "") {
+                   setError("Qty", "Qty is Required Field.\n");
+                   message = "Qty  is Required Field."
+               }
+               if ($("#Rate").val() == "") {
+                   setError("Rate", "Rate is Required Field.\n");
+                   message = "Rate  is Required Field."
+               }
+               if ($("#Rate").val() <= 0) {
+                   setError("Rate", "Rate Must be Grater than Zero.\n");
+                   message = "Rate Must be Grater than Zero."
+               }
+               if ($("#Value").val() == "") {
+                   setError("Value", "Value is Required Field.\n");
+                   message = "Value  is Required Field."
+               }
+               if ($("#HSCode").val() == "") {
+                   setError("HSCode", "HSCode is Required Field.\n");
+                   message = "HSCode  is Required Field."
+               }
+               //if ($("#PackingNote").val() == "") {
+               //    setError("PackingNote", "PackingNote is Required Field.\n");
+               //    message = "Packing Note  is Required Field."
+               //}
+               //if ($("#IPINO").val() == "") {
+               //    setError("IPINO", "IPI NO is Required Field.\n");
+               //    message = "IPI NO  is Required Field."
+               //}
+               if ($("#PurchaseOrderNo").val() == "") {
+                   setError("PurchaseOrderNo", "Purchase Order No is Required Field.\n");
+                   message = "Purchase Order No is Required Field."
+               }
+               if ($("#RatePerLiter").val() == "") {
+                   setError("RatePerLiter", "Rate Per Liter/KG is Required Field.\n");
+                   message = "Rate Per Liter/KG is Required Field."
+               }
+
+               //var item = $("#ItemId").val();
+               //$.each(addedItems, function (key, value) {
+
+               //    if (value.ItemId == item) {
+               //        setError("ItemId", "Item is already Exist.")
+               //        message += "Already Exist";
+               //        //alert(message);
+               //    }
+               //});
+           }
+
+           function ValidateToSaveClick() {
+               isValid = true;
+               if ($("#IPINO").val() == "") {
+                   setError("IPINO", "IPI NO is Required Field.\n");
+                   isValid = false;
+               }
+               if ($("#SupplierId").val() == "") {
+                   setError("SupplierId", "Supplier Id is Required Field.\n");
+                   isValid = false;
+               }
+               if ($("#IPIDate").val() == "") {
+                   setError("IPIDate", "IPIDate is Required Field.\n");
+                   isValid = false;
+               }
+               if ($("#LCType").val() == "") {
+                   setError("LCType", "LC Type is Required Field.\n");
+                   isValid = false;
+               }
+               if ($("#CurrencyId").val() == "") {
+                   setError("CurrencyId", "Currency is Required Field.\n");
+                   isValid = false;
+               }
+               if ($("#LoadingPortId").val() == "") {
+                   setError("LoadingPortId", "Loading Port is Required Field.\n");
+                   isValid = false;
+               }
+               if ($("#DischargePortId").val() == "") {
+                   setError("DischargePortId", "Discharge Port is Required Field.\n");
+                   isValid = false;
+               }
+               if ($("#BeneficiaryBankId").val() == "") {
+                   setError("BeneficiaryBankId", "Beneficiary Bank is Required Field.\n");
+                   isValid = false;
+               }
+               if ($("#IssuingBankId").val() == "") {
+                   setError("IssuingBankId", "Issuing Bank is Required Field.\n");
+                   isValid = false;
+               }
+
+               //if ($("#PartialShipment").val() == "") {
+               //    setError("PartialShipment", "Partial Shipment is Required Field.\n");
+               //    isValid = false;
+               //}
+               if ($("#Transhipment").val() == "") {
+                   setError("Transhipment", "Transhipment is Required Field.\n");
+                   isValid = false;
+               }
+               if ($("#SwiftCode").val() == "") {
+                   setError("SwiftCode", "SwiftCode is Required Field.\n");
+                   isValid = false;
+               }
+           }
+
+           $(document).on('click', '#refresh', function () {
+               location.reload();
+           });
+           //var totalValue = 0;
+           //if ($("#Freight").val() == "") {
+           //    $("#Freight").val(parseInt(0));
+           //}
+           function ShowOnTable() {
+               table.clear().draw();
+               var totalValue = 0;
+               $.each(addedItems, function (index, value) {
+                   table.row.add([value.GroupName, value.ItemName, value.Qty, value.Rate, value.Value, value.HSCode, value.PackingNote,
+                   '<a href="#"><i class="fa fa-edit" name="editRow" value="' +
+                       value.ItemId + '"></i></a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.ItemId + '"></i></a>']).draw();
+                   totalValue += parseFloat( value.Value);
+               });
+               $("#ItemTotal").val(parseFloat(totalValue).toFixed(2));
+
+               if ($("#Freight").val() != "") {
+                   $("#GrandTotal").val(parseFloat($("#ItemTotal").val()) + parseFloat($("#Freight").val()));
+               }
+               else {
+                   $("#GrandTotal").val(parseFloat($("#ItemTotal").val()).toFixed(2));
+               }
+
+           }
+           $(document).on('keypress', '#Freight', function () {
+               if (parseFloat($("#Freight").val()) == 0) {
+                   $("#Freight").val("");
+               }
+           });
+
+           $(document).on('keyup', '#Freight', function () {
+               if ($("#Freight").val() == "") {
+
+                   //$("#Freight").val(parseInt(0));
+                   $("#GrandTotal").val($("#ItemTotal").val());
+               }
+               else {
+                   $("#GrandTotal").val(parseFloat($("#ItemTotal").val()) + parseFloat($("#Freight").val()));
+               }
+
+
+           //    //if ($("#ItemTotal").val() == "") {
+           //    //    $("#ItemTotal").val(parseFloat(0));
+           //    //}
+
+           //    //if ($("#ItemTotal").val() == "") {
+           //    //    $("#GrandTotal").val(parseFloat(0));
+           //    //}
+           //    //else {
+           //    //    $("#GrandTotal").val(parseFloat($("#ItemTotal").val()));
+           //    //}
+           //    //if ($("#Freight").val() == "") {
+           //    //    $("#Freight").val(parseFloat(0));
+           //    //}
+           //    //else {
+           //    //    $("#GrandTotal").val(parseFloat($("#ItemTotal").val()).toFixed(2) + parseFloat($("#Freight").val()).toFixed(2));
+           //    //}
+           //    //$('#GrandTotal').val((parseFloat($('#ItemTotal').val()) + parseFloat($("#Freight").val())));
+
+           });
+           $(document).on('click', '[name="deleteRow"]', function () {
+               var item = $(this).attr("value");
+               if (confirm('Are you sure that you  want to delete this from grid ?')) {
+                   var newItem = [];
+                   $.each(addedItems, function (index, value) {
+                       if (value.ItemId == item) {
+                           //addedItems.pop(value.ItemId)
+                       }
+                       else {
+                           newItem.push(value);
+                       }
+                   });
+                   addedItems = newItem;
+                   ShowOnTable();
+               }
+           });
+           $(document).on('click', '[name="editRow"]', function (e) {
+               var item = $(this).attr("value");
+               var newItem = [];
+               $.each(addedItems, function (index, value) {
+                   if (value.ItemId == item) {
+                       $("#GroupId").val(value.GroupId).change();
+                       $("#Qty").val(value.Qty);
+                       $("#Rate").val(value.Rate);
+                       $("#ItemId").val(value.ItemId).change();
+                       $("#Value").val(value.Value);
+                       $("#HSCode").val(value.HSCode);
+                       $("#PackingNote").val(value.PackingNote);
+                       $("#PurchaseOrderNo").val(value.PurchaseOrderNo).change();
+                       $("#RatePerLiter").val(value.RatePerLiter);
+                       itemid = value.ItemId;
+                   }
+                   else {
+                       newItem.push(value);
+                   }
+               });
+               addedItems = newItem;
+               ShowOnTable();
+           });
+           $(document).on('change', "#GroupId", function () {
+            var id = { groupId: $(this).val() };
+            var isItFromEdit = false;
+               if (isItFromEdit == false)
+               {
+                   if (id.groupId != "")
+                   {
+                       $.ajax({
+                        url: '@Url.Action("GetItemByGroupId", "ImportProformaInvoice")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                          success: function (datas) {
+
+                            $("#ItemId").empty();
+                            $("#ItemId").prop("disabled", false);
+                            $.each(datas, function (index, value) {
+                                $("#ItemId").append($('<option />', {
+                                    value: value.Value,
+                                    text: value.Text
+                                })).trigger('change');
+                            });
+                            $("#ItemId").focus();
+                            if (itemid != 0) {
+                                $("#ItemId").val(itemid).change();
+                                itemid = 0;
+                            }
+                          }
+                       });
+                   }
+
+                     else
+                    {
+                        $("#ItemId").val("").change();
+                        $("#ItemId").prop("disabled", true);
+                    }
+               }
+                isItFromEdit = false;
+           });
+           var cartonsize = 0;
+           var packSize = 0;
+           $(document).on('change', "#ItemId", function () {
+                var id = { id: $(this).val() };
+                if (id.id != "") {
+                    $.ajax({
+                        url: '@Url.Action("UOMOnItemChange", "ImportProformaInvoice")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'Get',
+                        dataType: 'json',
+                        success: function (datas) {
+                            $("#UOM").val(datas.Uom);
+                            cartonsize = datas.cartonSize;
+                            packSize = datas.packsize;
+                            $("#Qty").focus();
+                            //clearOnItemChange();
+                        }
+                    });
+                }
+                else {
+
+                }
+           });
+
+           //$(document).on('keyup', '#Qty', function () {
+           //    if ($("#Qty").val() == "") {
+           //        $("#Qty").val(parseFloat(0));
+           //    }
+           //    else {
+           //        $("#Qty").val(parseFloat($("#Qty").val()));
+           //    }
+           //    if ($("#Rate").val() == "") {
+           //        $("#Rate").val(parseFloat(0));
+           //    }
+           //    else {
+           //        $("#Rate").val(parseFloat($("#Rate").val()));
+           //    }
+
+           //    $('#Value').val((parseFloat($('#Qty').val()) * parseFloat($("#Rate").val())));
+           //});
+
+           $(document).on('focusout', '#Rate', function () {
+               var rate = $(this).val();
+               if (rate != "" && rate != 0) {
+                   $("#RatePerLiter").val((parseFloat(rate / packSize)).toFixed(2));
+               }
+               else {
+                   $("#RatePerLiter").val(0);
+               }
+
+               if ($("#Qty").val() == "" && $("#Qty").val() == 0) {
+                   $("#Qty").val(parseFloat(0));
+               }
+               else {
+                   $("#Qty").val(parseFloat($("#Qty").val()));
+               }
+               if ($("#Rate").val() == "" && $("#Rate").val() == 0) {
+                   $("#Rate").val(parseFloat(0));
+               }
+               else {
+                   $("#Rate").val(parseFloat($("#Rate").val()));
+               }
+               $('#Value').val((parseFloat($('#Rate').val()) * parseFloat($("#Qty").val())));
+           });
+
+
+           $(document).on('focusout', "#RatePerLiter", function () {
+               var ratePerLtr = $(this).val();
+               if (ratePerLtr != "" && ratePerLtr != 0) {
+                   $("#Rate").val((parseFloat(ratePerLtr * packSize)).toFixed(2));
+               }
+               else {
+                   $("#Rate").val(0);
+               }
+               $('#Value').val((parseFloat($('#Rate').val()) * parseFloat($("#Qty").val())));
+           });
+
+           //$(document).on('focusout', "#Rate", function () {
+
+           //    var rate = $(this).val();
+           //    if (rate != "" && rate != 0) {
+           //        $("#RatePerLiter").val((parseFloat($("#Qty").val()) * packSize).toFixed(2) / rate);
+           //    }
+           //    else {
+           //        $("#RatePerLiter").val(0);
+           //    }
+
+           //});
+
+           $(document).on("focusout", "#Qty", function () {
+               //ClearRate();
+               if ($("#Qty").val() == "") {
+                   $("#Qty").val(0);
+               }
+               else if ($("#Rate").val() != "" && $("#Rate").val() != 0) {
+                   $("#Value").val((parseFloat($('#Qty').val()) * parseFloat($("#Rate").val())));
+               }
+               else{
+                   $("#Value").val(0);
+               }
+
+
+               if (cartonsize != 0) {
+                   if ($("#Qty").val() != 0) {
+                       $("#Carton").val((parseFloat($("#Qty").val()) / cartonsize).toFixed(2));
+                       $("#LiterKg").val((parseFloat($("#Qty").val()) * packSize).toFixed(2));
+                   }
+                   else {
+                       $("#Carton").val("");
+                       $("#LiterKg").val("");
+                   }
+
+               }
+               else {
+                   $("#Carton").val("");
+                   $("#LiterKg").val("");
+               }
+
+           });
+
+           //function ClearRate() {
+           //    $("#Rate").val("");
+           //    $("#RatePerLiter").val("");
+           //    $("#Value").val();
+           //}
+
+           $(document).on("focusout", "#Carton", function () {
+               //ClearRate();
+               if ($("#Qty").val()=="") {
+                   $("#Qty").val(0);
+               }
+               if ($("#Carton").val() == "") {
+                   $("#Carton").val(0);
+               }
+               if (packSize != 0) {
+                   if ($("#Carton").val() != 0) {
+                       $("#Qty").val((parseFloat($("#Carton").val()) * cartonsize).toFixed(2));
+                       $("#LiterKg").val((parseFloat($("#Qty").val()) * packSize).toFixed(2));
+                   }
+                   else {
+                       $("#Qty").val("");
+                       $("#LiterKg").val("");
+                   }
+
+               } else {
+                   $("#Qty").val("");
+                   $("#LiterKg").val("");
+               }
+
+           });
+           $(document).on("keyup", "#LiterKg", function () {
+               if ($("#LiterKg").val()=="") {
+                   $("#LiterKg").val(0);
+               }
+               if ($("#Qty").val()=="") {
+                   $("#Qty").val(0);
+               }
+               if (packSize != 0 && cartonsize!=0) {
+                   $("#Qty").val((parseFloat($("#LiterKg").val()) / packSize).toFixed(2));
+                   $("#Carton").val((parseFloat($("#Qty").val()) / cartonsize).toFixed(2));
+               } else {
+                   $("#Qty").val("");
+                   $("#Carton").val("");
+               }
+
+           });
+        });
+
+        function clearOnAddClick() {
+            $("#GroupId").val("").change();
+            $("#ItemId").val("").change();
+            $("#Qty").val("");
+            $("#Rate").val("");
+            $("#UOM").val("");
+            $("#Value").val("");
+            //$("#HSCode").val("");
+            $("#PackingNote").val("");
+            $("#Carton").val("");
+            $("#LiterKg").val("");
+            $("#PurchaseOrderNo").val("").change();
+            $("#RatePerLiter").val("");
+        }
+
+        function clearOnItemChange() {
+            $("#Qty").val("");
+            $("#Rate").val("");
+            $("#UOM").val("");
+            $("#Value").val("");
+            $("#HSCode").val("");
+            $("#PackingNote").val("");
+            $("#Carton").val("");
+            $("#LiterKg").val("");
+            $("#RatePerLiter").val("");
+        }
+    </script>
+}

@@ -1,0 +1,717 @@
+﻿@model BEEERP.Models.CommercialModule.Import.ImportLC
+
+@{
+    ViewBag.Title = "ImportLC";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+        
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+    .my-tooltip {
+        position: relative;
+        display: inline-block;
+    }
+
+        .my-tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            /* Position the tooltip */
+            position: absolute;
+            z-index: 1;
+            top: -5px;
+            left: 105%;
+            opacity: 0;
+            transition: opacity 0.5s linear;
+        }
+
+        .my-tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+
+<h3 style="text-align:center">Import LC (ILC) Entry</h3>
+<form id="report" target="_blank">
+    <div class="content">
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                        <h2 class="box-title">
+                            <b>
+                                Import LC (ILC) Entry
+                            </b>
+                        </h2>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6" style="padding-left:0px">
+                                <div class="box-body" style="background-color:white">
+                                    <div class="form-group my-tooltip">
+                                        @Html.LabelFor(m => m.ILCId, new { @class = "col-md-4 control-label " })
+                                        <div class="input-group input-group-sm" style="padding-left:15px; padding-right:15px">
+                                            @Html.TextBoxFor(m => m.ILCId, new { @class = "form-control enterTab digit", @Value = ViewBag.ImportLCId })
+
+                                            <span class="tooltiptext">Import Letter of Credit ID</span>
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-primary" id="ILCIDSearch" style="min-width: 50px">Search</button>
+                                            </span>
+                                        </div>
+                                        <div class="col-md-4"></div>
+                                        <div class="col-md-8">
+                                            @Html.ValidationMessageFor(m => m.ILCId)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ILCNO, "ILC No", new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8 ">
+                                            @Html.TextBoxFor(m => m.ILCNO, new { @class = "form-control digit" })
+                                            @Html.ValidationMessageFor(m => m.ILCNO, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.IALCNO, "ALC No", new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8 ">
+                                            @Html.TextBoxFor(m => m.IALCNO, new { @class = "form-control digit" })
+                                            @Html.ValidationMessageFor(m => m.IALCNO, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6" style="padding-right:0px">
+                                <div class="box-body" style="background-color:white">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.SupplierId, new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8 ">
+                                            @Html.DropDownListFor(m => m.SupplierId, (IEnumerable<SelectListItem>)ViewBag.supplier, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.SupplierId, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group " id="IPSupplierWise">
+                                        @Html.LabelFor(m => m.PI, "Proforma Invoice", new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8 ">
+                                            @Html.DropDownListFor(m => m.PI, (IEnumerable<SelectListItem>)ViewBag.pi, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.PI, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.PShipment, "Partial Shipment", new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8 ">
+                                            @Html.DropDownListFor(m => m.PShipment, (IEnumerable<SelectListItem>)ViewBag.ps, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.PShipment, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br />
+            <div class="row">
+                <div class="col-md-12 ">
+                    <div class="row">
+                        <div class="col-md-6 ">
+                            <div class="box-body" style="background-color:white">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ILCDate, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8  date input-group" style="padding-left:15px; padding-right:15px">
+                                        @Html.TextBoxFor(m => m.ILCDate, new { @class = "enterTab form-control", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.ILCDate, "", new { @style = "color: red" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ShipDate, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8  date input-group" style="padding-left:15px; padding-right:15px">
+                                        @Html.TextBoxFor(m => m.ShipDate, new { @class = "enterTab form-control", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.ShipDate, "", new { @style = "color: red" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.IPIId, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8 ">
+                                        @Html.TextBoxFor(m => m.IPIId, new { @class = "form-control ", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.IPIId, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6 ">
+                            <div class="box-body" style="background-color:white">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ItemTotal, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8 ">
+                                        @Html.TextBoxFor(m => m.ItemTotal, new { @class = "form-control ", @ReadOnly = "Readonly" })
+                                        @Html.ValidationMessageFor(m => m.ItemTotal, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Freight, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8 ">
+                                        @Html.TextBoxFor(m => m.Freight, new { @class = "form-control ", @type = "number", @ReadOnly = "Readonly" })
+                                        @Html.ValidationMessageFor(m => m.Freight, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.GrandTotal, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8 ">
+                                        @Html.TextBoxFor(m => m.GrandTotal, new { @class = "form-control ", @ReadOnly = "Readonly" })
+                                        @Html.ValidationMessageFor(m => m.GrandTotal, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 ">
+                    <div class="box ">
+                        <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                            <h4 class="box-title">Item information</h4>
+                        </div>
+                        <div class="box-body">
+                            <table class="table table-responsive" id="ItemList">
+                                <thead>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Qty</th>
+                                        <th>Rate</th>
+                                        <th>Value</th>
+                                        <th>HS Code</th>
+                                        <th>Packing Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="box">
+                    <div class="box-footer">
+                        <div class="col-md-12" align="center" style="background-color:white">
+                            <input type="button" value="Save" id="save" class="btn btn-primary" />
+                            <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                            <input type="button" name="delete" id="delete" value="Delete" class="btn btn-primary" />
+                            <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                            <input type="button" name="print" id="print" value="Print" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </div>
+    </div>
+</form>
+@section scripts{
+    @*<script src="~/Scripts/Procurement/SupplierInputFocus.js"></script>*@
+    <script src="~/Scripts/CommercialModule/ImportLCInputFocus.js"></script>
+    <script>
+
+
+
+        $(document).ready(function () {
+            $("#print").hide();
+            $('.select2').select2();
+            ImportLCEnterPress();
+
+            var addedItems = [];
+            var message = "";
+            var IsLoadSupllier = true;
+            var isUpdate = false;
+            var isSearch = false;
+          $('#IPAll').hide();
+
+            $('#update').hide();
+            $('#delete').hide();
+         $(document).on('click', '#refresh', function () {
+            location.reload();
+         });
+         $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+         });
+            var table = $('#ItemList').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            });
+            $(document).on('change', "#PI", function () {
+                if (IsLoadSupllier == true && isSearch == false) {
+                 var id = { ipiid: parseInt($("#PI").val())};
+
+              if (id !="") {
+                $.ajax(
+                    {
+                        url: '@Url.Action("GetIPIByIPIId", "ImportLC")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas.Message == 0) {
+                                alert("Your entered IPI No. Doesn't exist");
+                            }
+
+                            if  (datas.Message == 2) {
+                                alert("Fatal Error! Please Recheck your data");
+                            }
+
+                            else {
+                                $("#IPIId").val(datas.ipi.IPIId);
+                                $("#Freight").val(datas.ipi.Freight);
+                                $("#PShipment").val(datas.ipi.PartialShipment).change();
+                                //if (datas.ipi.MiscellaneousCost == null) {
+                                //    $("#MiscellaneousCost").val(parseInt(0));
+                                //}
+                                //else {
+                                //    $("#MiscellaneousCost").val(datas.ipi.MiscellaneousCost);
+                                //}
+                                addedItems = [];
+                                $.each(datas.ipilineItems, function (index, value) {
+                                    var IPIItem = { IPIId: 0, GroupId: 0, GroupName: "", ItemId: 0, ItemName: "", Qty: 0, Rate: 0, Value: 0, HSCode: "", PackingNote: "" };
+                                    IPIItem.IPIId = value.IPIId;
+                                    IPIItem.GroupId = value.GroupId;
+                                    IPIItem.GroupName = value.GroupName;
+                                    IPIItem.ItemId = value.ItemId;
+                                    IPIItem.ItemName = value.ItemName;
+                                    IPIItem.Qty = value.Qty;
+                                    IPIItem.Rate = value.Rate;
+                                    IPIItem.Value = value.Value;
+                                    IPIItem.HSCode = value.HSCode;
+                                    IPIItem.PackingNote = value.PackingNote;
+                                    addedItems.push(IPIItem);
+                                });
+                                ShowOnTable();
+                            }
+                        },
+                        error: function () {
+                            alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+                        }
+                    });
+            }
+            else {
+                alert("Select a Supplier first");
+                addedItems = [];
+                ShowOnTable();
+            }
+                }
+            });
+
+         $(document).on('change', "#SupplierId", function () {
+           var id = { supplierId: $(this).val() };
+            //ClearOnSearch();
+            if (id.supplierId != "") {
+                $("#PI").prop('disabled', false);
+                    $.ajax(
+                    {
+                        url: '@Url.Action("GetIPIBySupplierId", "ImportLC")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (isUpdate == false) {
+                                $("#PI").empty();
+                                $.each(datas, function (index, value) {
+                                    $("#PI").append($('<Option/>', {
+                                        value: value.Value,
+                                        text: value.Text
+                                    }));
+                                });
+                            }
+
+                        }
+
+                    });
+            }
+            else {
+                $("#PI").prop('disabled', true);
+            }
+
+         });
+
+         $(document).on('click', '#save', function () {
+
+             $("#save").prop('disabled', true);
+             if (addedItems.length > 0)
+             {
+                 ValidateOnSaveClick();
+                 if (message == "") {
+                     if (confirm("Do you want to save?")) {
+                         var LC = { ILCId: 0, ILCNO: "", SupplierId: 0, ILCDate: "", IALCNO: "", ShipDate: "", IPIId: 0, PShipment: "", ItemTotal: 0, Freight: 0, GrandTotal: 0, LCStatus: "", TotalMiscellaneousCost:0, IsClosed: 0 };
+                         LC.ILCId = $("#ILCId").val();
+                         LC.ILCNO = $("#ILCNO").val();
+                         LC.SupplierId = $("#SupplierId").val();
+                         LC.ILCDate = $("#ILCDate").val();
+                         LC.IALCNO = $("#IALCNO").val();
+                         LC.ShipDate = $("#ShipDate").val();
+                         LC.IPIId = $("#IPIId").val();
+                         LC.PShipment = $("#PShipment").val();
+                         LC.ItemTotal = $("#ItemTotal").val();
+                         LC.Freight = $("#Freight").val();
+                         LC.GrandTotal = $("#GrandTotal").val();
+                         LC.LCStatus = "Active";
+                         LC.TotalMiscellaneousCost = 0;
+                         LC.IsClosed = 0;
+                         $.ajax({
+                             url: '@Url.Action("SaveLC", "ImportLC")',
+                             contentType: "application/json;charset=utf-8",
+                             data: JSON.stringify({ importLC: LC, addedItems: addedItems }),
+                             type: 'POST',
+                             dataType: 'json',
+                             success: function (datas) {
+                                 if (datas.Message == "0") {
+                                     alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                     $("#save").prop('disabled', false);
+                                 }
+                                 else if (datas.Message == "1") {
+                                     alert("Sccessfully saved.");
+                                     $("#print").show();
+                                     //location.reload();
+                                 }
+                                 else if (datas.Message == "2") {
+                                     alert("This LC already Exist.");
+                                     $("#save").prop('disabled', false);
+                                 }
+
+                             }
+                         });
+                     }
+                     else {
+                         $("#save").prop('disabled', false);
+                     }
+                 }
+                 else {
+                     $("#save").prop('disabled', false);
+                 }
+             }
+             else
+             {
+                var messageforEmpty = "The Item list is empty";
+                alert(messageforEmpty);
+                $("#save").prop('disabled', false);
+             }
+            });
+            $(document).on('click', "#print", function (event) {
+                event.preventDefault();
+                if ($("#message").val() != "true") {
+                    $("#report").attr("action", "/ImportLC/printlc")
+                    $("#report").submit();
+                }
+            });
+
+         $(document).on('click', '#refresh', function () {
+            location.reload();
+         });
+            var totalValue = 0;
+            var totMiciCost = 0;
+         if ($("#Freight").val() == "") {
+            $("#Freight").val(parseInt(0));
+         }
+         $(document).on('click', "#ILCIDSearch", function ()
+         {
+             isSearch = true;
+             IsLoadSupllier = false;
+            var id = { ILCID: parseInt($("#ILCId").val()) };
+               // ClearOnSearch();
+             if ($("#ILCId").val() != "") {
+                 $.ajax(
+                     {
+                         url: '@Url.Action("GetLCByLCId", "ImportLC")',
+                         contentType: "application/json;charset=utf-8",
+                         data: JSON.stringify({ importLC: id }),
+                         type: 'POST',
+                         dataType: 'json',
+                         success: function (datas) {
+
+                             if (datas.Message != 0) {
+                                 $("#PI").empty();
+                                 $("#PI").append($('<Option/>', {
+                                     value: datas.lc.PINo,
+                                     text: datas.lc.PINo
+                                 }));
+                             }
+                             if (datas.Message == 0) {
+                                 alert("Your entered LC No. Doesn't exist");
+                             }
+                             if (datas.Message == 2) {
+                                 alert("Fatal Error! Please Recheck your data");
+                             }
+                             else {
+                                 $("#print").show();
+                                 $("#save").hide();
+                                 $("#update").show();
+                                 $("#delete").show();
+                                 //$("#SupplierId").empty();
+                                 //$("#SupplierId").append($('<Option/>', {
+                                 //    value: datas.lc.SupplierId,
+                                 //    text: datas.lc.NameOfSupplier
+                                 //}));
+                                 $("#ILCId").val(datas.lc.ILCId);
+                                 isUpdate = true;
+                                 $("#SupplierId").val(datas.lc.SupplierId).change();
+                                 $("#ILCNO").val(datas.lc.ILCNO);
+                                 $("#IALCNO").val(datas.lc.IALCNO);
+                                 $("#PShipment").val(datas.lc.PShipment).change();
+                                 $("#ILCDate").val((moment(datas.lc.ILCDate).format("DD-MM-YYYY"))).change();
+                                 $("#ShipDate").val((moment(datas.lc.ShipDate).format("DD-MM-YYYY"))).change();
+                                 $("#IPIId").val(datas.lc.IPIId);
+                                 //$("#MiscellaneousCost").val(datas.lc.MiscellaneousCost);
+                                 //$("#MiscellaneousCost").attr('disabled', true);
+                                 $("#ItemTotal").val(datas.lc.ItemTotal);
+                                 $("#Freight").val(datas.lc.Freight);
+                                 $("#GrandTotal").val(datas.lc.GrandTotal);
+                                 addedItems = [];
+                                 $.each(datas.lclineItems, function (index, value) {
+                                     var IPIItem = { IPIId: 0, GroupId: 0, GroupName: "", ItemId: 0, ItemName: "", Qty: 0, Rate: 0, Value: 0, HSCode: "", PackingNote: "", MiscellaneousCost: 0 };
+                                     IPIItem.IPIId = value.IPIId;
+                                     IPIItem.GroupId = value.GroupId;
+                                     IPIItem.GroupName = value.GroupName;
+                                     IPIItem.ItemId = value.ItemId;
+                                     IPIItem.ItemName = value.ItemName;
+                                     IPIItem.Qty = value.Qty;
+                                     IPIItem.Rate = value.Rate;
+                                     IPIItem.Value = value.Value;
+                                     IPIItem.HSCode = value.HSCode;
+                                     IPIItem.PackingNote = value.PackingNote;
+                                     IPIItem.MiscellaneousCost = value.MiscellaneousCost;
+                                     addedItems.push(IPIItem);
+                                 });
+                                 ShowOnTable();
+                             }
+
+                         },
+                         error: function () {
+                             alert("Please check your internet connection first. If this doesn't sole your problem, then Contact With Paankouri Software & Services")
+
+                         }
+                     });
+             }
+             else {
+                 setError("ILCId", "ILCId is required for get data.");
+             }
+
+         });
+            $(document).on('click', '#update', function () {
+            if (addedItems.length > 0) {
+                $("#update").prop('disabled', true);
+                ValidateOnSaveClick();
+                if (message == "") {
+                    if (confirm("Do you want to update?")) {
+                        var LC = { ILCId: 0, ILCNO: "", SupplierId: 0, ILCDate: "", IALCNO: "", ShipDate: "", IPIId: 0, PShipment: "", LCStatus: "",MiscellaneousCost: 0, ItemTotal: 0, Freight: 0, GrandTotal: 0 };
+                        LC.ILCId = $("#ILCId").val();
+                        LC.ILCNO = $("#ILCNO").val();
+                        LC.SupplierId = $("#SupplierId").val();
+                        LC.ILCDate = $("#ILCDate").val();
+                        LC.IALCNO = $("#IALCNO").val();
+                        LC.ShipDate = $("#ShipDate").val();
+                        LC.IPIId = $("#IPIId").val();
+                        LC.PShipment = $("#PShipment").val();
+                        LC.MiscellaneousCost = $("#MiscellaneousCost").val();
+                        LC.ItemTotal = $("#ItemTotal").val();
+                        LC.Freight = $("#Freight").val();
+                        LC.GrandTotal = $("#GrandTotal").val();
+                        LC.LCStatus = "Active";
+                        $.ajax({
+                            url: '@Url.Action("UpdateLC", "ImportLC")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ importLC: LC, addedItems: addedItems }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas.Message == "0") {
+                                    alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                    $("#update").prop('disabled', false);
+                                }
+                                else if (datas.Message == "1") {
+                                    alert("Sccessfully Updated.");
+                                    //location.reload();
+                                }
+                                else if (datas.Message == "2") {
+                                    alert("This IPI already Exist.");
+                                    $("#update").prop('disabled', false);
+                                }
+
+                            }
+                        });
+                    }
+                    else {
+                        $("#update").prop('disabled', false);
+                    }
+                }
+                else {
+                    $("#update").prop('disabled', false);
+                }
+            }
+            else {
+
+            var messageforEmpty = "The Item list is empty";
+            alert(messageforEmpty);
+            $("#update").prop('disabled', false);
+            }
+         });
+        $(document).on('click', '#delete', function () {
+
+            $("#delete").prop('disabled', true);
+            if (confirm("Do you want to delete?")) {
+                var lcid = { lcid: $("#ILCId").val() }
+                $.ajax({
+                    url: '@Url.Action("DeleteLC", "ImportLC")',
+                    contentType: "application/json;charset=utf-8",
+                    data: lcid,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas.Message == "0") {
+                            alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                            $("#delete").prop('disabled', false);
+                        }
+                        else if (datas.Message == "1") {
+                            alert("Sccessfully deleted.")
+                            location.reload();
+                        }
+                        else if (datas.Message == "2") {
+                            alert("This LC ID is not exist");
+                            $("#delete").prop('disabled', false);
+                        }
+                        else {
+                            alert("This LC can not be deleted because It is used");
+                            $("#delete").prop('disabled', false);
+                        }
+                    }
+                });
+            }
+            else {
+                $("#delete").prop('disabled', false);
+            }
+        });
+         function ValidateOnSaveClick() {
+
+            message = "";
+            //if ($("#ILCId").val() == "") {
+            //    setError("ILCId", "ILC ID Name is Required Field.");
+            //    message = "ILC ID Name is Required Field."
+            //}
+            if ($("#SupplierId").val() == "") {
+                setError("SupplierId", "Supplier is Required Field.\n");
+                message = "SupplierId  is Required Field."
+            }
+            if ($("#PI").val() == "") {
+                setError("PI", "PI is Required Field.\n");
+                message = "PI  is Required Field."
+            }
+            if ($("#ILCNO").val() == "") {
+                setError("ILCNO", "ILCNO is Required Field.\n");
+                message = "ILCNO  is Required Field."
+            }
+            //if ($("#IALCNO").val() == "") {
+            //    setError("IALCNO", "IALCNO is Required Field.\n");
+            //    message = "IALCNO  is Required Field."
+            // }
+            if ($("#PShipment").val() == "") {
+                setError("PShipment", "Partial Shipment  is Required Field.");
+                message = "Partial Shipment  is Required Field."
+            }
+
+
+            }
+            //commented code
+            //start
+         //$(document).on('keyup', '#Freight', function () {
+         //    if ($("#Freight").val() == "") {
+         //        $("#Freight").val(parseInt(0));
+         //    }
+         //    else {
+         //        $("#GrandTotal").val(parseInt($("#ItemTotal").val()) + parseFloat($("#TotalMiscellaneousCost").val()) + parseInt($("#Freight").val()));
+         //    }
+         //});
+         //   $(document).on('keyup', '#MiscellaneousCost', function () {
+         //       if ($("#MiscellaneousCost").val() == "") {
+         //           $("#MiscellaneousCost").val(parseInt(0));
+         //       }
+         //       else {
+         //           $("#MiscellaneousCost").val(parseInt($("#MiscellaneousCost").val()));
+         //       }
+         //       $("#GrandTotal").val(parseInt($("#MiscellaneousCost").val()) + parseInt($("#ItemTotal").val()) + parseInt($("#Freight").val()));
+         //   });
+
+            //end
+
+            $(document).on('focusout', '[name="editRow"]', function () {
+                var $row = $(this).closest('tr');
+                var data = table.row($row).data();
+                var rowId = data[0];
+                var a = $(this).val();
+                $.each(addedItems, function (index, value) {
+                    if (value.ItemName == rowId) {
+                        value.MiscellaneousCost = a;
+                    }
+                });
+                ShowOnTable();
+            });
+
+         function ShowOnTable() {
+            table.clear().draw();
+             totalValue = 0;
+             totMiciCost = 0;
+             $.each(addedItems, function (index, value) {
+                 table.row.add([value.ItemName, value.Qty, value.Rate, value.Value, value.HSCode, value.PackingNote, '<input type="number" name="editRow" value="' + value.MiscellaneousCost + '"/>']).draw();
+                 totalValue += parseFloat(value.Value);
+                 totMiciCost += parseFloat(value.MiscellaneousCost);
+            });
+
+             $("#ItemTotal").val(totalValue);
+             var fr = parseInt($("#Freight").val());
+             $("#GrandTotal").val(fr + totalValue);
+         }
+         function ClearOnSearch() {
+            $("#ILCNO").val("");
+            $("#IALCNO").val("");
+            $("#PI").val("").change();
+            $("#ILCId").val("");
+         }
+        });
+    </script>
+}

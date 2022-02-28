@@ -1,0 +1,286 @@
+﻿@model BEEERP.Models.TaxCalculator.RebateCondition
+@{
+    ViewBag.Title = "RebateCondition";
+}
+
+
+<style>
+    tbody tr:hover {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    .btn:hover {
+        color: blue !important;
+    }
+
+    .btn:focus {
+        background-color: aqua !important;
+    }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Create Rebate Condition</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ID, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.ID, new { @class = "form-control", @readonly = "readonly", @Value = ViewBag.ConditionId })
+                                        @Html.ValidationMessageFor(m => m.ID, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Name, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.Name, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Limit, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.Limit, new { @class = "form-control", @type = "number" })
+                                        @Html.ValidationMessageFor(m => m.Limit, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-8">
+                                        <input type="button" name="Save" id="save" value="Save" class="btn skin-blue" />
+                                        <input type="button" name="Upate" id="update" value="Update" class="btn skin-blue" />
+                                        <input type="button" name="Delete" id="delete" value="Delete" class="btn skin-blue" />
+                                        <input type="button" name="Refresh" id="refresh" value="Refresh" class="btn skin-blue" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Rebate Condition List</h3>
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-responsive" id="ExemtionList">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Name</th>
+                                            <th>Limit</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.RebateCondition)
+                                        {
+                                            <tr class='clickable-row' value="@item.ID">
+                                                <td>@item.ID</td>
+                                                <td>@item.Name</td>
+                                                <td>@item.Limit</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/Scripts/TaxCalculator/RebateCondition.js"></script>
+    <script>
+        $('#ExemtionList').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        })
+
+        $(document).on('click', '#refresh', function () {
+            location.reload();
+        });
+
+        var condition = {ID: 0, Name: "", Limit: 0.0 }
+        var isValid = true;
+        EnterPress();
+
+        $(document).ready(function () {
+            $("#update").hide();
+            $("#delete").hide();
+            $("#Name").focus();
+        });
+
+        $(".clickable-row").on('click', function (e) {
+             var id = $(this).attr("value");
+             $.ajax({
+                url: '@Url.Action("GetConditionById", "RebateCondition")',
+                contentType: "application/json;charset=utf-8",
+                data: { id: id },
+                type: 'GET',
+                dataType: 'json',
+                success: function (datas) {
+                    if(datas==0)
+                    {
+                        alert("This Rebate Condition no doesn't exist.");
+                    }
+                    else {
+                        $("#save").hide();
+                        $("#update").show();
+                        $("#delete").show();
+                        $("#ID").val(datas.ID);
+                        $("#Name").val(datas.Name);
+                        $("#Limit").val(datas.Limit);
+                    }
+                }
+            });
+        });
+
+        $(document).on('click', '#save', function () {
+            ValidateOnSaveClick();
+            $("#save").prop('disabled', true);
+            if (isValid == true)
+            {
+                SetCondition();
+                if (confirm("Do you want to save?")) {
+                    $.ajax({
+                        url: '@Url.Action("SaveCondition", "RebateCondition")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ condition: condition }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas != 0) {
+                                alert("Save Sucessfull.");
+                                location.reload();
+                            }
+                            else {
+                                setError("Name", "Condition Name Is Already Exists.");
+                                $("#save").prop('disabled', false);
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#save").prop('disabled', false);
+                }
+            }
+            else {
+                $("#save").prop('disabled', false);
+            }
+        });
+
+        $(document).on('click', '#update', function () {
+            ValidateOnSaveClick();
+            $("#update").prop('disabled', true);
+            if (isValid == true)
+            {
+                SetCondition();
+                if (confirm("Do you want to Update?")) {
+                    $.ajax({
+                        url: '@Url.Action("UpdateCondition", "RebateCondition")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ condition: condition }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Update Failed");
+                                $("#update").prop('disabled', false);
+                            }
+                            else {
+                                alert("Update Sucessfull.");
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#update").prop('disabled', false);
+                }
+            }
+            else {
+                $("#update").prop('disabled', false);
+            }
+
+        });
+
+        $(document).on('click', '#delete', function () {
+
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var id = $("#ID").val();
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteConditionByid", "RebateCondition")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Delete failed.");
+                            $("#update").prop('disabled', true);
+                            $("#delete").prop('disabled', true);
+                        }
+                        else {
+                            alert("Delete Successfull");
+                            location.reload();
+                        }
+                    }
+                });
+            }
+            else {
+                $("#update").prop('disabled', false);
+                $("#delete").prop('disabled', false);
+            }
+        });
+
+        function SetCondition() {
+            condition.ID = $("#ID").val();
+            condition.Name = $("#Name").val();
+            condition.Limit = $("#Limit").val();
+        }
+
+        function ValidateOnSaveClick() {
+            isValid = true;
+            if ($("#Name").val() == "") {
+                setError("Name", "Condition Name is required field");
+                isValid = false;
+            }
+            if ($("#Name").val() == "") {
+                setError("Name", "Condition Name is required field");
+                isValid = false;
+            }
+            if ($("#Limit").val() <= 0) {
+                setError("Limit", "Limit must be grater than zero.");
+                isValid = false;
+            }
+            if ($("#Limit").val() == "") {
+                setError("Limit", "Limit is required field");
+                isValid = false;
+            }
+        }
+
+    </script>
+}
+

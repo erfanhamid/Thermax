@@ -1,0 +1,735 @@
+﻿@model BEEERP.Models.ViewModel.Account.SPAdvanceAdjustmentVModel
+@{
+    ViewBag.Title = "SPAdvanceAdjustment";
+}
+
+<style>
+    .btn:hover {
+        color: blue !important;
+    }
+
+    .btn:focus {
+        background-color: aqua !important;
+    }
+
+    /*.select2-selection--single:focus {
+        background-color: aqua !important;
+    }*/
+</style>
+
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <h3 style="text-align:center">Supplier Payment Advance Adjustment</h3>
+            <div class="col-md-12">
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Basic Info</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.SPAANo, new { @class = "col-md-4 control-label" })
+                                        <div class="input-group input-group-sm col-sm-8" style="padding-right:2%;padding-left:2%;">
+                                            @Html.TextBoxFor(m => m.SPAANo, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.SPAANo)
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn skin-blue btn-flat" id="search">Search</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.GroupID,"Group Name", new { @class = "col-md-4 control-label" })
+                                        <div class="input-group input-group-sm col-sm-8" style="padding-right:2.5%;padding-left:3%;">
+                                            @Html.DropDownListFor(m => m.GroupID, (IEnumerable<SelectListItem>)ViewBag.SGroup, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.GroupID)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.SupplierID,"Supplier Name", new { @class = "col-md-4 control-label" })
+                                        <div class="input-group input-group-sm col-sm-8" style="padding-right:2.5%;padding-left:3%;">
+                                            @Html.DropDownListFor(m => m.SupplierID, (IEnumerable<SelectListItem>)ViewBag.Supplier, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.SupplierID)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Date, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6 date input-group" style="padding-left:15px; padding-right:15px">
+                                            @Html.TextBoxFor(m => m.Date, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            @Html.ValidationMessageFor(m => m.Date)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Due, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.TextBoxFor(m => m.Due, new { @class = "form-control", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.Due)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-7" style="padding-left:0%">
+                            <div class="box">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 class="box-title">Due Amount</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-12">
+                                        <table class="table table-responsive" id="billGrid">
+                                            <thead>
+                                                <tr>
+                                                    <th><input type="checkbox" id="select_all" name="select_all" /></th>
+                                                    <th>Doc No</th>
+                                                    <th>Total Amount</th>
+                                                    <th>Due Amount</th>
+                                                    <th>Doc Type</th>
+                                                    <th>Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5" style="padding-right:0%">
+                            <div class="box">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 class="box-title">Advance Amount</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-12">
+                                        <table class="table table-responsive" id="advGrid">
+                                            <thead>
+                                                <tr>
+                                                    <th><input type="checkbox" id="select_all" name="select_all" /></th>
+                                                    <th>SPV No</th>
+                                                    <th>Amount</th>
+                                                    <th>Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-body">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Remarks, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextAreaFor(m => m.Remarks, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Remarks)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.DueAmount, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.DueAmount, new { @class = "form-control", @type = "number", @disabled = "disabled" })
+                                            @Html.ValidationMessageFor(m => m.DueAmount)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.AdvanceAmount, new { @class = "col-md-5 control-label" })
+                                        <div class="col-sm-7">
+                                            @Html.TextBoxFor(m => m.AdvanceAmount, new { @class = "form-control", @type = "number", @disabled = "disabled" })
+                                            @Html.ValidationMessageFor(m => m.AdvanceAmount)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.AdjustedAmount, new { @class = "col-md-5 control-label" })
+                                        <div class="col-sm-7">
+                                            @Html.TextBoxFor(m => m.AdjustedAmount, new { @class = "form-control", @type = "number" })
+                                            @Html.ValidationMessageFor(m => m.AdjustedAmount)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group form-horizontal" style="text-align:center;">
+                            <button type="button" id="save" style="height:33px; font-size:13px;" class="btn">Save</button>
+                            <button type="button" id="update" style="height:33px; font-size:13px;" class="btn">Update</button>
+                            <button type="button" id="refresh" style="height:33px; font-size:13px;" class="btn">Refresh</button>
+                            <button type="button" id="delete" style="height:33px; font-size:13px;" class="btn">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+    <script src="~/Scripts/AccountModule/SPAAInputFocus.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#update").hide();
+            $("#delete").hide();
+            $("#SupplierID").focus();
+            $(".select2").select2();
+        });
+
+        //$(".select2").select2();
+
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+
+        EnterPress();
+
+        var isValid = true;
+        var addedItems = [];
+        var addedItems1 = [];
+        var rows_selected = [];
+        var rows_selected1 = [];
+        var selectedBill = [];
+        var selectedAdvance = [];
+        var isSearch = false;
+        var supplierId;
+        var sPAInfo = { SPAANo: 0, SupplierID: 0, Date: "", Remarks: "", AdjustedAmount: 0.0 }
+
+        //Bill grid Table
+        var table = $('#billGrid').DataTable({
+            'columnDefs': [{
+                'targets': 0,
+                'searchable': false,
+                'width': '1%',
+                'className': 'dt-body-center',
+                "paging": false,
+                'render': function (data, type, full, meta) {
+                    return '<input type="checkbox">';
+                },
+            }],
+            'order': [[1, 'asc']],
+            'rowCallback': function (row, data, dataIndex) {
+                // Get row ID
+                var rowId = data[0];
+
+                // If row ID is in the list of selected row IDs
+                if ($.inArray(rowId, rows_selected) !== -1) {
+                    $(row).find('input[type="checkbox"]').prop('checked', true);
+                    $(row).addClass('selected');
+                }
+            }
+        });
+
+        //Advance grid table
+        var table1 = $('#advGrid').DataTable({
+            'columnDefs': [{
+                'targets': 0,
+                'searchable': false,
+                'width': '1%',
+                'className': 'dt-body-center',
+                "paging": false,
+                'render': function (data, type, full, meta) {
+                    return '<input type="checkbox">';
+                },
+            }],
+            'order': [[1, 'asc']],
+            'rowCallback': function (row, data, dataIndex) {
+                // Get row ID
+                var rowId = data[0];
+
+                // If row ID is in the list of selected row IDs
+                if ($.inArray(rowId, rows_selected1) !== -1) {
+                    $(row).find('input[type="checkbox"]').prop('checked', true);
+                    $(row).addClass('selected');
+                }
+            }
+        });
+
+        //Refresh Button
+        $(document).on('click', "#refresh", function () {
+            location.reload();
+        });
+
+        $(document).on('change', "#GroupID", function () {
+            $("#GroupID").prop('disabled', false);
+            var id = { groupId: $(this).val() };
+            if (id.groupId != "") {
+                $.ajax({
+                    url: '@Url.Action("GetSupplierByGroupId", "SupplierPaymentVoucher")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        $("#SupplierID").empty();
+                        $("#SupplierID").prop("disabled", false);
+                        $.each(datas, function (index, value) {
+                            $("#SupplierID").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                        $("#SupplierID").focus();
+                        if (supplierId != "") {
+                            $("#SupplierID").val(supplierId).change();
+                            supplierId = "";
+                        }
+                    }
+                });
+            }
+            else {
+                $("#SupplierID").val("").change();
+                $("#SupplierID").prop("disabled", true);
+            }
+        });
+
+        //Supplier go click
+        $(document).on('change', "#SupplierID", function () {
+
+            var id = { supplierId: $("#SupplierID").val() };
+
+            if ($("#SupplierID").val() != "") {
+                $.ajax({
+                url: '@Url.Action("GetDueAndAdvanceAmountBySupplierId", "SPAdvanceAdjustment")',
+                contentType: "application/json;charset=utf-8",
+                data: id,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    if (data == 0)
+                    {
+                        alert("Supplier doesn't exist");
+                    }
+                    else {
+                        $("#SupplierName").val(data.Name);
+                        $("#Due").val(data.SupplierDue);
+
+                        if (isSearch == false) {
+                            addedItems = [];
+                            $.each(data.item, function (index, value) {
+                                var supplyItem = { DocNo: 0, TotalAmount: 0.0, DueAmount: 0.0, DocType: "", Date };
+                                supplyItem.DocNo = value.DocNo;
+                                supplyItem.TotalAmount = value.TotalAmount;
+                                supplyItem.DueAmount = value.DueAmount;
+                                supplyItem.DocType = value.DocType;
+                                supplyItem.Date = moment(value.Date).format("DD-MM-YYYY");
+                                addedItems.push(supplyItem);
+                            });
+                            //$.each(data.item2, function (index, value) {
+                            //    var supplyItem = { DocNo: 0, TotalAmount: 0.0, DueAmount: 0.0, DocType: "", Date };
+                            //    supplyItem.DocNo = value.DocNo;
+                            //    supplyItem.TotalAmount = value.TotalAmount;
+                            //    supplyItem.DueAmount = value.DueAmount;
+                            //    supplyItem.DocType = value.DocType;
+                            //    supplyItem.Date = moment(value.Date).format("DD-MM-YYYY");
+                            //    addedItems.push(supplyItem);
+                            //});
+                            ShowOnTable();
+
+                            addedItems1 = [];
+                            $.each(data.adv, function (index, value) {
+                                var advance = { SPVNo: 0, Amount: 0.0, Date: "" }
+                                advance.SPVNo = value.SPVNo;
+                                advance.Amount = value.Amount;
+                                advance.Date = moment(value.Date).format("DD-MM-YYYY");
+                                addedItems1.push(advance);
+                            });
+                            ShowOnTable1();
+                        }
+                    }
+                }
+            });
+            }
+        });
+        
+        //Bill Grid CheckBox
+        $('#billGrid').on('click', 'tbody td, thead th:first-child', function (e) {
+            $(this).parent().find('input[type="checkbox"]').trigger('click');
+            
+        });
+
+        $('thead input[name="select_all"]', table.table().container()).on('click', function (e) {
+            if (this.checked) {
+                $('#billGrid tbody input[type="checkbox"]:not(:checked)').trigger('click');
+            }
+            else {
+                $('#billGrid tbody input[type="checkbox"]:checked').trigger('click');
+            }
+
+            // Prevent click event from propagating to parent
+            e.stopPropagation();
+        });
+
+        //Advance Grid CheckBox
+        $('#advGrid').on('click', 'tbody td, thead th:first-child', function (e) {
+            $(this).parent().find('input[type="checkbox"]').trigger('click');
+        });
+
+        $('thead input[name="select_all"]', table1.table().container()).on('click', function (e) {
+            if (this.checked) {
+                $('#advGrid tbody input[type="checkbox"]:not(:checked)').trigger('click');
+            }
+            else {
+                $('#advGrid tbody input[type="checkbox"]:checked').trigger('click');
+            }
+
+            // Prevent click event from propagating to parent
+            e.stopPropagation();
+        });
+
+        //For bill grid
+        $('#billGrid tbody').on('click', 'input[type="checkbox"]', function (e) {
+            var $row = $(this).closest('tr');
+            var data = table.row($row).data();
+            var rowId = data[0];
+            var index = $.inArray(rowId, rows_selected);
+
+            if (this.checked && index === -1) {
+                rows_selected.push(rowId);
+
+            } else if (!this.checked && index !== -1) {
+                rows_selected.splice(index, 1);
+                selectedBill.splice($.inArray(rowId, selectedBill));
+            }
+            var selectedItem = { DocNo: 0, TotalAmount: 0.0, DueAmount: 0.0, DocType: "", Date: ""  };
+            if (this.checked) {
+                $row.addClass('selected');
+                $('input[name="' + data[0] + '"]').val(data[2]);
+                selectedItem.DocNo = data[0];
+                selectedItem.TotalAmount = data[2];
+                selectedItem.DueAmount = data[3];
+                selectedItem.DocType = data[4];
+                selectedItem.Date = data[5];
+                selectedBill.push(selectedItem);
+                TotalSumOfCheckedBill();
+            } else {
+                $row.removeClass('selected');
+                $('input[name="' + data[0] + '"]').val("");
+                var modifiedItem = [];
+                $.each(selectedBill, function (index, value) {
+                    if (value.DocNo = data[0]) {
+                        modifiedItem.push(value);
+                    }
+                });
+                selectedBill = modifiedItem;
+                TotalSumOfCheckedBill();
+            }
+            updateDataTableSelectAllCtrl(table);
+            AdjustedAmount();
+            e.stopPropagation();
+        });
+
+        //For advance grid
+        $('#advGrid tbody').on('click', 'input[type="checkbox"]', function (e) {
+            $('input[type="checkbox"]').not(this).prop('checked', false);
+            selectedAdvance = [];
+            var $row = $(this).closest('tr');
+            var data = table1.row($row).data();
+            var rowId = data[0];
+            var index = $.inArray(rowId, rows_selected1);
+
+            if (this.checked && index === -1) {
+                rows_selected1.push(rowId);
+
+
+            } else if (!this.checked && index !== -1) {
+                rows_selected1.splice(index, 1);
+                selectedAdvance.splice($.inArray(rowId, selectedAdvance));
+            }
+            var selectedItem1 = { SPVNo: 0, Amount: 0.0, Date: "" };
+            if (this.checked) {
+                $row.addClass('selected');
+                $('input[name="' + data[0] + '"]').val(data[2]);
+                selectedItem1.SPVNo = data[0];
+                selectedItem1.Amount = data[2];
+                selectedItem1.Date = data[3];
+                selectedAdvance.push(selectedItem1);
+                TotalSumOfCheckedAdvance();
+            } else {
+                $row.removeClass('selected');
+                $('input[name="' + data[0] + '"]').val("");
+                var modifiedItem = [];
+                $.each(selectedAdvance, function (index, value) {
+                    if (value.RPID != data[0]) {
+                        modifiedItem.push(value);
+                    }
+                });
+                selectedAdvance = modifiedItem;
+                TotalSumOfCheckedAdvance();
+            }
+            updateDataTableSelectAllCtrl(table1);
+            AdjustedAmount();
+            e.stopPropagation();
+        });
+        
+        //Save
+        $(document).on('click', "#save", function () {
+            $("#save").prop('disabled', true);
+            RemoveError();
+            SetSPAInfo();
+            ValidateSPAInfo();
+            if (isValid == true) {
+                if (confirm('Do you want to save')) {
+                    $.ajax({
+                        url: '@Url.Action("SaveSPAdvanceAdjustment", "SPAdvanceAdjustment")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ selectedBill: selectedBill, selectedAdvance: selectedAdvance, sPAInfo: sPAInfo }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Saved.");
+                                $("#save").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Saved.");
+                                $("#SPAANo").val(datas.aaNo);
+                                $("#save").prop('disabled', true);
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#save").prop('disabled', false);
+                }
+            }
+            else {
+                $("#save").prop('disabled', false);
+            }
+        });
+        
+         //search Button Click
+        $(document).on('click', "#search", function () {
+
+            if ($("#SPAANo").val() != "") {
+                $.ajax({
+                    url: '@Url.Action("GetSpAAdjustmentBySPAANo", "SPAdvanceAdjustment")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { spaaNo: $("#SPAANo").val() },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            $("#save").hide();
+                            $("#update").hide();
+                            $("#cancel").hide();
+                            alert("This SPAA No doesn't exist.");
+                        }
+                        else {
+                            $("#save").hide();
+                            $("#delete").show();
+                            
+                            $("#SupplierID").val(datas.GetSPAAInfo.SupplierID);
+
+                            $("#Date").val(moment(datas.GetSPAAInfo.Date).format("DD-MM-YYYY"));
+                            $("#Remarks").val(datas.GetSPAAInfo.Remarks);
+                            $("#AdjustedAmount").val(datas.GetSPAAInfo.AdjustedAmount);
+
+                            selectedBill = [];
+                            addedItems = [];
+                            $.each(datas.SelectedBill, function (index, value) {
+                                var supplyItem = { DocNo: 0, TotalAmount: 0.0, DueAmount: 0.0, DocType: "", Date };
+                                supplyItem.DocNo = value.DocNo;
+                                supplyItem.TotalAmount = value.TotalAmount;
+                                supplyItem.DueAmount = value.DueAmount;
+                                supplyItem.DocType = value.DocType;
+                                supplyItem.Date = moment(value.Date).format("DD-MM-YYYY");
+                                selectedBill.push(supplyItem);
+                                addedItems.push(supplyItem);
+                            });
+                            ShowOnTable();
+                            TotalSumOfCheckedBill();
+
+                            selectedAdvance = [];
+                            addedItems1 = [];
+                            isSearch = true;
+                            $.each(datas.AdvanceAmounts, function (index, value) {
+                                var advance = { SPVNo: 0, Amount: 0.0, Date: "" }
+                                advance.SPVNo = value.SPVNo;
+                                advance.Amount = value.Amount;
+                                advance.Date = moment(value.Date).format("DD-MM-YYYY");
+                                selectedAdvance.push(advance);
+                                addedItems1.push(advance);
+                            });
+                            ShowOnTable1();
+                            TotalSumOfCheckedAdvance();
+                            AdjustedAmount();
+                            $("#searchSupplier").click();
+                        }
+                    }
+                });
+            }
+            else {
+                alert("SPAA No is Required for get data.");
+            }
+           
+        });
+
+        //Delete button click
+        $(document).on('click', "#delete", function () {
+            $("#delete").prop('disabled', true);
+            var id = $("#SPAANo").val();
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteSAdvAdjustmentByid", "SPAdvanceAdjustment")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Delete failed.");
+                            $("#delete").prop('disabled', false);
+                            //$("#update").prop('disabled', false);
+                        }
+                        else {
+                            alert("Delete Successfull");
+                            location.reload();
+                        }
+                    }
+                });
+            }
+            else {
+                $("#delete").prop('disabled', false);
+            }
+        });
+
+        //Supply List table Show function
+        function ShowOnTable() {
+            table.clear().draw();
+            $.each(addedItems, function (index, value) {
+                table.row.add([value.DocNo, value.DocNo, value.TotalAmount, value.DueAmount, value.DocType, value.Date, '<input type="number" disabled="disabled" value="' + value.DueAmount + '" name="' + value.DocNo + '"/>']).draw();
+            });
+        }
+
+        //Advance table Show function
+        function ShowOnTable1() {
+            table1.clear().draw();
+            $.each(addedItems1, function (index, value) {
+                table1.row.add([value.SPVNo, value.SPVNo, value.Amount, value.Date, '<input type="number" disabled="disabled" value="' + value.Amount + '" name="' + value.SPVNo + '"/>']).draw();
+            });
+        }
+
+
+        function TotalSumOfCheckedBill() {
+            var totalAmount = 0.0;
+            $.each(selectedBill, function (index, value) {
+                totalAmount = totalAmount + value.DueAmount;
+            });
+            $("#DueAmount").val(totalAmount.toFixed(2)).focusout();
+            $("#AdjustedAmount").val(totalAmount.toFixed(2)).focusout();
+        }
+
+        function TotalSumOfCheckedAdvance() {
+            var totalAdvanceAmount = 0.0;
+            $.each(selectedAdvance, function (index, value) {
+                totalAdvanceAmount = totalAdvanceAmount + value.Amount;
+            });
+            $("#AdvanceAmount").val(totalAdvanceAmount.toFixed(2)).focusout();
+        }
+
+
+        function AdjustedAmount() {
+            var advAmount = $("#AdvanceAmount").val();
+            var dueAmount = $("#DueAmount").val();
+            if (parseFloat(advAmount) < parseFloat(dueAmount)) {
+                $("#AdjustedAmount").val(advAmount);
+                //smallAdvance = advAmount;
+            }
+            else {
+                $("#AdjustedAmount").val(dueAmount);
+                //smallAdvance = dueAmount;
+            }
+        }
+
+        function updateDataTableSelectAllCtrl(table) {
+            var $table = table.table().node();
+            var $chkbox_all = $('tbody input[type="checkbox"]', $table);
+            var $chkbox_checked = $('tbody input[type="checkbox"]:checked', $table);
+            var chkbox_select_all = $('thead input[name="select_all"]', $table).get(0);
+
+            // If none of the checkboxes are checked
+            if ($chkbox_checked.length === 0) {
+                chkbox_select_all.checked = false;
+                if ('indeterminate' in chkbox_select_all) {
+                    chkbox_select_all.indeterminate = false;
+                }
+
+                // If all of the checkboxes are checked
+            } else if ($chkbox_checked.length === $chkbox_all.length) {
+                chkbox_select_all.checked = true;
+                if ('indeterminate' in chkbox_select_all) {
+                    chkbox_select_all.indeterminate = false;
+                }
+
+                // If some of the checkboxes are checked
+            } else {
+                chkbox_select_all.checked = true;
+                if ('indeterminate' in chkbox_select_all) {
+                    chkbox_select_all.indeterminate = true;
+                }
+            }
+        }
+
+
+        //add value for SPAAdjustment
+        function SetSPAInfo() {
+
+            sPAInfo.SPAANo = 0;
+            sPAInfo.SupplierID = $("#SupplierID").val();
+            sPAInfo.Date = $("#Date").val();
+            sPAInfo.Remarks = $("#Remarks").val();
+            sPAInfo.AdjustedAmount = $("#AdjustedAmount").val();
+        }
+
+        function ValidateSPAInfo() {
+            isValid = true;
+            if (selectedBill.length <= 0) {
+                alert("Please select due Which is adjusted");
+                isValid = false;
+            }
+            if (selectedBill.length > 0) {
+                if (selectedAdvance.length <= 0) {
+                    alert("Please select Advance amount Which is adjusted");
+                    isValid = false;
+                }
+            }
+            if (selectedAdvance.length > 0) {
+                if (sPAInfo.SupplierID == "") {
+                    setError("SupplierID", "Supplier Id is required field");
+                    isValid = false;
+                }
+                if (sPAInfo.Date == "") {
+                    setError("Date", "Date is required field");
+                    isValid = false;
+                }
+                if (sPAInfo.AdjustedAmount == "") {
+                    setError("AdjustedAmount", "Adjusted Amount is required field");
+                    isValid = false;
+                }
+            }
+        }
+
+    </script>
+}
+

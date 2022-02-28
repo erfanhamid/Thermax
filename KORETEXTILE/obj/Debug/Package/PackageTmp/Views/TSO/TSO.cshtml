@@ -1,0 +1,427 @@
+﻿@model BEEERP.Models.ViewModel.Sales.Report.ReportVModel
+@using BEEERP.Models.CommonInformation
+@{
+    ViewBag.Title = "TSO";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2 style="text-align:center">TSO Reports</h2>
+@using (Html.BeginForm("Search", "SalesReport", FormMethod.Post, new { id = "report", target = "_blank" }))
+{
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Date Range</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.From, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8 date input-group" style="padding-left:15px;padding-right:15px">
+                                        @Html.TextBoxFor(m => m.From, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.From)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.To, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8 date input-group" style="padding-left:15px; padding-right:15px">
+                                        @Html.TextBoxFor(m => m.To, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.To)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Depot Selection</h3>
+                            </div>
+                            @if (UserAccessAction.IsAdmin)
+                            {
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.DepotId, "Depot", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.DepotId, (IEnumerable<SelectListItem>)ViewBag.Depot, new { @class = "form-control select2", @disabled = "disabled" })
+                                            @Html.ValidationMessageFor(m => m.DepotId)
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.DepotId, "Depot", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.DepotId, (IEnumerable<SelectListItem>)ViewBag.Depot, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.DepotId)
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">TSO Selection</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.TSOId, "TSO", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.DropDownListFor(m => m.TSOId, (IEnumerable<SelectListItem>)ViewBag.TSO, new { @class = "form-control select2 enterTab"})
+                                        @Html.ValidationMessageFor(x => x.TSOId, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">TSO Reports</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group" style="text-align:center;">
+                                    <button class="btn skin-blue" style="min-width:400px;" type="submit" id="tsoWiseCustomerSummary">1. TSO Wise Customer Summary</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    <button class="btn skin-blue" style="min-width:400px;" type="submit" id="tsoWiseCustomerDetails">2. TSO Wise Customer Details</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    <button class="btn skin-blue" id="tsoWiseSales" style="min-width:400px;" type="submit">3. TSO Wise Sales Summary</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    <button class="btn skin-blue" id="tsoWiseSalesDetails" style="min-width:400px;" type="submit">4. TSO Wise Sales Details</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    <button class="btn skin-blue" id="tsoWiseCollectionDetails" style="min-width:400px;" type="submit">5. TSO Wise Collection Details</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    <button class="btn skin-blue" id="tsoWiseSalesReturn" style="min-width:400px;" type="submit">6. TSO Wise Sales Return Statement</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="Depot" name="depot" value="0" />
+
+}
+
+<input type="hidden" id="message" value="false" />
+@section scripts{
+    <script src="~/Scripts/Search.js"></script>
+    <script src="~/Scripts/ReportSearch.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $(".select2").select2();
+            $('.date').datepicker({
+                autoclose: true,
+                format: "dd-mm-yyyy"
+            });
+            DisableStoreId(@ViewBag.Disabled);
+            //$(document).on('click', function (e) {
+            //    e.preventDefault();
+            //});
+
+            $(document).on('change', "#Group", function () {
+            var id = { groupId: $(this).val() };
+            if (id.groupId != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetItemByGroupId", "Sales")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            $("#Item").empty();
+                            $("#Item").prop("disabled", false);
+                            $.each(datas, function (index, value) {
+                                $("#Item").append($('<option />', {
+                                    value: value.Value,
+                                    text: value.Text
+                                }));
+                            });
+                        }
+                    });
+                }
+                else {
+                    $("#Item").empty();
+                    $("#Item").prop("disabled", true);
+                }
+            });
+
+            @*$(document).on('change', "#DepotId", function () {
+                $("#TSOId").prop('disabled', false);
+                var id = { depot: $(this).val() };
+                if (id.depot != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetTsoByDepotId", "Customer")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            $("#TSOId").empty();
+                            $("#TSOId").prop("disabled", false);
+                            $.each(datas, function (index, value) {
+                                $("#TSOId").append($('<option />', {
+                                    value: value.Value,
+                                    text: value.Text
+                                })).trigger('change');
+                            });
+                            //$("#TSOId").focus();
+                            if (tso != "") {
+                                $("#TSOId").val(tso).change();
+                                //$("#TSOId").prop('disabled', true);
+                                supplierId = "";
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#TSOId").val("").change();
+                    $("#TSOId").prop("disabled", true);
+                }
+            });*@
+            $(document).on('change', "#DepotId", function () {
+                //ClearOnDepotChange();
+                var id = { id: $(this).val() };
+                if (id.id != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetStoreByDepotId", "Order")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify(id),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            $("#TSOId").empty();
+                            $("#TSOId").prop("disabled", false);
+                            $.each(datas, function (index, value) {
+                                $("#TSOId").append($('<option />', {
+                                    value: value.Value,
+                                    text: value.Text
+                                })).trigger('change');
+                            });
+
+                            if(storeId!="")
+                            {
+                                $("#TSOId").val(storeId).change();
+                                storeId = "";
+                            }
+
+                        }
+                    });
+                }
+                else {
+                    $("#TSOId").empty();
+                    $("#TSOId").prop("disabled", true);
+                }
+
+           });
+
+            $(document).on('click', "#searchCustomer", function () {
+            var param = { depotId: $("#DepotId").val(), custId: $("#CustomerID").val() };
+
+                if($("#DepotId").val() == "")
+                {
+                    alert("Need to select Depot");
+                }
+                $.ajax({
+                    url: '@Url.Action("GetCustomerById", "SalesReport")',
+                    contentType: "application/json;charset=utf-8",
+                    data: param,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas != 0) {
+                            $("#CustName").val(datas.Name);
+                        }
+                        else {
+                            $("#CustName").val("");
+                            alert("May be customer doesn't exist or customer is not exist on this Depot.");
+
+                        }
+                    }
+                });
+            });
+
+            $(document).on('click', "#showCustWiseSaleDetailsRep", function () {
+
+                event.preventDefault();
+                ValidateReportSearchParam(["From", "To", "DepotId", "CustomerID"]);
+                if ($("#message").val() != "true") {
+                    $("#Depot").val($("#DepotId").val());
+                    $("#report").attr("action", "/SalesReport/showCustWiseSaleDetailsRep")
+                    $("#report").submit();
+                }
+
+            });
+
+            $(document).on('click', "#showCustWiseSaleSummRep", function () {
+                ValidateReportSearchParam(["From", "To", "DepotId"]);
+                event.preventDefault();
+
+                if ($("#message").val() != "true") {
+                    $("#Depot").val($("#DepotId").val());
+                    $("#report").attr("action", "/SalesReport/showCustWiseSaleSummRep")
+                    $("#report").submit();
+                }
+
+            });
+
+            $(document).on('click', "#SingleItemSaleDetails", function () {
+                ValidateReportSearchParam(["From", "To", "DepotId"]);
+                event.preventDefault();
+
+                if ($("#message").val() != "true") {
+                    $("#Depot").val($("#DepotId").val());
+                    $("#report").attr("action", "/SalesReport/showSingleItemSaleDetails")
+                    $("#report").submit();
+                }
+
+            });
+
+            $(document).on('click', "#ItemWiseSingleDepotSale", function () {
+                ValidateReportSearchParam(["From", "To", "DepotId"]);
+                event.preventDefault();
+
+                if ($("#message").val() != "true") {
+                    $("#Depot").val($("#DepotId").val());
+                    $("#report").attr("action", "/SalesReport/showItemWiseSingleDepotSale")
+                    $("#report").submit();
+                }
+
+            });
+            $(document).on('click', "#depotWiseSalesSummry", function () {
+                ValidateReportSearchParam(["From", "To", "DepotId"]);
+                event.preventDefault();
+
+                if ($("#message").val() != "true") {
+                    $("#Depot").val($("#DepotId").val());
+                    $("#report").attr("action", "/SalesReport/GetDepotWiseSalesSummary")
+                    $("#report").submit();
+                }
+            });
+            $(document).on('click', "#invoiceWiseSales", function () {
+                ValidateReportSearchParam(["From", "To", "DepotId"]);
+                event.preventDefault();
+
+                if ($("#message").val() != "true") {
+                    $("#Depot").val($("#DepotId").val());
+                    $("#report").attr("action", "/SalesReport/GetInvoiceWiseSaleSummary")
+                    $("#report").submit();
+                }
+            });
+            $(document).on('click', "#tsoWiseSales", function () {
+                ValidateReportSearchParam(["DepotId", "From", "To", "TSOId"]);
+                event.preventDefault();
+
+                if ($("#message").val() != "true") {
+                    $("#Depot").val($("#DepotId").val());
+                    $("#report").attr("action", "/SalesReport/GetTSOWiseSaleSummary")
+                    $("#report").submit();
+                }
+            });
+            $(document).on('click', "#tsoWiseSalesDetails", function () {
+                ValidateReportSearchParam(["DepotId", "From", "To", "TSOId"]);
+                event.preventDefault();
+
+                if ($("#message").val() != "true") {
+                    $("#Depot").val($("#DepotId").val());
+                    $("#report").attr("action", "/SalesReport/GetTSOWiseSaleDetails")
+                    $("#report").submit();
+                }
+            });
+
+            $(document).on('click', "#tsoWiseCollectionDetails", function () {
+                ValidateReportSearchParam(["DepotId", "From", "To", "TSOId"]);
+                event.preventDefault();
+
+                if ($("#message").val() != "true") {
+                   
+                    $("#Depot").val($("#DepotId").val());
+                    $("#report").attr("action", "/SalesReport/GetTSOWiseCollectionDetails")
+                    $("#report").submit();
+                }
+            });
+
+            $(document).on('click', "#tsoWiseSalesStatement", function () {
+                event.preventDefault();
+
+                if ($("#message").val() != "true") {
+                    $("#Depot").val($("#DepotId").val());
+                    $("#report").attr("action", "/SalesReport/GetTsoWiseSalesStatement")
+                    $("#report").submit();
+                }
+            });
+
+            $(document).on('click', "#tsoWiseSalesItem", function () {
+                ValidateReportSearchParam(["DepotId", "From", "To", "TSOId"]);
+                event.preventDefault();
+
+                if ($("#message").val() != "true") {
+                    $("#Depot").val($("#DepotId").val());
+                    $("#report").attr("action", "/SalesReport/GetTsoWiseSalesItem")
+                    $("#report").submit();
+                }
+            });
+
+            $(document).on('click', "#tsoWiseSalesReturn", function () {
+                ValidateReportSearchParam(["DepotId", "From", "To", "TSOId"]);
+                event.preventDefault();
+
+                if ($("#message").val() != "true") {
+                    $("#Depot").val($("#DepotId").val());
+                    $("#report").attr("action", "/SalesReport/GetTsoWiseSalesReturn")
+                    $("#report").submit();
+                }
+            });
+
+            $(document).on('click', "#tsoWiseSalesAndCollection", function () {
+                ValidateReportSearchParam(["DepotId", "From", "To", "TSOId"]);
+                event.preventDefault();
+
+                if ($("#message").val() != "true") {
+                    $("#Depot").val($("#DepotId").val());
+                    $("#report").attr("action", "/SalesReport/GetTsoWiseSalesAndCollection")
+                    $("#report").submit();
+                }
+            });
+            $(document).on('click', "#tsoWiseCustomerSummary", function (event) {
+                event.preventDefault();
+                ValidateReportSearchParam(["DepotId"]);
+                if ($("#message").val() != "true") {
+                    $("#Depot").val($("#DepotId").val());
+                    $("#report").attr("action", "/TSO/GetTsoWiseCustomerSummary")
+                    $("#report").submit();
+                }
+            });
+
+            $(document).on('click', "#tsoWiseCustomerDetails", function (event) {
+                event.preventDefault();
+                ValidateReportSearchParam(["TSOId", "DepotId"]);
+                if ($("#message").val() != "true") {
+                    $("#report").attr("action", "/TSO/GetTsoWiseCustomerDetails")
+                    $("#report").submit();
+                }
+            });
+
+
+        });
+    </script>
+}

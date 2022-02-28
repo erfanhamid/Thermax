@@ -1,0 +1,397 @@
+﻿@model BEEERP.Models.ViewModel.Payroll.JobQuittingVModel
+
+@{
+    ViewBag.Title = "JobQuittingInfo";
+}
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<h3 style="text-align:center">Job Quitting Information (JQI) Entry</h3>
+
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h4 class="box-title">JQI Detail</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.JQINo, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6 input-group" style="padding-left:15px; padding-right:15px;">
+                                            @Html.TextBoxFor(m => m.JQINo, new { @class = "form-control", @type = "number", @Value = ViewBag.gbeCountNumPlausOne })
+                                            @Html.ValidationMessageFor(m => m.JQINo, "", new { @style = "color: red" })
+                                            <div class="input-group-btn">
+                                                <input type="button" name="search" id="search" value="Search" class="btn btn-primary" style="min-width: 50px" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.EmployeeId, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6 input-group" style="padding-left:15px; padding-right:15px;">
+                                            @Html.TextBoxFor(m => m.EmployeeId, new { @class = "form-control", @type = "number", @Value = ViewBag.gbeCountNumPlausOne })
+                                            @Html.ValidationMessageFor(m => m.EmployeeId, "", new { @style = "color: red" })
+                                            <div class="input-group-btn">
+                                                <input type="button" name="go" id="go" value="Go" class="btn btn-primary" style="min-width: 20px" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.EmployeeName, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.EmployeeName, new { @class = "form-control", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.EmployeeName, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Designation, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.Designation, new { @class = "form-control", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.Designation, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Date, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-5 input-group">
+                                            @Html.TextBoxFor(m => m.Date, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                        <div style="padding-left:180px">
+                                            @Html.ValidationMessageFor(m => m.Date, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <br />
+                                        <br />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box ">
+                            <div class="box-body">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ROLId, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.ROLId, (IEnumerable<SelectListItem>)ViewBag.ReasonOfLeaving, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.ROLId, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.RefNo, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.RefNo, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.RefNo, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Description, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Description, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="background-color:white; ">
+                            <div class="form-group" align="center">
+                                <input type="button" id="save" value="Save" class="btn btn-primary" />
+                                <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                                <input type="button" name="revert" id="revert" value="Revert" class="btn btn-primary" />
+                                <input type="button" name="delete" id="delete" value="Delete" class="btn btn-primary" />
+                                <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Scripts/PayRollModule/JQIinputFocus.js"></script>
+    <script>
+        $(document).ready(function () {
+            JQIFieldEnterPress();
+            $('#update').hide();
+            $('#delete').hide();
+            $('#revert').hide();
+            $(document).on('click', '#refresh', function () {
+                location.reload();
+            });
+            $('.select2').select2();
+            $('.date').datepicker({
+                autoclose: true,
+                format: 'dd-mm-yyyy',
+            });
+        });
+
+        var JQI = { JQINo:0, Date:"", EmployeeId:0, ROLId:0, RefNo:"", Description:"" };
+        function SetJQI() {
+            JQI.JQINo = $("#JQINo").val();
+            JQI.Date = $("#Date").val();
+            JQI.EmployeeId = $("#EmployeeId").val();
+            JQI.ROLId = $("#ROLId").val();
+            JQI.RefNo = $("#RefNo").val();
+            JQI.Description = $("#Description").val();
+        }
+
+
+        //Employee search
+        $(document).on('click', "#go", function () {
+            var id = { empId: $("#EmployeeId").val() };
+
+            $.ajax({
+                    url: '@Url.Action("GetEmployeeById", "JobQuittingInfo")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas != 0) {
+                            $("#EmployeeName").val(datas.Name);
+                            $("#Designation ").val(datas.Designation);
+                        }
+                        else {
+                            $("#EmployeeName").val("");
+                            $("#Designation ").val("");
+                            alert("May be Employee doesn't exist.");
+                        }
+                    }
+            });
+        });
+
+        //Save
+        $(document).on('click', '#save', function (event) {
+            RemoveError();
+            ValidateOnSaveClick();
+            $("#save").prop("disabled", true);
+            if (message == "") {
+                SetJQI();
+                if (confirm("Do you want to Save?")) {
+                    $.ajax({
+                        url: '@Url.Action("SaveJQI", "JobQuittingInfo")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ jqi: JQI }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Saved.");
+                                $("#save").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Saved.");
+                                $("#JQINo").val(datas.JQINo);
+                                $("#save").hide();
+                            }
+                        }
+                    });
+                }
+            }
+            else {
+                $("#save").prop("disabled", false)
+            }
+        });
+
+        //Search
+        $(document).on('click', '#search', function () {
+            $("#update").prop("disabled", false);
+            if ($("#JQINo").val() == "") {
+                alert("Please enter a JQI No first.");
+            }
+            else {
+                var no = { jqino: $("#JQINo").val()};
+                ClearOnSearch();
+                $.ajax(
+                {
+                        url: '@Url.Action("GetJQIById", "JobQuittingInfo")',
+                        contentType: "application/json;charset=utf-8",
+                        data: no,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("JQI No doesn't exist.");
+                            }
+                            else
+                            {
+                                $("#save").hide();
+                                $("#update").show();
+                                //$("#delete").show();
+                                $("#revert").show();
+                                $("#JQINo").val(datas.JQINo);
+                                $("#Date").val((moment(datas.Date).format("DD-MM-YYYY"))).change();
+                                $("#EmployeeId").val(datas.EmployeeId);
+                                $("#ROLId").val(datas.ROLId).change();
+                                $("#RefNo").val(datas.RefNo);
+                                $("#Description").val(datas.Description);
+                                $("#EmployeeName").val(datas.EmployeeName);
+                                $("#Designation").val(datas.Designation);
+                                //$("#go").click();
+                            }
+                        },
+                        error: function ()
+                        {
+                            alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services");
+                        }
+                });
+            }
+        });
+
+        //Update
+        $(document).on('click', '#update', function () {
+            RemoveError();
+            ValidateOnSaveClick();
+            $("#update").prop("disabled", true);
+            if (message == "") {
+                SetJQI();
+                if (confirm("Do you want to Update?"))
+                {
+                    $.ajax(
+                    {
+                        url: '@Url.Action("UpdateJQI", "JobQuittingInfo")',
+                        contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ jqi: JQI}),
+                            type: "POST",
+                            dataType: "json",
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Update Failed");
+                                    $("#update").prop('disabled', false);
+                                }
+                                else{
+                                    alert("Update Successfully");
+                                    $("#update").hide();
+                                }
+                            },
+                            error: function () {
+                                alert("Please check Internet connection. If doesn't solve problem. Contact with Paankouri Software & Services");
+                                $("#update").prop("disabled", false);
+                            }
+                    });
+                }
+            }
+        });
+
+        //Delete
+        $(document).on('click', '#delete', function () {
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var jqino = $("#JQINo").val();
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteJQIById", "JobQuittingInfo")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { jqino: jqino },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Delete failed.");
+                            $("#delete").prop('disabled', false);
+                            $("#update").prop('disabled', false);
+                        }
+                        else {
+                            alert("Delete Successfull");
+                            location.reload();
+                        }
+                    }
+                });
+            }
+            else {
+                $("#update").prop('disabled', false);
+                $("#delete").prop('disabled', false);
+            }
+        });
+        $(document).on('click', '#revert', function () {
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var jqino = $("#JQINo").val();
+            if (confirm('Are you sure you want to Revert this?')) {
+                $.ajax({
+                    url: '@Url.Action("RevertJQIById", "JobQuittingInfo")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { jqino: jqino },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Revert failed.");
+                            $("#delete").prop('disabled', false);
+                            $("#update").prop('disabled', false);
+                        }
+                        else {
+                            alert("Revert Successfull");
+                            location.reload();
+                        }
+                    }
+                });
+            }
+            else {
+                $("#update").prop('disabled', false);
+                $("#delete").prop('disabled', false);
+            }
+        });
+
+        //Validation for JQI
+        function ValidateOnSaveClick() {
+            message = "";
+            if ($("#EmployeeId").val() == "") {
+                setError("EmployeeId", "Enter an Employee ID and click on go");
+                message = "Employee Id is Required Field."
+            }
+            if ($("#Date").val() == "") {
+                setError("Date", "Select a valid date");
+                message = "Date is Required Field."
+            }
+            if ($("#ROLId").val() == "") {
+                setError("ROLId", "Select a reason from the list");
+                message = "ROLId is Required Field."
+            }
+        }
+
+        function ClearOnSearch() {
+            $("#EmployeeId").val("");
+            $("#Date").val((moment("").format("DD-MM-YYYY"))).change();
+            $("#ROLId").val("").change();
+            $("#RefNo").val("");
+            $("#Description").val("");
+        }
+
+    </script>
+}

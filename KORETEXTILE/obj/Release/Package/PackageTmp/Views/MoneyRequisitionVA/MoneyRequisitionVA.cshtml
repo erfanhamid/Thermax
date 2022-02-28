@@ -1,0 +1,873 @@
+﻿@model BEEERP.Models.ViewModel.Account.MoneyRequisitionVoucherAdjustmentVModel
+
+@{
+    ViewBag.Title = "MoneyRequisitionVA";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<h3 style="text-align:center">Money Requisition Voucher Adjustment (MRVA) Entry</h3>
+<form id="report" , target="_blank">
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA;">
+                                    <h4 class="box-title">MRVA Details</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.MRVANo, new { @class = "col-md-4 control-label" })
+                                            <div class="input-group input-group-sm " style="padding-right:15px;padding-left:14px;">
+                                                @Html.TextBoxFor(m => m.MRVANo, new { @class = "form-control", @Type = "Number", @Value = ViewBag.MRVNO })
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-primary" id="Search" style="min-width: 60px">Search</button>
+                                                </span>
+                                            </div>
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-8">
+                                                @Html.ValidationMessageFor(m => m.MRVANo)
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.CostCenterId, new { @class = "col-md-4 control-label" })
+                                            <div class=" col-sm-8 ">
+                                                @Html.DropDownListFor(m => m.CostCenterId, (IEnumerable<SelectListItem>)ViewBag.costcenter, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.CostCenterId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.EmployeeName, new { @class = "col-md-4 control-label" })
+                                            <div class=" col-sm-8 ">
+                                                @Html.TextBoxFor(m => m.EmployeeName, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.EmployeeName, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Date, new { @class = "col-md-4 control-label" })
+                                            <div class="date input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.Date, new { @class = "enterTab form-control date ", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-8">
+                                                @Html.ValidationMessageFor(m => m.Date, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.EmpID, new { @class = "col-md-4 control-label" })
+                                            <div class="input-group input-group-sm " style="padding-right:15px;padding-left:14px;">
+                                                @Html.TextBoxFor(m => m.EmpID, new { @class = "form-control", @Type = "Number" })
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn skin-blue btn-flat enterTab" id="go" style="min-width: 20px">Go</button>
+                                                </span>
+                                            </div>
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-8">
+                                                @Html.ValidationMessageFor(m => m.EmpID)
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.EmployeeDesignation, new { @class = "col-md-4 control-label" })
+                                            <div class=" col-sm-8 ">
+                                                @Html.TextBoxFor(m => m.EmployeeDesignation, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.EmployeeDesignation, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA;">
+                                    <h4 class="box-title">Voucher</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.DebitAcId, new { @class = "col-md-4 control-label" })
+                                            <div class=" col-sm-8 ">
+                                                @Html.DropDownListFor(m => m.DebitAcId, (IEnumerable<SelectListItem>)ViewBag.debitAcount, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.DebitAcId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.CostGroupId, new { @class = "col-md-4 control-label" })
+                                            <div class=" col-sm-8 ">
+                                                @Html.DropDownListFor(m => m.CostGroupId, (IEnumerable<SelectListItem>)ViewBag.costgroup, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.CostGroupId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.MRVAAmount, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.MRVAAmount, new { @class = "form-control", @Type = "Number" })
+                                                @Html.ValidationMessageFor(m => m.MRVAAmount)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.RefNo, "Reference No", new { @class = "col-md-4 control-label" })
+                                            <div class=" col-sm-8 ">
+                                                @Html.TextBoxFor(m => m.RefNo, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.RefNo, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.MRVADescription, new { @class = "col-md-4 control-label" })
+                                            <div class=" col-sm-8 ">
+                                                @Html.TextAreaFor(m => m.MRVADescription, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.MRVADescription, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" align="center">
+                                    <input type="button" name="add" id="add" value="Add to Grid" class="btn btn-primary" />
+                                </div>
+                                <br />
+                            </div>
+                            <div class="box">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA;">
+                                    <h4 class="box-title">MRVA Line Item</h4>
+                                </div>
+                                <div class="box-body">
+                                    <table class="table table-responsive" id="voucherList">
+                                        <thead>
+                                            <tr>
+                                                <th>Debit A/C</th>
+                                                <th>Cost Group</th>
+                                                <th>Amount</th>
+                                                <th>Reference No</th>
+                                                <th>Description</th>
+                                                <th>Action </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div class="box-footer">
+                                    <div class="form-group" , style="text-align:center">
+                                        <input type="button" name="save" id="save" value="Save" class="btn btn-primary" />
+                                        <input type="button" name="approve" id="approve" value="Approve" class="btn btn-primary" />
+                                        <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                                        <input type="button" name="delete" id="delete" value="Delete" class="btn btn-primary" />
+                                        <input type="button" name="print" id="print" value="Print" class="btn btn-primary" />
+                                        <input type="button" name="Refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="box">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA;">
+                                    <h4 class="box-title">Balance Amount</h4>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="box-body" style="background-color:white;">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.PreviousBalance, new { @class = "col-md-5 control-label" })
+                                                <div class=" col-sm-7 ">
+                                                    @Html.TextBoxFor(m => m.PreviousBalance, new { @class = "form-control", @Readonly = "readonly" })
+                                                    @Html.ValidationMessageFor(m => m.PreviousBalance, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.VoucherTotal, new { @class = "col-md-5 control-label" })
+                                                <div class=" col-sm-7 ">
+                                                    @Html.TextBoxFor(m => m.VoucherTotal, new { @class = "form-control", @Readonly = "readonly" })
+                                                    @Html.ValidationMessageFor(m => m.VoucherTotal, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.prevMinuseVoucherTotal, "Remaining Amount", new { @class = "col-md-5 control-label" })
+                                                <div class=" col-sm-7 ">
+                                                    @Html.TextBoxFor(m => m.prevMinuseVoucherTotal, new { @class = "form-control", @Readonly = "readonly" })
+                                                    @Html.ValidationMessageFor(m => m.prevMinuseVoucherTotal, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 " id="hide">
+                                <div class="box-header with-border box-head-back" align="center">
+                                    <h6 class="box-title">Cash Payment To Employee</h6>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="box-body" style="background-color:white;">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.NegativeBalanceCheckbox, new { @class = "col-md-4 control-label" })
+                                                <div class=" col-sm-8 ">
+                                                    @Html.CheckBoxFor(m => m.NegativeBalanceCheckbox)
+                                                    @Html.ValidationMessageFor(m => m.NegativeBalanceCheckbox, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.MRVNo, new { @class = "col-md-4 control-label" })
+                                                <div class=" col-sm-8 ">
+                                                    @Html.TextBoxFor(m => m.MRVNo, new { @class = "form-control", @Type = "Number" })
+                                                    @Html.ValidationMessageFor(m => m.MRVNo, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.AccountId, new { @class = "col-md-4 control-label" })
+                                                <div class=" col-sm-8 ">
+                                                    @Html.DropDownListFor(m => m.AccountId, (IEnumerable<SelectListItem>)ViewBag.PaymentAc, new { @class = "form-control select2" })
+                                                    @Html.ValidationMessageFor(m => m.AccountId, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.Amount, new { @class = "col-md-4 control-label" })
+                                                <div class="input-group input-group-sm " style="padding-right:15px;padding-left:14px;">
+                                                    @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", @Type = "Number" })
+                                                    @Html.ValidationMessageFor(m => m.Amount)
+                                                    <span class="input-group-btn">
+                                                        <button type="button" class="btn skin-blue btn-flat">TK</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.Description, new { @class = "col-md-4 control-label" })
+                                                <div class=" col-sm-8 ">
+                                                    @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.Description, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                            <br />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@section scripts{
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/AccountModule/MRVoucherAdjInputFocus.js"></script>
+    <script>
+        MRVAFieldEnterPress();
+        $(document).on("keydown", "#MRVANo", function (e) {
+            if (e.keyCode == 13 || e.keyCode == 9) {
+                e.preventDefault();
+                $("#Search").focus();
+                $("#Search").click();
+
+            }
+        });
+
+        $(document).ready(function () {
+
+            $("#hide").hide();
+            $("#CostCenterId").focus();
+            $('.select2').select2();
+            var addedItems = [];
+            var message = "";
+            var voucher = {};
+            var voucher = {
+                MRVAId: 0, DebitAcId: 0, CostGroupId: 0,
+                MRVAAmount: 0, MRVADescription: ""
+            };
+            $('#NegativeBalanceCheckbox').prop("disabled", true);
+            $('.date').datepicker({
+                autoclose: true,
+                format: 'dd-mm-yyyy',
+            });
+            $("#update").hide();
+            $("#delete").hide();
+            $("#approve").hide();
+            $("#print").hide();
+            var table = $('#voucherList').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            });
+            
+
+            function ClearOnAdd() {
+                $("#DebitAcId").val("").change();
+                $("#CostGroupId").val("").change();
+                $("#MRVAAmount").val("");
+                $("#MRVADescription").val("");
+                $("#RefNo").val("");
+            }
+
+            $(document).on('click', "#go", function () {
+                var param = { empId: $("#EmpID").val() };
+
+                $.ajax({
+                        url: '@Url.Action("GetEmployeeById", "MoneyRequisitionVA")',
+                        contentType: "application/json;charset=utf-8",
+                        data: param,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas != 0) {
+                                $("#EmployeeName").val(datas.Name);
+                                $("#EmployeeDesignation ").val(datas.Designation);
+                                $("#PreviousBalance ").val(datas.PrevBal);
+
+                            }
+                            else {
+                                $("#EmployeeName").val("");
+                                $("#EmployeeDesignation ").val("");
+                                $("#PreviousBalance ").val("");
+                                alert("May be Employee doesn't exist.");
+
+                            }
+                        }
+                });
+            });
+            $(document).on('click', '#add', function () {
+                RemoveError();
+                ValidateOnAddClick();
+                if (message == "") {
+                    createVoucherObject();
+                    addedItems.push(voucher);
+                    ShowOnTable();
+                    ClearOnAdd();
+                    $("#DebitAcId").focus();
+                }
+                else {
+                    //alert(message);
+                }
+            });
+
+            function createVoucherObject() {
+                voucher = {
+                    MRVANo: 0, DebitAC: 0, CostGroupId: 0,
+                    MRVAAmount: 0, Description: "", RefNo: ""
+                };
+
+                voucher.MRVANo = $("#MRVANo").val();
+                voucher.DebitAC = $("#DebitAcId").val();
+                voucher.DebitAcName = $("#DebitAcId :selected").text();
+                voucher.CostGroupId = $("#CostGroupId").val();
+                voucher.CostGroupName = $("#CostGroupId :selected").text();
+                voucher.Amount = $("#MRVAAmount").val();
+                voucher.Description = $("#MRVADescription").val();
+                voucher.RefNo = $("#RefNo").val();
+            };
+            $(document).on('click', '[name="deleteRow"]', function () {
+                var item = $(this).attr("value");
+                if (confirm('Are you sure you want to delete this from grid ?')) {
+                    var newItem = [];
+                    $.each(addedItems, function (index, value) {
+                        if (value.DebitAC == item) {
+
+                        }
+                        else {
+                            newItem.push(value);
+                        }
+                    });
+                    addedItems = newItem;
+                    ShowOnTable();
+                    calculateTotalVoucherAmount();
+                }
+            });
+            $(document).on('click', '[name="editRow"]', function (e) {
+                var item = $(this).attr("value");
+                var newItem = [];
+                $.each(addedItems, function (index, value) {
+                    if (value.DebitAC == item) {
+                        $("#DebitAcId").val(value.DebitAC).change();
+                        $("#CostGroupId").val(value.CostGroupId).change();
+                        $("#MRVAAmount").val(value.Amount).change();
+                        $("#MRVADescription").val(value.Description).change();
+                        $("#RefNo").val(value.RefNo).change();
+                    }
+                    else {
+                        newItem.push(value);
+                    }
+                });
+                addedItems = newItem;
+                ShowOnTable();
+                calculateTotalVoucherAmount();
+            });
+            $(document).on('click', '#Search', function () {
+                SearchClick();
+            });
+
+            if ($("#MRVANo").val() != "") {
+                if (@ViewBag.IsNotify== 1) {
+                    SearchClick();
+                }
+
+                //condition
+
+            }
+
+            function SearchClick() {
+                addedItems = [];
+                ClearOnSearch();
+
+                var mrvaNo = { mrvaNo: parseInt($('#MRVANo').val()) };
+                $.ajax({
+                    url: '@Url.Action("GetMRVA", "MoneyRequisitionVA")',
+                    contentType: "application/json;charset=utf-8",
+                    data:mrvaNo,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data == 0) {
+                            alert("No MRVA is available here for your MRVANo");
+                        } else if (data.Message ==2) {
+                            alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                        } else
+                        {
+                            //$("#update").show();
+                            //$("#delete").show();
+                            if (@ViewBag.IsNotify == 1) {
+                                if (@ViewBag.Approve== 1) {
+                                    //$("#approve").show();
+                                    $("#print").show();
+                                    $("#save").hide();
+                                }
+                                else {
+                                    $("#approve").show();
+                                    $("#print").show();
+                                    $("#save").hide();
+                                }
+
+                            }
+                            else {
+
+                                $("#print").show();
+                                $("#update").show();
+                                $("#delete").show();
+                                $("#save").hide();
+                            }
+                            $("#save").hide();
+                            $("#MRVANo").val(data.mrva.RSLNO);
+                            $("#Date").val(moment(data.mrva.Date).format("DD-MM-YYYY")).change();
+                            $("#CostCenterId").val(data.mrva.CostCenterID).change();
+                            $("#EmpID").val(data.mrva.EmpID);
+                            $("#PreviousBalance").val(data.PrevBal);
+                            $("#VoucherTotal").val(data.mrva.VoucherTotal);
+                            $("#EmployeeName").val(data.mrva.EmployeeName);
+                            $("#EmployeeDesignation").val(data.mrva.EmployeeDesignation);
+                            if (data.mrv != null) {
+                                $("#MRVNo").val(data.mrv.MRVNo);
+                                $("#AccountId").val(data.mrv.AccountId).change();
+                                $("#Amount").val(data.mrv.Amount);
+                                $("#Description").val(data.mrv.Description);
+                            }
+                            $.each(data.mrvaLinesItems, function (index, value) {
+                                voucher = {
+                                    MRVANo: 0, DebitAC: 0, CostGroupId: 0,
+                                    Amount: 0, Description: "", RefNo: "", DebitAcName:""
+                                };
+
+                                voucher.MRVANo = value.MRVANo;
+                                
+                                voucher.DebitAC = value.DebitAC;
+                                voucher.DebitAcName = value.DebitACName;
+                                voucher.CostGroupId = value.CostGroupID;
+                                voucher.CostGroupName = value.CostGroupName;
+                                voucher.Amount = value.Amount;
+                                voucher.Description = value.Description;
+                                voucher.RefNo = value.RefNo;
+                                addedItems.push(voucher);
+                                ShowOnTable();
+
+                            });
+                        }
+                    }
+                });
+            }
+            $(document).on('click', "#print", function (event) {
+                event.preventDefault();
+                if ($("#message").val() != "true") {
+                    $("#report").attr("action", "/MoneyRequisitionVA/GetMoneyRequisitionVAPreview")
+                    $("#report").submit();
+                }
+            });
+
+            $(document).on('click', "#approve", function () {
+                 RemoveError();
+
+                   if (addedItems.length > 0)
+                   {
+                       ValidateOnSaveClick();
+                       if (message == "") {
+                           if (confirm("Do you want to Approve?")) {
+                               $("#approve").prop('disabled', true);
+                               var monyRecVoucherAdj = { MRVANo: 0, Date: "", CostCenterId: 0, EmpID: 0, PreviousBalance: 0, VoucherTotal: 0, AccountId: 0, Amount: 0, Description: "", NegativeBalanceCheckbox: false }
+                               monyRecVoucherAdj.MRVANo = $("#MRVANo").val();
+                               monyRecVoucherAdj.Date = $("#Date").val();
+                               monyRecVoucherAdj.CostCenterId = $("#CostCenterId").val();
+                               monyRecVoucherAdj.EmpID = $("#EmpID").val();
+                               monyRecVoucherAdj.PreviousBalance = $("#PreviousBalance").val();
+                               monyRecVoucherAdj.VoucherTotal = $("#VoucherTotal").val();
+                               monyRecVoucherAdj.AccountId = $("#AccountId").val();
+                               monyRecVoucherAdj.Amount = $("#Amount").val();
+                               monyRecVoucherAdj.Description = $("#Description").val();
+                               monyRecVoucherAdj.NegativeBalanceCheckbox = $("#NegativeBalanceCheckbox").is(":checked");
+                               $.ajax
+                                   ({
+                                       url: '@Url.Action("TransectionEffect", "MoneyRequisitionVA")',
+                                       contentType: "application/json;charset=utf-8",
+
+                                       data: JSON.stringify({ moneyRequisitionVoucherAdjust: monyRecVoucherAdj, moneyRequisitionVoucherAdjustLineItems: addedItems }),
+                                       type: 'POST',
+                                       dataType: 'json',
+                                       success: function (datas) {
+                                           if (datas.Message == "0") {
+                                               alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                               $("#approve").prop('disabled', false);
+                                           }
+                                           else if (datas.Message == "1") {
+                                               alert("Sccessfully Approved.");
+                                               //$("#MRVANo").val(datas.moneyRequisitionVoucherAdjust.MRVANo);
+                                           }
+                                           else {
+                                               alert("This MRVA already Exist.");
+                                               $("#approve").prop('disabled', false);
+                                           }
+                                       }
+                                   });
+                           }
+                           else{
+                               $("#approve").prop('disabled', false);
+                           }
+                       }
+                       else {
+                           $("#approve").prop('disabled', false);
+                       }
+
+                   }
+                   else
+                   {
+                    var messageforEmpty = "The Item list is empty";
+                    alert(messageforEmpty);
+                    $("#approve").prop('disabled', false);
+                   }
+
+            });
+
+            $(document).on('click', '#save', function () {
+                RemoveError();
+
+                   if (addedItems.length > 0)
+                   {
+                       ValidateOnSaveClick();
+                       if (message == "") {
+                           if (confirm("Do you want to save?"))
+                           {
+                               $("#save").prop('disabled', true);
+                               var monyRecVoucherAdj = { RSLNO: 0, Date: "", CostCenterId: 0, EmpID: 0, PrevBal: 0, TotalAmount: 0, AccountId: 0, Amount: 0, Description: "", NegativeBalanceCheckbox: false }
+                                monyRecVoucherAdj.RSLNO = $("#MRVANo").val();
+                                monyRecVoucherAdj.Date = $("#Date").val();
+                                monyRecVoucherAdj.CostCenterId = $("#CostCenterId").val();
+                                monyRecVoucherAdj.EmpID = $("#EmpID").val();
+                                monyRecVoucherAdj.PrevBal = $("#PreviousBalance").val();
+                                monyRecVoucherAdj.TotalAmount = $("#VoucherTotal").val();
+                                monyRecVoucherAdj.AccountId = $("#AccountId").val();
+                                monyRecVoucherAdj.Amount = $("#Amount").val();
+                                monyRecVoucherAdj.Description = $("#Description").val();
+                                monyRecVoucherAdj.NegativeBalanceCheckbox = $("#NegativeBalanceCheckbox").is(":checked");
+                               $.ajax
+                              ({
+                                url: '@Url.Action("SaveMonyRequisationVA", "MoneyRequisitionVA")',
+                                contentType: "application/json;charset=utf-8",
+                                data: JSON.stringify({ moneyRequisitionVoucherAdjust: monyRecVoucherAdj, moneyRequisitionVoucherAdjustLineItems: addedItems }),
+                                type: 'POST',
+                                dataType: 'json',
+                                success: function (datas) {
+                                    if (datas.Message == "0") {
+                                        alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                    $("#save").prop('disabled', false);
+                                    }
+                                    else if (datas.Message == "1") {
+                                        //$("#update").show();
+                                        //$("#delete").show();
+                                        alert("Sccessfully saved.");
+                                        $("#MRVANo").val(datas.moneyRequisitionVoucherAdjust.RSLNO);
+                                    }
+                                    else{
+                                    alert("This MRVA already exists");
+                                    $("#save").prop('disabled', false);
+                                    }
+                                }
+                            });
+                           }
+                       }
+
+                   }
+                   else
+                   {
+                    var messageforEmpty = "The Item list is empty";
+                    alert(messageforEmpty);
+                    $("#save").prop('disabled', false);
+                   }
+
+            });
+            $(document).on('click', '#update', function () {
+                RemoveError();
+
+                   if (addedItems.length > 0)
+                   {
+                       ValidateOnSaveClick();
+                       if (message == "") {
+                           if (confirm("Do you want to update?"))
+                           {
+                               $("#save").prop('disabled', true);
+                               var monyRecVoucherAdj = { RSLNO: 0, Date: "", CostCenterId: 0, EmpID: 0, PrevBal: 0, TotalAmount: 0, AccountId: 0, Amount: 0, Description: "", NegativeBalanceCheckbox: false }
+                               monyRecVoucherAdj.RSLNO = $("#MRVANo").val();
+                               monyRecVoucherAdj.Date = $("#Date").val();
+                               monyRecVoucherAdj.CostCenterId = $("#CostCenterId").val();
+                               monyRecVoucherAdj.EmpID = $("#EmpID").val();
+                               monyRecVoucherAdj.PrevBal = $("#PreviousBalance").val();
+                               monyRecVoucherAdj.TotalAmount = $("#VoucherTotal").val();
+                               monyRecVoucherAdj.AccountId = $("#AccountId").val();
+                               monyRecVoucherAdj.Amount = $("#Amount").val();
+                               monyRecVoucherAdj.Description = $("#Description").val();
+                               monyRecVoucherAdj.NegativeBalanceCheckbox = $("#NegativeBalanceCheckbox").is(":checked");
+
+                               $.ajax
+                              ({
+                                url: '@Url.Action("UpdateMonyRequisationVA", "MoneyRequisitionVA")',
+                                contentType: "application/json;charset=utf-8",
+                                    data: JSON.stringify({ moneyRequisitionVoucherAdjust: monyRecVoucherAdj, moneyRequisitionVoucherAdjustLineItems: addedItems }),
+                                type: 'POST',
+                                dataType: 'json',
+                                success: function (datas) {
+                                    if (datas.Message == "0") {
+                                        alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                    $("#save").prop('disabled', false);
+                                    }
+                                    else if (datas.Message == "1") {
+                                        
+                                        alert("Sccessfully updated.");
+                                        $("#CostCenterId").val(data.mrva.CostCenterId).change();
+                                    }
+                                    else if (datas.Message == 5) {
+                                        alert("This Voucher Is already Approve, so Update is not available.");
+                                        $("#update").prop('disabled', false);
+                                    }
+                                    else{
+                                    alert("This MRVA already Exist.");
+                                    $("#save").prop('disabled', false);
+                                    }
+                                }
+                            });
+                           }
+                       }
+
+                   }
+                   else
+                   {
+                    var messageforEmpty = "The Item list is empty";
+                    alert(messageforEmpty);
+                    $("#save").prop('disabled', false);
+                   }
+
+            });
+             $(document).on('click', '#delete', function () {
+                RemoveError();
+
+                   if (addedItems.length > 0)
+                   {
+                       ValidateOnSaveClick();
+                       if (message == "") {
+                           if (confirm("Do you want to delete?"))
+                           {
+                               $("#save").prop('disabled', true);
+                               var monyRecVoucherAdj = { RSLNO: 0, Date: "", CostCenterId: 0, EmpID: 0, PrevBal: 0, TotalAmount: 0, AccountId: 0, Amount: 0, Description: "", NegativeBalanceCheckbox: false }
+                               monyRecVoucherAdj.RSLNO = $("#MRVANo").val();
+                               monyRecVoucherAdj.Date = $("#Date").val();
+                               monyRecVoucherAdj.CostCenterId = $("#CostCenterId").val();
+                               monyRecVoucherAdj.EmpID = $("#EmpID").val();
+                               monyRecVoucherAdj.PrevBal = $("#PreviousBalance").val();
+                               monyRecVoucherAdj.TotalAmount = $("#VoucherTotal").val();
+                               monyRecVoucherAdj.AccountId = $("#AccountId").val();
+                               monyRecVoucherAdj.Amount = $("#Amount").val();
+                               monyRecVoucherAdj.Description = $("#Description").val();
+                               monyRecVoucherAdj.NegativeBalanceCheckbox = $("#NegativeBalanceCheckbox").is(":checked");
+
+                               $.ajax
+                              ({
+                                url: '@Url.Action("DeleteMonyRequisationVA", "MoneyRequisitionVA")',
+                                contentType: "application/json;charset=utf-8",
+                                    data: JSON.stringify({ moneyRequisitionVoucherAdjust: monyRecVoucherAdj, moneyRequisitionVoucherAdjustLineItems: addedItems }),
+                                type: 'POST',
+                                dataType: 'json',
+                                success: function (datas) {
+                                    if (datas.Message == "0") {
+                                        alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                    $("#save").prop('disabled', false);
+                                    }
+                                    else if (datas.Message == "1") {
+                                        alert("Sccessfully deleted.");
+                                        location.reload();
+                                    }
+                                    else if (datas.Message == 5) {
+                                        alert("This Voucher Is already Approve, so Update is not available.");
+                                        $("#update").prop('disabled', false);
+                                    }
+                                    else{
+                                    alert("This MRVA already Exist.");
+                                    $("#save").prop('disabled', false);
+                                    }
+                                }
+                            });
+                           }
+                       }
+
+                   }
+                   else
+                   {
+                    var messageforEmpty = "The Item list is empty";
+                    alert(messageforEmpty);
+                    $("#save").prop('disabled', false);
+                   }
+
+            });
+            function ValidateOnAddClick() {
+                message = "";
+                //if ($("#CostCenterId").val() == "") {
+                //    setError("CostCenterId", "Cost Center is Required Field.");
+                //    message = "CostCenterId Name is Required Field."
+                //}
+                if ($("#EmpID").val() == "") {
+                    setError("EmpID", "Employee ID is Required Field.\n");
+                    message = "EmpID  is Required Field."
+                }
+                if ($("#DebitAcId").val() == "") {
+                    setError("DebitAcId", "Debit Account is Required Field.\n");
+                    message = "Group Name is Required Field."
+                }
+                if ($("#CostGroupId").val() == "") {
+                    setError("CostGroupId", "Cost Group is Required Field.\n");
+                    message = "Co Group Name is Required Field."
+                }
+                if ($("#MRVAAmount").val() == "") {
+                    setError("MRVAAmount", "MRVAAmount is Required Field.\n");
+                    message = "MRVAAmount  is Required Field."
+                }
+                var item = $("#DebitAcId").val();
+                $.each(addedItems, function (key, value) {
+
+                    if (value.DebitAcId == item) {
+                        message += "Already Exist";
+                        alert(message);
+                    }
+                });
+            }
+            function ValidateOnSaveClick() {
+                message = "";
+                if ($("#CostCenterId").val() == "") {
+                    setError("CostCenterId", "Please select a cost center");
+                    message = "Please select a cost center"
+                }
+                if ($("#NegativeBalanceCheckbox").is(":checked")== true) {
+
+                    if ($("#AccountId").val() == "") {
+                        setError("AccountId", "Payment Account  is Required Field.");
+                        message = "Payment Account is Required Field."
+                    }
+                    if ($("#Amount").val() == "") {
+                        setError("Amount", "Amount  is Required Field.");
+                        message = "Amount is Required Field."
+                    }
+
+                    
+                 }
+
+
+            }
+            $(document).on('click', '#refresh', function () {
+                location.reload();
+            });
+            function ShowOnTable() {
+                table.clear().draw();
+                $.each(addedItems, function (index, value) {
+                    table.row.add([value.DebitAcName, value.CostGroupName, value.Amount, value.RefNo, value.Description,
+                    '<a href="#"><i class="fa fa-edit" name="editRow" value="' +
+                    value.DebitAC + '"></i></a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.DebitAC + '"></i></a>']).draw();
+                    calculateTotalVoucherAmount();
+                });
+            }
+            function calculateTotalVoucherAmount() {
+                var TotalAmount = 0;
+                $.each(addedItems, function (i, v) {
+                    TotalAmount += parseFloat(v.Amount);
+                })
+                $("#VoucherTotal").val(TotalAmount);
+                var restAmount = parseFloat($("#PreviousBalance").val()) - parseFloat($("#VoucherTotal").val());
+                if (restAmount < 0) {
+                    restAmount *= -1;
+                }
+                $("#prevMinuseVoucherTotal").val(restAmount);
+                if (parseFloat($("#prevMinuseVoucherTotal").val()) < 0) {
+                    $('#NegativeBalanceCheckbox').prop("disabled", false);
+                } else {
+                    $('#NegativeBalanceCheckbox').prop("disabled", true);
+                }
+            }
+            $(document).on("click", "#NegativeBalanceCheckbox", function () {
+                if ($("#NegativeBalanceCheckbox").is(":checked") == true) {
+                    $("#Amount").val(parseFloat($("#prevMinuseVoucherTotal").val()));
+                } else {
+                    $("#Amount").val("");
+
+                }
+            });
+            function ClearOnSearch() {
+                $("#CostCenterId").val("").change();
+                $("#EmployeeId").val("");
+                $("#DebitAcId").val("").change();
+                $("#Amount").val("");
+                $("#MRVNo").val("");
+                $("#AccountId").val("").change();
+                $("#Amount").val("");
+                $("#Description").val("");
+            }
+        });
+    </script>
+}

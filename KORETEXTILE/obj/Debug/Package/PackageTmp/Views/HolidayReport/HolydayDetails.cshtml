@@ -1,0 +1,79 @@
+﻿@model BEEERP.Models.ViewModel.Sales.Report.ReportVModel
+@{
+    ViewBag.Title = "HolydayDetails";
+}
+@using (Html.BeginForm("ShowHolidayDetails", "HolidayReport", FormMethod.Post, new { id = "report", target = "_blank" }))
+{
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 class="box-title">Holiday Reports</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Year, "Search By Year", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.Year, new { @class = "form-control" })
+                                                @*@Html.ValidationMessageFor(m => m.Year, "", new { @style = "color: red" })*@
+                                                @Html.ValidationMessageFor(m => m.Year)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Month, "Search By Month", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.Month, (IEnumerable<SelectListItem>)ViewBag.Months, new { @class = "form-control select2", })
+                                                @Html.ValidationMessageFor(m => m.Month)
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-8 col-md-offset-3">
+                                        <div class="form-group" style="text-align:left;">
+                                            <button class="btn skin-blue" type="submit" id="showHolidayDetails" style="min-width:400px;"> Show Holiday Details</button>
+                                        </div>
+
+                                    </div>
+
+                                    <input type="hidden" id="message" value="false" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+@section scripts
+{
+
+    <script src="~/Scripts/ReportSearch.js"></script>
+    <script>
+        $(".select2").select2();
+        var isValid = true;
+
+
+        $(document).on('click', "#showHolidayDetails", function (event) {
+            ValidateReportSearchParam(["Year"]);
+            event.preventDefault();
+                if ($("#message").val() != "true") {
+                    $("#report").attr("action", "/HolidayReport/ShowHolidayDetails")
+                    $("#report").submit();
+                }
+        });
+        $("#Year").focusout(function () {
+            if ($("#Year").val() != "") {
+                setError("Year", "");
+            }
+        });
+    </script>
+}

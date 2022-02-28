@@ -1,0 +1,156 @@
+﻿@model BEEERP.Models.ViewModel.Sales.Report.InventoryReportVModel
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2 style="text-align:center">Inventory Report</h2>
+
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="col-md-6">
+                    <div class="box ">
+                        <div class="box-header with-border box-head-back">
+                            <h3 class="box-title">Finished Goods Status</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Date, new { @class = "col-md-4 control-label" })
+                                <div class="col-sm-8 date input-group" style="padding-left:15px;padding-right:15px;">
+                                    @Html.TextBoxFor(m => m.Date, new { @class = "form-control date", @Value = DateTime.Now.ToString("MM/dd/yyyy") })
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.Date)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Group, new { @class = "col-md-4 control-label" })
+                                <div class="col-sm-8">
+                                    @Html.DropDownListFor(m => m.Group, (IEnumerable<SelectListItem>)ViewBag.GroupId, new { @class = "form-control select2" })
+                                    @Html.ValidationMessageFor(m => m.Group)
+                                </div>
+                            </div>
+                            <div class="form-group" style="text-align:right; padding-right:15px">
+                                <button type="button" class="btn skin-blue btn-flat">Item Wise Finished Goods Status</button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="box ">
+                        <div class="box-header with-border box-head-back">
+                            <h3 class="box-title">Store Wise Finished Goods Status</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.AsOnDate, "As On Date", new { @class = "col-md-4 control-label" })
+                                <div class="col-sm-8 date input-group" style="padding-left:15px;padding-right:15px;">
+                                    @Html.TextBoxFor(m => m.AsOnDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("MM/dd/yyyy") })
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.AsOnDate)
+                                </div>
+                            </div>
+                            <div class="form-group" style="text-align:right; padding-right:15px">
+                                <button type="button" class="btn skin-blue btn-flat">Store Wise Finished Goods Status</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="box ">
+                        <div class="box-header with-border box-head-back">
+                            <h3 class="box-title">Finished Goods Details</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.FromDate, "Date From", new { @class = "col-md-4 control-label" })
+                                <div class="col-sm-8 date input-group", style="padding-left:15px;padding-right:15px;">
+                                    @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("MM/dd/yyyy") })
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.FromDate)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ToDate, "Date To", new { @class = "col-md-4 control-label" })
+                                <div class="col-sm-8 date input-group" style="padding-left:15px;padding-right:15px;">
+                                    @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("MM/dd/yyyy") })
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.ToDate)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Group, new { @class = "col-md-4 control-label" })
+                                <div class="col-sm-8">
+                                    @Html.DropDownListFor(m => m.Group, (IEnumerable<SelectListItem>)ViewBag.GroupId, new { @class = "form-control select2" })
+                                    @Html.ValidationMessageFor(m => m.Group)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Item, new { @class = "col-md-4 control-label" })
+                                <div class="col-sm-8">
+                                    @Html.DropDownListFor(m => m.Item, (IEnumerable<SelectListItem>)ViewBag.ItemId, new { @class = "form-control select2" })
+                                    @Html.ValidationMessageFor(m => m.Item)
+                                </div>
+                            </div>
+                            <div class="form-group" style="text-align:right; padding-right:15px">
+                                <button type="button" class="btn skin-blue btn-flat">Single Item Finished Goods Details</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $(".select2").select2();
+            $('.date').datepicker({
+                autoclose: true
+            });
+            $(document).on('change', "#Group", function () {
+            var id = { groupId: $(this).val() };
+            if (id.groupId != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetItemByGroupId", "Sales")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            $("#Item").empty();
+                            $("#Item").prop("disabled", false);
+                            $.each(datas, function (index, value) {
+                                $("#Item").append($('<option />', {
+                                    value: value.Value,
+                                    text: value.Text
+                                }));
+                            });
+                        }
+                    });
+                }
+                else {
+                    $("#Item").empty();
+                    $("#Item").prop("disabled", true);
+                }
+        });
+        });
+
+       
+
+    </script>
+}

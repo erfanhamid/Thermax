@@ -1,0 +1,433 @@
+﻿@model BEEERP.Models.ViewModel.Sales.Report.ReportVModel
+@{
+    ViewBag.Title = "RMSalesReport";
+    int i = 0;
+}
+
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        /*padding: 15px 32px;*/
+        /*text-align: center;*/
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 8px;
+        min-width: 400px;
+        /*height: 12px;*/
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+        }
+</style>
+
+<h3 style="text-align:center">RM Sales Report</h3>
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "StoreReport", target = "_blank" }))
+{
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                <h4 class="box-title">Select Date Ranges and Parameters</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.StoreId, "Store", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DropDownListFor(m => m.StoreId, (IEnumerable<SelectListItem>)ViewBag.Store, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.StoreId)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.GroupID, "Group", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6 input-group" style="padding-left:15px;padding-right:15px;">
+                                        @Html.DropDownListFor(m => m.GroupID, (IEnumerable<SelectListItem>
+                                            )ViewBag.Group, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.GroupID, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ItemID, "Item", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6 input-group" style="padding-left:15px;padding-right:15px;">
+                                        @Html.DropDownListFor(m => m.ItemID, (IEnumerable<SelectListItem>
+                                            )ViewBag.Item, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.ItemID, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.CustomerID, "Customer", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DropDownListFor(m => m.CustomerID, (IEnumerable<SelectListItem>)ViewBag.RMCustomer, new { @class = "form-control  select2", })
+                                        @Html.ValidationMessageFor(m => m.CustomerID, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.From,"From Date", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6 date input-group" style="padding-left:15px;padding-right:15px;">
+                                        @Html.TextBoxFor(m => m.From, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        @Html.ValidationMessageFor(m => m.From)
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.To,"To Date", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6 date input-group" style="padding-left:15px;padding-right:15px;">
+                                        @Html.TextBoxFor(m => m.To, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        @Html.ValidationMessageFor(m => m.To)
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.AsOnDate, "As on Date", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6 date input-group" style="padding-left:15px;padding-right:15px;">
+                                        @Html.TextBoxFor(m => m.AsOnDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        @Html.ValidationMessageFor(m => m.AsOnDate)
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                <h4 class="box-title">Raw Material Sales Report</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="AllRMSalesRecord" type="submit">@i. Show All RM Sales Record</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="ItemWiseRMSalesSummary" type="submit">@i. Show Item Wise RM Sales Summary</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="CustomerWiseRMSalesSummary" type="submit">@i. Show Customer Wise RM Sales Summary</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="SingleItemRMSalesDetail" type="submit">@i. Show Single Item RM Sales Detail</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="SingleCustomerRMSalesDetail" type="submit">@i. Show Single Customer RM Sales Detail</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="message" value="false" />
+    </div>
+}
+@section scripts{
+    <script src="~/Scripts/ReportSearch.js"></script>
+    <script>
+        $(".select2").select2();
+        $(document).ready(function () {
+            $(".select2").select2();
+            $('.date').datepicker({
+                autoclose: true,
+                format: "dd-mm-yyyy"
+            });
+        });
+
+        var isValid = "";
+
+        $(document).on('click', "#MovingAverageBalance", function (event) {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#message").val() != "true") {
+                $("#StoreReport").attr("action", "/StoreReport/MovingAverageBalance")
+                $("#StoreReport").submit();
+            }
+        });
+
+        $(document).on('click', "#MovingAverageConsumption", function (event) {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#message").val() != "true") {
+                $("#StoreReport").attr("action", "/StoreReport/MovingAverageConsumption")
+                $("#StoreReport").submit();
+            }
+        });
+
+        $(document).on('click', "#RMConsumption", function (event) {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#message").val() != "true") {
+                $("#StoreReport").attr("action", "/StoreReport/RMConsumption")
+                $("#StoreReport").submit();
+            }
+        });
+        $(document).on('click', "#RMStockBalanceStoreWise", function (event) {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#message").val() != "true") {
+                $("#StoreReport").attr("action", "/StoreReport/RMStockBalanceStoreWise")
+                $("#StoreReport").submit();
+            }
+        });
+        // Show All GRN Records
+        $(document).on('click', "#ShowAllGrnSummary", function (event) {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#message").val() != "true") {
+                $("#StoreReport").attr("action", "/StoreReport/ShowAllGrnSummary")
+                $("#StoreReport").submit();
+            }
+        });
+        // RM Receive Report - Item Wise Receive Summary
+        $(document).on('click', "#ItemWiseRMReceiveSummary", function (event) {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#message").val() != "true") {
+                $("#StoreReport").attr("action", "/StoreReport/ItemWiseRMReceiveSummary")
+                $("#StoreReport").submit();
+            }
+        });
+        // Show All IRMP Order By IRMP No
+        $(document).on('click', "#AllIRMPOrderByIRMPNo", function (event) {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#message").val() != "true") {
+                $("#StoreReport").attr("action", "/StoreReport/AllIRMPOrderByIRMPNo")
+                $("#StoreReport").submit();
+            }
+        });
+        // Show All IRMP Order By IRMP Date
+        $(document).on('click', "#AllIRMPOrderByDate", function (event) {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#message").val() != "true") {
+                $("#StoreReport").attr("action", "/StoreReport/AllIRMPOrderByDate")
+                $("#StoreReport").submit();
+            }
+        });
+        // Show All RM Sales Record
+        $(document).on('click', "#AllRMSalesRecord", function (event) {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#message").val() != "true") {
+                $("#StoreReport").attr("action", "/StoreReport/AllRMSalesRecord")
+                $("#StoreReport").submit();
+            }
+        });
+        // RM Issue Report - Show Item Wise RM Issue Summary
+        $(document).on('click', "#ItemWiseRMIssueSummary", function (event) {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#message").val() != "true") {
+                $("#StoreReport").attr("action", "/StoreReport/ItemWiseRMIssueSummary")
+                $("#StoreReport").submit();
+            }
+        });
+        // Show Item Wise RM Sales Summary
+        $(document).on('click', "#ItemWiseRMSalesSummary", function (event) {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#message").val() != "true") {
+                $("#StoreReport").attr("action", "/StoreReport/ItemWiseRMSalesSummary")
+                $("#StoreReport").submit();
+            }
+        });
+        // Show Customer Wise RM Sales Summary
+        $(document).on('click', "#CustomerWiseRMSalesSummary", function (event) {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#message").val() != "true") {
+                $("#StoreReport").attr("action", "/StoreReport/CustomerWiseRMSalesSummary")
+                $("#StoreReport").submit();
+            }
+        });
+        //Single Item RM Receive Details - Single Item Receive Details
+        $(document).on('click', "#SingleItemRMReceiveDetail", function (event) {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#ItemID").val() == "") {
+                setError("ItemID", "Please select a Item");
+                isValid = false;
+            }
+            else {
+
+                $("#StoreReport").attr("action", "/StoreReport/SingleItemRMReceiveDetail2");
+                $("#StoreReport").submit();
+            }
+        });
+        //Single Single Supplier GRN Summary
+        $(document).on('click', "#SingleSupplierGRNSummary", function (event) {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#SupplierID").val() == "") {
+                setError("SupplierID", "Please select a Supplier");
+                isValid = false;
+            }
+            else {
+
+                $("#StoreReport").attr("action", "/StoreReport/SingleSupplierGRNSummary");
+                $("#StoreReport").submit();
+            }
+        });
+        //Single Customer RM Sales Detail
+        $(document).on('click', "#SingleCustomerRMSalesDetail", function (event) {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#CustomerID").val() == "") {
+                setError("CustomerID", "Please select a Customer");
+                isValid = false;
+            }
+            else {
+
+                $("#StoreReport").attr("action", "/StoreReport/SingleCustomerRMSalesDetail");
+                $("#StoreReport").submit();
+            }
+        });
+        //Single Item RM Issue Details - Single Item Issue Details
+        $(document).on('click', "#SingleItemRMIssueDetail", function (event) {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#ItemID").val() == "") {
+                setError("ItemID", "Please select a Item");
+                isValid = false;
+            }
+            else {
+
+                $("#StoreReport").attr("action", "/StoreReport/SingleItemRMIssueDetail");
+                $("#StoreReport").submit();
+            }
+        });
+        //Single Item RM Sales Details - Single Item RM Sales Details
+        $(document).on('click', "#SingleItemRMSalesDetail", function (event) {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#ItemID").val() == "") {
+                setError("ItemID", "Please select a Item");
+                isValid = false;
+            }
+            else {
+
+                $("#StoreReport").attr("action", "/StoreReport/SingleItemRMSalesDetail");
+                $("#StoreReport").submit();
+            }
+        });
+        // Show RM Inventory Ledger
+        $(document).on('click', "#rmInventoryLedger", function () {
+            ValidateReportSearchParam(["StoreId", "ItemID", "From", "To"]);
+            event.preventDefault();
+            //validateOnItemLedger();
+            if (isValid == "") {
+                if ($("#message").val() != "true") {
+                    //$("#Depot").val($("#DepotId").val());
+                    $("#StoreReport").attr("action", "/StoreReport/RMInventoryLedger")
+                    $("#StoreReport").submit();
+                }
+            }
+        });
+        $(document).on('click', "#RMStockBalance", function (event) {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#message").val() != "true") {
+                $("#StoreReport").attr("action", "/StoreReport/RMStockBalance")
+                $("#StoreReport").submit();
+            }
+        });
+        $(document).on('click', "#RMWeightedStockBalance", function (event) {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#message").val() != "true") {
+                $("#StoreReport").attr("action", "/StoreReport/RMWeightedStockBalance")
+                $("#StoreReport").submit();
+            }
+        });
+
+        function validateOnStorehWiseItem() {
+            isValid = "";
+            RemoveError();
+            if ($("#StoreId").val() == "") {
+                setError("StoreId", "Store is Required Field");
+                isValid = "required";
+            }
+
+        }
+
+        $(document).on('click', "#RMitemBalance", function (event) {
+            event.preventDefault();
+            validateOnStorehWiseItem();
+            if (isValid == "") {
+                if ($("#message").val() != "true") {
+
+                    $("#StoreReport").attr("action", "/StoreReport/GetStoreWiseItemQty")
+                    $("#StoreReport").submit();
+                }
+            }
+        });
+
+         $(document).on('change', "#GroupID", function () {
+
+            $("#ItemID").prop('disabled', false);
+            var id = { groupId: $(this).val() };
+            if (id.groupId != "") {
+                $.ajax({
+                    url: '@Url.Action("GetItemByGroupId", "WorkOrder")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        $("#ItemID").empty();
+                        $("#ItemID").prop("disabled", false);
+                        $.each(datas, function (index, value) {
+                            $("#ItemID").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                        $("#ItemID").focus();
+                        if (itemId != "") {
+                            $("#ItemID").val(itemId).change();
+                            itemId = "";
+                        }
+                    }
+                });
+            }
+            else {
+                $("#ItemID").val("").change();
+                $("#ItemID").prop("disabled", true);
+            }
+        });
+    </script>
+}
+
+

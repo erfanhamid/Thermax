@@ -1,0 +1,492 @@
+﻿
+@{
+    ViewBag.Title = "InvOpening Balance(RM)";
+}
+
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="col-md-10">
+                    <div class="box ">
+                        <div class="box-header with-border box-head-back" align="center">
+                            <h3 class="box-title">Raw Metarial Opening Balance</h3>
+                        </div>
+                        <div class="box-body form-horizontal">
+
+                            <div class="col-md-10">
+                                <div class="form-group ">
+                                    <label for="Date" class="col-md-4 control-label">As On</label>
+                                    <div class="col-sm-8 date input-group" style="padding-left:15px; padding-right:15px">
+                                        @Html.TextBox("Date", DateTime.Now.ToString("dd-MM-yyyy"), new { @class = "enterTab form-control date ", @disabled = "disabled" })
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        @Html.ValidationMessage("Date")
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="RMOBNo" class="col-md-4 control-label">RMOB No</label>
+                                    <div class="input-group input-group-sm" style="padding-right:15px;padding-left:14px;">
+                                        @Html.TextBox("RMOBNo", "", new { @class = "form-control enterTab" })
+
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn skin-blue btn-flat enterTab" id="RMOpenSearch">Search</button>
+                                        </span>
+                                        @Html.ValidationMessage("RMOBNo")
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="DepotId" class="col-md-4 control-label">Depot</label>
+                                    <div class="col-sm-8">
+                                        @Html.DropDownList("Depot", (IEnumerable<SelectListItem>)ViewBag.Depot, new
+                                        {
+                                            @class = "form-control select2",
+                                            @id = "DepotId"})
+                                        @Html.ValidationMessage("DepotId", "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="StoreId" class="col-md-4 control-label">Store</label>
+                                    <div class="col-sm-8">
+                                        @Html.DropDownList("Store", (IEnumerable<SelectListItem>)ViewBag.Store, new { @class = "form-control select2", @id = "StoreId" })
+                                        @Html.ValidationMessage("StoreId", "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="GroupId" class="col-md-4 control-label">Group</label>
+                                    <div class="col-sm-8">
+                                        @Html.DropDownList("ItemGroup", (IEnumerable<SelectListItem>)ViewBag.ItemGroup, new { @class = "form-control select2", @id = "GroupId" })
+                                        @Html.ValidationMessage("GroupId", "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Item" class="col-md-4 control-label">Item</label>
+                                    <div class="col-sm-8">
+                                        @Html.DropDownList("Item", (IEnumerable<SelectListItem>)ViewBag.Group, new { @class = "form-control select2", @id = "Item" })
+                                        @Html.ValidationMessage("Item", "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Quantity" class="col-md-4 control-label">Opening Balance</label>
+                                    <div class="col-sm-8">
+                                        @Html.TextBox("Quantity", "", new { @class = "form-control", @id = "Quantity", @type = "number" })
+                                        @Html.ValidationMessage("Quantity", "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <input type="hidden" id="Id" />
+
+                            <div class="form-group">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-8" style="text-align:center;">
+                                    <input type="button" name="add" id="add" value="Add" class="btn skin-blue" />
+                                    <input type="button" value="Save" id="save" class="btn skin-blue" style="padding-left:20px;" />
+                                    <input type="button" name="clear" id="clear" value="Clear" class="btn skin-blue" />
+                                    <input type="button" name="update" id="update" value="Update" class="btn skin-blue" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                </div>
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" align="center">
+                                <h3 class="box-title">Inventory Raw Item List</h3>
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-responsive" id="InventoryList">
+                                    <thead>
+                                        <tr>
+
+                                            <th>Item Code</th>
+                                            <th>Item Name</th>
+                                            <th>Pack Size</th>
+                                            <th>Quantity</th>
+                                            <th>Standard Cost</th>
+                                            <th>Item value</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="hPacSize" />
+
+@section scripts
+{
+    <script src="~/Scripts/Validate.js"></script>
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/DataAdminModule/ChartOfInvFGObInputFocus.js"></script>
+    <script src="~/Scripts/CommonScript/DepotChange.js"></script>
+    <script>
+        $(document).ready(function () {
+            EnterPress();
+            var isItFromEdit = false;
+            var selectedDepot = "@ViewBag.DepotId";
+            var isValid = true;
+            var storeId = "";
+            var itemId = "";
+            $("#update").hide();
+            $(".select2").select2();
+           if(@ViewBag.Disabled==true)
+            {
+                $("#StoreId").prop("disabled", true);
+                $("#DepotId").val("").change();
+            }
+            else{
+                $("#StoreId").prop("disabled",false);
+            }
+            if (selectedDepot != "")
+            {
+                $("#DepotId").val("@ViewBag.DepotId").change();
+            }
+            var addedItems = [];
+            var table = $('#InventoryList').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+            $(document).on('change', "#DepotId", function () {
+                DepotChange(storeId);
+            });
+           
+            
+            $(document).on('click', "#RMOpenSearch", function () {
+                var id = { id: $("#RMOBNo").val() };
+                ClearOnSearch();
+                $.ajax({
+                        url: '@Url.Action("GetInvRMOpenById", "RawMetarial")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            if (datas == 0) {
+                                alert("Your entered RM OB No. Doesn't exist");
+                            }
+                            else if (datas == 2) {
+                                alert("Fatal Error! Please Recheck you data");
+                            }
+                            else {
+                                $("#save").hide();
+                                $("#update").show();
+                                storeId = datas.rmItem.StoreID;
+                                $("#DepotId").val(datas.rmItem.DepotID).change();
+
+                                
+                                addedItems = [];
+                                $.each(datas.rmLineItem, function (index, value) {
+                                    var item = { ID: 0, CIID: 0, Qty: 0, Rate: 0.0, Amount: 0, TRType: 0, TDate: "", StoreID: 0, DocType: "", DocID: 0, GroupName: "", ItemName: "", ItemCode: "", GroupId: 0, DepotID: 0, PacSize: "" };
+                                    item.ID = value.RMOBNo;
+                                    item.GroupId = value.ItemGrpID;
+                                    item.CIID = value.ItemID;
+                                    item.Qty = value.OBQT;
+                                    item.PacSize = value.PacSize;
+                                    item.Rate = value.STCost;
+                                    item.Amount = value.Value;
+                                    item.ItemName = value.ItemName;
+                                    item.ItemCode = value.ItemCode;
+                                    item.DepotID = value.DepotID;
+                                    addedItems.push(item);
+                                });
+                                ShowOnTable();
+                            }
+                    },
+                    error: function () {
+                        alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+
+                    }
+                    });
+
+            });
+            $(document).on('change', "#GroupId", function () {
+                var id = { groupId: $(this).val() };
+                if (isItFromEdit == false) {
+                    if (id.groupId != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetItemByGroupId", "RawMetarial")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            $("#Item").empty();
+                            $("#Item").prop("disabled", false);
+                            $.each(datas, function (index, value) {
+                                $("#Item").append($('<option />', {
+                                    value: value.Value,
+                                    text: value.Text
+                                })).trigger('change');
+                            });
+                            $("#Item").focus();
+                            if (itemId != "") {
+                                $("#Item").val(itemId).change();
+                                itemId = "";
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#Item").val("").change();
+                    $("#Item").prop("disabled", true);
+                }
+                }
+                isItFromEdit = false;
+            });
+
+            $(document).on('change', "#Item", function () {
+                var id = { itemId: $(this).val(), storeId: 0 };
+
+                if (id.itemId != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetItemRemainQty", "Sales")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            $("#hPacSize").val(datas.PacSize);
+                        }
+                    });
+                }
+            });
+
+            $(document).on('click', '[name="deleteRow"]', function () {
+                var item = $(this).attr("value");
+                var newItem = [];
+                if (confirm('Are you sure you want to delete this from the database ?')) {
+                    $.each(addedItems, function (index, value) {
+                        if (value.CIID == item) {
+
+                        }
+                        else {
+                            newItem.push(value);
+                        }
+
+                    });
+                    addedItems = newItem;
+                    ShowOnTable();
+                }
+
+            });
+            $(document).on('click', '[name="editRow"]', function () {
+                var item = $(this).attr("value");
+                var newItem = [];
+                $.each(addedItems, function (index, value) {
+                    if (value.CIID == item) {
+
+                        $("#GroupId").val(value.GroupId).change();
+                        $("#Item").val(value.CIID).change();
+                        $("#Quantity").val(value.Qty);
+
+                        itemId = value.CIID;
+                    }
+                    else {
+                        newItem.push(value);
+                    }
+
+                });
+                addedItems = newItem;
+                ShowOnTable();
+            });
+            //save
+            $(document).on('click', '#save', function () {
+                if (addedItems.length <= 0) {
+                    alert("At least One Item should be added for save.");
+                }
+                else {
+                    if (confirm("Do you want to save?")) {
+                            $.ajax({
+                        url: '@Url.Action("SaveInvRMOb", "RawMetarial")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ transaction: addedItems }),
+                        type: "POST",
+                        dataType: "json",
+                        success: function (datas) {
+
+                            if (datas == 3) {
+                                alert("Some field's data are not valid.");
+                            }
+                            else if (datas == 0) {
+                                alert("Please recheck data if it is not solve the problem.\n Then Contact with Avalanche Technology Ltd.")
+                            }
+                            else {
+                                alert("Save Successfully");
+                                $("#RMOBNo").val(datas);
+                            }
+
+                        },
+                        error: function () {
+                            alert("Please check Internet connection. If doesn't solve problem. Contact with Avalanche Technology Ltd.");
+                        }
+                    });
+                        }
+                }
+
+            });
+            $(document).on('click', '#clear', function () {
+                location.reload();
+
+            });
+            $(document).on('click', '#update', function () {
+                if (addedItems.length <= 0) {
+                    alert("At least One Item should be added for save.");
+                }
+                else {
+                    if (isValid == true) {
+                        if (confirm("Do you want to update?")) {
+                             $.ajax({
+                        url: '@Url.Action("UpdateInvRMOB", "RawMetarial")',
+                        contentType: "application/json;charset=utf-8",
+                                 data: JSON.stringify({ transaction: addedItems, docId: $("#RMOBNo").val() }),
+                        type: "POST",
+                        dataType: "json",
+                        success: function (datas) {
+
+                            if (datas == 2) {
+                                alert("Can't update. Please try again.");
+                            }
+                            else if (datas == 0) {
+                                alert("Please recheck data if it is not solve the problem.\n Then Contact with Avalanche Technology Ltd.")
+                            }
+                            else {
+                                alert("Update Successfully");
+                                $("#RMOBNo").val(datas);
+                            }
+
+                        },
+                        error: function () {
+                            alert("Please check Internet connection. If doesn't solve problem. Contact with Avalanche Technology Ltd.");
+                        }
+                    });
+                        }
+
+                }
+                }
+
+            });
+            $(document).on('click', '#add', function () {
+
+                var item = { ID: 0, CIID: 0, Qty: 0, Rate: 0.0, Amount: 0, TRType: 0, TDate: "", StoreID: 0, DocType: "", DocID: 0, GroupName: "", ItemName: "", ItemCode: "", GroupId: 0, DepotIdID: 0, PacSize: "" };
+                var itemId = $("#Item").val();
+                $("#StoreId").prop("disabled", true);
+                $("#DepotId").prop("disabled", true);
+                RemoveError();
+                ValidateOnAddBtnClick();
+                if (isValid == true) {
+                    $.ajax({
+                        url: '@Url.Action("CheckItemValidity", "RawMetarial")',
+                        contentType: "application/json;charset=utf-8",
+                        data: { itemId: itemId, storeId: $("#StoreId").val() },
+                        type: "Get",
+                        type: "Get",
+                        dataType: "json",
+                        success: function (datas) {
+                            if (datas.Message == 1) {
+                                item.CIID = $("#Item").val();
+                                item.Qty = $("#Quantity").val();
+                                item.PacSize = $("#hPacSize").val();
+                                item.Rate = datas.StandardCost;
+                                item.Amount = item.Qty * item.Rate;
+                                item.DocType = "RMOB";
+                                item.GroupName = $('#GroupId').select2('data')[0].text;
+                                item.ItemName = datas.ItemName;
+                                item.ItemCode = datas.ItemCode;
+                                item.TDate ="@DateTime.Now";
+                                item.StoreID = $("#StoreId").val();
+                                item.DepotID = $("#DepotId").val();
+                                item.GroupId = $("#GroupId").val();
+                                addedItems.push(item);
+                                ClearOnSearch();
+                                ShowOnTable();
+                            }
+                            else if (datas.Message==0) {
+                                alert("Inventory already exist Can't set this item opening balance.");
+                            }
+
+                        },
+                        error: function () {
+                            alert("Please check Internet connection. If doesn't solve problem. Contact with Avalanche Technology Ltd.");
+                        }
+                    });
+                }
+
+            });
+
+            function ValidateOnAddBtnClick()
+            {
+                isValid = true;
+                if ($("#DepotId").val() == "") {
+                    setError("DepotId", "Sales Center is required field");
+                    isValid = false;
+                }
+                if ($("#StoreId").val() == "") {
+                    setError("Store", "Store is required field");
+                    isValid = false;
+                }
+                if ($("#GroupId").val() == "") {
+                    setError("GroupId", "Group is required field");
+                    isValid = false;
+                }
+                if ($("#Item").val() == "") {
+                    setError("Item", "Item is required field");
+                    isValid = false;
+                }
+                if ($("#Quantity").val() == "") {
+                    setError("Quantity", "Quantity is required field");
+                    isValid = false;
+                }
+                else {
+                    var qty = $("#Quantity").val();
+                    if (qty < 0) {
+                        setError("Quantity", "Quantity Must be greater than zero.");
+                    }
+                }
+                $.each(addedItems, function (index, value) {
+                    if (value.CIID == $("#Item").val()) {
+                        setError("Item", "This Item Already Added.");
+                        isValid = false;
+                    }
+                });
+            }
+            function ShowOnTable() {
+                table.clear().draw();
+                $.each(addedItems, function (index, value) {
+                    table.row.add([value.ItemCode, value.ItemName, value.PacSize, value.Qty, value.Rate, value.Amount,
+                                    '<a href="#"><i class="fa fa-edit" name="editRow" value="' +
+                                    value.CIID + '"></i></a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.CIID + '"></i></a>']).draw();
+                            });
+            }
+            function ClearOnSearch() {
+
+                $("#GroupId").val("").change();
+                $("#Item").val("").change();
+                $("#Quantity").val("");
+                itemId = "";
+                storeId = "";
+
+            }
+        });
+    </script>
+}
+

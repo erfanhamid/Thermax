@@ -1,0 +1,402 @@
+﻿@model BEEERP.Models.DataAdmin.SPSettings.MachineDetails
+
+@{
+    ViewBag.Title = "MachineDetails";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px;
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+<h3 style="text-align:center">Machine Details</h3>
+@*@using (Html.BeginForm("MachineDetails", "MachineDetails", FormMethod.Post, new { id = "report", target = "_blank" }))
+{*@
+
+
+    <div class="content">
+        <div class="row">
+            <h4 style="text-align:center"></h4>
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="box">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                    <h6 class="box-title">Machine Details</h6>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.MachineID, "Machine ID", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-4 input-group" style="padding-left:0.8%;padding-right:0.8%;padding-top:0%">
+                                                @Html.TextBoxFor(m => m.MachineID, new { @class = "form-control", @readonly = "readonly", @Value = ViewBag.mid })
+                                            </div>
+                                            <div class="col-sm-4">
+                                                @Html.ValidationMessageFor(x => x.MachineID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.MachineSerial, "Machine Name", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(m => m.MachineSerial, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.MachineSerial, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.ModelNo, "Model No", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(m => m.ModelNo, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.ModelNo, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.MFGYear, "MFG Year", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-4">
+                                                @Html.DropDownListFor(m => m.MFGYear, (IEnumerable<SelectListItem>)ViewBag.MFGYear, new { @class = "enterTab form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.MFGYear, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.CompanyID, "Unit Name", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-4">
+                                                @Html.DropDownListFor(m => m.CompanyID, (IEnumerable<SelectListItem>)ViewBag.CompanyID, new { @class = "enterTab form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.CompanyID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.CountryID, "Country of Origin", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-4">
+                                                @Html.DropDownListFor(m => m.CountryID, (IEnumerable<SelectListItem>)ViewBag.CountryID, new { @class = "enterTab form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.CountryID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.BrandID, "Brand Name", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-4">
+                                                @Html.DropDownListFor(m => m.BrandID, (IEnumerable<SelectListItem>)ViewBag.BrandID, new { @class = "enterTab form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.BrandID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.MSection, "Machine Section", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-4">
+                                                @Html.DropDownListFor(m => m.MSection, (IEnumerable<SelectListItem>)ViewBag.MachineSection, new { @class = "enterTab form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.MSection, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class=" col-md-12">
+                            <div class="box" style="border:none">
+                                <div class="box-footer">
+                                    <div class="form-group" style="text-align:center;margin-top:10px">
+                                        <button type="button" id="save" style="height:500%; font-size:100%;" class="btn btn-primary">Save</button>
+                                        <button type="button" id="update" style="height:500%; font-size:100%;" class="btn btn-primary">Update</button>
+                                        <button type="button" id="delete" style="height:500%; font-size:100%;" class="btn btn-primary">Delete</button>
+                                        <button type="button" id="refresh" style="height:500%; font-size:100%;" class="btn btn-primary">Refresh</button>
+                                        <button type="button" id="report" style="height:500%; font-size:100%;" class="btn btn-primary">Report</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="box">
+                                    <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                        <h5 class="box-title">Machine Details</h5>
+                                    </div>
+                                    <div class="box-body">
+                                        <table class="table table-responsive" id="MachineDetails">
+                                            <thead>
+                                                <tr>
+                                                    <th>Machine ID</th>
+                                                    <th>Machine Name</th>
+                                                    <th>Model No</th>
+                                                    <th>MFG Year</th>
+                                                    <th>Unit Name</th>
+                                                    <th>Country Name</th>
+                                                    <th>Brand Name</th>
+                                                    <th>Machine Section</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in ViewBag.MachineDet)
+                                                {
+                                                    <tr class='clickable-row' value="@item.MachineID">
+                                                        <td>@item.MachineID</td>
+                                                        <td>@item.MachineSerial</td>
+                                                        <td>@item.ModelNo</td>
+                                                        <td>@item.YearName</td>
+                                                        <td>@item.UnitName</td>
+                                                        <td>@item.CountryName</td>
+                                                        <td>@item.BrandName</td>
+                                                        <td>@item.MSection</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@*}*@
+@section scripts
+{
+    <script src="~/Scripts/CommercialModule/LTRInputFocus.js"></script>
+    <script>
+
+        $(function () {
+            $('#MachineDetails').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+
+        var isValid = true;
+        var md = { MachineID: 0, MachineSerial: "", CompanyID: 0,BrandID:0, CountryID:0, ModelNo: "", MFGYear: 0, MSection:0 }
+
+        $("#preview").prop("disabled", true);
+
+        $(document).ready(function () {
+
+            $('.date').datepicker({
+                autoclose: true,
+                format: 'dd-mm-yyyy',
+            });
+            $(".select2").select2();
+            $("#update").hide();
+            $("#delete").hide();
+          /*  EnterPress();*/
+        });
+
+
+        $(document).on('click', "#refresh", function () {
+            location.reload();
+        });
+
+        // REPORT
+        $(document).on('click', "#report", function () {
+            event.preventDefault();
+
+                    $("#report").attr("action", "/MachineDetails/ShowMachineList")
+                    $("#report").submit();
+             
+          
+        });
+
+        // TextBox FillUp
+
+        $(document).on('click', '.clickable-row', function () {
+            var id = $(this).attr("value");
+            $.ajax({
+                url: '@Url.Action("GetMachineDetailsByid","MachineDetails")',
+                contentType: "application/json;charset = utf-8",
+                data: { id: id },
+                type: 'GET',
+                dataType: 'json',
+                success: function (datas) {
+                    if (datas == 0) {
+                        alert("This Machine Details Deoesn't Exist");
+                    }
+                    else {
+                        $("#save").prop('disabled', true);
+                        $("#update").show();
+                        $("#delete").show();
+                        $("#MachineID").val(datas.item.MachineID);
+                        $("#MachineSerial").val(datas.item.MachineSerial);
+                        $("#ModelNo").val(datas.item.ModelNo);
+                        $("#MFGYear").val(datas.item.MFGYear).change();
+                        $("#CompanyID").val(datas.item.CompanyID).change();
+                        $("#CountryID").val(datas.item.CountryID).change();
+                        $("#BrandID").val(datas.item.BrandID).change();
+                        $("#MSection").val(datas.item.MSection).change();
+
+
+                    }
+                }
+            });
+        });
+
+        //Save
+         $(document).on('click', '#save', function (e) {
+            $("#save").prop('disabled', true);
+            RemoveError();
+            Validatemd();
+            //$("#save").prop('disabled', true);
+            if (isValid == true) {
+                if (confirm('Do you want to save?')) {
+                    setmdData();
+                   $.ajax({
+                    url: '@Url.Action("SaveMachineDetails", "MachineDetails")',
+                    contentType: "application/json;charset=utf-8",
+                       data: JSON.stringify({ md: md }),
+                    type: 'POST',
+                    dataType: 'json',
+                       success: function (datas) {
+                           if (datas == 1) {
+                               alert("Saved Successfully");
+                               $("#save").prop('disabled', true);
+                               location.reload();
+                           }
+
+                           else {
+                               alert("Saved Failed.");
+                           }
+                       }
+                   });
+                }
+                else {
+                    $("#save").prop('disabled', false);
+
+                }
+            }
+            else {
+                $("#save").prop('disabled', false);
+            }
+         });
+
+           //update
+        $(document).on('click', '#update', function () {
+            $("#update").prop('disabled', true);
+            $("#MachineID").prop('disabled', true);
+            setmdData();
+            md.MachineID = $("#MachineID").val();
+            Validatemd();
+
+                if (confirm('Do you want to Update')) {
+                    $.ajax({
+                        url: '@Url.Action("UpdateMachineDetails", "MachineDetails")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ md: md }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Update.");
+                                $("#update").prop('disabled', false);
+                                $("#MachineID").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Updated.");
+                                $("#update").prop('disabled', true);
+                                $("#MachineID").prop('disabled', true);
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#update").prop('disabled', false);
+                    $("#MachineID").prop('disabled', false);
+                }
+        });
+
+
+         $(document).on('click', '#delete', function () {
+            $("#update").prop('disabled', true);
+             $("#delete").prop('disabled', true);
+             var id = $("#MachineID").val();
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteMachineDetails", "MachineDetails")',
+                    contentType: "application/json;charset=utf-8",
+                    data: {id: id},
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("This Item has Transaction you can't Delete.");
+                        }
+                        else {
+                            alert("Delete Successful");
+                            $("#delete").prop('disabled', true);
+                            location.reload();
+                        }
+                    }
+                });
+            }
+        });
+
+        function setmdData() {
+
+            md.MachineID = $("#MachineID").val();
+            md.MachineSerial = $("#MachineSerial").val();
+            md.ModelNo = $("#ModelNo").val();
+            md.CompanyID = $("#CompanyID").val();
+            md.CountryID = $("#CountryID").val();
+            md.BrandID = $("#BrandID").val();
+            md.MFGYear = $("#MFGYear").val();
+            md.MSection = $("#MSection").val();
+
+        }
+
+        function Validatemd() {
+            isValid = true;
+
+            if ($("#MachineSerial").val() == "") {
+                setError("MachineSerial", "Machine Serial is required field");
+                isValid = false;
+            }
+            if ($("#CompanyID").val() == "") {
+                setError("CompanyID", "Unit Name is required field");
+                isValid = false;
+            }
+            if ($("#CountryID").val() == "") {
+                setError("CountryID", "Country Name is required field");
+                isValid = false;
+            }
+            if ($("#BrandID").val() == "") {
+                setError("BrandID", "Brand Name is required field");
+                isValid = false;
+            }
+            if ($("#MFGYear").val() == "") {
+                setError("MFGYear", "MFG Year is required field");
+                isValid = false;
+            }
+            if ($("#MSection").val() == "") {
+                setError("MSection", "Machine Section is required field");
+                isValid = false;
+            }
+
+        }
+
+    </script>
+
+}
+

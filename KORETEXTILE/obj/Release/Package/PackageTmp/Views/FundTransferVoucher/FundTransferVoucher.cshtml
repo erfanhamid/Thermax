@@ -1,0 +1,481 @@
+﻿@model BEEERP.Models.AccountModule.FundTransferVoucher
+
+@{
+    ViewBag.Title = "FundTransferVoucher";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<h3 class="col-md-8" style="text-align:center">Fund Transfer Voucher (PV) Entry</h3>
+<form id="report" , target="_blank">
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA;">
+                                    <h4 class="box-title">FTV Details</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.TransferId, "FTV No", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-4 input-group" style="padding-left:15px; padding-right:15px;">
+                                                @Html.TextBoxFor(m => m.TransferId, new { @class = "form-control", @type = "number"@*, @Value = ViewBag.Id*@})
+                                                @Html.ValidationMessageFor(m => m.TransferId, "", new { @style = "color: red" })
+                                                <div class="input-group-btn">
+                                                    <input type="button" name="search" id="search" value="Search" class="btn btn-primary" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Date, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-4 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.Date, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                @Html.ValidationMessageFor(m => m.Date, "", new { @style = "color: red" })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box ">
+                                <div class="box-body">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.TransFrom, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-4 input-group" style="padding-left:15px; padding-right:15px;">
+                                                @Html.DropDownListFor(m => m.TransFrom, (IEnumerable<SelectListItem>)ViewBag.banks, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.TransFrom, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.TransTo, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-4">
+                                                @Html.DropDownListFor(m => m.TransTo, (IEnumerable<SelectListItem>)ViewBag.banks, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.TransTo, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.TransAmount, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(m => m.TransAmount, new { @class = "form-control ", @type = "Number" })
+                                                @Html.ValidationMessageFor(m => m.TransAmount, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.RefNo, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(m => m.RefNo, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.RefNo, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Description, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-4">
+                                                @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Description, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div class="box-footer">
+                                    <div class="form-group" , style="text-align:center">
+                                        <input type="button" id="save" value="Save" class="btn btn-primary" />
+                                        <input type="button" id="approve" value="Approve" class="btn btn-primary" />
+                                        <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                                        <input type="button" name="delete" id="delete" value="Delete" class="btn btn-primary" />
+                                        <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                        <input type="button" name="print" id="print" value="Print" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+    @section scripts{
+
+        <script src="~/Scripts/Common.js"></script>
+        <script src="~/Scripts/AccountModule/FundTrasInputFocus.js"></script>
+        <script>
+        FunfTransFieldEnterPress();
+        $(document).ready(function () {
+            $("#TransFrom").focus();
+           $('.select2').select2();
+           var message = "";
+            $("#update").hide();
+            $("#delete").hide();
+            $("#approve").hide();
+            $("#print").hide();
+            $('.date').datepicker({
+                autoclose: true,
+                format: 'dd-mm-yyyy',
+            });
+          $(document).on('click', "#search", function ()
+          {
+              SearchClick();
+
+          });
+
+            $(document).on('click', "#print", function (event) {
+                event.preventDefault();
+                if ($("#message").val() != "true") {
+                    $("#report").attr("action", "/FundTransferVoucher/GetFundTransferVoucherPreview")
+                    $("#report").submit();
+                }
+            });
+
+            @*if ($("#TransferId").val() != "") {
+                if (@ViewBag.IsNotify== 1) {
+                    SearchClick();
+                }
+
+                //condition
+
+            }*@
+
+            function SearchClick() {
+                var id = { ftvid: parseInt($("#TransferId").val()) };
+                //
+                $.ajax(
+                {
+                        url: '@Url.Action("GetFundTransVById", "FundTransferVoucher")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas)
+                        {
+                            if (datas.Message == 0)
+                            {
+                                alert("Your entered Fund Transfer Voucher No. doesn't exist");
+                                ClearOnSearch();
+                                $("#save").show();
+                                $("#update").hide();
+                                $("#delete").hide();
+                                $("#print").hide();
+                            }
+                           else if (datas.Message == 2)
+                            {
+                                alert("Fatal Error! Please Recheck your data");
+                            }
+                            else
+                            {
+
+                                $("#save").hide();
+                                $("#update").show();
+                                $("#delete").show();
+                                $("#print").show();
+                                $("#TransferId").val(datas.fundtransvouchers.TransferId);
+                                $("#Date").val((moment(datas.fundtransvouchers.Date).format("DD-MM-YYYY"))).change();
+                                $("#TransFrom").val(datas.fundtransvouchers.TransFrom).change();
+                                $("#TransTo").val(datas.fundtransvouchers.TransTo).change();
+                                $("#TransAmount").val(datas.fundtransvouchers.TransAmount);
+                                $("#RefNo").val(datas.fundtransvouchers.RefNo);
+                                $("#Description").val(datas.fundtransvouchers.Description);
+                            }
+                        },
+                        error: function ()
+                        {
+                            alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+
+                        }
+               });
+            }
+
+            $(document).on('click', "#approve", function () {
+                ValidateOnSaveClick();
+                $("#approve").hide();
+                  if (message == "") {
+                      var tranOb = { TransferId: 0, Date: "", TransFrom: "", TransTo: "", TransAmount: 0.0, RefNo: "", Description: "" };
+                      tranOb.TransferId = parseInt($("#TransferId").val());
+                      tranOb.Date = $("#Date").val();
+                      tranOb.TransFrom = $("#TransFrom").val();
+                      tranOb.TransTo = $("#TransTo").val();
+                      tranOb.TransAmount = $("#TransAmount").val();
+                      tranOb.RefNo = $("#RefNo").val();
+                      tranOb.Description = $("#Description").val();
+
+                      if (confirm("Do you want to Approve?")) {
+                          $.ajax(
+                              {
+                                  url: '@Url.Action("TransectionEffect", "FundTransferVoucher")',
+                                  contentType: "application/json;charset=utf-8",
+                                  data: JSON.stringify({ fundTrancferVoucher: tranOb }),
+                                  type: "POST",
+                                  dataType: "json",
+                                  success: function (datas) {
+                                      if (datas.Message == 1) {
+                                          alert("Approve Successfully");
+                                          $("#save").hide();
+                                          $("#approve").hide();
+                                          $("#update").hide();
+                                          $("#delete").hide();
+                                          $("#print").show();
+
+                                      }
+                                      else if (datas.Message == 0) {
+                                          alert("Please recheck data if it is not solve the problem.\n Then Contact with Avalanche Technology Ltd.");
+                                          $("#approve").show();
+                                      }
+                                  },
+                                  error: function () {
+                                      alert("Please check Internet connection. If doesn't solve problem. Contact with Avalanche Technology Ltd.");
+                                      $("#approve").show();
+                                  }
+                              });
+                      }
+                  }
+                  else {
+                      alert("Voucher Not found.");
+                      $("#approve").show();
+                  }
+
+            });
+
+          $(document).on('click', '#update', function () {
+            $("#update").prop('disabled', true);
+                ValidateOnSaveClick();
+                if (message == "") {
+                    if (confirm("Do you want to update?")) {
+                        var tranOb = { TransferId: 0, Date: "", TransFrom: "", TransTo: "", TransAmount: 0.0, RefNo: "", Description: "" };
+                        tranOb.TransferId = parseInt($("#TransferId").val());
+                        tranOb.Date = $("#Date").val();
+                        tranOb.TransFrom = $("#TransFrom").val();
+                        tranOb.TransTo = $("#TransTo").val();
+                        tranOb.TransAmount = $("#TransAmount").val();
+                        tranOb.RefNo = $("#RefNo").val();
+                        tranOb.Description = $("#Description").val();
+                        $.ajax
+                            ({
+                                url: '@Url.Action("UpdateFundTransVoucher", "FundTransferVoucher")',
+                                contentType: "application/json;charset=utf-8",
+                                data: JSON.stringify({ fundTransferVoucher: tranOb }),
+                                type: 'Post',
+                                dataType: 'json',
+                                success: function (datas) {
+                                    if (datas.Message == "0") {
+                                        alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                        $("#update").prop('disabled', false);
+                                    }
+                                    else if (datas.Message == "1") {
+                                        alert("Sccessfully updated.")
+                                        //location.reload();
+                                    }
+                                    else if (datas.Message == "2") {
+                                        alert("This Fund Trancfer Voucher is  already Exist.");
+                                        $("#update").prop('disabled', false);
+                                    }
+                                    else if (datas.Message == 5) {
+                                        alert("This Voucher Is already Approve, so Update is not available.");
+                                        $("#update").prop('disabled', false);
+                                    }
+
+                                }
+                            });
+                    }
+                    else {
+                        $("#update").prop('disabled', false);
+                    }
+
+              }
+                else {
+                    $("#update").prop('disabled', false);
+              }
+          });
+            @*$(document).on('click', '#delete', function () {
+            $("#update").prop('disabled', true);
+                if (message == "") {
+                    if (confirm("Do you want to delete?")) {
+                        var id = parseInt($("#TransferId").val());
+
+                         $.ajax
+                            ({
+                                url: '@Url.Action("DeleteFundTransVoucher", "FundTransferVoucher")',
+                                contentType: "application/json;charset=utf-8",
+                                data: id,
+                                type: 'Post',
+                                dataType: 'json',
+                                success: function (datas) {
+                                    if (datas.Message == "0") {
+                                        alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                        $("#save").prop('disabled', false);
+                                    }
+                                    else if (datas.Message == "1") {
+                                        alert("Sccessfully deleted.")
+                                        location.reload();
+                                    }
+                                    else if (datas.Message == "2") {
+                                        alert("This Fund Trancfer Voucher is  not Exist.");
+                                        $("#update").prop('disabled', false);
+                                    }
+
+                                }
+                            });
+                    }
+
+                }
+            });*@
+
+            $(document).on('click', '#delete', function () {
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+                var id = $("#TransferId").val();
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteFundTransVoucher", "FundTransferVoucher")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Delete failed.");
+                            $("#delete").prop('disabled', false);
+                            $("#update").prop('disabled', false);
+                        }
+                        else if (datas.Message == 5) {
+                            alert("This Voucher Is already Approve, so Update is not available.");
+                            $("#update").prop('disabled', false);
+                            $("#delete").prop('disabled', false);
+                        }
+                        else {
+                            alert("Delete Successfull");
+                            window.location.reload(true);
+                        }
+                    }
+                });
+            }
+            else {
+                $("#update").prop('disabled', false);
+                $("#delete").prop('disabled', false);
+            }
+        });
+
+
+        $(document).on('click', '#save', function () {
+            $("#save").prop('disabled', true);
+                ValidateOnSaveClick();
+            if (message == "") {
+                if (confirm("Do you want to save?")) {
+                    var tranOb = { TransferId: 0, Date: "", TransFrom: "", TransTo: "", TransAmount: 0.0, RefNo: "", Description: "" };
+                    tranOb.TransferId = parseInt($("#TransferId").val());
+                    tranOb.Date = $("#Date").val();
+                    tranOb.TransFrom = $("#TransFrom").val();
+                    tranOb.TransTo = $("#TransTo").val();
+                    tranOb.TransAmount = $("#TransAmount").val();
+                    tranOb.RefNo = $("#RefNo").val();
+                    tranOb.Description = $("#Description").val();
+                    $.ajax
+                        ({
+                            url: '@Url.Action("SaveFundTransVoucher", "FundTransferVoucher")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ fundTrancferVoucher: tranOb }),
+                            type: 'Post',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas.Message == "0") {
+                                    alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                    $("#save").prop('disabled', false);
+                                }
+                                else if (datas.Message == "1") {
+                                    alert("Sccessfully saved.");
+                                    $("#TransferId").val(datas.FundTrancferVoucher.TransferId)
+                                    //location.reload();
+
+                                }
+                                else if (datas == 3) {
+                                    alert("Please select a valid entry date");
+                                    $("#Date").focus();
+                                    $("#save").prop('disabled', false);
+                                }
+                                else if (datas.Message == "2") {
+                                    alert("This Fund Trancfer Voucher is already Exist.");
+                                    $("#save").prop('disabled', false);
+                                }
+
+                            }
+                        });
+                }
+                else {
+                    $("#save").prop('disabled', false);
+                }
+
+            }
+            else {
+                $("#save").prop('disabled', false);
+            }
+        });
+        //validator
+        function ValidateOnSaveClick() {
+            RemoveError();
+            message = "";
+            if ($("#Date").val() == "") {
+                setError("Date", "Date is Required Field.");
+                message = "DateTime No is Required Field."
+            }
+            if ($("#TransFrom").val() == "") {
+                setError("TransFrom", "Transfer From is Required Field.\n");
+                message = "TransFrom   is Required Field."
+            }
+            if ($("#TransTo").val() == "") {
+                setError("TransTo", "Transfer To is Required Field.\n");
+                message = "Transfer  is Required Field."
+            }
+            if ($("#TransAmount").val() == "") {
+                setError("TransAmount", "Transfer Amount To is Required Field.\n");
+                message = "TransAmount  is Required Field."
+            }
+            if ($("#TransFrom").val() == $("#TransTo").val()) {
+                setError("TransTo", "Same Account Fund transfer is not possible.\n");
+                message = "Same Account Fund transfer is not possible."
+            }
+        }
+        $(document).on('click', '#refresh', function () {
+            window.location.reload(true);
+        });
+        function ClearOnSearch() {
+           // $("#TransferId").val("");
+            $("#Date").val("").change();
+            $("#TransFrom").val("").change();
+            $("#TransTo").val("").change();
+            $("#TransAmount").val("");
+            $("#RefNo").val("");
+            $("#Description").val("");
+        }
+    });
+
+        </script>
+
+    }

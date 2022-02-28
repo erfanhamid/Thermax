@@ -1,0 +1,310 @@
+﻿@model BEEERP.Models.ViewModel.Sales.Report.ReportVModel
+
+@{
+    ViewBag.Title = "CostCenterReport";
+    int i = 0;
+    int j = 0;
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        /*padding: 15px 32px;*/
+        /*text-align: center;*/
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 8px;
+        min-width: 450px;
+        /*height: 12px;*/
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+        }
+</style>
+
+<h3 style="text-align:center">Cost Center Report</h3>
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "CostCenterReport", target = "_blank" }))
+{
+
+    <div class="content" style="margin-top:10px;">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <div class="col-md-5">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                    <h4 class="box-title">Select Date Ranges and Parameters</h4>
+                                </div>
+                                <div class="box-body" style="padding-bottom:110px;">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Depot,"Depot/Cost Center", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.Depot, (IEnumerable<SelectListItem>)ViewBag.Depot, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.Depot)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.CostGroup, "Cost Group", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.CostGroup, (IEnumerable<SelectListItem>)ViewBag.CostGroup, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.CostGroup)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.From, "From Date", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 date input-group" style="padding-left:15px;padding-right:15px;">
+                                            @Html.TextBoxFor(m => m.From, new { @class = "form-control AsOnDate", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            @Html.ValidationMessageFor(m => m.From)
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.To, "To Date", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 date input-group" style="padding-left:15px;padding-right:15px;">
+                                            @Html.TextBoxFor(m => m.To, new { @class = "form-control AsOnDate", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            @Html.ValidationMessageFor(m => m.To)
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-7">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                    <h4 class="box-title">Cost Center Report</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="form-group" style="text-align:center;">
+                                        @{
+                                            i = i + 1;
+                                        }
+                                        <button class="btn skin-blue" id="depotandcostgrpwiseexpdetail" type="submit">@i. Depot and Cost Group Wise Expense Detail</button>
+                                    </div>
+                                    <div class="form-group" style="text-align:center;">
+                                        @{
+                                            i = i + 1;
+                                        }
+                                        <button class="btn skin-blue" id="depotandcostgrpwiseexpsummary" type="submit">@i. Depot and Cost Group Wise Expense Summary</button>
+                                    </div>
+                                    <div class="form-group" style="text-align:center;">
+                                        @{
+                                            i = i + 1;
+                                        }
+                                        <button class="btn skin-blue" id="SingleDepotCostSummary" type="submit">@i. Single Depot Cost/Expense Details</button>
+                                    </div>
+                                    <div class="form-group" style="text-align:center;">
+                                        @{
+                                            i = i + 1;
+                                        }
+                                        <button class="btn skin-blue" id="SingleDepotAccGrpSummary" type="submit">@i. Single Depot Account Group Summary</button>
+                                    </div>
+                                    <div class="form-group" style="text-align:center;">
+                                        @{
+                                            i = i + 1;
+                                        }
+                                        <button class="btn skin-blue" id="Depotwisecostsummary" type="submit">@i. Depot/Cost Center Wise Cost Summary </button>
+                                    </div>
+                                    <div class="form-group" style="text-align:center;">
+                                        @{
+                                            i = i + 1;
+                                        }
+                                        <button class="btn skin-blue" id="DepotWiseSingleCGDetail" type="submit">@i. Depot Wise Single Cost Group Detail </button>
+                                    </div>
+                                    <div class="form-group" style="text-align:center;">
+                                        @{
+                                            i = i + 1;
+                                        }
+                                        <button class="btn skin-blue" id="CostGroupWiseSummary" type="submit">@i. Cost Group Wise Expense Summary </button>
+                                    </div>
+                                    <div class="form-group" style="text-align:center;">
+                                        @{
+                                            i = i + 1;
+                                        }
+                                        <button class="btn skin-blue" id="SingleDepotMonthWisecost" type="submit">@i. Single Depot Month Wise Cost Summary </button>
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                    <h4 class="box-title">Vehicle Expense Report</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="form-group" style="text-align:center;">
+                                        @{
+                                            j = j + 1;
+                                        }
+                                        <button class="btn skin-blue" id="ItemWiseVehicleExpenseReport" type="submit">@j. Depot and Ledger Item wise Vehicle Expense Summary</button>
+                                    </div>
+                                    <div class="form-group" style="text-align:center;">
+                                        @{
+                                            j = j + 1;
+                                        }
+                                        <button class="btn skin-blue" type="submit" id="LedgerItemWiseVehicleExpenseReport">@j. Ledger Item wise Vehicle Expense Summary</button>
+                                    </div>
+                                </div>
+                            </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<input type="hidden" id="message" value="false" />
+
+@section scripts{
+    <script src="~/Scripts/Search.js"></script>
+    <script src="~/Scripts/ReportSearch.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $(".select2").select2();
+            $('.date').datepicker({
+                autoclose: true,
+                format: "dd-mm-yyyy"
+            });
+
+
+            //$(document).on('click', "#MonthlyExpenseReport", function (event) {
+
+            //    event.preventDefault();
+            //    if ($("#message").val() != "true") {
+            //        $("#ManagementReport").attr("action", "/ManagementReport/MonthlyExpenseReport");
+            //        $("#ManagementReport").submit();
+            //    }
+
+            //});
+            //$(document).on('click', "#SingleDepotCostSummary", function (event) {
+            //    //ValidateReportSearchParam(["Depot"]);
+            //    ValidateOnClick();
+            //    event.preventDefault();
+            //    if ($("#message").val() != "true") {
+            //        $("#ManagementReport").attr("action", "/ManagementReport/SingleDepotCostSummary");
+            //        $("#ManagementReport").submit();
+            //    }
+
+            //});
+
+            $(document).on('click', "#depotandcostgrpwiseexpdetail", function (event) {
+                event.preventDefault();
+                ValidateReportSearchParam(["From", "To"]);
+
+
+                $("#CostCenterReport").attr("action", "/CostCenterReport/DepotandCostGroupWiseDetail");
+                    $("#CostCenterReport").submit();
+
+            });
+
+            $(document).on('click', "#depotandcostgrpwiseexpsummary", function (event) {
+                event.preventDefault();
+                ValidateReportSearchParam(["From", "To"]);
+
+
+                $("#CostCenterReport").attr("action", "/CostCenterReport/DepotandCostGroupWiseSummary");
+                $("#CostCenterReport").submit();
+
+            });
+
+
+            $(document).on('click', "#SingleDepotCostSummary", function (event) {
+                event.preventDefault();
+                ValidateReportSearchParam(["From", "To"]);
+                if ($("#Depot").val() == "") {
+                    setError("Depot", "Please select a Depot or Sales Center");
+                    isValid = false;
+                }
+                else {
+
+                    $("#CostCenterReport").attr("action", "/CostCenterReport/SingleDepotCostSummary");
+                    $("#CostCenterReport").submit();
+                }
+            });
+            // Single Depot Account Group Summary
+            $(document).on('click', "#SingleDepotAccGrpSummary", function (event) {
+                event.preventDefault();
+                ValidateReportSearchParam(["From", "To"]);
+                if ($("#Depot").val() == "") {
+                    setError("Depot", "Please select a Depot or Sales Center");
+                    isValid = false;
+                }
+                else {
+
+                    $("#CostCenterReport").attr("action", "/CostCenterReport/SingleDepotAccountGroupSummary");
+                    $("#CostCenterReport").submit();
+                }
+            });
+
+            // Single Depot Wise Cost Summary
+            $(document).on('click', "#Depotwisecostsummary", function (event) {
+                event.preventDefault();
+                ValidateReportSearchParam(["From", "To"]);
+                
+                $("#CostCenterReport").attr("action", "/CostCenterReport/Depotwisecostsummary");
+                $("#CostCenterReport").submit();
+
+            });
+            // Depot Wise Single Cost Group Detail
+            $(document).on('click', "#DepotWiseSingleCGDetail", function (event) {
+                event.preventDefault();
+                ValidateReportSearchParam(["From", "To"]);
+                if ($("#CostGroup").val() == "") {
+                    setError("CostGroup", "Please select a Cost Group");
+                    isValid = false;
+                }
+                else {
+
+                    $("#CostCenterReport").attr("action", "/CostCenterReport/DepotWiseSingleCostGroupDetail");
+                    $("#CostCenterReport").submit();
+                }
+            });
+
+            // Cost Group Wise Summary
+            $(document).on('click', "#CostGroupWiseSummary", function (event) {
+                event.preventDefault();
+                ValidateReportSearchParam(["From", "To"]);
+
+                $("#CostCenterReport").attr("action", "/CostCenterReport/CostGroupWiseSummary");
+                $("#CostCenterReport").submit();
+
+            });
+            $(document).on('click', "#SingleDepotMonthWisecost", function (event) {
+                event.preventDefault();
+                ValidateReportSearchParam(["From", "To"]);
+                if ($("#Depot").val() == "") {
+                    setError("Depot", "Please select a Depot or Sales Center");
+                    isValid = false;
+                }
+                else {
+
+                    $("#CostCenterReport").attr("action", "/CostCenterReport/SingleDepotMonthWiseCost");
+                    $("#CostCenterReport").submit();
+                }
+            });
+            //function ValidateOnClick() {
+            //    RemoveError();
+            //    message = "";
+            //    if ($("#Depot").val() == "") {
+            //        setError("Depot", "Please select a depot or sales center");
+            //        message = "Please select a depot or sales center"
+            //    }
+            //}
+
+        });
+    </script>
+}

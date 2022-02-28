@@ -1,0 +1,1017 @@
+﻿@model BEEERP.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+<style>
+
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+    /*h3 {
+        background: #F5B041;
+        border-radius: 8px;
+    }*/
+    /*box-title {
+        background: #82E0AA;
+        border-radius: 8px;
+    }*/
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        /*padding: 15px 32px;*/
+        /*text-align: center;*/
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 8px;
+        min-width: 80px;
+        /*height: 12px;*/
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+        }
+</style>
+<h3 style="text-align:center">Create New User and Assign Role</h3>
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", id = "updateRegister", target = "_blank", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-sm-12" style="text-align:center">
+                <h4>@ViewBag.Message</h4>
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="box">
+                    <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                        <h5 class="box-title">User Registration</h5>
+                    </div>
+                    <div class="box-body">
+                        <div class="col-md-offset-2 col-md-6 col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10">
+                            <div class="form-group ">
+                                @Html.LabelFor(m => m.EmployeeId, new { @class = "col-sm-4 control-label" })
+                                <div class="col-sm-8 input-group input-group-sm" style="padding-right:15px;padding-left:14px;">
+                                    @Html.TextBoxFor(m => m.EmployeeId, new { @class = "form-control", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(m => m.EmployeeId)
+                                    <span class="input-group-btn" id="orderSrc">
+                                        <button type="button" class="btn btn-primary" id="employeeSearch" style="min-width: 50px">Search</button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                @Html.LabelFor(m => m.EmployeeName, new { @class = "col-sm-4 control-label" })
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.EmployeeName, new { @class = "form-control", @readonly = "readonly" })
+
+                                    @Html.ValidationMessageFor(m => m.EmployeeName)
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="Email" class="col-sm-4 control-label">User Name</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.UserName)
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                @Html.LabelFor(m => m.Password, new { @class = "col-sm-4 control-label" })
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.Password, new { @class = "form-control ", @type = "password" })
+                                    @Html.ValidationMessageFor(m => m.Password)
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-sm-4 control-label" })
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "form-control ", @type = "password" })
+                                    @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                <h5 class="box-title">User Access</h5>
+            </div>
+            <div class="box-body">
+                <div class="col-sm-4 col-xs-6">
+                    <div class="form-group">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div style="text-align:center;font-family:Verdana;font-size:large">
+                                        <i class="fa fa-dollar"></i> <span> Accounts</span>
+                                    </div>
+                                    <div class="box-body" style="border:1px solid;border-color:gray" id="check">
+                                        <div class="col-sm-12">
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="AccAdmin" value="AccAdmin" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="AccAdmin">Admin</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="AccOperator" value="AccOperator" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="AccOperator">Operator</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="AccViewer" value="AccViewer" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="AccViewer">Viewer</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="AccApprover" value="AccApprover" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="AccApprover">Approver</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <div class="form-group">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div style="text-align:center;font-family:Verdana;font-size:large">
+                                        <i class="fa fa-shopping-bag"></i> <span> Commercial</span>
+                                    </div>
+                                    <div class="box-body" style="border:1px solid;border-color:gray">
+                                        <div class="col-sm-12">
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="CommercialAdmin" value="CommercialAdmin" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="CommercialAdmin">Admin</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="CommercialOperator" value="CommercialOperator" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="CommercialOperator">Operator</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="CommercialViewer" value="CommercialViewer" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="CommercialViewer">Viewer</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="CommercialApprover" value="CommercialApprover" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="CommercialApprover">Approver</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <div class="form-group">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div style="text-align:center;font-family:Verdana;font-size:large">
+                                        <i class="fa fa-folder-open"></i><span> Store FG</span>
+                                    </div>
+                                    <div class="box-body" style="border:1px solid;border-color:gray">
+                                        <div class="col-sm-12">
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="StoreFGAdmin" value="StoreFGAdmin" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="StoreFGAdmin">Admin</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="StoreFGOperator" value="StoreFGOperator" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="StoreFGOperator">Operator</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="StoreFGViewer" value="StoreFGViewer" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="StoreFGViewer">Viewer</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="StoreFGApprover" value="StoreFGApprover" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="StoreFGApprover">Approver</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <div class="form-group">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div style="text-align:center;font-family:Verdana;font-size:large">
+                                        <i class="fa fa-database"></i> <span> Data Admin</span>
+                                    </div>
+                                    <div class="box-body" style="border:1px solid;border-color:gray">
+                                        <div class="col-sm-12">
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="DataAdmin" value="DataAdmin" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="DataAdmin">Admin</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="DataOperator" value="DataOperator" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="DataOperator">Operator</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="DataViewer" value="DataViewer" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="DataViewer">Viewer</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="DataApprover" value="DataApprover" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="DataApprover">Approver</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <div class="form-group">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div style="text-align:center;font-family:Verdana;font-size:large">
+                                        <i class="glyphicon glyphicon-folder-close"></i> <span> Store RM</span>
+                                    </div>
+                                    <div class="box-body" style="border:1px solid;border-color:gray">
+                                        <div class="col-sm-12">
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="StoreRMAdmin" value="StoreRMAdmin" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="StoreRMAdmin">Admin</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="StoreRMOperator" value="StoreRMOperator" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="FixedAssetOperator">Operator</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="StoreRMViewer" value="StoreRMViewer" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="StoreRMViewer">Viewer</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="StoreRMApprover" value="StoreRMApprover" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="StoreRMApprover">Approver</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <div class="form-group">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div style="text-align:center;font-family:Verdana;font-size:large">
+                                        <i class="fa fa-user"></i> <span> HR</span>
+                                    </div>
+                                    <div class="box-body" style="border:1px solid;border-color:gray">
+                                        <div class="col-sm-12">
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="HraAdmin" value="HraAdmin" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="HraAdmin">Admin</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="HraOperator" value="HraOperator" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="HraOperator">Operator</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="HraViewer" value="HraViewer" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="HraViewer">Viewer</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="HraApprover" value="HraApprover" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="HraApprover">Approver</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <div class="form-group">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div style="text-align:center;font-family:Verdana;font-size:large">
+                                        <i class="fa fa-user"></i> <span> Fixed Asset</span>
+                                    </div>
+                                    <div class="box-body" style="border:1px solid;border-color:gray">
+                                        <div class="col-sm-12">
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="FixedAssetAdmin" value="FixedAssetAdmin" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="FixedAssetAdmin">Admin</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="FixedAssetOperator" value="FixedAssetOperator" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="FixedAssetOperator">Operator</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="FAViewer" value="FixedAssetViewer" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="FixedAssetViewer">Viewer</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="FixedAssetApprover" value="FixedAssetApprover" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="FixedAssetApprover">Approver</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <div class="form-group">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div style="text-align:center;font-family:Verdana;font-size:large">
+                                        <i class="fa fa-shopping-cart"></i> <span> Procurement</span>
+                                    </div>
+                                    <div class="box-body" style="border:1px solid;border-color:gray">
+                                        <div class="col-sm-12">
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="ProcurementAdmin" value="ProcurementAdmin" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="ProcurementAdmin">Admin</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="ProcurementOperator" value="ProcurementOperator" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="ProcurementOperator">Operator</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="ProcurementViewer" value="ProcurementViewer" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="ProcurementViewer">Viewer</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="ProcurementApprover" value="ProcurementApprover" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="ProcurementApprover">Approver</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <div class="form-group">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div style="text-align:center;font-family:Verdana;font-size:large">
+                                        <i class="fa fa-industry"></i> <span> Production</span>
+                                    </div>
+                                    <div class="box-body" style="border:1px solid;border-color:gray">
+                                        <div class="col-sm-12">
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="ProductionAdmin" value="ProductionAdmin" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="ProductionAdmin">Admin</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="ProductionOperator" value="ProductionOperator" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="ProductionOperator">Operator</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="ProductionViewer" value="ProductionViewer" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="ProductionViewer">Viewer</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="ProductionApprover" value="ProductionApprover" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="ProductionApprover">Approver</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <div class="form-group">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div style="text-align:center;font-family:Verdana;font-size:large">
+                                        <i class="fa fa-money"></i> <span> Costing</span>
+                                    </div>
+                                    <div class="box-body" style="border:1px solid;border-color:gray">
+                                        <div class="col-sm-12">
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="CostingAdmin" value="CostingAdmin" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="CostingAdmin">Admin</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="CostingOperator" value="CostingOperator" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="CostingOperator">Operator</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="CostingViewer" value="CostingViewer" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="CostingViewer">Viewer</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="CostingApprover" value="CostingApprover" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="CostingApprover">Approver</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <div class="form-group">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div style="text-align:center;font-family:Verdana;font-size:large">
+                                        <i class="fa fa-shopping-basket"></i> <span> Sales</span>
+                                    </div>
+                                    <div class="box-body" style="border:1px solid;border-color:gray">
+                                        <div class="col-sm-12">
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="SalesAdmin" value="SalesAdmin" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="SalAdmin">Admin</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="SalesOperator" value="SalesOperator" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="SalOperator">Operator</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="SalesViewer" value="SalesViewer" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="SalViewer">Viewer</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="SalesApprover" value="SalesApprover" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="SalApprover">Approver</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <div class="form-group">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div style="text-align:center;font-family:Verdana;font-size:large">
+                                        <i class="fa fa-university"></i> <span> Store Depot</span>
+                                    </div>
+                                    <div class="box-body" style="border:1px solid;border-color:gray">
+                                        <div class="col-sm-12">
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="StoreDepotAdmin" value="StoreDepotAdmin" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="StoreDepotAdmin">Admin</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="StoreDepotOperator" value="StoreDepotOperator" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="StoreDepotOperator">Operator</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="StoreDepotViewer" value="StoreDepotViewer" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="StoreDepotViewer">Viewer</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="StoreDepotApprover" value="StoreDepotApprover" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="StoreDepotApprover">Approver</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <div class="form-group">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div style="text-align:center;font-family:Verdana;font-size:large">
+                                        <i class="fa fa-cogs"></i> <span> System Admin</span>
+                                    </div>
+                                    <div class="box-body" style="border:1px solid;border-color:gray">
+                                        <div class="col-sm-12">
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="SysAdmin" value="SysAdmin" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="SysAdmin">Admin</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="SysOperator" value="SysOperator" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="SysOperator">Operator</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="SysViewer" value="SysViewer" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="SysViewer">Viewer</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <div class="row">
+                                                    <div class="col-sm-4" style="text-align:right">
+                                                        <input type="checkbox" id="SysApprover" value="SysApprover" name="access" class="access" />
+                                                    </div>
+                                                    <div class="col-sm-4" style="text-align:left">
+                                                        <label for="SysApprover">Approver</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="box">
+                <div class="form-group">
+                    <div class="col-sm-12" style="text-align:center">
+
+                        <input type="submit" class="btn btn-primary" id="register" value="Register" />
+                        <input type="submit" class="btn btn-primary" value="Update" id="update" />
+                        <button type="submit" class="btn btn-primary" id="cancle">Refresh</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+
+    @section scripts{
+        <script>
+            var isValid = true;
+            $(document).ready(function () {
+
+                $("#update").hide();
+                $(document).on('click', "#register", function (event) {
+                    event.preventDefault();
+                    RemoveError();
+                    validateForm();
+                    if (isValid == true) {
+                        if (confirm("Do you want to Register?")) {
+                            $("#updateRegister").attr("action", "/Account/Register");
+                            $("#updateRegister").submit();
+                        } else {
+
+                        }
+                    }
+                });
+                $(document).on('click', "#update", function (event) {
+                    event.preventDefault();
+
+                    if (confirm("Do you want to update?")) {
+                        $("#updateRegister").attr("action", "/Account/UpdateRegister");
+                        $("#updateRegister").submit();
+
+                    }
+                });
+                $(document).on('click', "#cancle", function (event) {
+                    event.preventDefault();
+                    location.reload();
+                });
+
+                $(document).on('click', '#employeeSearch', function () {
+                    ClearOnSearch();
+                var employeeId = $("#EmployeeId").val();
+
+                if (employeeId == "") {
+                    alert("Employee Id is required to search.");
+                }
+                else {
+                    $.ajax({
+                        dataType: 'json',
+                        type: 'GET',
+                        contentType: "application/json;charset=utf-8",
+                        data: { employeeId: employeeId },
+                        url: '@Url.Action("GetEmployeeNameById", "Account")',
+                        success: function (data) {
+                            if (data == "0") {
+                                $("#EmployeeName").val("");
+                                $("#EmployeeId").prop("readonly", false);
+                                alert("Inserted Employee ID is not valid");
+                            }
+                            else {
+                                //$("#EmployeeId").prop("readonly", true);
+                                $("#EmployeeName").val(data.EmployeeName.Name);
+                                if (data.EmployeeName.LogInUserName!="") {
+                                    $("#update").show();
+                                }
+                                $("#UserName").val(data.EmployeeName.LogInUserName);
+                                $.each(data.EmployeeRoles, function (index, value) {
+                                    $("#"+value.Name).prop('checked', value);
+                                });
+
+                            }
+                        },
+                        error: function () {
+                            $("#EmployeeName").val("");
+                            $("#EmployeeId").prop("readonly", false);
+                            alert("Please check your internet connection.")
+                            }
+                        });
+                    }
+                });
+            });
+
+            function ClearOnSearch() {
+                $("#AccAdmin").prop("checked", false);
+                $("#AccOperator").prop("checked", false);
+                $("#AccViewer").prop("checked", false);
+                $("#AccApprover").prop("checked", false);
+                $("#CommercialAdmin").prop("checked", false);
+                $("#CommercialOperator").prop("checked", false);
+                $("#CommercialViewer").prop("checked", false);
+                $("#CommercialApprover").prop("checked", false);
+                $("#StoreFGAdmin").prop("checked", false);
+                $("#StoreFGOperator").prop("checked", false);
+                $("#StoreFGApprover").prop("checked", false);
+                $("#StoreFGViewer").prop("checked", false);
+                $("#DataAdmin").prop("checked", false);
+                $("#DataOperator").prop("checked", false);
+                $("#DataViewer").prop("checked", false);
+                $("#DataApprover").prop("checked", false);
+                $("#StoreRMAdmin").prop("checked", false);
+                $("#StoreRMOperator").prop("checked", false);
+                $("#StoreRMViewer").prop("checked", false);
+                $("#StoreRMApprover").prop("checked", false);
+                $("#HraAdmin").prop("checked", false);
+                $("#HraOperator").prop("checked", false);
+                $("#HraViewer").prop("checked", false);
+                $("#HraApprover").prop("checked", false);
+                $("#FixedAssetAdmin").prop("checked", false);
+                $("#FixedAssetOperator").prop("checked", false);
+                $("#FixedAssetViewer").prop("checked", false);
+                $("#FixedAssetApprover").prop("checked", false);
+                $("#ProcurementAdmin").prop("checked", false);
+                $("#ProcurementOperator").prop("checked", false);
+                $("#ProcurementViewer").prop("checked", false);
+                $("#ProcurementApprover").prop("checked", false);
+                $("#ProductionAdmin").prop("checked", false);
+                $("#ProductionOperator").prop("checked", false);
+                $("#ProductionViewer").prop("checked", false);
+                $("#ProductionApprover").prop("checked", false);
+                $("#CostingAdmin").prop("checked", false);
+                $("#CostingOperator").prop("checked", false);
+                $("#CostingViewer").prop("checked", false);
+                $("#CostingApprover").prop("checked", false);
+                $("#SalesAdmin").prop("checked", false);
+                $("#SalesOperator").prop("checked", false);
+                $("#SalesViewer").prop("checked", false);
+                $("#SalesApprover").prop("checked", false);
+                $("#StoreDepotAdmin").prop("checked", false);
+                $("#StoreDepotOperator").prop("checked", false);
+                $("#StoreDepotViewer").prop("checked", false);
+                $("#StoreDepotApprover").prop("checked", false);
+                $("#SysAdmin").prop("checked", false);
+                $("#SysOperator").prop("checked", false);
+                $("#SysViewer").prop("checked", false);
+                $("#SysApprover").prop("checked", false);
+
+            }
+            function validateForm() {
+                isValid = true;
+                if ($("#UserName").val() == "") {
+                    setError("UserName", "Please enter a user name. ");
+                    isValid = false;
+                    //return false;
+                }
+                if ($("#Password").val() == "") {
+                    setError("Password", "Please enter a password.");
+                    isValid = false;
+                    //return false;
+                }
+                if ($("#ConfirmPassword").val() == "") {
+                    setError("ConfirmPassword", "Required field.");
+                    isValid = false;
+                    //return  false;
+                }
+
+            }
+        </script>
+    }
+}

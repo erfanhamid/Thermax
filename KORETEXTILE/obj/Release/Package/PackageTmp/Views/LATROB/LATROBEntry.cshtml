@@ -1,0 +1,494 @@
+﻿@model BEEERP.Models.ViewModel.CommercialVM.LTRVModel
+@{
+    ViewBag.Title = "LATROBEntry";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+<h3 style="text-align:center">Enter LATR Opening Balance</h3>
+
+<div class="content">
+    <div class="row">
+        <h4 style="text-align:center"></h4>
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="box">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h6 class="box-title">LATR Details</h6>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.LTRID, "LATR ID", new { @class = "col-md-4 control-label" })
+                                        <div class="input-group input-group-sm col-md-6" style="padding-right:19px;padding-left:14px;">
+                                            @Html.TextBoxFor(m => m.LTRID, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.LTRID, "", new { @style = "color: red" })
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-primary" id="LTRIDsearch" style="min-width: 50px">Search</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.LTRNO, "LATR No", new { @class = "col-md-4 control-label" })
+                                        <div class="input-group input-group-sm col-md-6" style="padding-right:19px;padding-left:14px;">
+                                            @Html.TextBoxFor(m => m.LTRNO, new { @class = "form-control" })
+                                            @*@Html.ValidationMessageFor(m => m.LTRNO, "", new { @style = "color: red" })*@
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-primary" id="LTRNOsearch" style="min-width: 50px">Search</button>
+                                            </span>
+                                        </div>
+                                        <div class="col-md-4"></div>
+                                        <div class="col-md-8">
+                                            @Html.ValidationMessageFor(m => m.LTRNO, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Date, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6 input-group" style="padding-left:15px; padding-right:15px">
+                                            @Html.TextBoxFor(m => m.Date, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            @Html.ValidationMessageFor(m => m.Date, "", new { @style = "color: red" })
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Amount, "Amount (OB)", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.TextBoxFor(m => m.Amount, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Amount, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.RefNo, "Reference No", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.TextBoxFor(m => m.RefNo, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.RefNo, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Description, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Description, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.LCID, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.DropDownListFor(m => m.LCID, (IEnumerable<SelectListItem>)ViewBag.ILC, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.LCID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.AltILCNo, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.TextBoxFor(m => m.AltILCNo, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.AltILCNo, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Supplier,"Goods Supplier", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.TextBoxFor(m => m.Supplier, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Supplier, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box">
+                            <div class="box-footer">
+                                <div class="form-group" , style="text-align:center">
+                                    <button type="button" id="save" style="height:500%; font-size:100%;" class="btn btn-primary">Save</button>
+                                    <button type="button" id="update" style="height:500%; font-size:100%;" class="btn btn-primary">Update</button>
+                                    <button type="button" id="delete" style="height:500%; font-size:100%;" class="btn btn-primary">Delete</button>
+                                    <button type="button" id="refresh" style="height:500%; font-size:100%;" class="btn btn-primary">Refresh</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script src="~/Scripts/CommercialModule/LTRInputFocus.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $('.date').datepicker({
+                autoclose: true,
+                format: 'dd-mm-yyyy',
+            });
+            var isValid = true;
+            $(".select2").select2();
+            $("#update").hide();
+            $("#delete").hide();
+            $("#AltILCNo").attr('disabled',true);
+            $("#Supplier").attr('disabled', true);
+            $("#LCNo").attr('disabled', true);
+            $("#ACCID").attr('disabled', true);
+
+        });
+        var IsSearch = false;
+        keyPress();
+        var LTR = { LTRID: 0, LTRNO: "", LCID: 0, RefNo:"", Description: "", ACCID: 0, Date: "", Amount: 0 }
+        function setLTR() {
+            LTR.LTRID = $("#LTRID").val();
+            LTR.LCID = $("#LCID").val();
+            LTR.LTRNO = $("#LTRNO").val();
+            LTR.RefNo = $("#RefNo").val();
+            LTR.Description = $("#Description").val();
+            LTR.ACCID = $("#ACCID").val();
+            LTR.Amount = $("#Amount").val();
+            LTR.Date = $("#Date").val();
+
+        }
+        function Validate() {
+            isValid = true;
+            if ($("#LCID").val() == "") {
+                setError("LCID", "Please select an ILC ");
+                isValid = false;
+            }
+            if ($("#LTRNO").val() == "") {
+                setError("LTRNO", "Please enter LATR No ");
+                isValid = false;
+            }
+            if ($("#Amount").val() == "") {
+                setError("Amount", "Please enter Amount ");
+                isValid = false;
+            }
+        }
+
+        $(document).on('click', '#LTRIDsearch', function () {
+            RemoveError();
+            if ($("#LTRID").val() == "") {
+                alert("Please Enter LTR ID, Then Try Again");
+            } else {
+                var id = { id: $("#LTRID").val() };
+                $.ajax({
+                    url: '@Url.Action("GetLTRById", "LATROB")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+
+                        if (datas == 0) {
+                            alert("Your entered LTR ID Doesn't exist");
+                        }
+
+                        else {
+                            IsSearch = true;
+                            $("#LTRNO").val(datas.LTRNO);
+                            $("#LCID").val(datas.LCID);
+                            $("#RefNo").val(datas.RefNo);
+                            $("#Description").val(datas.Description);
+                            $("#ACCID").val(datas.ACCID).change();
+                            $("#Amount").val(datas.Amount);
+                            $("#LTRNO").val(datas.LTRNO);
+                            $("#Date").val(moment(datas.Date).format("DD-MM-YYYY"));
+                            $("#LCIDGo").click();
+                            $("#save").hide();
+                            $("#update").show();
+                            $("#delete").show();
+                        }
+                    },
+                    error: function () {
+                        alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+
+                    }
+                });
+            }
+          });
+
+        $(document).on('click', '#LTRNOsearch', function () {
+            RemoveError();
+            if ($("#LTRNO").val() == "") {
+                alert("Please Enter LTRNo, Then Try Again");
+            } else {
+             var id = { id: $("#LTRNO").val() };
+                $.ajax({
+                        url: '@Url.Action("GetLTRByNo", "LATROB")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            if (datas == 0) {
+                                alert("Your entered LTR No Doesn't exist");
+                            }
+
+                            else {
+                                IsSearch = true;
+                                $("#LTRID").val(datas.LTRID);
+                                $("#LCID").val(datas.LCID);
+                                $("#RefNo").val(datas.RefNo);
+                                $("#Description").val(datas.Description);
+                                $("#ACCID").val(datas.ACCID).change();
+                                $("#Amount").val(datas.Amount);
+                                $("#LTRNO").val(datas.LTRNO);
+                                $("#Date").val(moment(datas.Date).format("DD-MM-YYYY"));
+                                $("#LCIDGo").click();
+                                $("#save").hide();
+                                $("#update").show();
+                                $("#delete").show();
+                            }
+                    },
+                    error: function () {
+                        alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+
+                    }
+                    });
+            }
+
+            });
+         $(document).on('click', '#LCIDGo', function () {
+            var id = { id: $("#LCID").val() };
+            $.ajax({
+                    url: '@Url.Action("GetLCById", "LATROB")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+
+                        if (datas == 0) {
+                            alert("Your entered ILC ID Doesn't exist");
+                        }
+                        else {
+                            $("#LCNo").val(datas.ILCNO);
+                            $("#AltILCNo").val(datas.IALCNO);
+                            $("#Supplier").val(datas.NameOfSupplier);
+                        }
+                },
+                error: function () {
+                    alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+
+                }
+            });
+        });
+
+        $(document).on('change', "#LCID", function () {
+            //var id = { liId: $("#ILCID").val() };
+            $("#LCID").prop('disabled', false);
+            var id = { liId: $(this).val() };
+            if (id.ilcid != "") {
+                $.ajax({
+                    url: '@Url.Action("GetLcInfo", "ILCPaymentEntry")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas.lcDetails != "") {
+                            //$("#ILCNo").val(datas.lcDetails.ILCNo);
+                            $("#AltILCNo").val(datas.lcDetails.AltILCNo);
+                            $("#Supplier").val(datas.lcDetails.Supplier);
+                        }
+                        else {
+                            alert("LC doesn't exist.");
+                        }
+                    }
+                });
+            }
+            else {
+                $("#LCID").val("").change();
+                $("#LCID").prop("disabled", true);
+            }
+
+        });
+
+
+        $(document).on('click', '#LCNoGo', function () {
+            var id = { id: $("#LCNo").val() };
+                $.ajax({
+                        url: '@Url.Action("GetLCByNo", "LATROB")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            if (datas == 0) {
+                                alert("Your entered ILC ID Doesn't exist");
+                            }
+                            else {
+                                $("#LCID").val(datas.ILCId);
+                                $("#AltILCNo").val(datas.IALCNO);
+                                $("#Supplier").val(datas.NameOfSupplier);
+                            }
+                    },
+                    error: function () {
+                        alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+
+                    }
+                    });
+            });
+
+        $(document).on('click', "#refresh", function () {
+            window.location.reload(true);
+        });
+
+         $(document).on('click', "#save", function () {
+                RemoveError();
+                setLTR();
+                Validate();
+                if (isValid == true) {
+                    if (confirm('Do you want to save')) {
+                    $.ajax({
+                        url: '@Url.Action("SaveLTR", "LATROB")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ LTR : LTR}),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Save Failed");
+                                $("#save").prop('disabled', false);
+                            }
+                            else if (datas == 1) {
+                                alert("LATR NO Already Exist");
+                                $("#save").prop('disabled', true);
+                            } else if (datas == 3) {
+                                alert("Please select a valid entry date");
+                                $("#Date").focus();
+                                $("#save").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Saved.");
+                                $("#LTRID").val(datas);
+                                $("#save").prop('disabled', true);
+                            }
+                        }
+                    });
+                    }
+                    else {
+                        $("#save").show();
+                    }
+                }
+                else {
+                    $("#save").show();
+                }
+
+            });
+           $(document).on('click', "#update", function () {
+            RemoveError();
+               setLTR();
+               Validate();
+            if (isValid == true) {
+                    if (confirm('Do you want to Update')) {
+                    $.ajax({
+                        url: '@Url.Action("UpdateLTR", "LATROB")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ LTR : LTR}),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Update Failed");
+                                $("#update").prop('disabled', false);
+                            }
+
+                            else if (datas == 2) {
+                                alert("LATR No Alreay Exist.");
+                                window.location.reload(true);
+                            }
+                            else{
+                                alert("Sucessfully Updated.");
+
+                                window.location.reload(true);
+
+                            }
+                        }
+                    });
+                    }
+                    else {
+                        $("#update").show();
+                    }
+                }
+                else {
+                    $("#update").show();
+                }
+
+            });
+
+         $(document).on('click', '#delete', function () {
+            $("#update").prop('disabled', true);
+             $("#delete").prop('disabled', true);
+             setLTR();
+
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteLTR", "LATROB")',
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({LTR : LTR }),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Delete failed.");
+                            $("#delete").prop('disabled', false);
+                            $("#update").prop('disabled', false);
+                        }
+                        else {
+                            alert("Delete Successful");
+                            window.location.reload(true);
+                        }
+                    }
+                });
+            }
+        });
+
+        function clear() {
+            $("#LTRNO").val("");
+            $("#LCID").val("");
+            $("#LCNo").val("");
+            $("#RefNo").val("");
+            $("#Description").val("");
+            $("#ACCID").val("").change();
+            $("#Amount").val("");
+            $("#AltILCNo").val("");
+            $("#Supplier").val("");
+            $("#LTRNO").val(datas.LTRNO);
+            $("#Date").val("");
+        }
+
+    </script>
+
+}
+

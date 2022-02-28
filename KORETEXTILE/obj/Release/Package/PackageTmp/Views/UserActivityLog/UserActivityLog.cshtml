@@ -1,0 +1,78 @@
+﻿@model BEEERP.Models.ViewModel.Marketing.MarketingReportVModel
+@{
+    ViewBag.Title = "UserActivityLog";
+}
+
+<h2 style="text-align:center">User Activity Report</h2>
+
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "report", target = "_blank" }))
+{
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <div class="col-md-6" id="rs">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 class="box-title">Range And Selection</h3>
+                                </div>
+                                <div class="box-body" style="padding-bottom:110px;">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 class="box-title">Reports</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="form-group" style="text-align:center;">
+                                        <button class="btn skin-blue" id="showUserActivityLogReport" style="min-width:400px;" type="submit">1. User Activity Log Report Group By Date</button>
+                                    </div>
+                                    <div class="form-group" style="text-align:center;">
+                                        <button class="btn skin-blue" id="showUserActivityLogReportGroupByUser" style="min-width:400px;" type="submit">1. User Activity Log Report Group By User</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<input type="hidden" id="message" value="false" />
+
+@section scripts{
+
+    <script src="~/Scripts/ReportSearch.js"></script>
+    <script>
+
+        $(document).on('click', "#showUserActivityLogReport", function (event) {
+            event.preventDefault();
+
+            if ($("#message").val() != "true") {
+                $("#report").attr("action", "/UserActivityLog/GetUserActivityLog");
+                $("#report").submit();
+            }
+        });
+
+        $(document).ready(function () {
+            $("#rs").hide();
+        });
+
+        $(document).on('click', "#showUserActivityLogReportGroupByUser", function (event) {
+            event.preventDefault();
+
+            if ($("#message").val() != "true") {
+                $("#report").attr("action", "/UserActivityLog/GetUserActivityLogGroupByUser");
+                $("#report").submit();
+            }
+        });
+
+    </script>
+}
+

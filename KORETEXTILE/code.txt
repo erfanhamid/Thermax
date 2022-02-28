@@ -1,0 +1,12 @@
+SMSParam.SetSMSParamName("http://sms.ajuratech.com/api/mt/SendSMS", "user", "password", "senderid", "channel", "DCS", "flashsms", "number", "text", "","");
+
+
+var mobileNo = context.Customers.FirstOrDefault(x => x.Id == customerBalance.CustomerID).MobileNo;
+                    if(!string.IsNullOrEmpty(mobileNo))
+                    {
+                        mobileNo = mobileNo.Remove(0, 1);
+                    }
+                    string message = "Dear Customer, We received a sales request from you.Invoice Amount " + (10000).ToString() + "tk. " + "Invoice No : " + "00001" + ".Your outstanding balance is " + SaleCommonInfo.GetDueByCustomerId(customer.Id) + "tk. Thank you. Almadina Pharmaceuticals Ltd.";
+                    
+                    SMS.SetParamValue("lovellosoft", "pacific@123", "LOVELLO", "Normal", "0", "0", mobileNo.Substring(0), message, "", "");
+                    SMS.SendByHttp();

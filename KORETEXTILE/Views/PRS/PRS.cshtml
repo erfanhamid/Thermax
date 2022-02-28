@@ -1,0 +1,335 @@
+﻿@model BEEERP.Models.ViewModel.Account.RefundFromSupplierVModel
+
+@{
+    ViewBag.Title = "PRS";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+<h3 class="col-md-9" style="text-align:center">Payment Refund From Supplier (PRS) Entry</h3>
+
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA;">
+                                <h4 class="box-title">PRS Details</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.PRSNo, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px;">
+                                            @Html.TextBoxFor(m => m.PRSNo, new { @class = "form-control", @type = "number", @Value = ViewBag.gbeCountNumPlausOne })
+                                            @Html.ValidationMessageFor(m => m.PRSNo, "", new { @style = "color: red" })
+                                            <div class="input-group-btn">
+                                                <input type="button" name="search" id="search" value="Search" class="btn btn-primary" style="min-width: 50px" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.SupplierID, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.SupplierID, (IEnumerable<SelectListItem>)ViewBag.Supplier, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.SupplierID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Date, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                            @Html.TextBoxFor(m => m.Date, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            @Html.ValidationMessageFor(m => m.Date, "", new { @style = "color: red" })
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box ">
+                            <div class="box-body">
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ReceiveAccountID, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.ReceiveAccountID, (IEnumerable<SelectListItem>)ViewBag.Account, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.ReceiveAccountID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ReturnAmount, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.ReturnAmount, new { @class = "form-control", @type = "number" })
+                                            @Html.ValidationMessageFor(m => m.ReturnAmount, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.RefNo, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.RefNo, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.RefNo, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Description, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Description, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box">
+                            <div class="box-footer">
+                                <div class="form-group" , style="text-align:center">
+                                    <input type="button" id="save" value="Save" class="btn btn-primary" />
+                                    <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                                    <input type="button" name="delete" id="delete" value="Delete" class="btn btn-primary" />
+                                    <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                    <input type="button" name="print" id="print" value="Print" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/AccountModule/PRSInputFocus.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.select2').select2();
+            PRSFieldEnterPress();
+            $('#update').hide();
+            $('#delete').hide();
+            $(document).on('click', '#refresh', function () {
+                location.reload();
+            });
+
+            $('.date').datepicker({
+                autoclose: true,
+                format: 'dd-mm-yyyy',
+            });
+            var PRS = { PRSNo: 0, Date: "", SupplierID: 0, ReceiveAccountID: 0, ReturnAmount: 0.0, RefNo: "", Description: "" };
+            function SetPRS() {
+                PRS.PRSNo = $("#PRSNo").val();
+                PRS.Date = $("#Date").val();
+                PRS.SupplierID = $("#SupplierID").val();
+                PRS.ReceiveAccountID = $("#ReceiveAccountID").val();
+                PRS.ReturnAmount = $("#ReturnAmount").val();
+                PRS.RefNo = $("#RefNo").val();
+                PRS.Description = $("#Description").val();
+            }
+
+            //Save
+            $(document).on('click', '#save', function () {
+                RemoveError();
+                ValidateOnSaveClick();
+                $("#save").prop("disabled", false);
+                if (message == "") {
+                    SetPRS();
+                    if (confirm("Do you want to Save?"))
+                    {
+                        $.ajax({
+                            url: '@Url.Action("SavePRS", "PRS")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ pRS : PRS }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Failed To Saved.");
+                                    $("#save").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully Saved.");
+                                    $("#PRSNo").val(datas.PRSNo);
+                                    $("#save").hide();
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+
+            //Search
+            $(document).on('click', '#search', function () {
+                $("#update").prop('disabled', false);
+                RemoveError();
+                if ($("#PRSNo").val() == "") {
+                    alert("Please enter a PRS No first.");
+                }
+                else {
+                    var prs = { prs: $("#PRSNo").val()};
+                    ClearOnSearch();
+                    $.ajax(
+                    {
+                            url: '@Url.Action("GetPRSById", "PRS")',
+                            contentType: "application/json;charset=utf-8",
+                            data: prs,
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Your PRS No doesn't exist.");
+                                }
+                                else
+                                {
+                                    $("#save").hide();
+                                    $("#update").show();
+                                    $("#delete").show();
+                                    $("#PRSNo").val(datas.PRSNo);
+                                    $("#Date").val((moment(datas.Date).format("DD-MM-YYYY"))).change();
+                                    $("#SupplierID").val(datas.SupplierID).change();
+                                    $("#ReceiveAccountID").val(datas.ReceiveAccountID).change();
+                                    $("#ReturnAmount").val(datas.ReturnAmount);
+                                    $("#RefNo").val(datas.RefNo);
+                                    $("#Description").val(datas.Description);                               }
+                            },
+                            error: function ()
+                            {
+                                alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services");
+                            }
+                   });
+                }
+            });
+
+            $(document).on('click', '#print', function () {
+                if ($("#PRSNo").val() != "") {
+                    window.open("/PRS/PRSPreview?prs=" + $("#PRSNo").val(), "_blank");
+            }
+            else {
+                    alert("Please enter PRS No");
+                 }
+            });
+
+            //Update
+            $(document).on('click', '#update', function () {
+                RemoveError();
+                ValidateOnSaveClick();
+                $("#update").prop("disabled", false);
+                if (message == "") {
+                    SetPRS();
+                    if (confirm("Do you want to Update?"))
+                    {
+                        $.ajax(
+                        {
+                            url: '@Url.Action("UpdatePRS", "PRS")',
+                            contentType: "application/json;charset=utf-8",
+                                data: JSON.stringify({ pRS: PRS}),
+                                type: "POST",
+                                dataType: "json",
+                                success: function (datas) {
+                                    if (datas == 0) {
+                                        alert("Update Failed");
+                                        $("#update").prop('disabled', false);
+                                    }
+                                    else{
+                                        alert("Update Successfully");
+                                        //location.reload();
+                                        $("#update").prop('disabled', true);
+                                    }
+                                },
+                                error: function () {
+                                    alert("Please check Internet connection. If doesn't solve problem. Contact with Avalanche Technology Ltd.");
+                                    $("#update").prop("disabled", false);
+                                }
+                        });
+                    }
+                }
+            });
+
+            //Delete
+            $(document).on('click', '#delete', function () {
+                $("#update").prop('disabled', true);
+                $("#delete").prop('disabled', true);
+                var id = $("#PRSNo").val();
+                if (confirm('Are you sure you want to delete this from the database?')) {
+                    $.ajax({
+                        url: '@Url.Action("DeletePRSById", "PRS")',
+                        contentType: "application/json;charset=utf-8",
+                        data: { id: id },
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Delete failed.");
+                                $("#delete").prop('disabled', false);
+                                $("#update").prop('disabled', false);
+                            }
+                            else {
+                                alert("Delete Successfull");
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#update").prop('disabled', false);
+                    $("#delete").prop('disabled', false);
+                }
+            });
+            //Validation
+            function ValidateOnSaveClick() {
+                message = "";
+                if ($("#SupplierID").val() == "") {
+                    setError("SupplierID", "Select a Supplier from the list");
+                    message = "Supplier is Required Field."
+                }
+                if ($("#ReceiveAccountID").val() == "") {
+                    setError("ReceiveAccountID", "Select an account from the list");
+                    message = "Account is Required Field."
+                }
+                if ($("#ReturnAmount").val() == "") {
+                    setError("ReturnAmount", "Please enter a valid amount");
+                    message = "Amount is Required Field."
+                }
+                else if ($("#ReturnAmount").val() <=0) {
+                    setError("ReturnAmount", "Amount must be grater than zero");
+                    message = "Amount must be grater than zero"
+                }
+            }
+
+            function ClearOnSearch() {
+                $("#Date").val((moment("").format("DD-MM-YYYY"))).change();
+                $("#SupplierID").val("").change();
+                $("#ReceiveAccountID").val("").change();
+                $("#ReturnAmount").val("");
+                $("#RefNo").val("");
+                $("#Description").val("");
+            }
+
+        });
+    </script>
+}

@@ -1,0 +1,548 @@
+﻿@model BEEERP.Models.SalesModule.Customer
+@using BEEERP.Models.CommonInformation
+@{
+    ViewBag.Title = "Customer : Create";
+}
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<h3 style="text-align:center">Create New Dealer Information</h3>
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h5 class="box-title">Dealer Details</h5>
+                            </div>
+                            <div class="box-body">
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Id,"Dealer ID", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8 input-group" style="padding-left:2%;padding-right:2%;padding-top:0%">
+                                        @Html.TextBoxFor(m => m.Id, new { @class = "form-control", @type = "number", @Value = ViewBag.Id })
+                                      
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-primary" id="custSearch" style="min-width: 50px">Search</button>
+                                        </span>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                    <div class="col-sm-8">
+                                        @Html.ValidationMessageFor(x => x.Id, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.DepotId,"Depot", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.DropDownListFor(m => m.DepotId, (IEnumerable<SelectListItem>)ViewBag.GroupId, new { @class = "enterTab form-control select2 " })
+                                        @Html.ValidationMessageFor(m => m.DepotId, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.CustomerName,"Dealer Name",new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.CustomerName, new { @class = "form-control enterTab" })
+                                        @Html.ValidationMessageFor(x => x.CustomerName, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Credit, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.Credit, new { @class = "form-control", @type = "number" })
+                                        @Html.ValidationMessageFor(x => x.Credit, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.AsDate, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8 input-group" style="padding-left:15px;padding-right:15px;">
+
+                                        @Html.TextBoxFor(m => m.AsDate, new { @class = "form-control", @Value = ViewBag.Date, @readonly = "readonly" })
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        @Html.ValidationMessageFor(x => x.AsDate, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.OB, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.OB, new { @class = "form-control", @type = "number" })
+                                        @Html.ValidationMessageFor(x => x.OB, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ZoneId, "Area", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.DropDownListFor(m => m.ZoneId, (IEnumerable<SelectListItem>)ViewBag.ZoneId, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(x => x.ZoneId, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                @*<div class="form-group">
+                                    @Html.LabelFor(m => m.AreaName, "Sub Area", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.AreaName, new { @class = "form-control" })
+                                        @Html.DropDownListFor(m => m.AreaName, (IEnumerable<SelectListItem>)ViewBag.SubArea, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(x => x.AreaName, "", new { @style = "color: red" })
+                                    </div>
+                                </div>*@
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ConPerson, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.ConPerson, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(x => x.ConPerson, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.MobileNo, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        <label class="col-sm-1" style="padding-left:0%;font-size:150%;text-align:center;color:green">+88</label>
+                                        <div class="col-sm-11" style="padding-right:0%;">
+                                            @Html.TextBoxFor(m => m.MobileNo, new { @class = "form-control digit" })
+                                        </div>
+                                        @Html.ValidationMessageFor(x => x.MobileNo, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.TelephoneNo, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.TelephoneNo, new { @class = "form-control", @type = "number" })
+                                        @Html.ValidationMessageFor(x => x.TelephoneNo, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.EmailId, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.EmailId, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(x => x.EmailId, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.BillTo, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextAreaFor(m => m.BillTo, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(x => x.BillTo, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ShipTo, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextAreaFor(m => m.ShipTo, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(x => x.ShipTo, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-8">
+                                        <input type="submit" value="Save" id="save" class="btn btn-primary" />
+                                        <input type="button" value="Update" id="update" class="btn btn-primary" />
+                                        <input type="button" value="Delete" id="delete" class="btn btn-primary" />
+                                        <input type="button" value="Report" id="report" class="btn btn-primary" />
+                                        <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <br />
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+@section scripts{
+    <script src="~/Scripts/SalesModule/CustomerInputFocus.js"></script>
+    <script>
+     
+        var isValid = false;
+
+        $(document).ready(function () {
+            $("#update").hide();
+            $("#delete").hide();
+            $("#report").hide();
+           
+        });
+
+        $(".select2").select2();
+
+        $(document).on('click', "#refresh", function () {
+            window.location.reload(true);
+        });
+            //customer search for who has access
+        $(document).on('click',"#custSearch",function(){
+             var id=$("#Id").val();
+             if(id=="")
+             {
+                 alert("Id Is required to pick the data");
+             }
+             else{
+                 $.ajax({
+                          type: "POST",
+                          contentType: "application/json;charset=utf-8",
+                          data: JSON.stringify({ 'id': id }),
+                          url: '@Url.Action("GetCustomerById", "Customer")',
+                          dataType: 'json',
+                          success: function (data) {
+                             if(data=="0")
+                             {
+                                 alert("Sorry! This Customer Doesn't Exist ");
+                             }
+                             else if(data==3)
+                             {
+                             alert("Sorry! You don't have permission to access the data");
+                             }
+                             else{
+                             
+                             }
+                          }
+                 });
+             }
+
+        });
+
+        SalesModuleCustomerPage();
+
+        $(".digit").keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                return false;
+            }
+        });
+
+        //depot Cahnge event
+        $(document).on('change', "#DepotId", function () {
+
+            $("#TSOId").prop('disabled', false);
+            var id = { depot: $(this).val() };
+            if (id.depot != "") {
+                $.ajax({
+                    url: '@Url.Action("GetTsoByDepotId", "Customer")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        $("#TSOId").empty();
+                        $("#TSOId").prop("disabled", false);
+                        $.each(datas, function (index, value) {
+                            $("#TSOId").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                        //$("#TSOId").focus();
+                        if (tso != "") {
+                            $("#TSOId").val(tso).change();
+                            //$("#TSOId").prop('disabled', true);
+                            supplierId = "";
+                        }
+                    }
+                });
+            }
+            else {
+                $("#TSOId").val("").change();
+                $("#TSOId").prop("disabled", true);
+            }
+        });
+
+        //Save Button click
+        $(document).on('click', '#save', function (e) {
+            $("#save").prop('disabled', true);
+            RemoveError();
+            ValidateCustomer();
+            //$("#save").prop('disabled', true);
+            if (isValid == true) 
+            {
+                var customer = { Id: "", CustomerName: "", Credit: 0.0, OB: 0.0, AsDate: "", ConPerson: "", MobileNo: "", TelephoneNo: "", EmailId: "", BillTo: "", ShipTo: "", DepotId: "", ZoneId: 0, AreaName: "", CreditDays: 0, TSOId: 0, CustomerType:"" }
+                customer.Id = $("#Id").val();
+                customer.CustomerName = $("#CustomerName").val();
+                customer.Credit = $("#Credit").val();
+                customer.OB = $("#OB").val();
+                customer.AsDate = $("#AsDate").val();
+                customer.ConPerson = $("#ConPerson").val();
+                customer.MobileNo = $("#MobileNo").val();
+                customer.TelephoneNo = $("#TelephoneNo").val();
+                customer.EmailId = $("#EmailId").val();
+                customer.BillTo = $("#BillTo").val();
+                customer.ShipTo = $("#ShipTo").val();
+                customer.DepotId = $("#DepotId").val();
+                customer.ZoneId = $("#ZoneId").val();
+                customer.AreaName = $("#AreaName").val();
+                customer.CreditDays = $("#CreditDays").val();
+                customer.TSOId = $("#TSOId").val();
+                customer.CustomerType = $("#CustomerType").val();
+
+                if (confirm('Do you want to save?')) {
+                   $.ajax({
+                    url: '@Url.Action("SaveCustomer", "Customer")',
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({ customer: customer }),
+                    type: 'POST',
+                    dataType: 'json',
+                       success: function (datas) {
+                           if (datas.Message == 1) {
+                               alert("Save Sucessfull.");
+                           }
+                           else if (datas.Message == 2) {
+                               setError("MobileNo", "Enter A valid Mobile Number.");
+                               $("#save").prop('disabled', false);
+                           }
+                           //else if (datas.Message == 3) {
+                           //    setError("EmailId", "Email is not valid.");
+                           //    $("#save").prop('disabled', false);
+                           //}
+                           else if (datas.Message == 4) {
+                               setError("Id", "This Customer id is Allready Exist Try another id");
+                               $("#save").prop('disabled', false);
+                           }
+                           else if (datas == 3) {
+                               alert("Please select a valid entry date");
+                               $("#AsDate").focus();
+                               $("#save").prop('disabled', false);
+                           }
+                           else {
+                               alert("Save Failed");
+                               $("#save").prop('disabled', false);
+                           }
+                       }
+                   });
+                }
+                else {
+                    $("#save").prop('disabled', false);
+                  
+                }
+            }
+            else {
+                $("#save").prop('disabled', false);
+            }
+        });
+        
+        //customer search who has access
+        $(document).on('click', "#custSearch", function () {
+            //$("#Id").prop('disabled', true);
+           
+            var param = { custId: $("#Id").val() };
+            RemoveError();
+                $.ajax({
+                    url: '@Url.Action("SearchCustomerById", "Customer")',
+                    contentType: "application/json;charset=utf-8",
+                    data: param,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if(datas!=0)
+                        {
+                            $("#update").show();
+                            $("#delete").show();
+                            $("#save").hide();
+                            $("#CustomerName").val(datas.Name);
+                            $("#DepotId").val(datas.Depot).change();
+                            $("#Credit").val(datas.Credit);
+                            $("#AsDate").val(datas.AsOnDate);
+                            $("#OB").val(datas.OB);
+                            $("#ZoneId").val(datas.Zone).change();
+                            //$("#AreaName").val(datas.Area).change();
+                            $("#AreaName").val(datas.Area);
+                            $("#ConPerson").val(datas.ContactPerson);
+                            $("#MobileNo").val(datas.MobileNo);
+                            $("#TelephoneNo").val(datas.TelePhnNo);
+                            $("#EmailId").val(datas.Email);
+                            $("#BillTo").val(datas.BillTo);
+                            $("#ShipTo").val(datas.ShipTo);
+                            //$("#CreditDays").val(datas.CreditDay);
+                            //$("#CustomerType").val(datas.CustomerType).change();
+                            
+                            tso = datas.TSO;
+                            //$("#TSOId").val(datas.TSO).change();
+                        }
+                        else {
+                            $("#CustomerName").val("");
+                            $("#DepotId").val("");
+                            $("#Credit").val("");
+                            $("#AsDate").val("");
+                            $("#OB").val("");
+                            $("#ZoneId").val("");
+                            $("#AreaName").val("");
+                            $("#ConPerson").val("");
+                            $("#MobileNo").val("");
+                            $("#TelephoneNo").val("");
+                            $("#EmailId").val("");
+                            $("#BillTo").val("");
+                            $("#ShipTo").val("");
+                            $("#CreditDays").val("");
+                            //$("#TSOId").val("");
+                            //$("#CustomerType").val("");
+                            
+                            //alert("May be customer doesn't exist.");
+                        }
+                    }
+                });
+        });
+
+
+        //update customer 
+        $(document).on('click', '#update', function () {
+            RemoveError();
+            ValidateCustomer();
+            $("#update").prop('disabled', true);
+            if (isValid == true) 
+            {
+                var customer = { Id: "", CustomerName: "", Credit: 0.0, OB: 0.0, AsDate: "", ConPerson: "", MobileNo: "", TelephoneNo: "", EmailId: "", BillTo: "", ShipTo: "", DepotId: "", ZoneId: 0, AreaName: "" }
+                customer.Id = $("#Id").val();
+                customer.CustomerName = $("#CustomerName").val();
+                customer.Credit = $("#Credit").val();
+                customer.OB = $("#OB").val();
+                customer.AsDate = $("#AsDate").val();
+                customer.ConPerson = $("#ConPerson").val();
+                customer.MobileNo = $("#MobileNo").val();
+                customer.TelephoneNo = $("#TelephoneNo").val();
+                customer.EmailId = $("#EmailId").val();
+                customer.BillTo = $("#BillTo").val();
+                customer.ShipTo = $("#ShipTo").val();
+                customer.DepotId = $("#DepotId").val();
+                customer.ZoneId = $("#ZoneId").val();
+                customer.AreaName = $("#AreaName").val();
+                customer.CreditDays = $("#CreditDays").val();
+                //customer.TSOId = $("#TSOId").val();
+                //customer.CustomerType = $("#CustomerType").val();
+                
+                if (confirm('Do you want to update?')) {
+                   $.ajax({
+                    url: '@Url.Action("UpdateCustomer", "Customer")',
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({ customer: customer }),
+                    type: 'POST',
+                    dataType: 'json',
+                       success: function (datas) {
+                           if (datas.Message == 1) {
+                               alert("Update Sucessfull.");
+                           }
+                           else if (datas.Message == 2) {
+                               setError("MobileNo", "Enter A valid Mobile Number.");
+                               $("#update").prop('disabled', false);
+                           }
+                           //else if (datas.Message == 3) {
+                           //    setError("EmailId", "Email is not valid.");
+                           //    $("#update").prop('disabled', false);
+                           //}
+                           else {
+                               alert("Update Failed");
+                               $("#update").prop('disabled', false);
+                            //location.reload();
+                           }
+                    }
+                });
+                }
+                else {
+                    $("#update").prop('disabled', false);
+                  
+                }
+                
+            }
+            else {
+                $("#update").prop('disabled', false);
+            }
+             
+        });
+        
+        //delete customer
+        $(document).on('click', '#delete', function () {
+            var id = $("#Id").val();
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteCustomerByid", "Customer")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas.Message == 0) {
+                            alert("Delete failed. This customer have balance");
+                        }
+                        else if (datas.Message == 1) {
+                            alert("Delete Successfull.");
+                            location.reload();
+                        }
+                        else {
+                            alert("Delete Failed.");
+                        }
+                    }
+                });
+            }
+        });
+        
+        function ValidateCustomer() {
+            isValid = true;
+            if ($("#Id").val() == "") {
+                setError("Id", "Id is required field");
+                isValid = false;
+            }
+            if ($("#Id").val() <= 0) {
+                setError("Id", "Dealer Id Must be Grater Than Zero.");
+                isValid = false;
+            }
+            if ($("#TSOId").val() == "") {
+                setError("TSOId", "TSO is required field");
+                isValid = false;
+            }
+            if ($("#CustomerName").val() == "") {
+                setError("CustomerName", "Dealer Name is required field");
+                isValid = false;
+            }
+            if ($("#DepotId").val() == "") {
+                setError("DepotId", "Sales Center is required field");
+                isValid = false;
+            }
+            if ($("#DepotId").val() <= 0) {
+                setError("DepotId", "Depot Id Must be Grater Than Zero.");
+                isValid = false;
+            }
+            if ($("#Credit").val() == "") {
+                setError("Credit", "Credit is required field");
+                isValid = false;
+            }
+            if ($("#CreditDays").val() == "") {
+                setError("CreditDays", "Credit Days is required field");
+                isValid = false;
+            }
+            if ($("#ZoneId").val() == "") {
+                setError("ZoneId", "Area is required field");
+                isValid = false;
+            }
+            if ($("#MobileNo").val() == "") {
+                setError("MobileNo", "Mobile No is required field");
+                isValid = false;
+            } 
+            if ($("#CustomerType").val() == "") {
+                setError("CustomerType", "CustomerType is required field");
+                isValid = false;
+            }
+        }
+
+    </script>
+}

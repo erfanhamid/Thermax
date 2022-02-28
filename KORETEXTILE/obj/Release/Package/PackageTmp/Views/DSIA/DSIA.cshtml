@@ -1,0 +1,931 @@
+﻿@model BEEERP.Models.ViewModel.StoreDepot.DSIAViewModel
+@using BEEERP.Models.CommonInformation
+
+@{
+    ViewBag.Title = "DSIA";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+
+<h3 style="text-align:center">Damage/Sample Inventory Adjustment (DSIA) Entry</h3>
+<form id="report" target="_blank">
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                    <h5 class="box-title">DSIA Details</h5>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.DSIANo, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:3%; padding-right:3%;">
+                                                @Html.TextBoxFor(m => m.DSIANo, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.DSIANo, "", new { @style = "color: red" })
+                                                <div class="input-group-btn">
+                                                    <input type="button" name="search" id="search" value="Search" class="btn btn-primary" style="min-width: 50px" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @if (UserAccessAction.IsAdmin)
+                                        {
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.Depot, new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(m => m.Depot, (IEnumerable<SelectListItem>)ViewBag.Depot, new { @class = "form-control select2" })
+                                                    @Html.ValidationMessageFor(m => m.Depot, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+
+                                        }
+                                        else
+                                        {
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.Depot, new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(m => m.Depot, (IEnumerable<SelectListItem>)ViewBag.Depot, new { @class = "form-control select2" })
+                                                    @Html.ValidationMessageFor(m => m.Depot, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+
+                                        }
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.StoreID, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.StoreID, (IEnumerable<SelectListItem>)ViewBag.Store, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.StoreID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Type, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.Type, (IEnumerable<SelectListItem>)ViewBag.Type, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.Type, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Ref, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.Ref, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Ref, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.TotalQty, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.TotalQty, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.TotalQty, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group" id="totalval">
+                                            @Html.LabelFor(m => m.TotalValue, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.TotalValue, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.TotalValue, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.DSIADate, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:3%; padding-right:3%">
+                                                @Html.TextBoxFor(m => m.DSIADate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                @Html.ValidationMessageFor(m => m.DSIADate, "", new { @style = "color: red" })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Description, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Description, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group" id="totalval">
+                                            @Html.LabelFor(m => m.COGSTotal, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.COGSTotal, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.COGSTotal, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div class="box-body" style="padding-right:5%;padding-left:0%">
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.GroupId, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.GroupId, (IEnumerable<SelectListItem>)ViewBag.Group, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.GroupId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.ItemID, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.ItemID, (IEnumerable<SelectListItem>)ViewBag.Item, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.ItemID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.AvailableQty, new { @class = "col-md-5 control-label" })
+                                            <div class="col-sm-7">
+                                                @Html.TextBoxFor(m => m.AvailableQty, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.AvailableQty, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.AvailableCtn, new { @class = "col-md-5 control-label" })
+                                            <div class="col-sm-7">
+                                                @Html.TextBoxFor(m => m.AvailableCtn, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.AvailableCtn, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.AdjCtn, new { @class = "col-md-5 control-label" })
+                                            <div class="col-sm-7">
+                                                @Html.TextBoxFor(m => m.AdjCtn, new { @class = "form-control", @type = "number" })
+                                                @Html.ValidationMessageFor(m => m.AdjCtn, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.AdjQTY, new { @class = "col-md-5 control-label" })
+                                            <div class="col-sm-7">
+                                                @Html.TextBoxFor(m => m.AdjQTY, new { @class = "form-control", @type = "number" })
+                                                @Html.ValidationMessageFor(m => m.AdjQTY, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.BalanceQty, new { @class = "col-md-5 control-label" })
+                                            <div class="col-sm-7">
+                                                @Html.TextBoxFor(m => m.BalanceQty, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.BalanceQty, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="col-md-4" id="rate">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.UOM, new { @class = "col-md-5 control-label" })
+                                            <div class="col-sm-7">
+                                                @Html.TextBoxFor(m => m.UOM, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.UOM, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.UnitPerCtn, new { @class = "col-md-5 control-label" })
+                                            <div class="col-sm-7">
+                                                @Html.TextBoxFor(m => m.UnitPerCtn, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.UnitPerCtn, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        @{
+                                            if (HttpContext.Current.User.IsInRole("Admin"))
+                                            {
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.Rate, new { @class = "col-md-5 control-label" })
+                                                    <div class="col-sm-7">
+                                                        @Html.TextBoxFor(m => m.Rate, new { @class = "form-control" })
+                                                        @Html.ValidationMessageFor(m => m.Rate, "", new { @style = "color: red" })
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.Rate, new { @class = "col-md-5 control-label" })
+                                                    <div class="col-sm-7">
+                                                        @Html.TextBoxFor(m => m.Rate, new { @class = "form-control", @readonly = "readonly" })
+                                                        @Html.ValidationMessageFor(m => m.Rate, "", new { @style = "color: red" })
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+
+                                        <div class="form-group" id="val">
+                                            @Html.LabelFor(m => m.Value, new { @class = "col-md-5 control-label" })
+                                            <div class="col-sm-7">
+                                                @Html.TextBoxFor(m => m.Value, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.Value, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+
+                                        <input type="hidden" id="CogsRate" name="CogsRate" />
+                                    </div>
+
+                                    <div class="col-md-4 col-md-offset-7">
+                                        <div class="form-group" style=" padding-left:10px">
+                                            <button type="button" id="addToGrid" name="addToGrid" style="height:33px; font-size:100%;" class="btn btn-primary">Add To Grid</button>
+                                            @*<button type="button" name="add" id="add" style="height:33px; font-size:13px; text-align:center;" class="btn">Add To Grid</button>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="box ">
+                                        <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                            <h5 class="box-title">DSIA Inventory Adjustment Line Item</h5>
+                                        </div>
+                                        <div class="box-body">
+                                            <table class="table table-responsive" id="DSIAlist">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Item Name</th>
+                                                        <th>Adjust Qty</th>
+                                                        <th>Sales Price</th>
+                                                        <th>Total Price</th>
+                                                        <th>COGS Rate</th>
+                                                        <th>COGS Value</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="background-color:white; ">
+                                <div class="form-group" style="padding:3px;">
+                                    <div class="col-md-12" style="text-align:center;">
+                                        <input type="button" value="Save" id="save" class="btn btn-primary" style="padding-left:20px;" />
+                                        @{ if (HttpContext.Current.User.IsInRole("Admin") || HttpContext.Current.User.IsInRole("DataAdmin"))
+                                            {
+                                                <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                                                <input type="button" name="delete" id="delete" value="Delete" class="btn btn-primary" />
+                                            }
+                                        }
+
+                                        <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                        <input type="button" name="print" id="print" value="Print" class="btn btn-primary" />
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="vatPer" />
+    <input type="hidden" id="NetAmount" />
+</form>
+
+@section scripts
+{
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/StoreDepot/DSIAInputFocus.js"></script>
+
+    <script>
+
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+
+        var table = $('#DSIAlist').DataTable({
+            'paging': false,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+            $("#print").hide();
+        $(document).ready(function () {
+            $("#update").hide();
+            $("#delete").hide();
+
+            $("#Depot").val(@ViewBag.DepotId).change();
+            $("#AdjQTY").prop('disabled', true);
+            $("#GroupId").prop('disabled', true);
+            $("#ItemID").prop('disabled', true);
+            //$("#rate").hide();
+            $("#val").hide();
+            $("#balQty").hide();
+            $("#StoreID").focus();
+
+        });
+
+        EnterPress();
+        var isValid = true;
+        var addedItems = [];
+        var itemId = "";
+        var storeId = "";
+        var tsoId = "";
+            var dsia = { DSIANo: 0, DSIADate: "", StoreID: 0, Type: "", Ref: "", Description: "", TotalQty: 0, TotalValue: 0.0, TSoId: 0, Category: "", TotalVat: 0.0, COGSTotal:0}
+
+        $(document).on('click', "#refresh", function () {
+            window.location.reload(true);
+        });
+
+        $(".select2").select2();
+
+        $(document).on('change', "#StoreID", function () {
+            if ($(this).val() != 0) {
+                $("#GroupId").prop('disabled', false);
+                $("#ItemID").prop('disabled', false);
+            }
+            else {
+                $("#GroupId").prop('disabled', true);
+                $("#ItemID").prop('disabled', true);
+            }
+
+        });
+
+        //$(document).on('change', "#Type", function () {
+        //    if ($(this).val() == "Damage") {
+        //        $("#category").hide();
+        //        $("#tso").hide();
+        //        $("#Category").val("").change();
+        //        $("#TSoId").val("").change();
+        //    }
+        //    else {
+        //        $("#category").show();
+        //        $("#tso").show();
+        //    }
+        //});
+
+            $("#AdjQTY").on("keyup", function () {
+
+                if ($(this).val() != null && $(this).val() != "") {
+                    var data = (parseFloat($("#AvailableQty").val()) - parseFloat($(this).val())).toFixed(2);
+                    var value = (parseFloat($("#Rate").val()) * parseFloat($(this).val())).toFixed(2);
+                    var ctn = (parseFloat($(this).val()) / parseFloat($("#UnitPerCtn").val())).toFixed(2);
+                    $("#BalanceQty").val(data);
+                    $("#Value").val(value);
+                    $("#AdjCtn").val(ctn);
+                } else {
+                    $("#BalanceQty").val("");
+                    $("#Value").val("");
+                    $("#AdjCtn").val("");
+                }
+
+            });
+
+
+            $("#AdjCtn").on("keyup", function () {
+
+                if ($(this).val() != null && $(this).val() != "") {
+                    $("#AdjQTY").val((parseFloat($("#UnitPerCtn").val()) * parseFloat($(this).val())).toFixed(2));
+                    var data = (parseFloat($("#AvailableQty").val()) - parseFloat($("#AdjQTY").val())).toFixed(2);
+                    var value = (parseFloat($("#Rate").val()) * parseFloat($("#AdjQTY").val())).toFixed(2);
+                    //var ctn = parseFloat($(this).val()) / parseFloat($("#UnitPerCtn").val()).toFixed(2);
+                    $("#BalanceQty").val(data);
+                    $("#Value").val(value);
+                    //$("#AdjCtn").val(ctn);
+                } else {
+                    $("#BalanceQty").val("");
+                    $("#Value").val("");
+                    $("#AdjQTY").val("");
+                    //$("#AdjCtn").val("");
+                }
+
+            });
+        // depotId Change
+        $(document).on('change', "#Depot", function () {
+                var id = { id: $(this).val() };
+                if (id.id != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetStoreByDepotId", "DSIA")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify(id),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            //$("#TSoId").empty();
+                            //$("#TSoId").prop("disabled", false);
+                            $("#StoreID").empty();
+                            $("#StoreID").prop("disabled", false);
+
+                            //$.each(datas.Tso, function (index, value) {
+                            //    $("#TSoId").append($('<option />', {
+                            //        value: value.Value,
+                            //        text: value.Text
+                            //    })).trigger('change');
+                            //});
+
+                            $.each(datas.Store, function (index, value) {
+                                $("#StoreID").append($('<option />', {
+                                    value: value.Value,
+                                    text: value.Text
+                                })).trigger('change');
+                            });
+
+                            //if(tsoId!="")
+                            //{
+                            //    $("#TSOId").val(tsoId).change();
+                            //    tsoId = "";
+                            //}
+
+                            if (storeId != "") {
+                                $("#StoreID").val(storeId).change();
+                                storeId = "";
+                            }
+                            $("#GroupId").val("").change();
+                        }
+                    });
+                }
+                else {
+
+                    $("#StoreID").empty();
+                    $("#StoreID").prop("disabled", true);
+                }
+
+           });
+
+        //group change reaction
+        $(document).on('change', "#GroupId", function () {
+            $("#ItemID").prop('disabled', false);
+                var id = { groupId: $(this).val() };
+                if (id.groupId != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetItemByGroupId", "DSIA")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            $("#ItemID").empty();
+                            $("#ItemID").prop("disabled", false);
+                            $.each(datas, function (index, value) {
+                                $("#ItemID").append($('<option />', {
+                                    value: value.Value,
+                                    text: value.Text
+                                })).trigger('change');
+                            });
+                            $("#ItemID").focus();
+                            if (itemId != "") {
+                                $("#ItemID").val(itemId).change();
+                                itemId = "";
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#ItemID").val("").change();
+                    $("#ItemID").prop("disabled", true);
+                }
+        });
+
+        //item change reaction
+        $(document).on('change', "#ItemID", function () {
+            var id = { itemId: $(this).val(), storeId: $("#StoreID").val() };
+
+                if (id.itemId != "" && id.storeId != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetItemRemainQty", "DSIA")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            $("#AvailableQty").val(datas.RemQty);
+                            $("#UOM").val(datas.UoM).change();
+                            $("#Rate").val(datas.Price);
+                            $("#CogsRate").val(datas.SCost);
+                            $("#UnitPerCtn").val(datas.cartoncapacity);
+                            var ctn = (parseFloat(datas.RemQty) / parseFloat(datas.cartoncapacity)).toFixed(2);
+                            $("#AvailableCtn").val(ctn);
+                            $("#AdjQTY").prop('disabled', false);
+                            $("#AdjQTY").focus();
+
+                            //$("#vatPer").val(datas.Vat);
+                        }
+                    });
+                }
+        });
+
+        //add to grid
+         $(document).on('click', '#addToGrid', function () {
+             RemoveError();
+             var item = { DSIANo: 0, ItemID: 0, AdjQTY: 0, Rate: 0, Value: 0, ValueWV: 0, ItemName: "", GroupId: 0, CogsRate: 0, UnitPerCtn: 0}
+             ValidateAddToGrid();
+             if (isValid == true) {
+                 item.ItemName = $("#ItemID :selected").text();
+                 item.ItemID = $("#ItemID").val();
+                 item.AdjQTY = parseInt($("#AdjQTY").val());
+                 //change
+                 //item.AdjQTY1 = $("#AdjQTY").val();
+                 item.GroupId = $("#GroupId").val();
+                 item.Rate = $("#Rate").val();
+                 item.Value = item.Rate * item.AdjQTY;
+                 item.CogsRate = $("#CogsRate").val();
+                 item.UnitPerCtn = $("#UnitPerCtn").val();
+                 item.ValueWV = item.Value + item.VatAmount;
+                 addedItems.push(item);
+                 ClearOnSearch();
+                 ShowOnTable();
+                 $("#Depot").prop('disabled', true);
+                 $("#StoreID").prop('disabled', true);
+             }
+        });
+
+        //delete Row
+        $(document).on('click', '[name="deleteRow"]', function () {
+            var item = $(this).attr("value");
+            var newItem = [];
+            if (confirm('Are you sure you want to delete this from Grid ?')) {
+                $.each(addedItems, function (index, value) {
+                    if (value.ItemID == item) {
+
+                    }
+                    else {
+                        newItem.push(value);
+                    }
+
+                });
+                addedItems = newItem;
+                ShowOnTable();
+            }
+        });
+
+
+        //edit Row
+        $(document).on('click', '[name="editRow"]', function () {
+            var item = $(this).attr("value");
+            var newItem = [];
+            $.each(addedItems, function (index, value) {
+                if (value.ItemID == item) {
+
+                    $("#GroupId").val(value.GroupId).change();
+                    //$("#ItemID").val(item).change();
+                    $("#Rate").val(value.Rate);
+                    $("#AdjQTY").val(value.AdjQTY);
+                    $("#CogsRate").val(value.CogsRate);
+                    $("#Value").val(value.Value);
+                    $("#AdjCtn").val((parseFloat(value.AdjQTY) / parseFloat(value.UnitPerCtn)).toFixed(2));
+
+                    itemId = value.ItemID;
+                }
+                else {
+                    newItem.push(value);
+                }
+
+            });
+            addedItems = newItem;
+            ShowOnTable();
+        });
+
+        //save code
+        $(document).on('click', '#save', function () {
+            RemoveError();
+            $("#save").prop('disabled', true);
+            Setdsia();
+            if (addedItems.length <= 0) {
+                alert("At least One Item should be added for save.");
+                $("#save").prop('disabled', false);
+            }
+            else {
+                Validatedsia();
+                if (isValid == true) {
+                    if (confirm('Do you want to save')) {
+                        $.ajax({
+                            url: '@Url.Action("Savedsia", "DSIA")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ dsia: dsia, addedItems: addedItems }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Failed To Saved.");
+                                    $("#save").prop('disabled', false);
+                                } else if (datas == 3) {
+                                    alert("Please select a valid entry date");
+                                    $("#DSIADate").focus();
+                                    $("#save").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully Saved.");
+                                    $("#DSIANo").val(datas.dsia.DSIANo);
+                                    if (datas.dsia.Type == "Sample") {
+                                        $("#print").show();
+                                    }
+                                    $("#save").prop('disabled', true);
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        $("#save").prop('disabled', false);
+                    }
+                }
+                else {
+                    $("#save").prop('disabled', false);
+                }
+            }
+        });
+
+        //search code
+        $(document).on('click', '#search', function () {
+                $("#search").prop('disabled', true);
+                var id = { id: $("#DSIANo").val() };
+                ClearOnSearch();
+                $.ajax({
+                        url: '@Url.Action("GetDSIAById", "DSIA")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            if (datas == 0) {
+                                alert("Your entered DSIA No. Doesn't exist");
+                                $("#search").prop('disabled', false);
+                            }
+                            else {
+                                $("#save").hide();
+                                $("#update").show();
+                               $("#delete").show();
+                                $("#DSIADate").val((moment(datas.dsiaItem.DSIADate).format("DD-MM-YYYY")));
+                                $("#DSIANo").val(datas.dsiaItem.DSIANo);
+                                //$("#StoreID").val(datas.dsiaItem.StoreID).change();
+                                $("#Depot").val(datas.Depot).change();
+                                $("#Type").val(datas.dsiaItem.Type).change();
+                                $("#Ref").val(datas.dsiaItem.Ref);
+                                $("#Description").val(datas.dsiaItem.Description);
+                                $("#Category").val(datas.dsiaItem.Category).change();
+                                $("#TSoId").val(datas.dsiaItem.TSoId).change();
+                                addedItems = [];
+                                $.each(datas.dsiaLineItem, function (index, value) {
+                                    var item = { DSIANo: 0, ItemID: 0, AdjQTY: 0, Rate: 0, Value: 0, ValueWV: 0, ItemName: "", GroupId: 0, CogsRate: 0, UnitPerCtn :0}
+                                    item.ItemName = value.ItemName;
+                                    item.DSIANo = value.DSIANo;
+                                    item.ItemID = value.ItemID;
+                                    item.AdjQTY = value.AdjQTY;
+                                    item.GroupId = value.GroupId;
+                                    item.Rate = value.Rate;
+                                    item.Value = value.Value;
+                                    item.UnitPerCtn = value.UnitPerCtn;
+                                 // item.StoreId = value.StoreID;
+                                   // item.VatAmount = value.VatAmount;
+                                    item.CogsRate = value.COGSRate;
+                                    itemId = value.ItemID;
+                                    addedItems.push(item);
+                                });
+                                storeId = datas.dsiaItem.StoreID;
+                                ShowOnTable();
+                                $("#search").prop('disabled', true);
+                                $("#StoreID").prop('disabled', true);
+                                $("#Depot").prop('disabled', true);
+                                $("#print").show();
+
+                            }
+                    },
+                    error: function () {
+                        alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+                        $("#search").prop('disabled', false);
+                    }
+                });
+        });
+
+        //update
+        $(document).on('click', '#update', function () {
+            RemoveError();
+            $("#update").prop('disabled', true);
+            Setdsia();
+            dsia.DSIANo = $("#DSIANo").val();
+
+            if (addedItems.length <= 0) {
+                alert("At least One Item should be added for save.");
+                $("#update").prop('disabled', false);
+            }
+            else {
+                Validatedsia();
+                if (confirm('Do you want to Update')) {
+                    if (isValid == true) {
+                    $.ajax({
+                        url: '@Url.Action("UpdateDsia", "DSIA")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ dsia: dsia, addedItems: addedItems }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Update.");
+                                $("#update").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Updated.");
+                                $("#update").prop('disabled', true);
+                            }
+                        }
+                    });
+                }
+                    else {
+                        $("#update").prop('disabled', false);
+                    }
+                }
+                else {
+                    $("#update").prop('disabled', false);
+                }
+            }
+
+        });
+
+        //delete code
+        $(document).on('click', '#delete', function () {
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var id = $("#DSIANo").val();
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteDsiaByid", "DSIA")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Delete failed.");
+                            $("#delete").prop('disabled', false);
+                            $("#update").prop('disabled', false);
+                        }
+                        else {
+                            alert("Delete Successfull");
+                            location.reload();
+                        }
+                    }
+                });
+            }
+            else {
+                $("#update").prop('disabled', false);
+                $("#delete").prop('disabled', false);
+            }
+        });
+
+        $(document).on('click', "#print", function (event) {
+            event.preventDefault();
+            if ($("#message").val() != "true") {
+                $("#report").attr("action", "/DSIA/GetSamplePreview")
+                $("#report").submit();
+            }
+        });
+
+        //data table fill up
+        function ShowOnTable() {
+            table.clear().draw();
+            var totQty = 0;
+            var amount = 0;
+            //var netAmount = 0;
+            var cogstotal = 0;
+            //var totVat = 0;
+            $.each(addedItems, function (index, value) {
+                table.row.add([value.ItemName, value.AdjQTY, value.Rate, parseFloat(value.Value).toFixed(2), parseFloat(value.CogsRate).toFixed(2), parseFloat(value.CogsRate * value.AdjQTY).toFixed(2),
+                '<a href="#"><i class="fa fa-edit" name="editRow" value="' +
+                value.ItemID + '"></i></a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.ItemID + '"></i></a>']).draw();
+                totQty += parseFloat(value.AdjQTY);
+                amount += value.Value;
+                var cogs = parseFloat(value.CogsRate * value.AdjQTY);
+               // netAmount += value.ValueWV;
+                cogstotal += cogs;
+                //totVat += value.VatAmount;
+            });
+            $("#TotalQty").val(totQty);
+           // $("#NetAmount").val(amount);
+            $("#TotalValue").val(amount.toFixed(2));
+            $("#COGSTotal").val(cogstotal.toFixed(2));
+        }
+
+        function ValidateAddToGrid() {
+            isValid = true;
+            if ($("#AdjQTY").val() == "") {
+                setError("AdjQTY", "Qty is required field");
+                isValid = false;
+            }
+            //if ($("#AdjQTY").val() <= 0) {
+            //    setError("AdjQTY", "Qty must be grater than Zero");
+            //    isValid = false;
+            //}
+            if ($("#GroupId").val() != "") {
+                if ($("#ItemID").val() == "") {
+                    setError("ItemID", "ItemID is required field");
+                    isValid = false;
+                }
+            }
+            if ($("#GroupId").val() == "") {
+                setError("GroupId", "GroupId is required field");
+                isValid = false;
+            }
+
+            //if (parseFloat($("#AdjQTY").val()) > parseFloat($("#AvailableQty").val())) {
+            //    setError("AdjQTY", "Adjusted QTY Can Not be Grater Than Available Qty");
+            //    isValid = false;
+            //}
+            $.each(addedItems, function (index, value) {
+                if (value.ItemID == $("#ItemID").val()) {
+                    setError("ItemID", "This Item is Already Added.");
+                    isValid = false;
+                }
+            });
+        }
+
+        function ClearOnSearch() {
+            $("#ItemID").val("").change();
+            $("#AdjQTY").val("");
+            $("#AvailableQty").val("");
+            $("#BalanceQty").val("");
+            $("#ItemID").focus();
+            $("#Rate").val("");
+            $("#CogsRate").val("");
+            $("#UOM").val("");
+            $("#Value").val("");
+            $("#AvailableCtn").val("");
+            $("#AdjCtn").val("");
+            $("#UnitPerCtn").val("");
+            itemId = "";
+        }
+
+        //get value from textbox
+        function Setdsia() {
+            dsia.DSIANo = 0;
+            dsia.DSIADate = $("#DSIADate").val();
+            dsia.StoreID = $("#StoreID").val();
+            dsia.Type = $("#Type").val();
+            dsia.Ref = $("#Ref").val();
+            dsia.Description = $("#Description").val();
+            dsia.TotalQty = $("#TotalQty").val();
+            dsia.COGSTotal = $("#COGSTotal").val();
+           // dsia.Category = $("#Category").val();
+            //dsia.TSoId = $("#TSoId").val();
+            dsia.TotalValue = $("#TotalValue").val();
+           // dsia.TotalVat = $("#TotalVat").val();
+        }
+
+        function Validatedsia() {
+            isValid = true;
+            if (dsia.DSIADate == "") {
+                setError("DSIADate", "Date is required field");
+                isValid = false;
+            }
+            if (dsia.Type == "") {
+                setError("Type", "Type is required field");
+                isValid = false;
+            }
+            if (dsia.Type == "Sample") {
+                if (dsia.Category == "") {
+                    setError("Category", "Category is required field");
+                    isValid = false;
+                }
+                if (dsia.TSoId == "") {
+                    setError("TSoId", "TSo is required field");
+                    isValid = false;
+                }
+            }
+            if (dsia.StoreID == "") {
+                setError("StoreID", "StoreID is required field");
+                isValid = false;
+            }
+            if ($("#Type").val() == "") {
+                setError("Type", "Type is required field");
+                isValid = false;
+            }
+
+        }
+
+    </script>
+}
+

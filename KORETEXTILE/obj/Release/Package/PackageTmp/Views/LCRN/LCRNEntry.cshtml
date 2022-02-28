@@ -1,0 +1,875 @@
+﻿@using BEEERP.Models.Authentication
+@model BEEERP.Models.ViewModel.StoreRM.LCGoodsReceiveNoteVModel
+
+@{
+    ViewBag.Title = "LCRNEntry";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<h3 style="text-align:center">LC Goods Receive Note (LCRN) Entry</h3>
+<form id="lcrnForm" , target="_blank">
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                    <h6 class="box-title">LCRN Details</h6>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.LCRNNo, new { @class = "col-md-4 control-label" })
+                                            <div class="input-group input-group-sm col-md-8" style="padding-right:19px;padding-left:14px;">
+                                                @Html.TextBoxFor(m => m.LCRNNo, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.LCRNNo, "", new { @style = "color: red" })
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-primary" id="search" style="min-width: 50px">Search</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Date, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 date input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.Date, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                @Html.ValidationMessageFor(m => m.Date, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.ChallanNo, "Challan No", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.ChallanNo, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.ChallanNo, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.GrpId, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.GrpId, (IEnumerable<SelectListItem>)ViewBag.Group, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.GrpId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.SupplierId, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.SupplierId, (IEnumerable<SelectListItem>)ViewBag.Supplier, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.SupplierId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.LCId, "Letter of Credit No", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.LCId, (IEnumerable<SelectListItem>)ViewBag.lcs, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.LCId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group" id="clnoField">
+                                            @Html.LabelFor(m => m.LCNo, "Letter of Credit Code", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.LCNo, (IEnumerable<SelectListItem>)ViewBag.lcs, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.LCNo, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.RefNo, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.RefNo, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.RefNo, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Description, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Description, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.StoreId, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.StoreId, (IEnumerable<SelectListItem>)ViewBag.StoreId, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.StoreId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                    <h6 class="box-title">Item Info</h6>
+                                </div>
+                                <table class="table table-responsive" id="lcGrid1">
+                                    <thead>
+                                        <tr>
+                                            <th>Group Name</th>
+                                            <th>Item Name</th>
+                                            @*<th>Pack Size</th>*@
+                                            <th>LC Qty</th>
+                                            <th>Receive Qty</th>
+                                            <th>Have to Receive</th>
+                                            <th>Unit</th>
+                                            <th id="action">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                    <h6 class="box-title">Receive Item Quantity</h6>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.ItemId, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.ItemId, (IEnumerable<SelectListItem>)ViewBag.item, "", new { @class = "form-control", @ReadOnly = "ReadOnly" })
+                                                @Html.ValidationMessageFor(m => m.ItemId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.UOMId, "UoM", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.UOMId, (IEnumerable<SelectListItem>)ViewBag.UOM, "", new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.UOMId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.TotalQty, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.TotalQty, new { @class = "form-control", @ReadOnly = "ReadOnly" })
+                                                @Html.ValidationMessageFor(m => m.TotalQty, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Qty, "LC Qty", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.Qty, new { @class = "form-control", @ReadOnly = "ReadOnly" })
+                                                @Html.ValidationMessageFor(m => m.Qty, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.ReceivedQty, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.ReceivedQty, new { @class = "form-control", @ReadOnly = "ReadOnly" })
+                                                @Html.ValidationMessageFor(m => m.ReceivedQty, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.AvailableQty, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.AvailableQty, new { @class = "form-control", @ReadOnly = "ReadOnly" })
+                                                @Html.ValidationMessageFor(m => m.AvailableQty, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.ReceiveQty, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.ReceiveQty, new { @class = "form-control", @type = "number" })
+                                                @Html.ValidationMessageFor(m => m.ReceiveQty, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.HaveToRecev, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.HaveToRecev, new { @class = "form-control", @type = "number" })
+                                                @Html.ValidationMessageFor(m => m.HaveToRecev, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Rate, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.Rate, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Rate, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Value, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.Value, new { @class = "form-control", @type = "number" })
+                                                @Html.ValidationMessageFor(m => m.Value, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-12" style="text-align:right;">
+                                                <button type="button" id="addToGrid" name="addToGrid" class="btn btn-primary">Add To Grid</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                    <h6 class="box-title">Receive Info</h6>
+                                </div>
+                                <table class="table table-responsive" id="itemGrid">
+                                    <thead>
+                                        <tr>
+                                            <th>Item Name</th>
+                                            <th>Receive Qty</th>
+                                            <th>Unit</th>
+                                            <th>Rate</th>
+                                            <th>Value</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="box">
+                            <div class="box-footer">
+                                <div class="form-group" , style="text-align:center">
+                                    @if (User.IsInRole("StoreRMOperator"))
+                                    {
+                                        <button type="button" id="save" style="height:500%; font-size:100%;" class="btn btn-primary">Save</button>
+                                        <button type="button" id="update" style="height:500%; font-size:100%;" class="btn btn-primary" disabled>Update</button>
+                                        <button type="button" id="delete" style="height:500%; font-size:100%;" class="btn btn-primary" disabled>Delete</button>
+                                        <button type="button" id="refresh" style="height:500%; font-size:100%;" class="btn btn-primary">Refresh</button>
+                                        <button name="print" id="print" style="height:500%; font-size:100%;" class="btn btn-primary">Print</button>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" id="save" style="height:500%; font-size:100%;" class="btn btn-primary">Save</button>
+                                        <button type="button" id="update" style="height:500%; font-size:100%;" class="btn btn-primary">Update</button>
+                                        <button type="button" id="delete" style="height:500%; font-size:100%;" class="btn btn-primary">Delete</button>
+                                        <button type="button" id="refresh" style="height:500%; font-size:100%;" class="btn btn-primary">Refresh</button>
+                                        <button name="print" id="print" style="height:500%; font-size:100%;" class="btn btn-primary">Print</button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="unitCost" />
+    <input type="hidden" id="groupId" />
+    <input type="hidden" id="UOMIdfortable" />
+</form>
+<input type="hidden" id="message" value="false" />
+@section scripts{
+    <script src="~/Scripts/StoreRM/LCRNInputFocus.js"></script>
+    <script>
+    $(document).ready(function () {
+        $(".select2").select2();
+        EnterPress();
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+        $("#ReceiveQty").val(parseFloat(0));
+        $("#Rate").val(parseFloat(0));
+        $("#update").hide();
+        $("#delete").hide();
+        $("#clnoField").hide();
+        $("#print").hide();
+        $("#havetoreceive").hide();
+        $("#StoreId").prop('disabled', true);
+        $("#UOMId").prop('disabled', true);
+        $("#HaveToRecev").prop('disabled', true);
+        $("#Value").prop('disabled', true);
+        $("#StoreId").val('@ViewBag.FactoryRM').change();
+        var isSearch = false;
+        var addedItems = [];
+        var isValid = true;
+        var lcID = 0;
+        var GroupID = 0;
+        var SupplierID = 0;
+        //var itemIdForEdit = 0;
+        var isEdit = false;
+        var table = $("#itemGrid").DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+        var table1 = $('#lcGrid1').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+        $(document).on('change', "#GrpId", function () {
+            var id = { id: $("#GrpId").val()};
+            $.ajax({
+                url: '@Url.Action("GetSupplierIdByGroup", "LCRN")',
+                contentType: "application/json;charset=utf-8",
+                data: id,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+
+                    $("#SupplierId").empty();
+                    $.each(data.supplier, function (index, value) {
+                        $("#SupplierId").append($('<option />', {
+                            value: value.Value,
+                            text: value.Text
+                        }));
+                    });
+                    if (isSearch == true) {
+                        $("#SupplierId").val(SupplierID).change();
+                        SupplierID = 0;
+                    }
+                },
+                error: function () {
+                    alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services");
+                }
+            });
+        });
+        $(document).on('change', "#SupplierId", function () {
+            var splierId = { splierId: $("#SupplierId").val()};
+            $.ajax({
+                url: '@Url.Action("GetLCBySupplierId", "LCRN")',
+                contentType: "application/json;charset=utf-8",
+                data: splierId,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+
+                    $("#LCId").empty();
+                    $.each(data.lc, function (index, value) {
+                        $("#LCId").append($('<option />', {
+                            value: value.Value,
+                            text: value.Text
+                        })).trigger('change');
+                    });
+                    if (isSearch == true) {
+                        $("#LCId").val(lcID).change();
+                        //lcID = 0;
+                    }
+                },
+                //error: function () {
+                //    alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services");
+                //}
+            });
+        });
+        var addedItems1 = [];
+        $(document).on('change', '#LCId', function () {
+            var lcId = { lcId: $("#LCId :selected").text() };
+            if (lcId.lcId != "") {
+                $.ajax({
+                url: '@Url.Action("GetLCItems", "LCRN")',
+                contentType: "application/json;charset=utf-8",
+                    data: lcId,
+                type: 'GET',
+                dataType: 'json',
+                    success: function (datas) {
+                        //$("#ItemId").empty();
+                        $.each(datas.lcItem, function (i, v) {
+                            var item = { GNM: "", GID: 0, NM: "", IID: 0, QT: 0.0, RQT: 0.0, HQT: 0.0, UM: "",UMId:0 }
+                            item.GNM = v.GNM;
+                            item.GID = v.GID;
+                            item.NM = v.NM;
+                            item.IID = v.IID;
+                            item.QT = v.QT;
+                            item.RQT = v.RQT;
+                            item.HQT = v.HQT;
+                            item.UM = v.UM;
+                            item.UMId = v.UMId;
+                            addedItems1.push(item);
+                        });
+                        ShowOnTableItems();
+                },
+                error: function () {
+                    alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services");
+                }
+                });
+
+            }
+        });
+        function ShowOnTableItems() {
+
+            table1.clear().draw();
+            $.each(addedItems1, function (index, value) {
+                table1.row.add([value.GNM,value.NM, value.QT, value.RQT, value.HQT, value.UM,
+                '<a href="#"><i class="fa fa-edit" name="editRow1" value="' +
+                value.IID + '"></i></a> ']).draw();
+                var totalQuantity = 0;
+                $.each(addedItems, function (i, v) {
+                    totalQuantity += v.Qty;
+                });
+                //$("#TotalQty").val(totalQuantity);
+            });
+        }
+        $(document).on('click', '[name="editRow1"]', function (e) {
+            //isEdit = true;
+            var item = $(this).attr("value");
+            var newItem = [];
+            $.each(addedItems1, function (index, value) {
+                if (value.IID == item) {
+
+                    $("#UOMId").val(value.UMId).change();
+                    $("#Qty").val(value.QT);
+                    $("#ReceivedQty").val(value.RQT);
+                    $("#ItemId").val(value.IID).change();
+                    $("#AvailableQty").val((parseFloat($("#Qty").val()) - parseFloat($("#ReceivedQty").val())));
+                }
+                else {
+                    newItem.push(value);
+                }
+            });
+
+        });
+        @*var cartonsize = 0;
+        var packSize = 0;
+        $(document).on('change', "#ItemId", function () {
+            //if (isEdit == false) {
+                var itemInfo = { itemId: $("#ItemId").val(), itemLCId: $("#LCId").val()};
+                if (itemInfo.itemId != "" && itemInfo.itemLCId != "" ) {
+                $.ajax({
+                url: '@Url.Action("GetItemInfo", "LCRN")',
+                contentType: "application/json;charset=utf-8",
+                data: itemInfo,
+                type: 'GET',
+                dataType: 'json',
+                    success: function (data)
+                    {
+                        $("#Qty").val(data.quantity);
+                        $("#UOMId").val(data.item.UoMID);
+                        $("#unitCost").val(data.item.RetailPrice);
+                        var receiveQty = 0.0;
+                        receiveQty = parseFloat($("#ReceiveQty").val());
+                        $("#ReceivedQty").val(parseFloat(data.lcItemReceivedAmount) - receiveQty);
+                        $("#AvailableQty").val((parseFloat($("#Qty").val()) - parseFloat($("#ReceivedQty").val())));
+
+                    },
+                    error: function () {
+                        alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services");
+                    }
+                });
+                }
+            isEdit = false;
+
+        });*@
+        $(document).on('click', "#addToGrid", function () {
+            RemoveError();
+            ValidationOnaddClick();
+            if (isValid == true) {
+
+                var item = { ItemID: 0, ItemName: "", UOMID: 0, Unit: "", Qty: 0.0, AvailableQty: 0.0, ReceiveQty: 0.0, HaveToRecev: 0.0, TotalQty: 0.0, CostRt: 0.0, CostVal:0.0 }
+                item.ItemID = $("#ItemId").val();
+                item.ItemName = $("#ItemId :selected").text();
+                item.UOMID = $("#UOMId").val();
+                item.Unit = $("#UOMId :selected").text();
+                item.Qty = parseFloat($("#ReceiveQty").val());
+                item.ReceivedQty = parseFloat($("#ReceivedQty").val());
+                item.AvailableQty = parseFloat($("#AvailableQty").val());
+                item.HaveToRecev = parseFloat($("#HaveToRecev").val());
+                item.CostRt = parseFloat($("#Rate").val())
+                item.CostVal = parseFloat($("#Value").val())
+                addedItems.push(item);
+                ShowOnTable();
+                clearOnAdd();
+            }
+        });
+        $(document).on('click', '[name="deleteRow"]', function () {
+            var item = $(this).attr("value");
+            if (confirm('Are you sure you want to delete this from grid ?')) {
+                var newItem = [];
+                $.each(addedItems, function (index, value) {
+                    if (value.ItemID == item) {
+
+                    }
+                    else {
+                        newItem.push(value);
+                    }
+                });
+                addedItems = newItem;
+                ShowOnTable();
+            }
+        });
+        //$(document).on('click', '[name="editRow"]', function (e) {
+        //    isEdit = true;
+        //    var item = $(this).attr("value");
+        //    var newItem = [];
+        //    $.each(addedItems, function (index, value) {
+        //        if (value.ItemID == item) {
+        //            $("#ItemId").val(value.ItemID).change();
+        //            $("#UOMId").val(value.UOMID);
+
+        //            $("#ReceivedQty").val(value.Qty);
+        //        }
+        //        else {
+        //            newItem.push(value);
+        //        }
+        //    });
+        //    addedItems = newItem;
+        //    ShowOnTable();
+        //});
+        $(document).on('click', '[name="editRow"]', function (e) {
+            isEdit = true;
+            var item = $(this).attr("value");
+            var newItem = [];
+            var tQTY = 0.0;
+            $.each(addedItems1, function (index, value) {
+                if (value.IID == item) {
+                    //$("#ItemId").val(value.ItemID).change();
+                    $("#Qty").val(value.QT);
+                    tQTY = value.QT;
+                    //$("#ReceivedQty").val(value.RQT);
+                    //$("#AvailableQty").val((parseFloat($("#Qty").val()) - parseFloat($("#ReceivedQty").val())));
+
+                    //$("#ReceivedQty").val(value.Qty);
+                }
+                
+            });
+            $.each(addedItems, function (index, value) {
+                if (value.ItemID == item) {
+                    $("#ItemId").val(value.ItemID).change();
+                    $("#UOMId").val(value.UOMID);
+                    $("#Rate").val(value.CostRt)
+                    $("#ReceiveQty").val(value.Qty);
+                    $("#ReceivedQty").val(tQTY - parseFloat( value.Qty));
+                    $("#AvailableQty").val((parseFloat($("#Qty").val()) - parseFloat($("#ReceivedQty").val())));
+                    calculationHaveToReceive();
+                    calculationRate();
+                }
+                else {
+                    newItem.push(value);
+                }
+            });
+            addedItems = newItem;
+            ShowOnTable();
+        });
+        $(document).on('click', "#save", function () {
+            ValidationOnSaveClick();
+            if (isValid == true) {
+                if (confirm("Do you want to save?")) {
+                var lcrn = { GRNNo: 0, GRNDate: "", ChallanNo: "", SupplierID: 0, WONo: 0, StoreID: 0, RefNo: "", Descriptions: "", TotalQty: 0.0, TotalCost: 0.0, Type: "" };
+                lcrn.GRNNo = 0;
+                lcrn.GRNDate = $("#Date").val();
+                lcrn.ChallanNo = $("#ChallanNo").val();
+                lcrn.SupplierID = parseInt($("#SupplierId").val());
+                lcrn.WONo = parseInt($("#LCId").val());
+                lcrn.StoreID = parseInt($("#StoreId").val());
+                lcrn.RefNo = $("#RefNo").val();
+                lcrn.Descriptions = $("#Description").val();
+                lcrn.TotalQty = parseFloat($("#TotalQty").val());
+                $.ajax({
+                        url: '@Url.Action("SaveLCRN", "LCRN")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ lcrn: lcrn, addedItems: addedItems }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Saved.");
+                                $("#save").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Saved.");
+                                $("#LCRNNo").val(datas.lcrnNo);
+                                $("#save").prop('disabled', true);
+                            }
+                        }
+                });
+            }
+            }
+
+
+        });
+        $(document).on('click', "#update", function () {
+            ValidationOnSaveClick();
+            if (confirm("Do you want to update?")) {
+                var lcrn = { GRNNo: 0, GRNDate: "", ChallanNo: "", SupplierID: 0, WONo: 0, StoreID: 0, RefNo: "", Descriptions: "", TotalQty: 0.0, TotalCost: 0.0, Type: "" };
+                lcrn.GRNNo = $("#LCRNNo").val();;
+                lcrn.GRNDate = $("#Date").val();
+                lcrn.ChallanNo = $("#ChallanNo").val();
+                lcrn.SupplierID = parseInt($("#SupplierId").val());
+                lcrn.WONo = parseInt($("#LCId").val());
+                lcrn.StoreID = parseInt($("#StoreId").val());
+                lcrn.RefNo = $("#RefNo").val();
+                lcrn.Descriptions = $("#Description").val();
+                lcrn.TotalQty = parseFloat($("#TotalQty").val());
+                $.ajax({
+                        url: '@Url.Action("UpdateLCRN", "LCRN")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ lcrn: lcrn, addedItems: addedItems }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data == 0) {
+                                alert("LCRN No is not exist");
+                                $("#update").prop('disabled', false);
+                            }
+                            else if (data==1) {
+                                alert("successfully updated");
+                                $("#update").prop('disabled', true);
+                            }
+                            else {
+                                alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services");
+                            }
+                        }
+                });
+            }
+
+        });
+        $(document).on('click', '#delete', function () {
+            var lcrnNo = { lcrnNo: $("#LCRNNo").val() };
+            if (confirm('Do you want to Delete')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteLCRN", "LCRN")',
+                    contentType: "application/json;charset=utf-8",
+                    data: lcrnNo,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data == 0) {
+                            alert("No LCRN is found to be deleted");
+                        } else if (data == 2) {
+                            alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services");
+                        } else {
+                            alert("Successfully deleted");
+                            location.reload();
+                        }
+                    },
+
+                });
+            }
+        });
+        $(document).on('click', "#search", function () {
+
+            if ($("#LCRNNo").val() == "") {
+                alert("Please enter a LCRN No first");
+            } else {
+                isSearch = true;
+                var lcrnNo = { lcrnNo: $("#LCRNNo").val() };
+                clearOnSearch();
+                $.ajax({
+                    url: '@Url.Action("GetLcrn", "LCRN")',
+                    contentType: "application/json;charset=utf-8",
+                    data: lcrnNo,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas.Message == 0) {
+                            alert("It does not exist");
+                        }
+                        else if (datas.Message == 2) {
+                            alert("Fatal Error");
+                        }
+                        else {
+                            $("#save").hide();
+                            $("#update").show();
+                            $("#delete").show();
+                            $("#print").show();
+                            $("#LCRNNo").val(datas.lcrn.GRNNo);
+                            $("#Date").val((moment(datas.lcrn.GRNDate).format("DD-MM-YYYY"))).change();
+                            $("#ChallanNo").val(datas.lcrn.ChallanNo);
+                            $("#GrpId").val(datas.lcrn.GroupID).change();
+                            $("#SupplierId").val(datas.lcrn.SupplierID).change();
+                            lcID = datas.lcrn.WONo;
+                            SupplierID = datas.lcrn.SupplierID;
+                            $("#RefNo").val(datas.lcrn.RefNo);
+                            $("#Description").val(datas.lcrn.Descriptions);
+                            $.each(datas.lcrnlineitem, function (i, v) {
+                            var item = { ItemID: 0, ItemName: "", Unit: "", UOMID: 0, Qty: 0.0, UoM:"" }
+                            item.ItemID = v.ItemID;
+                            item.ItemName = v.ItemName;
+                            item.Unit = v.UoM;
+                            item.Qty = v.Qty;
+                            item.UOMID = v.UOMID;
+                            item.UoM = v.UoM;
+                            item.CostRt = v.CostRt;
+                            item.CostVal = v.CostVal;
+                            addedItems.push(item);
+                            ShowOnTable();
+                            //item.ItemGrpID = v.ItemGrpID;
+                            //item.CostRt = v.CostRt;
+                            //item.CostVal = v.CostVal;
+                            });
+                        }
+                    }
+                });
+
+            }
+        });
+        function ShowOnTable() {
+            table.clear().draw();
+            var totalQuantity = 0;
+            $.each(addedItems, function (index, value) {
+                table.row.add([value.ItemName, value.Qty, value.Unit, value.CostRt, value.CostVal,
+            '<a href="#"><i class="fa fa-edit" name="editRow" value="' +
+                    value.ItemID + '"></i></a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.ItemID + '"></i></a>']).draw();
+                
+                $.each(addedItems, function (i, v) {
+                    totalQuantity += v.Qty;
+                });
+                
+            });
+            $("#TotalQty").val(totalQuantity);
+        }
+
+
+        $(document).on('click', "#refresh", function () { location.reload(); });
+        function ValidationOnSaveClick() {
+            isValid = true;
+            if ($("#ChallanNo").val() == "") {
+                setError("ChallanNo", "Challan No  is required field");
+                isValid = false;
+            }
+            if ($("#StoreId").val() == "") {
+                setError("StoreId", "Store is required field");
+                isValid = false;
+            }
+            if (addedItems.length<= 0) {
+                alert("At list an Item should be added in the grid bellow");
+                isValid = false;
+            }
+        }
+        function ValidationOnaddClick() {
+            isValid = true;
+            if ($("#ItemId").val() == "") {
+                setError("ItemId", "Item  is required field");
+                isValid = false;
+            }
+            if ($("#ReceiveQty").val() == "") {
+                setError("ReceiveQty", "Receive Qty  is required field");
+                isValid = false;
+            }
+            if ($("#ChallanNo").val() == "") {
+                setError("ChallanNo", "Challan No  is required field");
+                isValid = false;
+            }
+            if ($("#ReceiveQty").val() == 0) {
+                setError("ReceiveQty", "Atlist one item need to recieve");
+                isValid = false;
+            }
+            //if ($("#Rate").val() == 0) {
+            //    setError("Rate", "Rate cannot be zero");
+            //    isValid = false;
+            //}
+            var item = $("#ItemId").val();
+            $.each(addedItems, function (i, v) {
+                if (item == v.ItemID) {
+                    alert("The item is already added");
+                    isValid = false;
+                }
+            });
+            if (isSearch == true) {
+                if (parseFloat($("#AvailableQty").val()) + parseFloat($("#ReceivedQty").val()) < parseFloat($("#ReceiveQty").val())) {
+                    alert("Your receive quantity should be equal to  or less than LC quantity");
+                    isValid = false;
+                }
+            } else {
+                if (parseFloat($("#AvailableQty").val()) < parseFloat($("#ReceiveQty").val())) {
+                    isValid = false;
+                    alert("Your receive quantity should be equal to  or less than available quantity");
+                }
+            }
+
+        }
+        function clearOnAdd() {
+            $("#ItemId").val("").change();
+            $("#UOMId").val("");
+            $("#Qty").val("");
+            $("#ReceivedQty").val("");
+            $("#AvailableQty").val("");
+            $("#ReceiveQty").val("");
+            $("#HaveToRecev").val("");
+            $("#Rate").val("");
+            $("#Value").val("");
+        }
+        function clearOnSearch() {
+            $("#ItemId").val("").change();
+            $("#UOMId").val("");
+            $("#Qty").val("");
+            $("#ReceivedQty").val("");
+            $("#AvailableQty").val("");
+            $("#ReceiveQty").val("");
+            addedItems = [];
+            addedItems1 = [];
+        }
+        $(document).on('click', "#print", function (event) {
+            event.preventDefault();
+            $("#lcrnForm").attr("action", "/LCRN/GetLCRNSamplePreview")
+            $("#lcrnForm").submit();
+
+        });
+
+        $(document).on('focusout', "#ReceiveQty", function () {
+            calculationHaveToReceive();
+        });
+
+        function calculationHaveToReceive() {
+            var rcvQty = $("#ReceiveQty").val();
+            var RcvdQty = $("#ReceivedQty").val();
+            var avQty = $("#AvailableQty").val();
+            var orderQty = $("#Qty").val();
+
+            if (parseFloat(rcvQty) > parseFloat(avQty)) {
+                alert("Receive Qty Can not be grater than Available Qty");
+            }
+            else {
+                $("#HaveToRecev").val(parseFloat(orderQty) - (parseFloat(RcvdQty) + parseFloat(rcvQty)));
+            }
+        }
+
+        $(document).on('focusout', "#Rate", function () {
+            calculationRate();
+
+        });
+        function calculationRate() {
+            var rate = $("#Rate").val();
+            var rcvQty = $("#ReceiveQty").val();
+            $("#Value").val((parseFloat(rate) * parseFloat(rcvQty)).toFixed(2));
+        }
+    });
+    </script>
+}
+
+

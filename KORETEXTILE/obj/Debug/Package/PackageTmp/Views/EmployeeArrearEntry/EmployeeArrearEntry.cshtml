@@ -1,0 +1,350 @@
+﻿@using BEEERP.Models.Authentication
+@using BEEERP.Models.CommonInformation
+@model BEEERP.Models.ViewModel.Payroll.EmployeeArrearEntryVModel
+@{
+    ViewBag.Title = "EmployeeArrearEntry";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<h3 style="text-align:center">Employee Arrears Entry</h3>
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA;">
+                                <h4 class="box-title">Employee Details</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.EmployeeID, "Employee ID ", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.EmployeeID, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.EmployeeID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Name, "Employee name ", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.Name, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.ARDate,"Date", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:3%; padding-right:3%">
+                                                @Html.TextBoxFor(m => m.ARDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy"), @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.ARDate, "", new { @style = "color: red" })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box">
+                            <div class="box-body" style="padding-right:10%;padding-left:0%">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ARAmount, "Arrears Amount", new { @class = "col-md-5 control-label" })
+                                        <div class="col-sm-7">
+                                            @Html.TextBoxFor(m => m.ARAmount, new { @class = "form-control", @type = "number" })
+                                            @Html.ValidationMessageFor(m => m.ARAmount, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ARRefNO, "Reference No", new { @class = "col-md-5 control-label" })
+                                        <div class="col-sm-7">
+                                            @Html.TextBoxFor(m => m.ARRefNO, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.ARRefNO, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ARDescription, "Description", new { @class = "col-md-5 control-label" })
+                                        <div class="col-sm-7">
+                                            @Html.TextBoxFor(m => m.ARDescription, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.ARDescription, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.EffectiveDate, "Effective From", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-7 input-group" style="padding-left:3%; padding-right:3%">
+                                            @Html.TextBoxFor(m => m.EffectiveDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            @Html.ValidationMessageFor(m => m.EffectiveDate, "", new { @style = "color: red" })
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ToDate, "To", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-7 input-group" style="padding-left:3%; padding-right:3%">
+                                            @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            @Html.ValidationMessageFor(m => m.ToDate, "", new { @style = "color: red" })
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="box">
+                                    <div class="box-body">
+                                        <div class="col-md-12 col-sm-offset-5">
+                                            <button class="btn skin-blue" id="save" >Update</button>
+                                            <button class="btn skin-blue" id="refresh" >Refresh</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA;">
+                                <h4 class="box-title">Employee Arrear Entry Description</h4>
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-responsive" id="EmployeeArrearEntryTable">
+                                    <thead>
+                                        <tr>
+                                            <td>Employee ID</td>
+                                            <td>Employee Name</td>
+                                            <td>Effective From</td>
+                                            <td>To</td>
+                                            <td>AR Amount</td>
+                                            <td>Reference No</td>
+                                            <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.list)
+                                        {
+                                            <tr value="@item.EmployeeID" class="clickable-row">
+                                                <td>@item.EmployeeID</td>
+                                                <td>@item.Name</td>
+                                                <td>@item.EffectiveDate</td>
+                                                <td>@item.ToDate</td>
+                                                <td>@item.ARAmount</td>
+                                                <td>@item.ARRefNO</td>
+                                                <td>@item.ARDescription</td>
+                                                @*<td> <a href="#" style="padding-right:40px;"><i class="fa fa-edit" value="@item.DeptmentID" id="edit"></i> </a></td>*@
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                                <div class="loader" id="loader"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/Payroll/EmployeeArrearEntry.js"></script>
+    <script>
+        $('.date').datepicker({
+        autoclose: true,
+        format: 'dd-mm-yyyy',
+        });
+        var isValid = true;
+        var ArrearEntry = { EmployeeID: 0, EffectiveDate: "", ToDate: "", ARDate: "", ARAmount: 0, ARRefNO: "", ARDescription: "" };
+        var table = $('#EmployeeArrearEntryTable').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false,
+            'scrollX': true,
+        });
+    $(document).ready(function () {
+        $(".select2").select2();
+        $("#update").hide();
+        $("#delete").hide();
+        //$("#ARAmount").focus();
+        });
+
+    EnterPress();
+    $(document).on('click', "#refresh", function () {
+    RemoveError();
+    Refresh();
+
+    $("#Save").prop('disabled', true);
+    });
+     //Clikable Row
+    $(document).on('click', ".clickable-row", function () {
+        var id = $(this).attr("value");
+        RemoveError();
+        $.ajax({
+        url: '@Url.Action("GetEmployeeArrearEntry", "EmployeeArrearEntry")',
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({ EmployeeID: id }),
+        type: 'POST',
+        dataType: 'json',
+        success: function (datas) {
+            if (datas.message==0)
+            {
+                $("#refresh").show();
+                $("#save").show();
+                $("#delete").show();
+                $("#EmployeeID").val(datas.employeeArrears.EmployeeID);
+                $("#Name").val(datas.employeeArrears.Name);
+                $("#ARAmount").val(datas.employeeArrears.ARAmount);
+                $("#ARRefNO").val(datas.employeeArrears.ARRefNO);
+                $("#ARDescription").val(datas.employeeArrears.ARDescription);
+                $("#ARAmount").focus();
+            }
+            else {
+
+                $("#refresh").show();
+                $("#save").show();
+                $("#delete").show();
+                $("#EmployeeID").val(datas.employeeArrears.EmployeeID);
+                $("#Name").val(datas.employeeArrears.Name);
+                $("#EffectiveDate").val((moment(datas.employeeArrears.EffectiveDate).format("DD-MM-YYYY")));
+                $("#ToDate").val(moment(datas.employeeArrears.ToDate).format("DD-MM-YYYY"));
+                $("#ARDate").val(moment(datas.employeeArrears.ARDate).format("DD-MM-YYYY"));
+                $("#ARAmount").val(datas.employeeArrears.ARAmount);
+                $("#ARRefNO").val(datas.employeeArrears.ARRefNO);
+                $("#ARDescription").val(datas.employeeArrears.ARDescription);
+                $("#ARAmount").focus();
+            }
+        }
+        });
+    });
+    //update Gride(save) code
+    $(document).on('click', '#save', function () {
+    ValidateEmployeeArrearEntry();
+    SetEmployeeArrearEntry();
+    RemoveError();
+    $("#save").prop('disabled', true);
+    ValidateEmployeeArrearEntry();
+    if (isValid == true) {
+        if (confirm('Do you want to save?')) {
+            $.ajax({
+                url: '@Url.Action("SaveEmployeeArrearEntry", "EmployeeArrearEntry")',
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify({ ArrearEntry: ArrearEntry }),
+                type: 'POST',
+                dataType: 'json',
+                success: function (datas) {
+                    if (datas == 0) {
+                        alert("Failed To Saved.");
+                        $("#save").prop('disabled', false);
+                    }
+                    else {
+                        alert("Sucessfully Saved.");
+                        $("#save").prop('disabled', true);
+                        location.reload();
+                    }
+                }
+            });
+        }
+        else {
+            $("#save").prop('disabled', false);
+        }
+    }
+    else {
+        $("#save").prop('disabled', false);
+    }
+    });
+        function SetEmployeeArrearEntry() {
+        ArrearEntry.EmployeeID = $("#EmployeeID").val();
+        ArrearEntry.EffectiveDate = $("#EffectiveDate").val();
+        ArrearEntry.ToDate = $("#ToDate").val();
+        ArrearEntry.ARDate = $("#ARDate").val();
+        ArrearEntry.ARAmount = $("#ARAmount").val();
+        ArrearEntry.ARRefNO = $("#ARRefNO").val();
+        ArrearEntry.ARDescription = $("#ARDescription").val();
+        }
+        function ValidateEmployeeArrearEntry() {
+            isValid = true;
+            if (ArrearEntry.ARAmount == "") {
+                setError("ARAmount", "ARAmount is required field.");
+                isValid = false;
+            }
+            if (ArrearEntry.EmployeeID == "") {
+                setError("EmployeeID", "Select employee id from description.");
+                isValid = false;
+            }
+            if (ArrearEntry.Name == "") {
+                setError("EmployeeID", "Select employee name from description.");
+                isValid = false;
+            }
+            if (ArrearEntry.EffectiveDate == "") {
+                setError("EffectiveDate", "EffectiveDate is required field.");
+                isValid = false;
+            }
+            if (ArrearEntry.ToDate == "") {
+                setError("ToDate", "ToDate is required field.");
+                isValid = false;
+            }
+        }
+        function Refresh() {
+            $("#EmployeeID").val("");
+            $("#Name").val("");
+            $("#EffectiveDate").val("");
+            $("#ToDate").val("");
+            $("#ARAmount").val("");
+            $("#ARRefNO").val("");
+            $("#ARDescription").val("");
+        }
+    </script>
+}
+
+

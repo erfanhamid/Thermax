@@ -1,0 +1,290 @@
+﻿@model BEEERP.Models.ViewModel.Payroll.OpeningLeaveBalanceVModel
+
+@{
+    ViewBag.Title = "OpeningLeaveBalance";
+}
+
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<h3 style="text-align:center">Employee Opening Leave Balance Entry</h3>
+
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h5 class="box-title">Opening Leave Balance Details</h5>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.EmployeeId, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6 input-group" style="padding-left:15px; padding-right:15px;">
+                                            @Html.TextBoxFor(m => m.EmployeeId, new { @class = "form-control digit", @readonly = "readonly", @Value = ViewBag.gbeCountNumPlausOne })
+                                            @Html.ValidationMessageFor(m => m.EmployeeId, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Grade, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.TextBoxFor(m => m.Grade, new { @class = "form-control", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.Grade, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.EmployeeName, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.EmployeeName, new { @class = "form-control", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.EmployeeName, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.CompanyName, "Branch/Depot", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.CompanyName, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Designation, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.Designation, new { @class = "form-control", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.Designation, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box ">
+                            <div class="box-body">
+                                <div class="col-md-2">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.CasualLeave, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.CasualLeave, new { @class = "form-control", @type = "number", @placeholder = "Days" })
+                                            @Html.ValidationMessageFor(m => m.CasualLeave, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.SickLeave, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.SickLeave, new { @class = "form-control", @type = "number", @placeholder = "Days" })
+                                            @Html.ValidationMessageFor(m => m.SickLeave, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.EarnLeave, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.EarnLeave, new { @class = "form-control", @type = "number", @placeholder = "Days" })
+                                            @Html.ValidationMessageFor(m => m.EarnLeave, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ValidateUntil, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                            @Html.TextBoxFor(m => m.ValidateUntil, new { @class = "form-control date" })
+                                            @Html.ValidationMessageFor(m => m.ValidateUntil, "", new { @style = "color: red" })
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div style="background-color:white; ">
+                            <div class="form-group">
+                                <div class="col-md-12" style="text-align:center;">
+                                    @*<input type="button" name="delete" value="Delete" id="delete" class="btn skin-blue" style="float:right;border:solid white" />*@
+                                    <input type="button" name="refresh" id="refresh" value="Refresh" class="btn skin-blue"  />
+                                    @*<input type="button" name="update" value="Update" id="update" class="btn skin-blue" style="float:right;border:solid white" />*@
+                                    <input type="button" name="save" value="Save" id="save" class="btn skin-blue"  />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h5 class="box-title">Opening Leave Balance List</h5>
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-responsive" id="leaveBalanceTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Employee ID</th>
+                                            <th>Employee Name</th>
+                                            <th>Casual Leave</th>
+                                            <th>Sick Leave</th>
+                                            <th>Earn Leave</th>
+                                            <th>Designation</th>
+                                            <th>Grade</th>
+                                            <th>Company Name</th>
+                                            <th>Valid Till</th>
+                                        </tr>
+                                    </thead>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Scripts/PayRollModule/OpeningLeaveBalanceInputFocus.js"></script>
+    <script>
+        $(document).ready(function () {
+            EnterPress();
+            //$("#go").hide();
+            var table = $('#leaveBalanceTable').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false,
+                'scrollX': true,
+                'columnDefs': [
+                    {
+                        "targets": [5],
+                        "visible": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [6],
+                        "visible": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [7],
+                        "visible": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [8],
+                        "visible": false,
+                        "searchable": false
+                    },
+                ]
+            });
+            var now = new Date("2018-12-31");
+            var day = ("0" + now.getDate()).slice(-2);
+            var month = ("0" + (now.getMonth() + 1)).slice(-2);
+            var today = (day) + "-" + (month) + "-" + now.getFullYear();
+            $('#ValidateUntil').val(today);
+
+            $(".select2").select2();
+            var message = "";
+            $(document).on('click', '#refresh', function () {
+                location.reload();
+            });
+            $('.date').datepicker({
+                autoclose: true,
+                format: 'dd-mm-yyyy',
+            });
+
+            //table = $("#leaveBalanceTable").DataTable();
+            getResult();
+            function getResult() {
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("GetAllEmployeeInfo", "OpeningLeaveBalance")',
+                    contentType: "application/Json;charset=utf-8",
+                    data: JSON.stringify(),
+                    success: function (rData) {
+                        if (rData != null || rData.length != 0) {
+                            table.clear().draw();
+                            var list = rData;
+                            $.each(list, function (index, value) {
+                                table.row.add([value.EmployeeId, value.EmployeeName, value.CasualLeave, value.SickLeave, value.EarnLeave, value.Designation, value.Grade, value.CompanyName, moment(value.ValidateUntil).format("DD-MM-YYYY")]).draw();;
+                            });
+                        }
+                    },
+                    error: function () {
+                        alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services");
+                    }
+                });
+            }
+            $('#leaveBalanceTable tbody').on('click', 'tr', function () {
+                var tabledata = table.row(this).data();
+                $("#EmployeeId").val(tabledata[0]);
+                $("#EmployeeName").val(tabledata[1]);
+                $("#CasualLeave").val(tabledata[2]);
+                $("#SickLeave").val(tabledata[3]);
+                $("#EarnLeave").val(tabledata[4]);
+                $("#Designation").val(tabledata[5]);
+                $("#Grade").val(tabledata[6]);
+                $("#CompanyName").val(tabledata[7]);
+                //$("#ValidateUntil").val(tabledata[8]);
+                //$("#Save").prop('disabled', false);
+                //document.body.scrollTop = 0;
+                //document.documentElement.scrollTop = 0;
+            });
+
+            var olb = EmployeeId, CasualLeave, SickLeave, EarnLeave, ValidateUntil;
+            function SetOLB() {
+                olb.EmployeeId = $("#EmployeeId").val();
+                olb.CasualLeave = $("#CasualLeave").val();
+                olb.SickLeave = $("#SickLeave").val();
+                olb.EarnLeave = $("#EarnLeave").val();
+                olb.ValidateUntil = $("#ValidateUntil").val();
+            }
+            $(document).on('click', "#save", function () {
+                if (confirm('Do you want to Save ?')) {
+                    SetOLB();
+                    $.ajax({
+                    url: '@Url.Action("SaveOpeningLeaveBalance", "OpeningLeaveBalance")',
+                    contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ olb: olb }),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Failed to Save");
+
+                        }
+                        else {
+                            alert("Sucessfully Saved");
+                            location.reload();
+                        }
+                    }
+                    });
+                }
+            });
+        });
+    </script>
+}

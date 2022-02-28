@@ -1,0 +1,169 @@
+﻿@model BEEERP.Models.ViewModel.Sales.Report.ReportVModel
+@{
+    ViewBag.Title = "VoucherReports";
+    int i = 0;
+}
+
+<h2 style="text-align:center">Voucher Reports</h2>
+
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "voucherReport", target = "_blank" }))
+{
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Select Date Range</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.From, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6 date input-group" style="padding-left:15px;padding-right:15px;">
+                                        @Html.TextBoxFor(m => m.From, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                    <div style="padding-left:280px">
+                                        @Html.ValidationMessageFor(m => m.From)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.To, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6 date input-group" style="padding-left:15px; padding-right:15px">
+                                        @Html.TextBoxFor(m => m.To, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                    <div style="padding-left:280px">
+                                        @Html.ValidationMessageFor(m => m.To)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Voucher Reports</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                    i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" style="min-width:400px" id="receiveVoucherReport" type="submit">@i. Show Receive Voucher Report</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                    i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" style="min-width:400px" id="paymentVoucher" type="submit">@i. Payment Voucher Report</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                    i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" style="min-width:400px" id="fundTransferVoucher" type="submit">@i. Show Fund Transfer Voucher Report</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Supplier Payment Voucher Reports</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+            i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" style="min-width:400px" id="showAllSPV" type="submit">@i. Show All SPV</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+            i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" style="min-width:400px" id="supplierWisePaymentSummary" type="submit">@i. Supplier Wise Payment Summary</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+            i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" style="min-width:400px" id="accountWisePaymentSummary" type="submit">@i. Account Wise Payment Summary</button>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                    </div>
+                    <input type="hidden" id="message" value="false" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts{
+    <script src="~/Scripts/ReportSearch.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".select2").select2();
+            $('.date').datepicker({
+                autoclose: true,
+                format: "dd-mm-yyyy"
+            });
+        });
+
+        $(document).on('click', "#receiveVoucherReport", function () {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#message").val() != "true") {
+                $("#voucherReport").attr("action", "/VoucherReports/ShowReceiveVoucherReport")
+                $("#voucherReport").submit();
+            }
+        });
+        $(document).on('click', "#fundTransferVoucher", function () {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#message").val() != "true") {
+                $("#voucherReport").attr("action", "/VoucherReports/ShowFundTransferVoucherReport")
+                $("#voucherReport").submit();
+            }
+        });
+        $(document).on('click', "#paymentVoucher", function () {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#message").val() != "true") {
+                $("#voucherReport").attr("action", "/VoucherReports/ShowPaymentVoucherReport")
+                $("#voucherReport").submit();
+            }
+        });
+        $(document).on('click', "#showAllSPV", function () {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#message").val() != "true") {
+                $("#voucherReport").attr("action", "/VoucherReports/ShowAllSPV")
+                $("#voucherReport").submit();
+            }
+        });
+        $(document).on('click', "#supplierWisePaymentSummary", function () {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#message").val() != "true") {
+                $("#voucherReport").attr("action", "/VoucherReports/ShowSupplierWisePaymentSummary")
+                $("#voucherReport").submit();
+            }
+        });
+        $(document).on('click', "#accountWisePaymentSummary", function () {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#message").val() != "true") {
+                $("#voucherReport").attr("action", "/VoucherReports/ShowAccountWisePaymentSummary")
+                $("#voucherReport").submit();
+            }
+        });
+    </script>
+}
+

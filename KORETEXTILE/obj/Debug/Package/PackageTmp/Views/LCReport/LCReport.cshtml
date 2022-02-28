@@ -1,0 +1,371 @@
+﻿@model BEEERP.Models.ViewModel.Sales.Report.ReportVModel
+@using BEEERP.Models.CommonInformation
+@{
+    ViewBag.Title = "LCReport";
+    int i = 0;
+}
+
+<style>
+
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+    /*h3 {
+        background: #F5B041;
+        border-radius: 8px;
+    }*/
+    box-title {
+        background: #82E0AA;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        /*padding: 15px 32px;*/
+        /*text-align: center;*/
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 8px;
+        min-width: 400px;
+        /*height: 12px;*/
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+        }
+</style>
+
+
+@*<h2 style="text-align:center">LC Report</h2>*@
+<h3 style="text-align:center"> LC Accounts Report</h3>
+
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "lcReport", target = "_blank" }))
+{
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <div class="box">
+                            <div class="box-header with-border box-head-back"  style="background: #82E0AA">
+                                <h4 class="box-title">Select Parameters and Date Range</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.SupplierGroup, "Supplier Group", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DropDownListFor(m => m.SupplierGroup, (IEnumerable<SelectListItem>)ViewBag.SupplierGroup, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.SupplierGroup, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.SupplierID, "Supplier", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DropDownListFor(m => m.SupplierID, (IEnumerable<SelectListItem>)ViewBag.Supplier, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.SupplierID, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ILCID, "Import LC", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DropDownListFor(m => m.ILCID, (IEnumerable<SelectListItem>)ViewBag.ILC, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.ILCID, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.DebitAccID, "Account", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DropDownListFor(m => m.DebitAccID, (IEnumerable<SelectListItem>)ViewBag.Account, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.DebitAccID, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.SubLedgerID, "Sub Ledger", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DropDownListFor(m => m.SubLedgerID, (IEnumerable<SelectListItem>)ViewBag.SubLedger, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.SubLedgerID, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.From, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6 date input-group" style="padding-left:15px;padding-right:15px;">
+                                        @Html.TextBoxFor(m => m.From, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        @Html.ValidationMessageFor(m => m.From)
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.To, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6 date input-group" style="padding-left:15px;padding-right:15px;">
+                                        @Html.TextBoxFor(m => m.To, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        @Html.ValidationMessageFor(m => m.To)
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.AsOnDate,"As on Date", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6 date input-group" style="padding-left:15px;padding-right:15px;">
+                                        @Html.TextBoxFor(m => m.AsOnDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        @Html.ValidationMessageFor(m => m.AsOnDate)
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back"  style="background: #82E0AA">
+                                <h4 class="box-title">LC Accounts Report</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="importLCSummary" style="min-width:400px;" type="submit">@i. Show ILCB Summary</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="importLCLedger" style="min-width:400px;" type="submit">@i. Show LCPV Summary</button>
+                                </div>
+                                @*<div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="lcCostingDetails" style="min-width:400px;" type="submit">@i. Show LC Costing Details</button>
+                                </div>*@
+                                @*<div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="showILCBDetails" style="min-width:400px;" type="submit">@i. Show ILCB Details Report</button>
+                                </div>*@
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="importLCSubLedgerItem" style="min-width:400px;" type="submit">@i. Show ILC SubLedger Item Report</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="message" value="false" />
+    </div>
+}
+@section scripts{
+    <script src="~/Scripts/ReportSearch.js"></script>
+    <script>
+        $(".select2").select2();
+        $(document).ready(function () {
+            $(".select2").select2();
+            $('.date').datepicker({
+                autoclose: true,
+                format: "dd-mm-yyyy"
+            });
+            $("#subLedger1").hide();
+        });
+
+        $(document).on('change', "#SupplierGroup", function () {
+
+            $("#SupplierID").prop('disabled', false);
+            var id = { sGroupId: $(this).val() };
+            if (id.sGroupId != "") {
+                $.ajax({
+                    url: '@Url.Action("GetSupplierByGroupId", "SupplierReport")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        $("#SupplierID").empty();
+                        $("#SupplierID").prop("disabled", false);
+                        $.each(datas, function (index, value) {
+                            $("#SupplierID").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                        $("#SupplierID").focus();
+                        if (supplierId != "") {
+                            $("#SupplierID").val(supplierId).change();
+                            $("#SupplierID").prop('disabled', true);
+                            supplierId = "";
+                        }
+                    }
+                });
+            }
+            else {
+                $("#SupplierID").val("").change();
+                $("#SupplierID").prop("disabled", true);
+            }
+        });
+
+
+        $(document).on('change', "#DebitAccID", function () {
+            RemoveError();
+            $("#SubLedgerID").prop('disabled', false);
+            var id = { accId: $(this).val() };
+            if (id.accId != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetSubLedgerByLedger", "ILCP")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas.Message == 1) {
+                                $("#subLedger").show();
+                                $("#SubLedgerID").empty();
+                                $("#SubLedgerID").prop("disabled", false);
+                                $.each(datas.subLed, function (index, value) {
+                                    $("#SubLedgerID").append($('<option />', {
+                                        value: value.Value,
+                                        text: value.Text
+                                    })).trigger('change');
+                                });
+                                $("#SubLedgerID").focus();
+                                if (accId != "") {
+                                    accId = "";
+                                }
+                                else {
+                                    table.clear().draw();
+                                }
+                            }
+                            if (datas.Message == 0) {
+                                $("#subLedger").hide();
+                                $("#SubLedgerID").empty();
+                                $("#SubLedgerID").prop("disabled", false);
+                                $.each(datas.subLed, function (index, value) {
+                                    $("#SubLedgerID").append($('<option />', {
+                                        value: value.Value,
+                                        text: value.Text
+                                    })).trigger('change');
+                                });
+                                $("#SubLedgerID").focus();
+                            }
+                            if (subLId != "") {
+                                $("#SubLedgerID").val(subLId).change();
+                                subLId = "";
+                            }
+                        }
+                    });
+            }
+            else {
+                $("#SubLedgerID").val("").change();
+                $("#SubLedgerID").prop("disabled", true);
+            }
+        });
+
+        $(document).on('click', "#go", function () {
+            var param = { Id: $("#ILCID").val() };
+
+            $.ajax({
+                    url: '@Url.Action("GetILCById", "LCReport")',
+                    contentType: "application/json;charset=utf-8",
+                    data: param,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas != 0) {
+                            $("#ILCNO").val(datas.iLCNo);
+                        }
+                        else {
+                            $("#ILCNO").val("");
+                            alert("May be ILC No doesn't exist.");
+                        }
+                    }
+            });
+        });
+
+        $(document).on('click', "#importLCSummary", function () {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#message").val() != "true") {
+                $("#lcReport").attr("action", "/LCReport/ShowImportLCSummary")
+                $("#lcReport").submit();
+            }
+        });
+        $(document).on('click', "#importLCLedger", function () {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To", "ILCID" ]);
+            if ($("#message").val() != "true") {
+                $("#lcReport").attr("action", "/LCReport/ShowImportLCLedger")
+                $("#lcReport").submit();
+            }
+        });
+        $(document).on('click', "#ShowReport", function () {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#To").val() != "" && $("#From").val() != "") {
+                $("#lcReport").attr("action", "/LCReport/ShowImportLCReceiveDetails")
+                $("#lcReport").submit();
+            }
+            else {
+                alert("Invalid Date");
+            }
+        });
+        $(document).on('click', "#lcCostingDetails", function () {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To", "ILCID"]);
+            if ($("#message").val() != "true") {
+                $("#lcReport").attr("action", "/LCReport/ShowLCCostingDetails")
+                $("#lcReport").submit();
+            }
+        });
+
+        $(document).on('click', "#showPurchaseOrderDetails", function () {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#To").val() != "" && $("#From").val() != "") {
+                $("#lcReport").attr("action", "/LCReport/ShowPurchaseOrderDetails")
+                $("#lcReport").submit();
+            }
+            else {
+                alert("Invalid Date");
+            }
+        });
+        $(document).on('click', "#showILCBDetails", function () {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#message").val() != "true") {
+                $("#lcReport").attr("action", "/LCReport/ShowILCBDetails")
+                $("#lcReport").submit();
+            }
+        });
+
+        $(document).on('click', "#importLCSubLedgerItem", function () {
+            var isValid = true;
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            //if ($("#DebitAccID").val() == "") {
+            //    setError("DebitAccID", "Debit Account is required.");
+            //    isValid = false;
+            //}
+            //if ($("#SubLedgerID").val() == "") {
+            //    setError("SubLedgerID", "Sub Ledger is required.");
+            //    isValid = false;
+            //}
+            if ($("#message").val() != "true" /*&& isValid == true*/) {
+                $("#lcReport").attr("action", "/LCReport/ShowILCSubLedgerItem")
+                $("#lcReport").submit();
+            }
+        });
+    </script>
+}
+

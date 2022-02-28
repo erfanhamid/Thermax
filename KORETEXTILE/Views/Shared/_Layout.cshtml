@@ -1,0 +1,962 @@
+﻿@using Microsoft.AspNet.Identity
+@using BEEERP.Models.Authentication
+@using BEEERP.Models.CommonInformation
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Kore ERP</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    @*@Styles.Render("~/Content/css")*@
+    @*@Scripts.Render("~/bundles/modernizr")*@
+    <link href="~/Content/BoxStyle.css" rel="stylesheet" />
+    <link href="~/App_Themes/Theme/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    @*<link rel="stylesheet" href="~/App_Themes/Theme/bower_components/bootstrap/dist/css/bootstrap.min.css">*@
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/App_Themes/Theme/bower_components/font-awesome/css/font-awesome.min.css" />
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="~/App_Themes/Theme/bower_components/Ionicons/css/ionicons.min.css" />
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/App_Themes/Theme/dist/css/AdminLTE.min.css" />
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="~/App_Themes/Theme/dist/css/skins/_all-skins.min.css" />
+    <!-- Morris chart -->
+    <link rel="stylesheet" href="~/App_Themes/Theme/bower_components/morris.js/morris.css" />
+    <!-- jvectormap -->
+    <link rel="stylesheet" href="~/App_Themes/Theme/bower_components/jvectormap/jquery-jvectormap.css" />
+    <!-- Date Picker -->
+    <link rel="stylesheet" href="~/App_Themes/Theme/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" />
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="~/App_Themes/Theme/bower_components/bootstrap-daterangepicker/daterangepicker.css" />
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" href="~/App_Themes/Theme/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" />
+    <link rel="stylesheet" href="~/App_Themes/Theme/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <link href="~/App_Themes/Theme/bower_components/select2/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="~/Content/Common.css" rel="stylesheet" />
+    <link rel="icon" type="image/jpg" sizes="50x220" href="~/Image/favicon.ico/favklogo.png">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+
+        <![endif]-->
+    <!-- Google Font -->
+    @*<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">*@
+    <style>
+        .field-validation-no-valid {
+            color: red !important;
+        }
+    </style>
+</head>
+<body class="hold-transition skin-blue sidebar-mini sidebar-collapse">
+    <div class="wrapper">
+        <header class="main-header">
+            <!-- Logo -->
+            <a href="@Url.Action("index","Home")" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                @*<span class="logo-mini"><b>BEE</b><br />ERP</span>*@
+                <span class="logo-mini"><img src="~/Logo/koreerp.png" @*class="img-circle" alt="User Image"*@ height="35" width="35"></span>
+
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>Kore&ensp;</b>ERP</span>
+            </a>
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown messages-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-envelope-o"></i>
+                                <span class="label" style="background-color:blue;">@ViewBag.NotCount</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                @foreach (var item in ViewBag.Notification)
+                                {
+                                    <li>
+                                        <ul class="menu">
+                                            <li>
+                                                <a href="#">
+                                                    <div class="pull-left">
+                                                        <h4 style="font-weight:bold;font-size:12px;">@item.Type</h4>
+                                                    </div>
+                                                    <h4>
+                                                        @item.NotificationHead
+                                                        <small><i class="fa fa-clock-o"></i> @item.PostingDate</small>
+                                                    </h4>
+                                                    <p>@item.NotificationDetails</p>
+                                                </a>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+                                }
+                                <li class="footer"><a href="@Url.Action("ShowNotification","Notification")">See All Notification</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown user user-menu" style="margin-right:40px;">
+
+                            @Html.Partial("_LoginPartial")
+
+                        </li>
+
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+                    @*<div class="pull-left image">
+                        <div class="user-panel">
+                            <div class="pull-left image">
+                        <div class="user-panel" style="text-align:center;">
+                            <div class=" image" style="min-width:62px;" >
+                                <img src="~/Logo/ampl.png" class="img-circle" alt="User Image">
+                            </div>
+                            <div class="pull-left info">
+                                <p style="text-align:center;">@User.Identity.GetUserName() </p>
+                            </div>*@
+                </div>
+                <!-- name form -->
+                @*<li class=" treeview">
+                        <span style="color:white">Bee ERP Modules</span>
+                    </li>*@
+                <!-- /.name form -->
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu" data-widget="tree">
+
+
+
+
+
+
+                    @if (UserModuleManager.IsInModule(Module.StoreRM))
+                    {
+                        <li class=" treeview">
+                            <a href="#">
+                                <i class="glyphicon glyphicon-home"></i> <span>Store RM Module</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                @if (User.IsInRole("StoreRMViewer"))
+                                {
+                                    <li><a href="@Url.Action("StoreReport", "StoreReport")" target="_blank"><i class="fa fa-circle-o"></i>Store RM Reports</a></li>
+                                }
+                                else if (User.IsInRole("StoreRMOperator"))
+                                {
+
+                                    <li><a href="@Url.Action("GRNEntry", "GRN")" target="_blank"><i class="fa fa-circle-o"></i>Goods Receive Note</a></li>
+                                    <li><a href="@Url.Action("LCRNEntry", "LCRN")" target="_blank"><i class="fa fa-circle-o"></i>LC Good Receive Note</a></li>
+                                    <li><a href="@Url.Action("IRMEntry", "IRM")" target="_blank"><i class="fa fa-circle-o"></i>IRMP</a></li>
+                                    <li><a href="@Url.Action("StoreReport", "StoreReport")" target="_blank"><i class="fa fa-circle-o"></i>Store RM Reports</a></li>
+                                }
+                                else
+                                {
+                                    <li class=" treeview">
+                                        <a href="#">
+                                            <i class="fa fa-folder-open"></i> <span>Store RM</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            <li><a href="@Url.Action("WorkOrderEntry", "WorkOrder")" target="_blank"><i class="fa fa-circle-o"></i>Goods Work Order</a></li>
+                                            <li><a href="@Url.Action("GRNEntry", "GRN")" target="_blank"><i class="fa fa-circle-o"></i>Goods Receive Note</a></li>
+                                            <li><a href="@Url.Action("LCRNEntry", "LCRN")" target="_blank"><i class="fa fa-circle-o"></i>LC Good Receive Note</a></li>
+                                            <li><a href="@Url.Action("IRMEntry", "IRM")" target="_blank"><i class="fa fa-circle-o"></i>IRMP</a></li>
+                                            <li><a href="@Url.Action("StockAdjustmentRM", "StockAdjustmentRM")" target="_blank"><i class="fa fa-circle-o"></i>RM Stock Adjustment</a></li>
+                                            <li><a href="@Url.Action("StoreReport", "StoreReport")" target="_blank"><i class="fa fa-circle-o"></i>Store RM Reports</a></li>
+
+                                        </ul>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    @if (UserModuleManager.IsInModule(Module.Production))
+                    {
+                        <li class=" treeview">
+                            <a href="#">
+                                <i class="glyphicon glyphicon-tags"></i> <span>Production Module</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+
+                            <ul class="treeview-menu">
+                                @if (User.IsInRole("ProductionViewer"))
+                                {
+                                    <li class=" treeview">
+                                        <a href="#">
+                                            <i class="fa fa-folder-open"></i> <span>Report</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            <li><a href="@Url.Action("ShowProductionReport", "ProductionReport")" target="_blank"><i class="fa fa-circle-o"></i>Production Report</a></li>
+                                        </ul>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class=" treeview">
+                                        <a href="#">
+                                            <i class="fa fa-folder-open"></i> <span>Production Module</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            <li><a href="@Url.Action("BatchEntry", "BatchEntry")" target="_blank"><i class="fa fa-circle-o"></i>Create Batch</a></li>
+                                            <li><a href="@Url.Action("RMCEntry", "RMCEntry")" target="_blank"><i class="fa fa-circle-o"></i>RMC Entry</a></li>
+                                            <li><a href="@Url.Action("FgProduction", "FgProduction")" target="_blank"><i class="fa fa-circle-o"></i>FGP Entry</a></li>
+                                            <li><a href="@Url.Action("IssueFGStore", "IssueFGStore")" target="_blank"><i class="fa fa-circle-o"></i>Issue FG to FG Store</a></li>
+
+                                        </ul>
+                                    </li>
+
+                                    <li class=" treeview">
+                                        <a href="#">
+                                            <i class="fa fa-folder-open"></i> <span>Report</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            @*<li><a href="@Url.Action("ShowBatchDetails","BatchDetails")"><i class="fa fa-circle-o"></i>Batch Report</a></li>*@
+                                            <li><a href="@Url.Action("ShowProductionReport", "ProductionReport")" target="_blank"><i class="fa fa-circle-o"></i>Production Report</a></li>
+                                        </ul>
+                                        <ul class="treeview-menu">
+                                            @*<li><a href="@Url.Action("Batch","Batch")"><i class="fa fa-circle-o"></i>Create New Batch</a></li>
+                                <li><a href="@Url.Action("OrderBooking","Order")"><i class="fa fa-circle-o"></i>Raw meterial Consumption</a></li>
+                                <li><a href="@Url.Action("FGProduction","FGProduction")"><i class="fa fa-circle-o"></i>Finished Goods Production</a></li>
+                                <li><a href="@Url.Action("IssueFGStore","IssueFGStore")"><i class="fa fa-circle-o"></i>FG Issue to Store</a></li>*@
+                                        </ul>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    }
+
+                    @if (UserModuleManager.IsInModule(Module.StoreFG))
+                    {
+                        <li class=" treeview">
+                            <a href="#">
+
+                                <i class="glyphicon glyphicon-home"></i> <span>Store FG Module</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                @if (User.IsInRole("StoreFGViewer"))
+                                {
+                                    <li><a href="@Url.Action("ShowStoreFGReport","StoreFGReport")" target="_blank"><i class="fa fa-circle-o"></i>FG Report</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("CustomerCreate","Customer")" target="_blank"><i class="fa fa-circle-o"></i>Create Customer</a></li>
+                                    <li><a href="@Url.Action("ImportProformaInvoice", "ImportProformaInvoice")" target="_blank"><i class="fa fa-circle-o"></i>Export PI</a></li>
+                                    <li><a href="@Url.Action("FGRPEntry","FGRP")" target="_blank"><i class="fa fa-circle-o"></i>FG Receive</a></li>
+                                    <li><a href="@Url.Action("StockAdjustment","StockAdjustment")" target="_blank"><i class="fa fa-circle-o"></i>FG Stock Adjustment</a></li>
+                                    @*<li><a href="@Url.Action("SIFDEntry","SIFDEntry")" target="_blank"><i class="fa fa-circle-o"></i>Shift FG From Store to Depot</a></li>*@
+                                    <li><a href="@Url.Action("SIFDEntry","SIFDEntry")" target="_blank"><i class="fa fa-circle-o"></i>Delivery Challan</a></li>
+                                    <li><a href="@Url.Action("ShowStoreFGReport","StoreFGReport")" target="_blank"><i class="fa fa-circle-o"></i>FG Report</a></li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    @if (UserModuleManager.IsInModule(Module.Commercial))
+                    {
+                        <li class=" treeview">
+                            <a href="#">
+                                <i class="glyphicon glyphicon-tags"></i> <span>Commercial Module</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+
+                            <ul class="treeview-menu">
+                                @if (User.IsInRole("ProductionViewer"))
+                                {
+                                    <li class=" treeview">
+                                        <a href="#">
+                                            <i class="fa fa-folder-open"></i> <span>Report</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            <li><a href="@Url.Action("ShowProductionReport", "ProductionReport")" target="_blank"><i class="fa fa-circle-o"></i>Production Report</a></li>
+                                        </ul>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class=" treeview">
+                                        <a href="#">
+                                            <i class="fa fa-folder-open"></i> <span>Settings</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            <li><a href="@Url.Action("MoP", "MoP")" target="_blank"><i class="fa fa-circle-o"></i>Mop List</a></li>
+                                            <li><a href="@Url.Action("Currency", "Currency")" target="_blank"><i class="fa fa-circle-o"></i>Currency List</a></li>
+                                            <li><a href="@Url.Action("Port", "Port")" target="_blank"><i class="fa fa-circle-o"></i>Port List</a></li>
+                                            <li><a href="@Url.Action("Incoterm", "incoterm")" target="_blank"><i class="fa fa-circle-o"></i>Incoterm List</a></li>
+                                            <li><a href="@Url.Action("BeneficiaryBank", "BeneficiaryBank")" target="_blank"><i class="fa fa-circle-o"></i>Beneficiary Bank List</a></li>
+                                        </ul>
+                                        <ul class="treeview-menu"></ul>
+                                    </li>
+                                    <li class=" treeview">
+                                        <a href="#">
+                                            <i class="fa fa-folder-open"></i> <span>Commercial Entries</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            <li><a href="@Url.Action("ImportProformaInvoice", "ImportProformaInvoice")" target="_blank"><i class="fa fa-circle-o"></i>Import PI</a></li>
+                                            <li><a href="@Url.Action("ImportLC", "ImportLC")" target="_blank"><i class="fa fa-circle-o"></i>Import LC</a></li>
+
+                                        </ul>
+                                    </li>
+
+                                    <li class=" treeview">
+                                        <a href="#">
+                                            <i class="fa fa-folder-open"></i> <span>Report</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            <li><a href="@Url.Action("CommercialReport", "CommercialReport")" target="_blank"><i class="fa fa-circle-o"></i>Commercial Report</a></li>
+                                        </ul>
+                                        <ul class="treeview-menu">
+                                            @*<li><a href="@Url.Action("Batch","Batch")"><i class="fa fa-circle-o"></i>Create New Batch</a></li>
+                    <li><a href="@Url.Action("OrderBooking","Order")"><i class="fa fa-circle-o"></i>Raw meterial Consumption</a></li>
+                    <li><a href="@Url.Action("FGProduction","FGProduction")"><i class="fa fa-circle-o"></i>Finished Goods Production</a></li>
+                    <li><a href="@Url.Action("IssueFGStore","IssueFGStore")"><i class="fa fa-circle-o"></i>FG Issue to Store</a></li>*@
+                                        </ul>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    @if (UserModuleManager.IsInModule(Module.Procurement))
+                    {
+                        <li class=" treeview">
+                            <a href="#">
+                                <i class="glyphicon glyphicon-tags"></i> <span>Procurement Module</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+
+                            <ul class="treeview-menu">
+                                @if (User.IsInRole("ProductionViewer"))
+                                {
+                                    <li class=" treeview">
+                                        <a href="#">
+                                            <i class="fa fa-folder-open"></i> <span>Report</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            <li><a href="@Url.Action("ShowProductionReport", "ProductionReport")" target="_blank"><i class="fa fa-circle-o"></i>Production Report</a></li>
+                                        </ul>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class=" treeview">
+                                        <a href="#">
+                                            <i class="fa fa-folder-open"></i> <span>Procurement Entries</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            <li><a href="@Url.Action("WorkOrderEntry", "WorkOrder")" target="_blank"><i class="fa fa-circle-o"></i>Work Order</a></li>
+
+                                        </ul>
+                                    </li>
+
+                                    <li class=" treeview">
+                                        <a href="#">
+                                            <i class="fa fa-folder-open"></i> <span>Report</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            @*<li><a href="@Url.Action("ShowBatchDetails","BatchDetails")"><i class="fa fa-circle-o"></i>Batch Report</a></li>*@
+                                            <li><a href="@Url.Action("ShowProductionReport", "ProductionReport")" target="_blank"><i class="fa fa-circle-o"></i>Production Report</a></li>
+                                        </ul>
+                                        <ul class="treeview-menu">
+                                            @*<li><a href="@Url.Action("Batch","Batch")"><i class="fa fa-circle-o"></i>Create New Batch</a></li>
+                                <li><a href="@Url.Action("OrderBooking","Order")"><i class="fa fa-circle-o"></i>Raw meterial Consumption</a></li>
+                                <li><a href="@Url.Action("FGProduction","FGProduction")"><i class="fa fa-circle-o"></i>Finished Goods Production</a></li>
+                                <li><a href="@Url.Action("IssueFGStore","IssueFGStore")"><i class="fa fa-circle-o"></i>FG Issue to Store</a></li>*@
+                                        </ul>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    @if (UserModuleManager.IsInModule(Module.StoreFG))
+                    {
+                        <li class=" treeview">
+                            <a href="#">
+
+                                <i class="glyphicon glyphicon-oil"></i> <span>Spare Parts Module</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class=" treeview">
+                                    <a href="#">
+                                        <i class="fa fa-folder-open"></i> <span>Indent</span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li><a href="@Url.Action("SPIndent", "SPIndent")" target="_blank"><i class="fa fa-circle-o"></i>SP Indent</a></li>
+                                    </ul>
+                                </li>
+                                <li class=" treeview">
+                                    <a href="#">
+                                        <i class="fa fa-folder-open"></i> <span>Receive</span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li><a href="@Url.Action("MaterialReceive", "MaterialReceive")" target="_blank"><i class="fa fa-circle-o"></i>MR</a></li>
+                                        @*<li><a href="@Url.Action("GRNEntry", "GRN")" target="_blank"><i class="fa fa-circle-o"></i>Local MR</a></li>*@
+                                        @*<li><a href="@Url.Action("LMRGoodsReceiveNote", "LMRGoodsReceiveNote")" target="_blank"><i class="fa fa-circle-o"></i>Local MR</a></li>*@
+                                        <li><a href="@Url.Action("QualityControl", "QualityControl")" target="_blank"><i class="fa fa-circle-o"></i>Quality Control</a></li>
+                                        <li><a href="@Url.Action("MRRGoodsReceiveNote", "MRRGoodsReceiveNote")" target="_blank"><i class="fa fa-circle-o"></i>MRR</a></li>
+                                    </ul>
+                                </li>
+                                <li class=" treeview">
+                                    <a href="#">
+                                        <i class="fa fa-folder-open"></i> <span>Issue</span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li><a href="@Url.Action("IssueSpareParts", "IssueSpareParts")" target="_blank"><i class="fa fa-circle-o"></i>Issue Spare Parts</a></li>
+                                        <li><a href="@Url.Action("InventoryTransfer", "InventoryTransfer")" target="_blank"><i class="fa fa-circle-o"></i>Inventory Transfer</a></li>
+                                        <li><a href="@Url.Action("SparePartsDamage", "SparePartsDamage")" target="_blank"><i class="fa fa-circle-o"></i>Spare Parts Damage</a></li>
+                                    </ul>
+                                </li>
+                                <li class=" treeview">
+                                    <a href="#">
+                                        <i class="fa fa-folder-open"></i> <span>Report</span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li><a href="@Url.Action("SparePartsReportView", "SparePartsReport")" target="_blank"><i class="fa fa-circle-o"></i>Spare Parts Report</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+
+                    @*@if (UserModuleManager.IsInModule(Module.StoreFG))
+                    {
+                        <li class=" treeview">
+                            <a href="#">
+
+                                <i class="glyphicon glyphicon-grain"></i> <span>General Store Module</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class=" treeview">
+                                    <a href="#">
+                                        <i class="fa fa-folder-open"></i> <span>GS Transaction</span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li><a href="@Url.Action("StorePurchaseRequisitionView", "StorePurchaseRequition")" target="_blank"><i class="fa fa-circle-o"></i>Store Purchase Requistion</a></li>
+                                        <li><a href="@Url.Action("MRRView", "MRR")" target="_blank"><i class="fa fa-circle-o"></i>Material Receive</a></li>
+                                        <li><a href="@Url.Action("MRRView", "MRR")" target="_blank"><i class="fa fa-circle-o"></i>Quality Control</a></li>
+                                        <li><a href="@Url.Action("MRRView", "MRR")" target="_blank"><i class="fa fa-circle-o"></i>GS MRR</a></li>
+                                        <li><a href="@Url.Action("GSInventoryIssueView", "GSInventoryIssue")" target="_blank"><i class="fa fa-circle-o"></i>Issue GS Material</a></li>
+                                    </ul>
+                                </li>
+                                <li class=" treeview">
+                                    <a href="#">
+                                        <i class="fa fa-folder-open"></i> <span>Report</span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li><a href="@Url.Action("GeneralStoreReportView", "GeneralStoreReport")" target="_blank"><i class="fa fa-circle-o"></i>General Store Report</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    }*@
+
+
+
+                    @if (UserModuleManager.IsInModule(Module.HRAdmin))
+                    {
+                        <li class=" treeview">
+                            <a href="#">
+                                @*<i class="fa fa-dashboard"></i> <span>Payroll Module</span>*@
+                                <i class="glyphicon glyphicon-user"></i> <span>HR Module</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+
+                            <ul class="treeview-menu">
+
+                                @if (User.IsInRole("HraViewer"))
+                                {
+                                    <li class=" treeview">
+                                        <a href="#">
+                                            <i class="fa fa-folder-open"></i> <span>Report</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            <li><a href="@Url.Action("EmployeeInfoReport", "EmployeeReport")"><i class="fa fa-circle-o"></i>Employee Report</a></li>
+
+                                        </ul>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class=" treeview">
+                                        <a href="#">
+                                            <i class="fa fa-folder-open"></i> <span>Settings</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            <li><a href="@Url.Action("Department","Department")" target="_blank"><i class="fa fa-circle-o"></i>Department List</a></li>
+                                            <li><a href="@Url.Action("Designation","Designation")" target="_blank"><i class="fa fa-circle-o"></i>Designation List</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class=" treeview">
+                                        <a href="#">
+                                            <i class="fa fa-folder-open"></i> <span>Employee</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            <li><a href="@Url.Action("Employee", "Employee")" target="_blank"><i class="fa fa-circle-o"></i>Enter Employee Information</a></li>
+
+
+                                            @*<li><a href="@Url.Action("CustomerVouchar","PaymentVouchar")"><i class="fa fa-circle-o"></i>Attendance Record</a></li>*@
+                                            <li><a href="@Url.Action("JobQuittingInfo","JobQuittingInfo")" target="_blank"><i class="fa fa-circle-o"></i>Job Quitting Information</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class=" treeview">
+                                        <a href="#">
+                                            <i class="fa fa-folder-open"></i> <span>Report</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            <li><a href="@Url.Action("EmployeeInfoReport", "EmployeeReport")" target="_blank"><i class="fa fa-circle-o"></i>Employee Report</a></li>
+                                        </ul>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    }
+
+
+                    @if (UserModuleManager.IsInModule(Module.DataAdmin))
+                    {
+                        <li class=" treeview">
+                            <a href="#">
+                                <i class="glyphicon glyphicon-wrench"></i> <span>Data Admin Module</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="treeview">
+                                    <a href="#">
+                                        <i class="fa fa-folder-open"></i><span>General Settings</span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li><a href="@Url.Action("CompanyInfoView","CompanyInfo")" target="_blank"><i class="fa fa-circle-o"></i>Company Information</a></li>
+                                        <li><a href="@Url.Action("ChartOfInventory", "ChartOfInventory")" target="_blank"><i class="fa fa-circle-o"></i>Inventory Item List</a></li>
+                                        <li><a href="@Url.Action("InventoryOpeningBalance", "InventoryOpeningBalance")" target="_blank"><i class="fa fa-circle-o"></i>Inventory Opening Balance</a></li>
+                                        <li><a href="@Url.Action("InventoryAdditionalInfo", "InventoryAdditionalInfo")" target="_blank"><i class="fa fa-circle-o"></i>Inventory Additional Info</a></li>
+                                        <li><a href="@Url.Action("Depot","Depot")" target="_blank"><i class="fa fa-circle-o"></i>Create Unit</a></li>
+                                        <li><a href="@Url.Action("Store","Store")" target="_blank"><i class="fa fa-circle-o"></i>Create Store</a></li>
+                                        <li><a href="@Url.Action("SupplierGroup","SupplierGroup")" target="_blank"><i class="fa fa-circle-o"></i>Create Supplier Group</a></li>
+                                        <li><a href="@Url.Action("Supplier","Supplier")" target="_blank"><i class="fa fa-circle-o"></i>Create Supplier</a></li>
+                                        <li><a href="@Url.Action("ScreenEntryLock","ScreenEntryLock")" target="_blank"><i class="fa fa-circle-o"></i>Screen Entry Lock</a></li>
+                                        <li><a href="@Url.Action("CreateUOM","CreateUOM")" target="_blank"><i class="fa fa-circle-o"></i>Create UoM</a></li>
+                                    </ul>
+                                </li>
+                                <li class="treeview">
+                                    <a href="#">
+                                        <i class="fa fa-folder-open"></i><span>SP Settings</span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        @*<li><a href="@Url.Action("SparePartsDepartmentView", "SparePartsDepartment")" target="_blank"><i class="fa fa-circle-o"></i>SP Department List</a></li>*@
+                                        @*<li><a href="@Url.Action("SPItemType","SPItemType")" target="_blank"><i class="fa fa-circle-o"></i>Create SP Item Type</a></li>*@
+                                        <li><a href="@Url.Action("SPBox","SPBox")" target="_blank"><i class="fa fa-circle-o"></i>Create SP Box</a></li>
+                                        @*<li><a href="@Url.Action("SparePartsItemList", "SparePartsItemList")" target="_blank"><i class="fa fa-circle-o"></i>Spare Parts Item List</a></li>*@
+                                        <li><a href="@Url.Action("SPAdditionalInfoView", "SPAdditionalInfo")" target="_blank"><i class="fa fa-circle-o"></i>SP Additional Info</a></li>
+                                        <li><a href="@Url.Action("MachineSectionView", "MachineSection")" target="_blank"><i class="fa fa-circle-o"></i>Section List</a></li>
+                                        <li><a href="@Url.Action("MachineTypeView", "MachineType")" target="_blank"><i class="fa fa-circle-o"></i>Machine Type</a></li>
+                                        <li><a href="@Url.Action("SoftwareListView", "SoftwareList")" target="_blank"><i class="fa fa-circle-o"></i>Software List</a></li>
+                                        <li><a href="@Url.Action("MachineDetails", "MachineDetails")" target="_blank"><i class="fa fa-circle-o"></i>Machine Details</a></li>
+                                        <li><a href="@Url.Action("SpOpeningBalance","SpOpeningBalance")" target="_blank"><i class="fa fa-circle-o"></i>SP Opening Balance</a></li>
+                                    </ul>
+                                </li>
+                                <li class="treeview">
+                                    <a href="#">
+                                        <i class="fa fa-folder-open"></i><span>Report</span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li><a href="@Url.Action("UserLogReport","UserLogReport")" target="_blank"><i class="fa fa-circle-o"></i>Data Admin Report</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+
+
+                    @if (UserModuleManager.IsInModule(Module.SystemAdmin))
+                    {
+                        <li class=" treeview">
+                            <a href="#">
+                                @*<i class="fa fa-dashboard"></i> <span>Data Admin Module</span>*@
+                                <i class="glyphicon glyphicon-cog"></i> <span>System Admin Module</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                @if (User.IsInRole("SysViewer"))
+                                {
+                                    <li class="treeview">
+                                        <a href="#">
+                                            <i class="fa fa-folder-open"></i><span>Users Report</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            <li><a href="@Url.Action("UserLogReport","UserLogReport")" target="_blank"><i class="fa fa-circle-o"></i>User Log Report</a></li>
+                                        </ul>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="treeview">
+                                        <a href="#">
+                                            <i class="fa fa-folder-open"></i><span>Users</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            <li><a href="@Url.Action("Register","Account")" target="_blank"><i class="fa fa-circle-o"></i>Create New User</a></li>
+                                            <li><a href="@Url.Action("SetDefaultPassword","PasswordSetToDefault")" target="_blank"><i class="fa fa-circle-o"></i>Set Default Password</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="treeview">
+                                        <a href="#">
+                                            <i class="fa fa-folder-open"></i><span>Users Report</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            <li><a href="@Url.Action("UserLogReport","UserLogReport")" target="_blank"><i class="fa fa-circle-o"></i>User Log Report</a></li>
+                                        </ul>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    }
+
+
+
+
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+
+            <section class="content">
+                @RenderBody()
+            </section>
+        </div>
+        <!-- /.content-wrapper -->
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 1.0.0
+            </div>
+
+        </footer>
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Create the tabs -->
+            <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+                <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+                <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <!-- Home tab content -->
+                <div class="tab-pane" id="control-sidebar-home-tab">
+                    <h3 class="control-sidebar-heading">Recent Activity</h3>
+                    <ul class="control-sidebar-menu">
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+                                    <p>Will be 23 on April 24th</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="menu-icon fa fa-user bg-yellow"></i>
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+                                    <p>New phone +1(800)555-1234</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
+                                    <p>nora@example.com</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="menu-icon fa fa-file-code-o bg-green"></i>
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
+                                    <p>Execution time 5 seconds</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.control-sidebar-menu -->
+                    <h3 class="control-sidebar-heading">Tasks Progress</h3>
+                    <ul class="control-sidebar-menu">
+                        <li>
+                            <a href="javascript:void(0)">
+                                <h4 class="control-sidebar-subheading">
+                                    Custom Template Design
+                                    <span class="label label-danger pull-right">70%</span>
+                                </h4>
+                                <div class="progress progress-xxs">
+                                    <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <h4 class="control-sidebar-subheading">
+                                    Update Resume
+                                    <span class="label label-success pull-right">95%</span>
+                                </h4>
+                                <div class="progress progress-xxs">
+                                    <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <h4 class="control-sidebar-subheading">
+                                    Laravel Integration
+                                    <span class="label label-warning pull-right">50%</span>
+                                </h4>
+                                <div class="progress progress-xxs">
+                                    <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <h4 class="control-sidebar-subheading">
+                                    Back End Framework
+                                    <span class="label label-primary pull-right">68%</span>
+                                </h4>
+                                <div class="progress progress-xxs">
+                                    <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.control-sidebar-menu -->
+                </div>
+                <!-- /.tab-pane -->
+                <!-- Stats tab content -->
+                <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+                <!-- /.tab-pane -->
+                <!-- Settings tab content -->
+                <div class="tab-pane" id="control-sidebar-settings-tab">
+                    <form method="post">
+                        <h3 class="control-sidebar-heading">General Settings</h3>
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Report panel usage
+                                <input type="checkbox" class="pull-right" checked>
+                            </label>
+                            <p>
+                                Some information about this general settings option
+                            </p>
+                        </div>
+                        <!-- /.form-group -->
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Allow mail redirect
+                                <input type="checkbox" class="pull-right" checked>
+                            </label>
+                            <p>
+                                Other sets of options are available
+                            </p>
+                        </div>
+                        <!-- /.form-group -->
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Expose author name in posts
+                                <input type="checkbox" class="pull-right" checked>
+                            </label>
+                            <p>
+                                Allow the user to show his name in blog posts
+                            </p>
+                        </div>
+                        <!-- /.form-group -->
+                        <h3 class="control-sidebar-heading">Chat Settings</h3>
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Show me as online
+                                <input type="checkbox" class="pull-right" checked>
+                            </label>
+                        </div>
+                        <!-- /.form-group -->
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Turn off notifications
+                                <input type="checkbox" class="pull-right">
+                            </label>
+                        </div>
+                        <!-- /.form-group -->
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Delete chat history
+                                <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+                            </label>
+                        </div>
+                        <!-- /.form-group -->
+                    </form>
+                </div>
+                <!-- /.tab-pane -->
+            </div>
+        </aside>
+        <!-- /.control-sidebar -->
+        <!-- Add the sidebar's background. This div must be placed
+             immediately after the control sidebar -->
+        <div class="control-sidebar-bg"></div>
+    </div>
+
+    <!-- ./wrapper -->
+    <!-- jQuery 3 -->
+    @*<script src="~/App_Themes/Theme/bower_components/jquery/dist/jquery.min.js"></script>*@
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/App_Themes/Theme/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/App_Themes/Theme/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="~/App_Themes/Theme/bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <!-- Bootstrap 3.3.7 -->
+    <script src="~/App_Themes/Theme/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Morris.js charts -->
+    @*<script src="~/App_Themes/Theme/bower_components/raphael/raphael.min.js"></script>
+        <script src="~/App_Themes/Theme/bower_components/morris.js/morris.min.js"></script>*@
+    <!-- Sparkline -->
+    <script src="~/App_Themes/Theme/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+    <!-- jvectormap -->
+    @*<script src="~/App_Themes/Theme/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+        <script src="~/App_Themes/Theme/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>*@
+    <!-- jQuery Knob Chart -->
+    @*<script src="~/App_Themes/Theme/bower_components/jquery-knob/dist/jquery.knob.min.js"></script>*@
+    <!-- daterangepicker -->
+    <script src="~/App_Themes/Theme/bower_components/moment/min/moment.min.js"></script>
+    @*<script src="~/App_Themes/Theme/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>*@
+    <!-- datepicker -->
+    <script src="~/App_Themes/Theme/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <!-- Bootstrap WYSIHTML5 -->
+    @*<script src="~/App_Themes/Theme/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>*@
+    <!-- Slimscroll -->
+    @*<script src="~/App_Themes/Theme/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>*@
+    <!-- FastClick -->
+    <script src="~/App_Themes/Theme/bower_components/fastclick/lib/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/App_Themes/Theme/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="~/App_Themes/Theme/dist/js/pages/dashboard.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/App_Themes/Theme/dist/js/demo.js"></script>
+    <script src="~/App_Themes/Theme/bower_components/select2/dist/js/select2.min.js"></script>
+    <script src="~/Scripts/Common.js"></script>
+    @RenderSection("scripts", false)
+
+</body>
+</html>

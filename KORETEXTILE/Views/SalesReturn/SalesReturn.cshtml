@@ -1,0 +1,820 @@
+﻿@model BEEERP.Models.ViewModel.Sales.SalesReturnViewModel
+
+@{
+    ViewBag.Title = "SalesReturn";
+}
+
+
+
+<style>
+    .btn:hover {
+        color: blue !important;
+    }
+
+    .btn:focus {
+        background-color: aqua !important;
+    }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12" style="padding-left:0%;padding-right:0%">
+                        <div class="box">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Sales Return</h3>
+                            </div>
+                            <div class="box-body" style="padding-right:0%">
+                                <div class="col-md-5" style="padding-left:5%">
+                                    <form id="report" target="_blank">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.SRNo, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:2%; padding-right:2%;">
+                                                @Html.TextBoxFor(m => m.SRNo, new { @class = "form-control", @Value = ViewBag.Id })
+                                                @Html.ValidationMessageFor(m => m.SRNo, "", new { @style = "color: red" })
+                                                <div class="input-group-btn">
+                                                    <input type="button" name="search" id="srSearch" value="Search" class="btn skin-blue" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                        
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.InvoiceNo, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:2%; padding-right:2%;">
+                                                @Html.TextBoxFor(m => m.InvoiceNo, new { @class = "form-control", @Value = ViewBag.Id })
+                                                @Html.ValidationMessageFor(m => m.InvoiceNo, "", new { @style = "color: red" })
+                                                <div class="input-group-btn">
+                                                    <input type="button" name="search" id="inSearch" value="Search" class="btn skin-blue" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.ItemID, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.ItemID, (IEnumerable<SelectListItem>)ViewBag.Item, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.ItemID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12" style="padding-right:0%">
+                                            <div class="col-md-2">
+
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.OfferQty, new { @class = "col-md-4 control-label" })
+                                                    <div class="col-sm-8">
+                                                        @Html.TextBoxFor(m => m.OfferQty, new { @class = "form-control", @disabled = "disabled" })
+                                                        @Html.ValidationMessageFor(m => m.OfferQty, "", new { @style = "color: red" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5" style="padding-right:0%">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.SalesQty, "Sales Qty", new { @class = "col-md-4 control-label" })
+                                                    <div class="col-sm-8">
+                                                        @Html.TextBoxFor(m => m.SalesQty, new { @class = "form-control", @disabled = "disabled" })
+                                                        @Html.ValidationMessageFor(m => m.SalesQty, "", new { @style = "color: red" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12" style="padding-right:0%">
+                                            <div class="col-md-2">
+
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.RtnOfferQty, "Rtn Offer Qty", new { @class = "col-md-4 control-label" })
+                                                    <div class="col-sm-8">
+                                                        @Html.TextBoxFor(m => m.RtnOfferQty, new { @class = "form-control", @type = "Number" })
+                                                        @Html.ValidationMessageFor(m => m.RtnOfferQty, "", new { @style = "color: red" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5" style="padding-right:0%">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.ReturnQty, new { @class = "col-md-4 control-label" })
+                                                    <div class="col-sm-8">
+                                                        @Html.TextBoxFor(m => m.ReturnQty, new { @class = "form-control", @type = "Number" })
+                                                        @Html.ValidationMessageFor(m => m.ReturnQty, "", new { @style = "color: red" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="col-md-1" style="padding-left:1%; padding-top:12.5%;">
+                                    <button type="button" id="addToGrid" name="addToGrid" style="height:30%; font-size:100%;" class="btn">Add To Grid</button>
+                                </div>
+                                <div class="col-md-5" style="padding-right:10%">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.SRDate, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 input-group" style="padding-left:2%;padding-right:2%">
+                                            @Html.TextBoxFor(m => m.SRDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            @Html.ValidationMessageFor(m => m.SRDate, "", new { @style = "color: red" })
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Description, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Description, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="box ">
+                                    <div class="box-body">
+                                        <div class="col-md-1">
+
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.TotalQty, new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(m => m.TotalQty, new { @class = "form-control", @disabled = "disabled" })
+                                                    @Html.ValidationMessageFor(m => m.TotalQty, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.TotalValue, new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(m => m.TotalValue, new { @class = "form-control", @disabled = "disabled" })
+                                                    @Html.ValidationMessageFor(m => m.TotalValue, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.TotalVatAmount, new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(m => m.TotalVatAmount, new { @class = "form-control", @disabled = "disabled" })
+                                                    @Html.ValidationMessageFor(m => m.TotalVatAmount, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.TotalDiscountAmount, new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(m => m.TotalDiscountAmount, new { @class = "form-control", @disabled = "disabled" })
+                                                    @Html.ValidationMessageFor(m => m.TotalDiscountAmount, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.TotalRtnAmount, "Net Amount", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(m => m.TotalRtnAmount, new { @class = "form-control", @disabled = "disabled" })
+                                                    @Html.ValidationMessageFor(m => m.TotalRtnAmount, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="box ">
+                                    <div class="box-header with-border box-head-back">
+                                        <h3 class="box-title">Return Sale Item List</h3>
+                                    </div>
+                                    <div class="box-body">
+                                        <table class="table table-responsive" id="DSIAlist">
+                                            <thead>
+                                                <tr>
+                                                    <th>Item Name</th>
+                                                    <th>Return Qty</th>
+                                                    <th>Offer Qty</th>
+                                                    <th>Price</th>
+                                                    <th>Value</th>
+                                                    <th>Vat</th>
+                                                    <th>Discount</th>
+                                                    <th>Net Amount</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8" style="text-align:center;">
+                                        <input type="button" value="Save" id="save" class="btn skin-blue" style="padding-left:20px;" />
+                                        <input type="button" name="Approve" id="Approve" value="Approve" class="btn skin-blue" />
+                                        <input type="button" name="update" id="update" value="Update" class="btn skin-blue" />
+                                        <input type="button" name="delete" id="delete" value="Delete" class="btn skin-blue" />
+                                        <input type="button" name="clear" id="clear" value="Clear" class="btn skin-blue" />
+                                        <input type="button" name="refresh" id="refresh" value="Refresh" class="btn skin-blue" />
+                                        <input type="submit" name="print" id="print" value="Print" class="btn skin-blue" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/SalesModule/SalesReturnInputFocus.js"></script>
+    <script>
+        var itemId = "";
+        var fromNotificationPvNo = "";
+        $("#Approve").hide();
+        $(document).ready(function () {
+            $("#update").hide();
+            $("#delete").hide();
+            $("#clear").hide();
+            $("#print").hide();
+            $("#InvoiceNo").focus();
+            
+           
+
+        });
+
+
+        //if ($("#RVNo").val() != "") {
+        //    var rvno = { rv: parseInt($("#RVNo").val()) };
+        //    fromNotification = rvno;
+        //    SearchClick(rvno);
+        //    //condition
+        //    $("#Approve").show();
+        //    $("#update").hide();
+        //    $("#delete").hide();
+        //}
+        if ($("#SRNo").val() != "") {
+            fromNotificationPvNo = $("#SRNo").val();
+            SearchClick();
+            //condition
+            $("#Approve").show();
+            $("#save").hide();
+        }
+        EnterPress();
+
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+
+        var table = $('#DSIAlist').DataTable({
+            'paging': false,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+
+        $(".select2").select2();
+        var invoiceDetails = [];
+        var addedItems = [];
+        var isValid = true;
+        var rtnQty = "";
+        var rtnOfferQty = "";
+        var isSearch = false;
+        var salesReturn = { SRNo: 0, SRDate: "", InvoiceNo: 0, CustomerId: 0, BranchId: 0, Store: 0, Description: 0, TotalRtnAmount: 0, TotalQty : 0, TotalVatAmount : 0, TotalDiscountAmount : 0}
+
+
+        $(document).on('click', "#refresh", function () {
+            location.reload();
+        });
+
+        //search button search click
+        $(document).on('click', "#inSearch", function () {
+            var id = { id: $("#InvoiceNo").val() };
+            if ($("#InvoiceNo").val() != "") {
+                $.ajax({
+                        url: '@Url.Action("GetInvoiceItemById", "SalesReturn")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Your Entered Invoice No doesn't Exist");
+                            }
+                            else {
+                                $("#ItemID").empty();
+                                $("#ItemID").prop("disabled", false);
+                                $.each(datas, function (index, value) {
+                                    $("#ItemID").append($('<option />', {
+                                        value: value.Value,
+                                        text: value.Text
+                                    })).trigger('change');
+                                });
+                                $("#ItemID").focus();
+                                if (itemId != "") {
+                                    $("#ItemID").val(itemId).change();
+                                    itemId = "";
+                                }
+                            }
+                        }
+                    });
+            }
+            else {
+                alert("Please Enter a Invoice Number.");
+                $("#ItemID").empty();
+                $("#ItemID").prop("disabled", false);
+            }
+        });
+
+        $(document).on('change', "#ItemID", function () {
+            $("#SalesQty").val("");
+            $("#ReturnQty").val("");
+            $("#OfferQty").val("");
+            $("#RtnOfferQty").val("");
+            RemoveError();
+            var id = { id: $(this).val(), invoice: $("#InvoiceNo").val() };
+            $.ajax({
+                url: '@Url.Action("GetInvoiceById", "SalesReturn")',
+                contentType: "application/json;charset=utf-8",
+                data: id,
+                type: 'GET',
+                dataType: 'json',
+                success: function (datas) {
+                    invoiceDetails = [];
+                    var item = { Qty: 0, Price: 0.0, StoreID: 0, DisPerc: 0, VatPerc: 0 }
+                    item.Qty = datas.Qty;
+                    item.Price = datas.Price;
+                    item.StoreID = datas.StoreID;
+                    item.DisPerc = datas.DisPerc;
+                    item.VatPerc = datas.VatPerc;
+                    invoiceDetails.push(item);
+                    if (isSearch == false) {
+                        $("#SalesQty").val(datas.Qty);
+                        $("#OfferQty").val(datas.OfferQty);
+                    }
+                    else {
+                        for (i = 0; i < addedItems.length; i++) {
+                            if (addedItems[i].ItemID == $("#ItemID").val()) {
+                                $("#SalesQty").val(addedItems[i].SalesQty);
+                                $("#OfferQty").val(addedItems[i].OfferQty);
+                                break;
+                            }
+                            else {
+                                continue;
+                            }
+                        }
+                        if ($("#SalesQty").val() == "") {
+                            $("#SalesQty").val(datas.Qty);
+                        }
+                        if ($("#OfferQty").val() == "") {
+                            $("#OfferQty").val(datas.OfferQty);
+                        }
+                        rtnQty = $("#SalesQty").val();
+                        rtnOfferQty = $("#OfferQty").val();
+                        //isSearch = true;
+                    }
+                    if (rtnQty > 0) {
+                        $("#ReturnQty").val(rtnQty);
+                        rtnQty = "";
+                    }
+                    else {
+                        $("#ReturnQty").val(datas.Qty);
+                    }
+
+                    if (parseFloat(rtnOfferQty) >= 0) {
+                        $("#RtnOfferQty").val(rtnOfferQty);
+                        rtnOfferQty = "";
+                    }
+                    else {
+                        $("#RtnOfferQty").val(datas.OfferQty);
+                    }
+                }
+            });
+        });
+
+        $(document).on('focusout', "#RtnOfferQty", function () {
+            if ($(this).val() == "") {
+                $("#RtnOfferQty").val(0);
+            }
+        });
+        
+        $(document).on('click', "#addToGrid", function () {
+            $("#ItemID").prop('disabled', false);
+            RemoveError();
+            var item = { SRNo: 0, ItemID: 0, ReturnQty: 0, VatAmount: 0, DiscountAmount: 0, Value: 0, ValueWVD: 0, Price: 0, ItemName: "", RtnOfferQty: 0, SalesQty: 0, OfferQty: 0 }
+            ValidateAddToGrid();
+            if (isValid == true) {
+                $.each(invoiceDetails, function (index, value) {
+                    item.ItemName = $("#ItemID :selected").text();
+                    item.ItemID = $("#ItemID").val();
+                    item.ReturnQty = $("#ReturnQty").val();
+                    item.RtnOfferQty = $("#RtnOfferQty").val();
+                    item.Price = value.Price;
+                    item.ValueWVD = (item.ReturnQty * item.Price).toFixed(2);
+                    item.VatAmount = ((value.VatPerc / 100) * item.ValueWVD).toFixed(2);
+                    item.DiscountAmount = ((value.DisPerc / 100) * item.ValueWVD).toFixed(2);
+                    var val = parseFloat(item.ValueWVD) + parseFloat(item.VatAmount) - parseFloat(item.DiscountAmount);
+                    item.Value = parseFloat(val).toFixed(2);
+                    item.SalesQty = $("#SalesQty").val();
+                    item.OfferQty = $("#OfferQty").val();
+                    addedItems.push(item);
+                });
+                ClearOnSearch();
+                ShowOnTable();
+            }
+        });
+
+        //delete Row
+        $(document).on('click', '[name="deleteRow"]', function () {
+            var item = $(this).attr("value");
+            var newItem = [];
+            if (confirm('Are you sure you want to delete this from Grid ?')) {
+                $.each(addedItems, function (index, value) {
+                    if (value.ItemID == item) {
+
+                    }
+                    else {
+                        newItem.push(value);
+                    }
+
+                });
+                addedItems = newItem;
+                ShowOnTable();
+            }
+        });
+
+        //edit Row
+        $(document).on('click', '[name="editRow"]', function () {
+            $("#ItemID").prop('disabled', true);
+            var item = $(this).attr("value");
+            var newItem = [];
+            $.each(addedItems, function (index, value) {
+                if (value.ItemID == item) {
+                    
+                    $("#ItemID").val(item).change();
+                    if (isSearch == true) {
+                        $("#SalesQty").val(value.SalesQty);
+                        $("#OfferQty").val(value.OfferQty);
+                        isSearch = true;
+                    }
+                    rtnQty = value.ReturnQty;
+                    if (value.RtnOfferQty == "") {
+                        rtnOfferQty = 0;
+                    }
+                    else {
+                        rtnOfferQty = value.RtnOfferQty;
+                    }
+                    //itemId = value.ItemID;
+                }
+                else {
+                    newItem.push(value);
+                }
+
+            });
+            addedItems = newItem;
+            ShowOnTable();
+        });
+
+        $(document).on('click', "#save", function () {
+            RemoveError();
+            $("#save").prop('disabled', true);
+            SetSalesReturn();
+            if (addedItems.length <= 0) {
+                alert("At least One Item should be added for save.");
+                $("#save").prop('disabled', false);
+            }
+            else {
+                ValidateSalesReturn();
+                if (isValid == true) {
+                    if (confirm('Do you want to save')) {
+                        $.ajax({
+                            url: '@Url.Action("SaveSalesReturnOrder", "SalesReturn")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ salesReturn: salesReturn, addedItems: addedItems }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Failed To Saved.");
+                                    $("#save").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully Saved.");
+                                    //$("#SRNo").val(datas.srNo);
+                                    $("#save").prop('disabled', true);
+                                    $("#print").show();
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        $("#save").prop('disabled', false);
+                    }
+                }
+                else {
+                    $("#save").prop('disabled', false);
+                }
+            }
+        });
+
+        $(document).on('click', "#Approve", function () {
+            RemoveError();
+            SetSalesReturn();
+            $("#Approve").prop('disabled', true);
+         
+                
+                    if (confirm('Do you want to Approve')) {
+                        $.ajax({
+                            url: '@Url.Action("SaveSalesReturn", "SalesReturn")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ salesReturn: salesReturn, addedItems: addedItems }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Failed To Approve.");
+                                    $("#save").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully Approved.");
+                                    $("#SRNo").val(datas.srNo);
+                                    $("#save").prop('disabled', true);
+                                    $("#print").show();
+                                }
+                            }
+                        });
+                
+                    }
+        });
+
+        //search code
+        $(document).on('click', '#srSearch', function () {
+            SearchClick();
+        });
+        function SearchClick() {
+             $("#print").show();
+            $("#InvoiceNo").prop('disabled', true);
+            var id = { id: $("#SRNo").val() };
+            ClearOnSearch();
+            if ($("#SRNo").val() != "") {
+                $.ajax({
+                    url: '@Url.Action("GetSalesReturnById", "SalesReturn")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+
+                        if (datas == 0) {
+                            alert("Your entered SRNo No. Doesn't exist.");
+                        }
+                        else if (datas.Message == 2) {
+                            alert("Your entered SRNo No. Doesn't exist.");
+                        }
+                        else {
+                            if (fromNotificationPvNo == "") {
+                                $("#update").show();
+                                $("#delete").show();
+                                $("#save").hide();
+                            }
+                            //$("#save").hide();
+                            //$("#update").show();
+                            //$("#delete").show();
+
+                            $("#SRDate").val((moment(datas.srItem.SRDate).format("DD-MM-YYYY")));
+                            $("#InvoiceNo").val(datas.srItem.InvoiceNo);
+                            $("#Description").val(datas.srItem.Description);
+                            $("#TotalQty").val(datas.srItem.TotalQty);
+                            $("#TotalRtnAmount").val(datas.srItem.TotalRtnAmount);
+                            $("#TotalVatAmount").val(datas.srItem.TotalVatAmount);
+                            $("#TotalDiscountAmount").val(datas.srItem.TotalDiscountAmount);
+
+                            addedItems = [];
+                            $.each(datas.srLineItem, function (index, value) {
+                                var item = { SRNo: 0, ItemID: 0, ReturnQty: 0, VatAmount: 0, DiscountAmount: 0, Value: 0, ValueWVD: 0, Price: 0, ItemName: "", RtnOfferQty: 0, SalesQty: 0, OfferQty : 0 }
+                                item.ItemName = value.ItemName;
+                                item.ItemID = value.ItemID;
+                                item.ReturnQty = value.ReturnQty;
+                                item.RtnOfferQty = value.RtnOfferQty;
+                                item.Price = value.Price;
+                                item.Value = value.Value;
+                                item.ValueWVD = value.Value - value.VatAmount + value.DiscountAmount;
+                                item.VatAmount = value.VatAmount;
+                                item.DiscountAmount = value.DiscountAmount;
+                                item.SalesQty = value.SalesQty;
+                                item.OfferQty = value.OfferQty;
+                                //salesQty = value.SalesQty;
+                                //offerQty = value.OfferQty;
+                                addedItems.push(item);
+                                isSearch = true;
+                            });
+                            $("#inSearch").click();
+                            ShowOnTable();
+                        }
+                    },
+                    error: function () {
+                        alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services");
+                    }
+                });
+            }
+            else {
+                //alert("Please Enter a SrNo To Search.");
+            }
+                
+        }
+        //update code
+        $(document).on('click', "#update", function () {
+            RemoveError();
+            $("#update").prop('disabled', true);
+            SetSalesReturn();
+            salesReturn.SRNo = $("#SRNo").val();
+            if (addedItems.length <= 0) {
+                alert("At least One Item should be added for Update.");
+                $("#update").prop('disabled', false);
+            }
+            else {
+                ValidateSalesReturn();
+                if (confirm('Do you want to Update')) {
+                    if (isValid == true) {
+                    $.ajax({
+                        url: '@Url.Action("UpdateSalesReturn", "SalesReturn")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ salesReturn: salesReturn, addedItems: addedItems }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Update.");
+                                $("#update").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Updated.");
+                                $("#update").prop('disabled', true);
+                            }
+                        }
+                    });
+                }
+                    else {
+                        $("#update").prop('disabled', false);
+                    }
+                }
+                else {
+                    $("#update").prop('disabled', false);
+                }
+            }
+        });
+        $(document).on('click', "#print", function (event) {
+            event.preventDefault();
+            $("#report").attr("action", "/SalesReturn/SalesReturnPreview")
+            $("#report").submit();
+        });
+        $(document).on('click', "#delete", function () {
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var id = $("#SRNo").val();
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteSalesReturnByid", "SalesReturn")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Delete failed.");
+                            $("#delete").prop('disabled', false);
+                            $("#update").prop('disabled', false);
+                        }
+                        else {
+                            alert("Delete Successfull");
+                            location.reload();
+                        }
+                    }
+                });
+            }
+            else {
+                $("#update").prop('disabled', false);
+                $("#delete").prop('disabled', false);
+            }
+        });
+
+        //data table fill up
+        function ShowOnTable() {
+            table.clear().draw();
+            var totQty = 0;
+            var totAmount = 0;
+            var netAmount = 0;
+            var totVat = 0;
+            var totDiscount = 0;
+            $.each(addedItems, function (index, value) {
+                table.row.add([value.ItemName, value.ReturnQty, value.RtnOfferQty, value.Price, parseFloat(value.ValueWVD).toFixed(2), value.VatAmount, value.DiscountAmount, value.Value,
+                '<a href="#"><i class="fa fa-edit" name="editRow" value="' +
+                    value.ItemID + '"></i></a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.ItemID + '"></i></a>']).draw();
+                totQty += parseFloat(value.ReturnQty);
+                netAmount += parseFloat(value.Value);
+                totAmount += parseFloat(value.ValueWVD);
+                totVat += parseFloat(value.VatAmount);
+                totDiscount += parseFloat(value.DiscountAmount);
+            });
+            $("#TotalQty").val(totQty.toFixed(2));
+            $("#TotalRtnAmount").val(netAmount.toFixed(2));
+            $("#TotalValue").val(totAmount.toFixed(2));
+            $("#TotalVatAmount").val(totVat.toFixed(2));
+            $("#TotalDiscountAmount").val(totDiscount.toFixed(2));
+        }
+
+        function ValidateAddToGrid() {
+            isValid = true;
+            if ($("#ReturnQty").val() == "") {
+                setError("ReturnQty", "Return Qty is required field");
+                isValid = false;
+            }
+            if ($("#ReturnQty").val() <= 0) {
+                setError("ReturnQty", "Return Qty must be grater than Zero");
+                isValid = false;
+            }
+            if ($("#RtnOfferQty").val() < 0) {
+                setError("RtnOfferQty", "Return Offer Qty must be grater than Zero");
+                isValid = false;
+            }
+            if (parseFloat($("#ReturnQty").val()) > parseFloat($("#SalesQty").val())) {
+                setError("ReturnQty", "Return Qty Can Not be Grater Than Sales Qty");
+                isValid = false;
+            }
+            if (parseFloat($("#RtnOfferQty").val()) > parseFloat($("#OfferQty").val())) {
+                setError("RtnOfferQty", "Return Offer Qty Can Not be Grater Than Offer Qty");
+                isValid = false;
+            }
+            $.each(addedItems, function (index, value) {
+                if (value.ItemID == $("#ItemID").val()) {
+                    setError("ItemID", "This Item is Already Added.");
+                    isValid = false;
+                }
+            });
+        }
+
+        function ClearOnSearch() {
+            $("#ItemID").val("").change();
+            $("#SalesQty").val("");
+            $("#ReturnQty").val("");
+            $("#OfferQty").val("");
+            $("#RtnOfferQty").val("");
+            itemId = "";
+        }
+
+        function SetSalesReturn() {
+            salesReturn.SRNo = $("#SRNo").val();
+            salesReturn.SRDate = $("#SRDate").val();
+            salesReturn.InvoiceNo = $("#InvoiceNo").val();
+            salesReturn.CustomerId = 0;
+            salesReturn.BranchId = 0;
+            salesReturn.Store = 0;
+            salesReturn.Description = $("#Description").val();
+            salesReturn.TotalRtnAmount = $("#TotalRtnAmount").val();
+            salesReturn.TotalQty = $("#TotalQty").val();
+            salesReturn.TotalVatAmount = $("#TotalVatAmount").val();
+            salesReturn.TotalDiscountAmount = $("#TotalDiscountAmount").val();
+        }
+
+        function ValidateSalesReturn() {
+            isValid = true;
+            if (salesReturn.SRDate == "") {
+                setError("SRDate", "Date is required field");
+                isValid = false;
+            }
+            if (salesReturn.InvoiceNo == "") {
+                setError("InvoiceNo", "Invoice No is required field");
+                isValid = false;
+            }
+        }
+
+        function FillUprtnQty() {
+            
+        }
+
+    </script>
+
+}
+
+

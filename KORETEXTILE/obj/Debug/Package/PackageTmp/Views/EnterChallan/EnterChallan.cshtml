@@ -1,0 +1,499 @@
+﻿@model BEEERP.Models.TaxCalculator.AITChallan
+@{
+    ViewBag.Title = "EnterChallan";
+}
+
+<link href="~/Content/loading.css" rel="stylesheet" />
+
+<style>
+    /*tbody tr:hover {
+        background-color: dodgerblue;
+        color: white;
+    }*/
+
+    .btn:hover {
+        color: blue !important;
+    }
+
+    .btn:focus {
+        background-color: aqua !important;
+    }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+<form id="report" target="_blank" method="post">
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 class="box-title">Enter Ait Challan Statement</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.ID, "ACS ID", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:2%; padding-right:2%;">
+                                                @Html.TextBoxFor(m => m.ID, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.ID, "", new { @style = "color: red" })
+                                                <div class="input-group-btn">
+                                                    <input type="button" name="searchId" id="searchId" value="Search" class="btn skin-blue" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-4"></div>
+                                            <div class="col-sm-8 ">
+                                                <br />
+                                                <label for="regChallan">Reguler Challan</label>&ensp;&ensp;
+                                                <input type="radio" id="regChallan" name="challanType" value="regChallan" checked />&ensp;&ensp;
+                                                <label for="lastChallan">Adjustment Challan</label>&ensp;&ensp;
+                                                <input type="radio" id="lastChallan" name="challanType" value="lastChallan" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.FinancialYear, "Financial Year", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.FinancialYear, (IEnumerable<SelectListItem>)ViewBag.AssesmentYear, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.FinancialYear, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Location, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.Location, (IEnumerable<SelectListItem>)ViewBag.LoadLocation, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.Location, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Corporation, "Corporation", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.Corporation, (IEnumerable<SelectListItem>)ViewBag.Cororation, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.Corporation, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.ChallanNo, "Challan No", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.ChallanNo, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.ChallanNo, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <div class="col-sm-4"></div>
+                                                <div class="col-sm-8">
+                                                    <input type="button" name="Search" id="search" value="Generate Info" class="btn skin-blue" />
+                                                    <input type="button" name="Save" id="save" value="save" class="btn skin-blue" />
+                                                    <input type="button" name="Refresh" id="refresh" value="Refresh" class="btn skin-blue" />
+                                                    <div class="sk-fading-circle">
+                                                        <div class="sk-circle1 sk-circle"></div>
+                                                        <div class="sk-circle2 sk-circle"></div>
+                                                        <div class="sk-circle3 sk-circle"></div>
+                                                        <div class="sk-circle4 sk-circle"></div>
+                                                        <div class="sk-circle5 sk-circle"></div>
+                                                        <div class="sk-circle6 sk-circle"></div>
+                                                        <div class="sk-circle7 sk-circle"></div>
+                                                        <div class="sk-circle8 sk-circle"></div>
+                                                        <div class="sk-circle9 sk-circle"></div>
+                                                        <div class="sk-circle10 sk-circle"></div>
+                                                        <div class="sk-circle11 sk-circle"></div>
+                                                        <div class="sk-circle12 sk-circle"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Date, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:2%; padding-right:2%">
+                                                @Html.TextBoxFor(m => m.Date, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                @Html.ValidationMessageFor(m => m.Date, "", new { @style = "color: red" })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Description, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Description, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.TotalAmount, "Total Amount", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.TotalAmount, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.TotalAmount, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 class="box-title">AIT Challan Details</h3>
+                                </div>
+                                <div class="box-body">
+                                    <table class="table table-responsive" id="EmpList">
+                                        <thead>
+                                            <tr>
+                                                <th>Employee No</th>
+                                                <th>Employee Name</th>
+                                                <th>Designation</th>
+                                                <th>Type</th>
+                                                <th>Balance (Tk.)</th>
+                                                <th>Percentage (%)</th>
+                                                <th>Challan Amount (Tk.)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="empId" name="empId" />
+    <input type="hidden" id="duringYear" name="duringYear" />
+    <input type="hidden" id="assesmentYear" name="assesmentYear" />
+    <input type="hidden" id="TotAmount" />
+</form>
+
+
+@section scripts
+{
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/TaxCalculator/EnterChallaninputFocus.js"></script>
+    <script>
+        $(".select2").select2();
+        var isValid = true;
+        var isLastChalan = false;
+        var addedItems = [];
+        var totalAmount = 0.0;
+        var aitChallan = { ID: 0, Date: "", FinancialYear: "", Corporation: 0, Location: "", TotalAmount: 0.0, ChallanNo: "", Description: "" }
+
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+
+        var table = $('#EmpList').DataTable({
+            'paging': false,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+        
+        $(document).on('click', "#refresh", function () {
+            location.reload();
+        });
+
+        $(document).ready(function () {
+            $(".sk-fading-circle").hide();
+            $("#save").hide();
+            $("#FinancialYear").focus();
+        });
+        EnterPress();
+        $(document).on('click', "#search", function () {
+            $("#search").prop('disabled', true);
+            RemoveError();
+            var id = { location: $("#Location").val(), corpuration: $("#Corporation").val(), assesmentY: $("#FinancialYear").val(), date: $("#Date").val() };
+            ValidateSearchClick();
+            if (isValid == true) {
+                $(".sk-fading-circle").show();
+                if ($('[name="challanType"]:checked').val() == "regChallan") {
+                    $.ajax({
+                        url: '@Url.Action("GetEmployees", "EnterChallan")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas.deduction != 0 && datas.netPayable == 0) {
+                                var percent = datas.percent;
+                                $.each(datas.deduction, function (index, value) {
+                                    var item = { ID: 0, EmployeeID: 0, PercentageOnBalance: 0.0, Amount: 0.0, WIth_Without: "", Balance: 0.0 };
+                                    item.EmployeeID = value.EmployeeID;
+                                    item.PercentageOnBalance = percent;
+                                    item.Balance = value.Amount;
+                                    item.Amount = value.Amount * (percent / 100);
+                                    item.WIth_Without = value.WIth_Without;
+                                    addedItems.push(item);
+                                });
+
+                                ShowOnTable();
+                                $(".sk-fading-circle").hide();
+                                $("#save").show();
+                            }
+                            else if (datas.netPayable != 0) {
+                                alert("Tax is already calculated for this search conbination.");
+                                $(".sk-fading-circle").hide();
+                            }
+                            else {
+                                alert("No Employee Found for This Search Combination.");
+                                $(".sk-fading-circle").hide();
+                                $("#search").prop('disabled', false);
+                            }
+
+                        }
+                    });
+                }
+                else {
+                    isLastChalan = true;
+                    $.ajax({
+                        url: '@Url.Action("GetRemainTax", "EnterChallan")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas != 0) {
+                                var percent = 100;
+                                $.each(datas, function (index, value) {
+                                    var item = { ID: 0, EmployeeID: 0, PercentageOnBalance: 0.0, Amount: 0.0, WIth_Without: "", Balance: 0.0 };
+                                    item.EmployeeID = value.EmployeeID;
+                                    item.PercentageOnBalance = percent;
+                                    item.Balance = value.NetPayable;
+                                    item.Amount = value.NetPayable;
+                                    item.WIth_Without = value.WIth_Without;
+                                    addedItems.push(item);
+                                });
+
+                                ShowOnTable();
+                                $(".sk-fading-circle").hide();
+                                $("#save").show();
+                            }
+                            else {
+                                alert("No Employee Found for This Search Combination.");
+                                $(".sk-fading-circle").hide();
+                                $("#search").prop('disabled', false);
+                            }
+
+                        }
+                    });
+                }
+            }
+            else {
+                $("#search").prop('disabled', false);
+            }
+        });
+
+        $(document).on('click', "#save", function () {
+            var msg = "";
+            RemoveError();
+            $("#save").prop('disabled', true);
+            SetAitChallan();
+            $.each(addedItems, function (index, value) {
+                if (value.Amount == 0) {
+                    msg = "Challan Amount Can Not be Empty.";
+                }
+            });
+            if (addedItems.length <= 0) {
+                alert("At least One Item should be Needed for save.");
+                $("#save").prop('disabled', false);
+            }
+            else {
+                ValidateSearchClick();
+                ValidateSaveClick();
+                if (isValid == true && msg == "") {
+                    if (confirm('Do you want to save')) {
+                        $.ajax({
+                            url: '@Url.Action("SaveAitChallan", "EnterChallan")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ aitChallan: aitChallan, addedItems: addedItems }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Failed To Saved.");
+                                    $("#save").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully Saved.");
+                                    $("#ID").val(datas.aitChallan.ID);
+                                    $("#save").prop('disabled', true);
+                                    $("#refresh").focus();
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        $("#save").prop('disabled', false);
+                    }
+                }
+                else {
+                    if (msg != "") {
+                        alert(msg);
+                    }
+                    $("#save").prop('disabled', false);
+                }
+            }
+        });
+
+        //search code
+        $(document).on('click', '#searchId', function () {
+            RemoveError();
+                isSearch = true;
+                //$("#search").prop('disabled', true);
+            var id = { id: $("#ID").val() };
+            if ($("#ID").val() != "") {
+                $.ajax({
+                    url: '@Url.Action("GetAitChallanById", "EnterChallan")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+
+                        if (datas == 0) {
+                            alert("Your entered ID Doesn't exist");
+                            $("#search").prop('disabled', false);
+                            location.reload();
+                        }
+                        else {
+                            $("#save").hide();
+                            //$("#update").show();
+                            //$("#delete").show();
+                            $("#ID").val(datas.aitChallanItem.ID);
+                            $("#FinancialYear").val(datas.aitChallanItem.FinancialYear).change();
+                            $("#Date").val((moment(datas.aitChallanItem.Date).format("DD-MM-YYYY")));
+                            $("#Location").val(datas.aitChallanItem.Location).change();
+                            $("#Corporation").val(datas.aitChallanItem.Corporation).change();
+                            $("#TotalAmount").val(datas.aitChallanItem.TotalAmount);
+                            $("#ChallanNo").val(datas.aitChallanItem.ChallanNo);
+                            $("#Description").val(datas.aitChallanItem.Description);
+                            
+                            addedItems = [];
+                            $.each(datas.aitChallanLineItem, function (index, value) {
+                                var item = { ID: 0, EmployeeID: 0, PercentageOnBalance: 0.0, Amount: 0.0, WIth_Without: "", Balance: 0.0 };
+                                item.EmployeeID = value.EmployeeID;
+                                item.PercentageOnBalance = value.PercentageOnBalance;
+                                item.Balance = (value.Amount * 100) / value.PercentageOnBalance;
+                                item.Amount = value.Amount;
+                                item.WIth_Without = value.WIth_Without;
+                                addedItems.push(item);
+                            });
+                            ShowOnTable();
+                            //$("#search").prop('disabled', true);
+                            $("#search").prop('disabled', true);
+                        }
+                    },
+                    error: function () {
+                        alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+                        $("#search").prop('disabled', false);
+                    }
+                });
+            }
+            else {
+                setError("ID", "ID is required To Get Data.");
+            }
+        });
+
+        $(document).on('focusout', '[name="editRow"]', function () {
+            var $row = $(this).closest('tr');
+            var data = table.row($row).data();
+            var rowId = data[0];
+
+            var changedPercent = $(this).val();
+            var changeAmount = 0.0;
+
+            $.each(addedItems, function (index, value) {
+                if (value.EmployeeID == rowId) {
+                    changeAmount = parseFloat(value.Balance).toFixed(2) * (changedPercent / 100);
+                    if (changeAmount > value.Balance) {
+                        alert("Challan Amount Will Be : " + parseFloat(changeAmount).toFixed(2) + " , Which is Grater Than Balance.");
+                        
+                    }
+                    else {
+                        value.Amount = parseFloat(changeAmount).toFixed(2);
+                        value.PercentageOnBalance = changedPercent;
+                    }
+                }
+            });
+            ShowOnTable();
+            
+        });
+        
+        //data table fill up
+        function ShowOnTable() {
+            var totAmount = 0.0;
+            table.clear().draw();
+            $.each(addedItems, function (index, value) {
+                if (isLastChalan == true) {
+                    table.row.add([value.EmployeeID, "Employee Name", "Designation", value.WIth_Without, parseFloat(value.Balance).toFixed(2), '<input type="number" disabled="disabled" name="editRow" value="' + value.PercentageOnBalance + '"/>', parseFloat(value.Amount).toFixed(2)]).draw();
+                    totAmount = totAmount + value.Amount;
+                }
+                else {
+                    table.row.add([value.EmployeeID, "Employee Name", "Designation", value.WIth_Without, parseFloat(value.Balance).toFixed(2), '<input type="number" name="editRow" value="' + value.PercentageOnBalance + '"/>', parseFloat(value.Amount).toFixed(2)]).draw();
+                    totAmount = totAmount + value.Amount;
+                }
+            });
+            $("#TotalAmount").val(parseFloat(totAmount).toFixed(2));
+        }
+
+        function ValidateSearchClick() {
+            isValid = true;
+            if ($("#FinancialYear").val() == "") {
+                setError("FinancialYear", "Assesment Year is required field");
+                isValid = false;
+            }
+
+            if ($("#Location").val() == "") {
+                setError("Location", "Location is required field");
+                isValid = false;
+            }
+
+            if ($("#Corporation").val() == "") {
+                setError("Corporation", "Corpuration is required field");
+                isValid = false;
+            }
+            
+            if ($("#Date").val() == "") {
+                setError("Date", "Date is required field");
+                isValid = false;
+            }
+        }
+
+        function ValidateSaveClick() {
+            isValid = true;
+            if ($("#ChallanNo").val() == "") {
+                setError("ChallanNo", "Challan No is required field");
+                isValid = false;
+            }
+        }
+        //get value from textbox
+        function SetAitChallan() {
+            aitChallan.ID = 0;
+            aitChallan.Date = $("#Date").val();
+            aitChallan.FinancialYear = $("#FinancialYear").val();
+            aitChallan.Corporation = $("#Corporation").val();
+            aitChallan.Location = $("#Location").val();
+            aitChallan.TotalAmount = $("#TotalAmount").val();
+            aitChallan.ChallanNo = $("#ChallanNo").val();
+            aitChallan.Description = $("#Description").val();
+        }
+        
+    </script>
+}
+

@@ -1,0 +1,167 @@
+﻿@model BEEERP.Models.ViewModel.Sales.Report.ReportVModel
+@{
+    ViewBag.Title = "MonthWiseAttendanceSummary";
+}
+<style>
+    .btn:hover {
+        color: blue !important;
+    }
+
+    .btn:focus {
+        background-color: aqua !important; 
+    }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+@using (Html.BeginForm("MonthWiseAttendanceSummary", "AttandanceLogReport", FormMethod.Post, new { id = "report", target = "_blank" }))
+{
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 class="box-title">Month Wise Attendance Summary</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.Year, "Year ", new { @class = "col-md-4 col-sm-3 control-label" })
+                                                <div class="col-sm-6 input-group" style="padding-left:15px; padding-right:15px">
+                                                    @Html.TextBoxFor(m => m.Year, new { @class = "form-control", @placeholder = "Write Year,For Example: 2018" })
+                                                    @Html.ValidationMessageFor(m => m.Year, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.Month, "Month ", new { @class = "col-md-4 col-sm-3 control-label" })
+                                                <div class="col-sm-6">
+                                                    @Html.DropDownListFor(m => m.Month, (IEnumerable<SelectListItem>)ViewBag.Months, new { @class = "form-control select2", })
+                                                    @Html.ValidationMessageFor(m => m.Month)
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.CompanyId, "Search By Company ", new { @class = "col-md-4 col-sm-3 control-label" })
+                                                <div class="col-sm-6">
+                                                    @Html.DropDownListFor(m => m.CompanyId, (IEnumerable<SelectListItem>)ViewBag.Company, new { @class = "form-control select2", })
+                                                    @Html.ValidationMessageFor(m => m.CompanyId)
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.EmployeeID, "Search By Employee ", new { @class = "col-md-4 col-sm-3 control-label" })
+                                                <div class="col-sm-6">
+                                                    @Html.DropDownListFor(m => m.EmployeeID, (IEnumerable<SelectListItem>)ViewBag.Employees, new { @class = "form-control select2", })
+                                                    @Html.ValidationMessageFor(m => m.EmployeeID)
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-4 col-xs-2" style="margin-left:35%;margin-right:35%">
+                                            <div class="form-group">
+                                                <button class="btn skin-blue" type="submit" id="showMonthWiseSummary">Show Month Wise Attendance Summary</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section scripts
+{
+    <script src="~/Scripts/Common.js"></script>
+    <script>
+        $(".select2").select2();
+        var isValid = false;
+        $(document).on('click', "#showMonthWiseSummary", function (event) {
+            event.preventDefault();
+            validation();
+            if (isValid) {
+                isValid = false;
+                $("#report").attr("action", "/AttandanceLogReport/MonthWiseAttendanceSummary")
+                $("#report").submit();
+            }
+            else {
+                alert("Invalid Entry");
+            }
+
+        });
+        $(document).ready(function () {
+            $("#EmployeeID").empty();
+            $("#EmployeeID").prop("disabled", true);
+        });
+        $("#CompanyId").change(function () {
+            var id = $("#CompanyId").val();
+            if (id != "" && id != undefined) {
+                getEmployeesByCompanyId(id);
+            } else {
+                $("#EmployeeID").empty();
+            }
+
+        });
+        function getEmployeesByCompanyId(id) {
+            var params = { companyid: id };
+            $.ajax({
+                type: "GET",
+                url: "/AttandanceLogReport/GetEmployeesByCompanyId/",
+                contentType: "application/Json; charset=utf-8",
+                data: params,
+                success: function (rData) {
+                    if (rData != "" || rData != undefined) {
+                        $("#EmployeeID").empty();
+                        $("#EmployeeID").prop("disabled", false);
+                        $.each(rData, function (index, value) {
+                            $("#EmployeeID").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                    }
+                }
+            });
+        }
+        function validation() {
+            if ($("#Year").val() == "" || $("#Year").val()<=0) {
+                setError("Year", "Year is required field");
+                isValid = false;
+            }
+            if ($("#Month").val() == "" || $("#Month").val() <= 0) {
+                setError("Month", "Month is required field");
+                isValid = false;
+            }
+            if ($("#CompanyId").val() == "") {
+                setError("CompanyId", "Company is required field");
+                isValid = false;
+            }
+            if ($("#Year").val() != "") {
+                if ($("#Year").val().length < 4 || $("#Year").val().length > 4) {
+                    setError("Year", "Invalid Year");
+                    isValid = false;
+                }
+                else {
+                    setError("Year", "");
+                }
+            }
+            if ($("#EmployeeID").val() == "") {
+                $("#EmployeeID").val(0);
+            }
+            if ($("#Year").val() != "" && $("#Month").val() != "" && $("#Year").val().length == 4 && $("#CompanyId").val() != "") {
+                isValid = true;
+                RemoveError();
+            }
+            else {
+                isValid = false;
+            }
+        }
+    </script>
+}
+

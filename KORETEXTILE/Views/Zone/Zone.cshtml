@@ -1,0 +1,164 @@
+﻿@model BEEERP.Models.SalesModule.TblZone
+@{
+    /**/
+
+    ViewBag.Title = "Zone";
+}
+
+<style>
+    tbody tr:hover {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    .btn:hover {
+        color: blue !important;
+    }
+
+    .btn:focus {
+        background-color: aqua !important;
+    }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+@using (Html.BeginForm("SaveZone", "Zone", FormMethod.Post))
+{
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 class="box-title">Create Zone</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ZoneId, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.ZoneId, new { @class = "form-control", @readonly = "readonly", @Value = ViewBag.ZoneId })
+                                            @Html.ValidationMessageFor(m => m.ZoneId,"", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ZoneName, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.ZoneName, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.ZoneName, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-4"></div>
+                                        <div class="col-sm-8">
+                                            <input type="submit" name="Save" id="save" value="Save" class="btn skin-blue" />
+                                            <input type="submit" name="Upate" id="update" value="Update" class="btn skin-blue" />
+                                            <input type="button" name="Refresh" id="refresh" value="Refresh" class="btn skin-blue" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 class="box-title">Zone List</h3>
+                                </div>
+                                <div class="box-body">
+                                    <table class="table table-responsive" id="ZoneList">
+                                        <thead>
+                                            <tr>
+                                                <th>Zone ID</th>
+                                                <th>Zone Name</th>
+                                                @*<th>Action</th>*@
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ViewBag.Zones)
+                                            {
+                                                <tr value="@item.ZoneId" class='clickable-row'>
+                                                    <td>@item.ZoneId</td>
+                                                    <td>@item.ZoneName</td>
+                                                    @*<td> <a href="#" style="padding-right:40px;"><i class="fa fa-edit" value="@item.ZoneId" id="edit"></i> </a></td>*@
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@section scripts{
+    <script>
+        $(function () {
+            $('#ZoneList').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+
+        $(document).ready(function(){
+        $("#update").hide();
+
+        $(document).on('click','#edit',function(){
+              var id=$(this).attr("value");
+        alert(id);
+        });
+        $(document).on('click','#refresh',function(){
+              window.location.reload(true);
+        });
+        });
+        $(".clickable-row").on('click', function (e) {
+                var id = $(this).attr("value");
+                 $.ajax({
+                    url: '@Url.Action("GetZone", "Zone")',
+                    contentType: "application/json;charset=utf-8",
+                     data: JSON.stringify({ zonId: id }),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas.Message==0)
+                        {
+                            alert("This Zone  doesn't exist.");
+                        }
+                        else {
+                            $("#save").hide();
+                            $("#update").show();
+                            $("#ZoneId").val(datas.zone.ZoneId); 
+                            $("#ZoneName").val(datas.zone.ZoneName);
+                            
+                        }
+                    }
+                });
+        });
+
+        //$(document).on('click', "#update", function () {
+
+        //    event.preventDefault();
+        //    if ($("#message").val() != "true") {
+        //        $("#report").attr("action", "/DSIA/GetSamplePreview")
+        //        $("#report").submit();
+        //    }
+        //});
+    </script>
+}

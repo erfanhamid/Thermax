@@ -1,0 +1,324 @@
+﻿@model BEEERP.Models.ViewModel.TaxCalculator.EmployeeDetails
+@{
+    ViewBag.Title = "GetEmployeeDetails";
+}
+
+<style>
+    .btn:hover {
+        color: blue !important;
+    }
+
+    .btn:focus {
+        background-color: aqua !important;
+    }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+<div class="content" style="padding-top:0%">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body" style="padding-top:0%">
+                <div class="row">
+                    <h3 style="text-align:center;font-weight:bold;">Tax Calculation Details</h3>
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-body">
+                                <div class="col-md-6" id="hide">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.AssesmentYear, "Assesment Year", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.AssesmentYear, new { @class = "form-control", @disabled = "disabled" })
+                                            @Html.ValidationMessageFor(m => m.AssesmentYear, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.DuringYear, "During Year", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.DuringYear, new { @class = "form-control", @disabled = "disabled" })
+                                            @Html.ValidationMessageFor(m => m.DuringYear, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.EmpId, "Employee ID", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.EmpId, new { @class = "form-control", @disabled = "disabled" })
+                                            @Html.ValidationMessageFor(m => m.EmpId, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.EmployeeName, "Employee Name", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.EmployeeName, new { @class = "form-control", @disabled = "disabled" })
+                                            @Html.ValidationMessageFor(m => m.EmployeeName, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Gross Salary</h3>
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-responsive" id="StoreList">
+                                    <thead>
+                                        <tr>
+                                            <th>Duration</th>
+                                            <th>Amount (Tk.)</th>
+                                            <th>Month</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.GrossSalary)
+                            {
+                                <tr>
+                                    <td>@item.Month</td>
+                                    <td>@Math.Round(Convert.ToDouble(@item.MonthlyGross), 2)</td>
+                                    <td>@item.NoOfMonths</td>
+                                    <td>@Math.Round(Convert.ToDouble(@item.TotalGross), 2)</td>
+                                </tr>
+                }
+                                    </tbody>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td>Gross Total : </td>
+                                            <td>@Math.Round(Convert.ToDouble(@ViewBag.TotGross), 2)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Tax Details</h3>
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-responsive" id="StoreList">
+                                    <thead>
+                                        <tr>
+                                            <th>BreakeDown</th>
+                                            <th>Amount (Tk.)</th>
+                                            <th>Deduction (Tk.)</th>
+                                            <th>Net Of Deduction (Tk.)</th>
+                                            <th>Exempted (Tk.)</th>
+                                            <th>Taxable Amount (Tk.)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.Exemption)
+                            {
+                                <tr>
+                                    <td>@item.BreakeDown</td>
+                                    <td>@Math.Round(Convert.ToDouble(@item.Amount), 2)</td>
+                                    <td>@Math.Round(Convert.ToDouble(@item.Deduction), 2)</td>
+                                    <td>@Math.Round(Convert.ToDouble(@item.NetOfDeduction), 2)</td>
+                                    <td>@Math.Round(Convert.ToDouble(@item.Exempted), 2)</td>
+                                    <td>@Math.Round(Convert.ToDouble(@item.TaxableAmount), 2)</td>
+                                </tr>
+                }
+                                    </tbody>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>Total Income :</td>
+                                            <td>@Math.Round(Convert.ToDouble(@ViewBag.TotIncome), 2)</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>Less Exempted :</td>
+                                            <td>@Math.Round(Convert.ToDouble(@ViewBag.LessExemp), 2)</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>Taxable Income :</td>
+                                            <td>@Math.Round(Convert.ToDouble(@ViewBag.TaxableAmount), 2)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Income Tax Calculation</h3>
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-responsive" id="StoreList">
+                                    <thead>
+                                        <tr>
+                                            <th>Slab Name</th>
+                                            <th>Max Limit (Tk.)</th>
+                                            <th>Amount (Tk.)</th>
+                                            <th>Percentage</th>
+                                            <th>Taxable Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.SlaBList)
+                            {
+                                <tr>
+                                    <td>@item.SlabName</td>
+                                    <td>@item.Limit</td>
+                                    <td>@Math.Round(Convert.ToDouble(@item.Amount), 2)</td>
+                                    <td>@item.Percentage %</td>
+                                    <td>@Math.Round(Convert.ToDouble(@item.TaxableAmount), 2)</td>
+                                </tr>
+                }
+                                    </tbody>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>Income Tax Payable Without Investment : </td>
+                                            <td>@Math.Round(Convert.ToDouble(@ViewBag.Tax), 2)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h4 id="hideInvAmount" style="font-weight:bold;">Total Investment Amount (Tk.) : @Math.Round(Convert.ToDouble(@ViewBag.InvestmentAmount), 2)</h4>
+                <div class="row" id="hideInvestment">
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Rebate On Investment</h3>
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-responsive" id="StoreList">
+                                    <thead>
+                                        <tr>
+                                            <th>Max Limit (Tk.)</th>
+                                            <th>Investment Amount (Tk.)</th>
+                                            <th>Percentage</th>
+                                            <th>Rebate Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.Investment)
+                            {
+                                <tr>
+                                    <td>@item.MaxLimit</td>
+                                    <td>@Math.Round(Convert.ToDouble(@item.InvestmentAmount), 2)</td>
+                                    <td>@item.RebatePercent %</td>
+                                    <td>@Math.Round(Convert.ToDouble(@item.RebateAmount), 2)</td>
+                                </tr>
+                }
+                                    </tbody>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td>Total Rebate on Investment : </td>
+                                            <td>@Math.Round(Convert.ToDouble(@ViewBag.TotalRebateOnInvestment), 2)</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td>Total Income Tax Payable With Investment : </td>
+                                            <td>@Math.Round(Convert.ToDouble(@ViewBag.TotalIncomeTaxPayableWithInvestment), 2)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Ait Challan Info</h3>
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-responsive" id="StoreList">
+                                    <thead>
+                                        <tr>
+                                            <th>Challan No</th>
+                                            <th>Date</th>
+                                            <th>Challan Amount (Tk.)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.ChallanList)
+                            {
+                                <tr>
+                                    <td>@item.ChallanNo</td>
+                                    <td>@item.Date</td>
+                                    <td>@Math.Round(Convert.ToDouble(@item.Amount), 2)</td>
+                                </tr>
+                }
+                                    </tbody>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td>Total Challan Amount : </td>
+                                            <td>@Math.Round(Convert.ToDouble(@ViewBag.TotChallan), 2)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h4 id="totTaxAmountWithoutInv" style="font-weight:bold;">Net Tax payable Without Investment (Tk.) : @Math.Round(Convert.ToDouble(@ViewBag.TaxWithoutInv), 2)</h4>
+                <h4 id="totTaxAmountWithInv" style="font-weight:bold;">Net Tax payable With Investment (Tk.) : @Math.Round(Convert.ToDouble(@ViewBag.TaxWithInv), 2)</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="type" name="type" value="@ViewBag.Type" />
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            //$("#hide").hide();
+            if ($("#type").val() == "Without Investment") {
+                $("#hideInvAmount").hide();
+                $("#hideInvestment").hide();
+                $("#totTaxAmountWithInv").hide();
+            }
+            else {
+                $("#totTaxAmountWithoutInv").hide();
+            }
+        });
+    </script>
+}
+

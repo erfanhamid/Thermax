@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <SMS_TXTFS xmlns="http://www.bdmitech.com/m2b">
+      <Sender>Sobuj Saya</Sender>
+      <Recipient_Mobile_No>+8801867253953</Recipient_Mobile_No>
+      <Message>Dear Customer, We received your payment 400tk. Receipt No : 1800012. Thank you</Message>
+      <IS_Sender_Masked>Y</IS_Sender_Masked>
+      <IS_SMS_Single>Y</IS_SMS_Single>
+      <Account_ID>18052000000001</Account_ID>
+      <User_Name>sobujsaya</User_Name>
+      <Password>12345678</Password>
+    </SMS_TXTFS>
+  </soap:Body>
+</soap:Envelope>

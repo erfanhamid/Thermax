@@ -1,0 +1,684 @@
+﻿@model BEEERP.Models.HRModule.Employee
+
+@{
+    ViewBag.Title = "Employee";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<h3 style="text-align:center">Create Employee</h3>
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="col-md-12">
+                    <div class="box ">
+                        <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                            <h6 class="box-title">Basic Info</h6>
+                        </div>
+                        <div class="box-body">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.Id,"Employee ID", new { @class = "col-md-4 control-label" })
+                                        <div class="input-group input-group-sm" style="padding-right:15px;padding-left:14px;">
+                                            @Html.TextBoxFor(m => m.Id, new { @class = "form-control", @Value = @ViewBag.EmployeeId })
+                                            @Html.ValidationMessageFor(m => m.Id, "", new { @style = "color: red" })
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn skin-blue btn-flat" id="empSearch" style="min-width: 50px">Search</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.Name,"Employee Name", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Name, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.FatherName,"Father Name", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.FatherName, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.FatherName, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box ">
+                        <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                            <h6 class="box-title">Contact Details</h6>
+                        </div>
+                        <div class="box-body">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.PresentAddress,"Present Address", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextAreaFor(m => m.PresentAddress, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.PresentAddress, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.Email, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Email, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.PermanentAddress,"Permanent Address", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextAreaFor(m => m.PermanentAddress, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.PermanentAddress, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.PersonalEmail,"Personal Mail", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.PersonalEmail, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.PersonalEmail, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.Mobile, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Mobile, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.AlternativeContct,"Alternative Contact No", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.AlternativeContct, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.AlternativeContct, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box ">
+                        <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                            <h6 class="box-title">Official Details</h6>
+                        </div>
+                        <div class="box-body">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.DepatmentID,"Department", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.DepatmentID, (IEnumerable<SelectListItem>)ViewBag.Department, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.DepatmentID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.CompanyId,"Company", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.CompanyId, (IEnumerable<SelectListItem>)ViewBag.CompanyInfo, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.CompanyId, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.Designation, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.Designation, (IEnumerable<SelectListItem>)ViewBag.Designation, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.Designation, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.BranchID, "Unit", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.BranchID, (IEnumerable<SelectListItem>)ViewBag.Branch, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.BranchID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.JoiningDate,"Joining Date", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 date input-group" style="padding-left:15px;padding-right:15px">
+                                            @Html.TextBoxFor(m => m.JoiningDate, new { @class = "form-control", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            @Html.ValidationMessageFor(m => m.JoiningDate, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.ConfirmationDate,"Confirmation Date", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 date input-group" style="padding-left:15px;padding-right:15px">
+                                            @Html.TextBoxFor(m => m.ConfirmationDate, new { @class = "form-control", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            @Html.ValidationMessageFor(m => m.ConfirmationDate, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-body">
+                            <div class="col-md-12 col-sm-offset-5 ">
+                                <button type="button" id="save" style="height:33px; font-size:13px;" class="btn">Save</button>
+                                <button type="button" id="update" style="height:33px; font-size:13px;" class="btn">Update</button>
+                                <button type="button" id="delete" style="height:33px; font-size:13px;" class="btn">Delete</button>
+                                <button type="button" id="refresh" style="height:33px; font-size:13px;" class="btn">Refresh</button>
+                            </div>                     
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-lg" id="attachmentPlate1" data-backdrop="static">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <button type="button" style="float:right" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <div class="modal-header ">
+                <h4 class="modal-title"><b></b></h4>
+            </div>
+            <div class="modal-body">
+                <div class="box ">
+                    <div class="box-header with-border box-head-back">
+                        <h3 class="box-title">Your Attachment (1)</h3>
+                    </div>
+                    <div class="box-body" align="center">
+                        <img src="" style="height:700px;width:650px;" id="atta1" class="img-responsive" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-lg" id="attachmentPlate2" data-backdrop="static">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <button type="button" style="float:right" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <div class="modal-header ">
+                <h4 class="modal-title"><b></b></h4>
+            </div>
+            <div class="modal-body">
+                <div class="box ">
+                    <div class="box-header with-border box-head-back">
+                        <h3 class="box-title">Your Attachment (2)</h3>
+                    </div>
+                    <div class="box-body" align="center">
+                        <img src="" style="height:700px;width:650px;" id="atta2" class="img-responsive" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-lg" id="attachmentPlate3" data-backdrop="static">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <button type="button" style="float:right" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <div class="modal-header ">
+                <h4 class="modal-title"><b></b></h4>
+            </div>
+            <div class="modal-body">
+                <div class="box ">
+                    <div class="box-header with-border box-head-back">
+                        <h3 class="box-title">Your Attachment (3)</h3>
+                    </div>
+                    <div class="box-body" align="center">
+                        <img src="" style="height:700px;width:650px;" id="atta3" class="img-responsive" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-lg" id="attachmentPlate4" data-backdrop="static">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <button type="button" style="float:right" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <div class="modal-header ">
+                <h4 class="modal-title"><b></b></h4>
+            </div>
+            <div class="modal-body">
+                <div class="box ">
+                    <div class="box-header with-border box-head-back">
+                        <h3 class="box-title">Your Attachment (4)</h3>
+                    </div>
+                    <div class="box-body" align="center">
+                        <img src="" style="height:700px;width:650px;" id="atta4" class="img-responsive" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-lg" id="attachmentPlate5" data-backdrop="static">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <button type="button" style="float:right" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <div class="modal-header ">
+                <h4 class="modal-title"><b></b></h4>
+            </div>
+            <div class="modal-body">
+                <div class="box ">
+                    <div class="box-header with-border box-head-back">
+                        <h3 class="box-title">Your Attachment (5)</h3>
+                    </div>
+                    <div class="box-body" align="center">
+                        <img src="" style="height:700px;width:650px;" id="atta5" class="img-responsive" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/PayRollModule/EmployeeInputFocus.js"></script>
+
+    <script>
+        $(".select2").select2();
+        $(document).ready(function (){
+            $("#update").hide();
+            $("#delete").hide();
+            $("#BranchID").val("@ViewBag.DepotId").change();
+            //$("#BranchID").prop('disabled', true);
+            isValid = false;
+            $("#Name").focus();
+
+        });
+
+        EnterPress();
+        var emp = { Id: 0, Name: "", FatherName: "", MotherName: "",  PresentAddress: "", PermanentAddress: "", Mobile: "", Email: "",  JoiningDate: "", Designation: 0,   DepatmentID: 0, AlternativeContct: "", PersonalEmail: "" , BranchID: 0, LogInUserName: "", CompanyId: 0, ConfirmationDate: "",Status: true };
+
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+
+        $(document).on('click', "#refresh", function () {
+            window.location.reload(true);
+        });
+
+        $(".digit").keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                //$("#errormsg").html("Digits Only").show().fadeOut("slow");
+                return false;
+            }
+        });
+
+        @*$(document).on('click', '#save', function () {
+            RemoveError();
+            //$("#save").prop('disabled', true);
+            SetEmp();
+            ValidateEmp();
+            if (isValid == true) {
+                if (confirm('Do you want to save')) {
+                    $.ajax({
+                    url: '@Url.Action("SaveEmployee", "Employee")',
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({ emp: emp }),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Failed To Saved. Employee Id is already Exist");
+                            $("#save").prop('disabled', false);
+                        }
+                        else {
+                            alert("Sucessfully Saved.");
+                            $("#save").hide();
+                        }
+                    }
+                    });
+                }
+
+            }
+            else {
+                $("#save").show();
+            }
+        });*@
+
+        $(document).on('click', '#update', function () {
+            RemoveError();
+            //$("#save").prop('disabled', true);
+            SetEmp();
+            ValidateEmp();
+            if (isValid == true) {
+
+
+                if (confirm('Do you want to Update?')) {
+                    $.ajax({
+                        url: '@Url.Action("UpdateEmployee", "Employee")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ emp: emp }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To update. Employee Id is already Exist");
+                                $("#save").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Saved.");
+                                $("#save").hide();
+                            }
+                        }
+
+                    });
+                }
+            }
+            else {
+                $("#save").show();
+            }
+        });
+        $(document).on('click', '#save', function () {
+            RemoveError();
+            //$("#save").prop('disabled', true);
+            SetEmp();
+            ValidateEmp();
+            if (isValid == true) {
+                
+                if (confirm('Do you want to save')) {
+                    $.ajax({
+                        url: '@Url.Action("SaveEmployee", "Employee")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ emp: emp }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Saved. Employee Id is already Exist");
+                                $("#save").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Saved.");
+                                $("#Id").val(datas.id);
+                                $("#save").hide();
+                            }
+                        }
+                    });
+                }
+                
+            }
+            else {
+                $("#save").show();
+            }
+        });
+
+        //search employee
+        $(document).on('click', "#empSearch", function () {
+            RemoveError();
+            $("#update").show();
+            $("#delete").show();
+            $("#save").hide();
+
+            var param = { empId: $("#Id").val() };
+            $.ajax({
+                url: '@Url.Action("SearchEmployeeById", "Employee")',
+                contentType: "application/json;charset=utf-8",
+                data: param,
+                type: 'GET',
+                dataType: 'json',
+                success: function (datas) {
+                    if (datas != 0) {
+
+                        if (datas.IsUpdate == 1) {
+                            $("#DepatmentID").attr('disabled', false);
+                            $("#BranchID").attr('disabled', false);
+                            $("#Designation").attr('disabled', false);
+                            $("#JoiningDate").attr('disabled', false);
+                            $("#HighestEducation").attr('disabled', false);
+                            $("#ConfirmationDate").attr('disabled', false);
+                            $("#CompanyId").attr('disabled', false);
+
+                        }
+                        else {
+                            $("#DepatmentID").attr('disabled', true);
+                            $("#BranchID").attr('disabled', true);
+                            $("#Designation").attr('disabled', true);
+                            $("#JoiningDate").attr('disabled', true);
+                            $("#ConfirmationDate").attr('disabled', true);
+                            $("#CompanyId").attr('disabled', true);
+                        }
+                        $("#OBDate").val(datas.OBDate);
+                        $("#Name").val(datas.Name);
+
+                        $("#FatherName").val(datas.FatherName);
+                        $("#MotherName").val(datas.MotherName);
+                        $("#PresentAddress").val(datas.PresentAddress);
+                        $("#Email").val(datas.Email);
+                        $("#PermanentAddress").val(datas.PermanentAddress);
+                        $("#PersonalEmail").val(datas.PersonalEmail);
+                        $("#Mobile").val(datas.Mobile);
+                        $("#AlternativeContct").val(datas.AlternativeContct);
+                        $("#DepatmentID").val(datas.DepatmentID).change();
+                        $("#BranchID").val(datas.BranchID).change();
+                        $("#Designation").val(datas.Designation).change();
+                        $("#JoiningDate").val(datas.JoiningDate);
+                        $("#CompanyId").val(datas.CompanyId).change();
+                        $("#Status").val(String(datas.Status)).change();
+
+  
+                        if (datas.Status==true) {
+                            $("#update").show();
+                        }
+                        else {
+                            $("#update").hide();
+                        }
+                        $("#delete").show();
+                        $("#save").hide();
+                        $("#update").attr("disabled", false);
+                    }
+                    else {
+                        $("#OBDate").val("");
+                        $("#Name").val("");
+
+                        $("#FatherName").val("");
+                        $("#MotherName").val("");
+                        $("#PresentAddress").val("");
+                        $("#Email").val("");
+                        $("#PermanentAddress").val("");
+                        $("#PersonalEmail").val("");
+                        $("#Mobile").val("");
+                        $("#AlternativeContct").val("");
+                        $("#DepatmentID").val("").change();
+                        $("#BranchID").val("").change();
+                        $("#Designation").val("").change();
+                        $("#JoiningDate").val("").change();
+                        $("#ConfirmationDate").val("").change();
+                        $("#save").hide();
+                        $("#update").show();
+                        $("#update").attr("disabled", true);
+                        $("#delete").hide();
+                        alert("May be this Employee Is not Existed");
+                    }
+                }
+
+            });
+        });
+
+        //delete Employee
+        $(document).on('click', "#delete", function () {
+            $("#delete").prop('disabled', true);
+            var param = { id: $("#Id").val() };
+
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteEmpById", "Employee")',
+                    contentType: "application/json;charset=utf-8",
+                    data: param,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Delete Failed");
+                            $("#delete").prop('disabled', false);
+                        }
+                        else {
+                            alert("Successfully Deleted");
+                            window.location.reload(true);
+                        }
+                    }
+                });
+            }
+            else {
+                $("#delete").prop('disabled', false);
+            }
+        });
+
+
+        //not done
+        @*$(document).on('click', "#update", function () {
+            ValidateEmp();
+            $("#update").prop('disabled', true);
+            if (isValid == true)
+            {
+                if (confirm('Do you want to Update')) {
+                    SetEmp();
+                    $.ajax({
+                    url: '@Url.Action("UpdateEmployee", "Employee")',
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({ emp: emp }),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Update Failed");
+                            $("#update").prop('disabled', false);
+                        }
+                        else {
+                            alert("Update Sucessfull.");
+                            location.reload();
+                        }
+                    }
+                    });
+                }
+            }
+        });*@
+
+        function SetEmp() {
+            emp.Id = $("#Id").val();
+            emp.Name = $("#Name").val();
+            emp.FatherName = $("#FatherName").val();
+            emp.MotherName = $("#MotherName").val();
+            emp.PresentAddress = $("#PresentAddress").val();
+            emp.PermanentAddress = $("#PermanentAddress").val();
+            emp.Mobile = $("#Mobile").val();
+            emp.Email = $("#Email").val();
+            emp.JoiningDate = $("#JoiningDate").val();
+            emp.Designation = $("#Designation").val();
+            emp.DepatmentID = $("#DepatmentID").val();
+            emp.BloodGroup = $("#BloodGroup").val();
+            emp.AlternativeContct = $("#AlternativeContct").val();
+            emp.PersonalEmail = $("#PersonalEmail").val();
+            emp.NationalID = $("#NationalID").val();
+            emp.BranchID = $("#BranchID").val();
+            emp.LogInUserName = $("#LogInUserName").val();
+            emp.CompanyId = $("#CompanyId").val();
+            emp.ConfirmationDate = $("#ConfirmationDate").val();
+            emp.Status = $("#Status").val();
+            //if ($("#Status").val()==1) {
+            //    emp.Status = true;
+            //} else {
+            //    emp.Status = false;
+            //}
+
+        }
+
+        function ClearEmp() {
+           $("#Id").val();
+           $("#Name").val();
+           $("#FatherName").val();
+           $("#MotherName").val();
+           $("#PresentAddress").val();
+           $("#PermanentAddress").val();
+           $("#Mobile").val();
+           $("#Email").val();
+           $("#JoiningDate").val();
+           $("#Designation").val();
+           $("#DepatmentID").val();
+           $("#AlternativeContct").val();
+           $("#PersonalEmail").val();
+           $("#FunctDesignation").val();
+           $("#BranchID").val();
+           $("#LogInUserName").val();
+        }
+
+        function ValidateEmp() {
+            isValid = true;
+            if (emp.Id == "") {
+                setError("Id", "Employee No is required field");
+                isValid = false;
+            }
+            if (emp.Name == "") {
+                setError("Name", "Please enter employee name");
+                isValid = false;
+            }
+
+            if (emp.DepatmentID == "") {
+                setError("DepatmentID", "Please select Department");
+                isValid = false;
+            }
+
+            if (emp.CompanyId == "") {
+                setError("CompanyId", "Please select company");
+                isValid = false;
+            }
+
+            if (emp.BranchID == "") {
+                setError("BranchID", "Please select unit");
+                isValid = false;
+            }
+
+            if (emp.Designation == "") {
+                setError("Designation", "Please select designation");
+                isValid = false;
+            }
+        }
+
+    </script>
+}

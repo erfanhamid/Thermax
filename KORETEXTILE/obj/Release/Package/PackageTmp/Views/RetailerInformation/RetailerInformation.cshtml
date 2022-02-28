@@ -1,0 +1,584 @@
+﻿@using BEEERP.Models.Authentication
+@using BEEERP.Models.CommonInformation
+@model BEEERP.Models.ViewModel.Sales.Retailer.RetailerInformationVModel
+@{
+    ViewBag.Title = "RetailerInformation";
+}
+
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+    #loader {
+        display: none;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        z-index: 1;
+        width: 150px;
+        height: 150px;
+        margin: -75px 0 0 -75px;
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        border-bottom: 16px solid #3498db;
+        width: 120px;
+        height: 120px;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+    }
+
+    @@-webkit-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @@keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+<h3 style="text-align:center">Create New Retailer</h3>
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h6 class="box-title">Retailer Information </h6>
+                            </div>
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.RetailerId, "Retailer ID", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:16px">
+                                                @Html.TextBoxFor(m => m.RetailerId, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.RetailerId, "", new { @style = "color: red" })
+                                                <div class="input-group-btn">
+                                                    <input type="button" name="search" id="search" value="Search" class="btn btn-primary" style="min-width: 50px" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.RetailerName, "Retailer", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.RetailerName, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.RetailerName, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Area, "Area", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.Area, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.Area, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.DepotId, "Depot", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.DepotId, (IEnumerable<SelectListItem>)ViewBag.Depot, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.DepotId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.CustName, "Dealer", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.CustName, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.CustName, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Zone, "Zone", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.Zone, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.Zone, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.CustomerID, "Dealer", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.CustomerID, (IEnumerable<SelectListItem>)ViewBag.Dealer, new { @class = "form-control  select2", })
+                                                @Html.ValidationMessageFor(m => m.CustomerID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.IsDealer, "Is Dealer?", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                <input type="radio" name="IsDealer" value="Yes" id="IsDealerYes" checked> Yes
+                                                <input type="radio" name="IsDealer" value="No" id="IsDealerNo"> No<br>
+                                                @Html.ValidationMessageFor(m => m.IsDealer, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        @*<div class="form-group">
+                            @Html.LabelFor(m => m.IsDealer, "Is Dealer?", new { @class = "col-md-4 control-label" })
+                            <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                <select name="cars" id="cars">
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                                    @Html.ValidationMessageFor(m => m.IsDealer, "", new { @style = "color: red" })
+                            </div>
+                        </div>*@
+
+                                    </div>
+                                    <div class="col-md-4">
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.OB, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.OB, new { @class = "form-control", @type = "number" })
+                                                @Html.ValidationMessageFor(x => x.OB, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box ">
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.ContactPerson, "Contact Person", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:16px">
+                                                @Html.TextBoxFor(m => m.ContactPerson, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.ContactPerson, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Mobile, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                <label class="col-sm-1" style="padding-left:0%;font-size:150%;text-align:center;color:green">+88</label>
+                                                <div class="col-sm-11" style="padding-right:0%;">
+                                                    @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control digit" })
+                                                </div>
+                                                @Html.ValidationMessageFor(x => x.Mobile, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Phone, "Land Phone", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:16px">
+                                                @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Phone, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Email, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(x => x.Email, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.BillTo, "Bill Address", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextAreaFor(m => m.BillTo, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(x => x.BillTo, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.ShipTo, "Delivery Address", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextAreaFor(m => m.ShipTo, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(x => x.ShipTo, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="background-color:white; ">
+                            <div class="form-group">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-12" style="text-align:center;">
+                                    <input type="submit" value="Save" id="save" class="btn btn-primary" />
+                                    <input type="button" value="Update" id="update" class="btn btn-primary" />
+                                    <input type="button" value="Delete" id="delete" class="btn btn-primary" />
+                                    @*<input type="button" value="Report" id="report" class="btn btn-primary" />*@
+                                    <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+
+@section scripts{
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/RetailerInformation.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#update").hide();
+            $("#delete").hide();
+            $(".select2").select2();
+            $("#DepotId").focus();
+            EnterPress();
+            function getCheckboxStatus() {
+                var status = document.getElementById("processedCheckBox").checked;
+                if (status) {
+                    alert("Yes");
+                } else {
+                    alert("No");
+                }
+            }
+        });
+        
+        var isValid = true;
+        var isSearch = false;
+        var dealerId;
+        var item;
+        var retailer = { Id: 0, RetailerName: "", OB: 0.0, ConPerson: "", MobileNo: "", TelephoneNo: "", EmailId: "", Billto: "", Shipto: "", DealerYesNo: "Yes", CustomerID: 0 };
+        
+        $('#IsDealerYes').click(function () {
+            if ($(this).is(':checked')) {
+                retailer.DealerYesNo = "Yes";
+            }
+        });
+        $('#IsDealerNo').click(function () {
+            if ($(this).is(':checked')) {
+                retailer.DealerYesNo = "No";
+            }
+        });
+       
+             
+        $(document).on('change', "#DepotId", function () {
+            // ClearOnDepotChange();
+            var id = { id: $(this).val() };
+            if (id.id != "") {
+                $.ajax({
+                    url: '@Url.Action("GetDealerByDepot", "RetailerInformation")',
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify(id),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+
+                        $("#CustomerID").empty();
+                        $("#CustomerID").prop("disabled", false);
+                        $.each(datas, function (index, value) {
+                            $("#CustomerID").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                    }
+                });
+            }
+            else {
+                $("#CustomerID").empty();
+                //$("#CustomerID").prop("disabled", true);
+            }
+
+        });
+
+        //Dealer Change Event
+        $(document).on('change', "#CustomerID", function () {
+            var param = { custId: $("#CustomerID").val() };
+            if (param.custId != "") {
+                if (isSearch == false) {
+                $.ajax({
+                    url: '@Url.Action("GetCustomerById", "RetailerInformation")',
+                    contentType: "application/json;charset=utf-8",
+                    data: param,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas != 0) {
+                            //$("#update").show();
+                            //$("#delete").show();
+                            //$("#save").hide();
+                            $("#CustName").val(datas.Name);
+                            $("#DepotId").val(datas.Depot);
+                            $("#Zone").val(datas.Zone);
+                            $("#Area").val(datas.Area);
+                        }
+                    }
+                    });
+                } 
+            } else {
+                $("#CustomerID").val(dealerId);
+                isSearch = false;
+            }
+           
+        });
+
+             //Save Button click
+        $(document).on('click', '#save', function (e) {
+            $("#save").prop('disabled', true);
+            RemoveError();
+            ValidateCustomer();
+            if (isValid == true) 
+            {
+                SetRetailer();
+                if (confirm('Do you want to save?')) {
+                   $.ajax({
+                    url: '@Url.Action("SaveRetailer", "RetailerInformation")',
+                       contentType: "application/json;charset=utf-8",
+                       data: JSON.stringify({ retailer: retailer }),
+                       type: 'POST',
+                       dataType: 'json',
+                       success: function (datas) {
+                           if (datas.message == 1) {
+
+                               alert("Save Sucessfull.");
+                               $("#RetailerId").val(datas.Id);
+                           }
+                           else {
+                               alert("Save Failed");
+                               $("#save").prop('disabled', false);
+                           }
+                       }
+                   });
+                }
+                else {
+                    $("#save").prop('disabled', false);
+                }
+            }
+            else {
+                $("#save").prop('disabled', false);
+            }
+        });
+
+        $(document).on('click', '#update', function (e) {
+            $("#save").prop('disabled', true);
+            RemoveError();
+            ValidateCustomer();
+            if (isValid == true) 
+            {
+                SetRetailer();
+                if (confirm('Do you want to Update?')) {
+                   $.ajax({
+                    url: '@Url.Action("updateRetailer", "RetailerInformation")',
+                       contentType: "application/json;charset=utf-8",
+                       data: JSON.stringify({ retailer: retailer }),
+                       type: 'POST',
+                       dataType: 'json',
+                       success: function (datas) {
+                           if (datas.message == 1) {
+                               alert("Updated Sucessfull.");
+                               $("#RetailerId").val(datas.Id);
+                               location.reload();
+                           }
+                           else {
+                               alert("Update Failed");
+                               $("#save").prop('disabled', false);
+                           }
+                       }
+                   });
+                }
+                else {
+                    $("#save").prop('disabled', false);
+                }
+            }
+            else {
+                $("#save").prop('disabled', false);
+            }
+        });
+
+        $(document).on('click', '#delete', function (e) {
+            $("#save").prop('disabled', true);
+            RemoveError();
+            //ValidateCustomer();
+            if (isValid == true) 
+            {
+                SetRetailer();
+                if (confirm('Do you want to delete?')) {
+                   $.ajax({
+                    url: '@Url.Action("DeleteRetailer", "RetailerInformation")',
+                       contentType: "application/json;charset=utf-8",
+                       data: JSON.stringify({ retailer: retailer }),
+                       type: 'POST',
+                       dataType: 'json',
+                       success: function (datas) {
+                           if (datas.message == 1) {
+                               alert("Deleted Sucessfull.");
+                               location.reload();
+                           }
+                           else {
+                               alert("Delet Failed");
+                               //$("#save").prop('disabled', false);
+                           }
+                       }
+                   });
+                }
+                else {
+                    $("#save").prop('disabled', false);
+                }
+            }
+            else {
+                $("#save").prop('disabled', false);
+            }
+        });
+        $(document).on('click', '#refresh', function () {
+            location.reload();
+        });
+
+        //customer search who has access 
+        $(document).on('click', "#search", function () {
+            var param = { retId: $("#RetailerId").val() };
+            RemoveError();
+                $.ajax({
+                    url: '@Url.Action("SearchRetailerById", "RetailerInformation")',
+                    contentType: "application/json;charset=utf-8",
+                    data: param,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if(datas!=0)
+                        {
+                            $("#update").show();
+                            $("#delete").show();
+                            $("#save").hide();
+                            $("#RetailerId").val(datas.item.Id);
+                            $("#RetailerName").val(datas.item.RetailerName);
+                            $("#CustName").val(datas.Name);
+                            $("#DepotId").val(datas.Depot).change();
+                            $("#CustomerID").val(datas.item.CustomerID).change();
+                            dealerId = datas.item.CustomerID;
+                            $("#Credit").val(datas.Credit);
+                            $("#AsDate").val(datas.AsOnDate);
+                            $("#OB").val(datas.item.OB);
+                            $("#Zone").val(datas.Zone);
+                            $("#Area").val(datas.Area);
+                            $("#ContactPerson").val(datas.item.ConPerson);
+                            $("#Mobile").val(datas.item.MobileNo);
+                            $("#Phone").val(datas.item.TelephoneNo);
+                            $("#Email").val(datas.item.EmailId);
+                            $("#BillTo").val(datas.item.Billto);
+                            $("#ShipTo").val(datas.item.Shipto);
+                           
+                            tso = datas.TSO;
+                            isSearch = true;
+                            if (datas.item.DealerYesNo=='Yes') {
+                                $("#IsDealerYes").prop("checked", true);
+                            } else {
+                                $("#IsDealerNo").prop("checked", true);
+                            }
+                        }
+                        else {
+                            $("#CustomerName").val("");
+                            $("#DepotId").val("");
+                            $("#Credit").val("");
+                            $("#AsDate").val("");
+                            $("#OB").val("");
+                            $("#ZoneId").val("");
+                            $("#AreaName").val("");
+                            $("#ConPerson").val("");
+                            $("#MobileNo").val("");
+                            $("#TelephoneNo").val("");
+                            $("#EmailId").val("");
+                            $("#BillTo").val("");
+                            $("#ShipTo").val("");
+                            $("#CreditDays").val("");
+                            //$("#TSOId").val("");
+                            //$("#CustomerType").val("");
+                            
+                            alert("May be retailer doesn't exist.");
+                        }
+                    }
+                });
+        });
+        function ValidateCustomer() {
+            if ($("#DepotId").val() == "") {
+                setError("DepotId", "Department must be selected");
+                isValid = false;
+            } if ($("#CustomerID").val() == "") {
+                setError("CustomerID", "Dealer must be selected");
+                isValid = false;
+            } if ($("#RetailerName").val() == "") {
+                setError("RetailerName", "Retailer Name ");
+                isValid = false;
+            }
+        }
+
+        function SetRetailer() {
+            retailer.Id = $("#RetailerId").val();
+            retailer.RetailerName = $("#RetailerName").val();
+            retailer.OB = $("#OB").val();
+            retailer.ConPerson = $("#ContactPerson").val();
+            retailer.MobileNo = $("#Mobile").val();
+            retailer.TelephoneNo = $("#Phone").val();
+            retailer.EmailId = $("#Email").val();
+            retailer.Billto = $("#BillTo").val();
+            retailer.Shipto = $("#ShipTo").val();
+            //retailer.DealerYesNo = $("#IsDealer").val();
+            retailer.CustomerID = $("#CustomerID").val();
+            if ($("#IsDealerYes").is(':checked')) {
+                retailer.DealerYesNo = "Yes";
+            } else {
+                retailer.DealerYesNo = "No";
+            }
+
+        }
+
+    </script>
+}

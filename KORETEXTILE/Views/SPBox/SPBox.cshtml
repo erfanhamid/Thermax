@@ -1,0 +1,336 @@
+﻿@model BEEERP.Models.DataAdmin.SPSettings.SPBox
+
+@{
+    ViewBag.Title = "SPBox";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px;
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+<h3 style="text-align:center">Create Location(Box) </h3>
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="col-md-12">
+                    <div class="box " style="border:none">
+                        <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                            <h5 class="box-title">Store Box</h5>
+                        </div>
+
+                        <div class="box-body">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.BoxID, "Box ID", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-3">
+                                        @Html.TextBoxFor(m => m.BoxID, new { @class = "form-control", @type = "number", @Value = ViewBag.Id })
+                                    </div>
+                                    <div class="col-sm-3">
+                                        @Html.ValidationMessageFor(x => x.BoxID, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.BoxNo, "Box No", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-3">
+                                        @Html.TextBoxFor(m => m.BoxNo, new { @class = "form-control enterTab", @type = "text" })
+                                        @Html.ValidationMessageFor(x => x.BoxNo, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" style="margin-bottom:7px">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.StoreID, "Store", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-3">
+                                        @Html.DropDownListFor(m => m.StoreID, (IEnumerable<SelectListItem>)ViewBag.StoreID, new { @class = "enterTab form-control select2 " })
+                                        @Html.ValidationMessageFor(m => m.StoreID, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="box-body">
+                <div class="col-md-12">
+                    <div class="box" style="border:none">
+                        <div class="form-group" style="height:70px">
+                            <div style="padding-top:17px;text-align:center">
+                                <input type="submit" value="Save" id="save" class="btn btn-primary" />
+                                <input type="button" value="Update" id="update" class="btn btn-primary" />
+                                <input type="button" value="Delete" id="delete" class="btn btn-primary" />
+                                <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                            <h5 class="box-title">Box Details</h5>
+                        </div>
+                        <div class="box-body">
+                            <table class="table table-responsive" id="MachineDetails">
+                                <thead>
+                                    <tr>
+                                        <th>Box ID</th>
+                                        <th>Box No</th>
+                                        <th>Store</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in ViewBag.BoxNo)
+                                    {
+                                        <tr class='clickable-row' value="@item.BoxID">
+                                            <td>@item.BoxID</td>
+                                            <td>@item.BoxNo</td>
+                                            <td>@item.StoreName</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script src="~/Scripts/moment.min.js"></script>
+    <script src="~/Scripts/Customer/FlatBookingInputFocus.js"></script>
+    <script>
+
+        $(function () {
+            $('#MachineDetails').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+
+        var isValid = true;
+        var box = { BoxID: 0, BoxNo: "", StoreID: 0}
+
+
+        $("#preview").prop("disabled", true);
+
+
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+
+        $(document).ready(function () {
+            $("#update").hide();
+            $("#delete").hide();
+            $("#clear").hide();
+           /* EnterPress();*/
+        });
+
+        $(document).on('click', "#refresh", function () {
+            location.reload();
+        });
+
+        $(".select2").select2();
+
+                 //Save Button click
+        $(document).on('click', '#save', function (e) {
+            $("#save").prop('disabled', true);
+            RemoveError();
+            ValidateBox();
+            setBoxData();
+            //$("#save").prop('disabled', true);
+            if (isValid == true) {
+                if (confirm('Do you want to save?')) {
+
+                   $.ajax({
+                    url: '@Url.Action("SaveBoxInfo", "SPBox")',
+                    contentType: "application/json;charset=utf-8",
+                       data: JSON.stringify({ box: box }),
+                    type: 'POST',
+                    dataType: 'json',
+                       success: function (datas) {
+                           if (datas == 1) {
+                               alert("Saved Successfully.");
+                               $("#save").prop('disabled', true);
+                               location.reload();
+                           }
+
+                           else {
+                               alert("This Box No and Store Name Already Exists.");
+                           }
+                       }
+                   });
+                }
+                else {
+                    $("#save").prop('disabled', false);
+
+                }
+            }
+            else {
+                $("#save").prop('disabled', false);
+            }
+        });
+
+         // Text Box FillUP
+
+        $(document).on('click', '.clickable-row', function () {
+            var id = $(this).attr("value");
+
+            $.ajax({
+                   url: '@Url.Action("GetBoxById", "SPBox")',
+                   contentType: "application/json;charset=utf-8",
+                   data: { id: id },
+                   type: 'GET',
+                   dataType: 'json',
+                   success: function (datas) {
+
+                       if (datas == 0) {
+                           alert("This ItemType doesn't exist, please check");
+                       }
+                       else {
+                           $("#preview").prop("disabled", false);
+                           $("#save").hide();
+                           $("#update").show();
+                           $("#delete").show();
+                           $("#BoxID").val(datas.item.BoxID);
+                           $("#BoxNo").val(datas.item.BoxNo);
+                           $("#StoreID").val(datas.item.StoreID).change();
+
+                       }
+             },
+             error: function () {
+                 alert("Please check Network connection or contact with Kore ERP ")
+             }
+            });
+        });
+
+
+         //update
+        $(document).on('click', '#update', function () {
+            $("#update").prop('disabled', true);
+            $("#BoxID").prop('disabled', true);
+            setBoxData();
+            box.BoxID = $("#BoxID").val();
+            ValidateBox();
+
+                if (confirm('Do you want to Update')) {
+                    $.ajax({
+                        url: '@Url.Action("UpdateBoxInfo", "SPBox")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ box: box }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Update.");
+                                $("#update").prop('disabled', false);
+                                $("#BoxID").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Updated.");
+                                $("#update").prop('disabled', true);
+                                $("#BoxID").prop('disabled', true);
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#update").prop('disabled', false);
+                    $("#BoxID").prop('disabled', false);
+                }
+        });
+
+
+         //Delete
+        $(document).on('click', '#delete', function () {
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var id = $("#BoxID").val();
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteBoxByid", "SPBox")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Delete Failed.")
+                        }
+                        else {
+                            alert("Delete Successfull");
+                            $("#delete").prop('disabled', true);
+
+                        }
+                    }
+                });
+            }
+            else {
+                $("#delete").prop('disabled', false);
+                $("#update").prop('disabled', false);
+            }
+        });
+
+
+        function setBoxData() {
+            box.BoxID = $("#BoxID").val();
+            box.BoxNo = $("#BoxNo").val();
+            box.StoreID = $("#StoreID").val();
+
+        }
+
+
+        function ValidateBox() {
+            isValid = true;
+            if ($("#BoxNo").val() == "") {
+                setError("BoxNo", "Box No is required field");
+                isValid = false;
+            }
+            if ($("#StoreID").val() == "") {
+                setError("StoreID", "Store ID is required field");
+                isValid = false;
+            }
+
+        }
+
+    </script>
+}

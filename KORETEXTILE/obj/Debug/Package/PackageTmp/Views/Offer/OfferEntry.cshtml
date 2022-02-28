@@ -1,0 +1,78 @@
+﻿@model BEEERP.Models.ViewModel.Sales.OfferVModel
+@{
+    ViewBag.Title = "OfferEntry";
+}
+
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <h4 id="order" style="padding-left: 42px;text-align: center; font-weight: bold;"></h4>
+         
+            <h4>@ViewBag.messege</h4>
+            <div class="box-body">
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="text-align: center;">
+                                    <h3 class="box-title">Offer</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-12">
+                                        <div class="col-md-5 col-md-offset-1">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.OfferNo, new { @class = "col-md-4 control-label" })
+                                                <div class="input-group input-group-sm" style="padding-right:15px;padding-left:14px;">
+                                                    @Html.TextBoxFor(m => m.OfferNo, new { @class = "form-control enterTab", @Value = ViewBag.OrderNumber })
+                                                    @Html.ValidationMessageFor(m => m.OfferNo)
+                                                    <span class="input-group-btn" id="orderSrc">
+                                                        <button type="button" class="btn skin-blue btn-flat enterTab" id="orderSearch">Search</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group ">
+                                                @Html.LabelFor(m => m.OfferCode,  new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(m => m.OfferCode, new { @class = "enterTab form-control" })
+                                                    @Html.ValidationMessageFor(m => m.OfferCode)
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.ValidFrom, new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8 date input-group" style="padding-left:15px; padding-right:15px">
+                                                    @Html.TextBoxFor(m => m.ValidFrom, new { @class = "enterTab form-control date ", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-5 col-md-offset-1" style="margin-top:50px;">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.OfferDate, new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8 date input-group" style="padding-left:15px; padding-right:15px">
+                                                    @Html.TextBoxFor(m => m.OfferDate, new { @class = "enterTab form-control date ", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.ValidTo, new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8 date input-group" style="padding-left:15px; padding-right:15px">
+                                                    @Html.TextBoxFor(m => m.OfferDate, new { @class = "enterTab form-control date ", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                               </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

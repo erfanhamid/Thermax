@@ -1,0 +1,1008 @@
+﻿@model BEEERP.Models.ViewModel.Account.PaymentVVModel
+@{
+    ViewBag.Title = "PaymentVoucher";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<h3 style="text-align:center">Payment Voucher (PV) Entry</h3>
+<form id="report" target="_blank">
+    <div id="debitError" style="text-align:center;font-size:20px;font-weight:bold;">
+        @Html.ValidationMessage("DebitError", "", new { @style = "color: red" })
+    </div>
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style=" background: #82E0AA;">
+                                    <h4 class="box-title">Payment Voucher Details</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.PVNo, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:2%; padding-right:2%;">
+                                                @Html.TextBoxFor(m => m.PVNo, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.PVNo, "", new { @style = "color: red" })
+                                                <div class="input-group-btn">
+                                                    <input type="button" name="search" id="search" value="Search" class="btn btn-primary" style="min-width: 50px;" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.SalesCenterID, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.SalesCenterID, (IEnumerable<SelectListItem>)ViewBag.Branch, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.SalesCenterID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.CashBankID, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.CashBankID, (IEnumerable<SelectListItem>)ViewBag.CashBankID, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.CashBankID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.PVDate, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:2%; padding-right:2%">
+                                                @Html.TextBoxFor(m => m.PVDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                @Html.ValidationMessageFor(m => m.PVDate, "", new { @style = "color: red" })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.ReceiverName, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @*@Html.DropDownListFor(m => m.PayeeName, (IEnumerable<SelectListItem>)ViewBag.PayeeName, new { @class = "form-control select2" })*@
+                                                @Html.TextBoxFor(m => m.ReceiverName, new { @class = "form-control", list = "payeeList" })
+                                                <datalist id="payeeList">
+                                                    @foreach (var item in ViewBag.ReceiverName)
+                                                    {
+                                                        <option value=@item.Name></option>
+                                                    }
+                                                </datalist>
+                                                @Html.ValidationMessageFor(m => m.ReceiverName, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.RefNo, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.RefNo, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.RefNo, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.TotalAmount, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.TotalAmount, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.TotalAmount, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="box">
+                                        <div class="box-body">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.DebitAccID, new { @class = "col-md-4 control-label" })
+                                                    <div class="col-sm-8">
+                                                        @Html.DropDownListFor(m => m.DebitAccID, (IEnumerable<SelectListItem>)ViewBag.DebitAC, new { @class = "form-control select2" })
+                                                        @Html.ValidationMessageFor(m => m.DebitAccID, "", new { @style = "color: red" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.CostGroupID, new { @class = "col-md-4 control-label" })
+                                                    <div class="col-sm-8">
+                                                        @Html.DropDownListFor(m => m.CostGroupID, (IEnumerable<SelectListItem>)ViewBag.CostGroup, new { @class = "form-control select2" })
+                                                        @Html.ValidationMessageFor(m => m.CostGroupID, "", new { @style = "color: red" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="subLedger" class="col-md-12" style="padding-right:0%;padding-left:0%;border-color:lightseagreen;border-style:solid;border-width:2px;">
+                                                <br />
+                                                <div class="col-md-6" style="padding-right:0%;padding-left:0%;">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(m => m.SubLedgerID, new { @class = "col-md-4 control-label" })
+                                                        <div class="col-sm-8">
+                                                            @Html.DropDownListFor(m => m.SubLedgerID, (IEnumerable<SelectListItem>)ViewBag.SubLedger, new { @class = "form-control select2" })
+                                                            @Html.ValidationMessageFor(m => m.SubLedgerID, "", new { @style = "color: red" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(m => m.PVAmount, new { @class = "col-md-4 control-label" })
+                                                        <div class="col-sm-8">
+                                                            @Html.TextBoxFor(m => m.PVAmount, new { @class = "form-control", @type = "number" })
+                                                            @Html.ValidationMessageFor(m => m.PVAmount, "", new { @style = "color: red" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(m => m.Note,"Description", new { @class = "col-md-4 control-label" })
+                                                        <div class="col-sm-8">
+                                                            @Html.TextBoxFor(m => m.Note, new { @class = "form-control" })
+                                                            @Html.ValidationMessageFor(m => m.Note, "", new { @style = "color: red" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(m => m.SubLedgerTotal, new { @class = "col-md-4 control-label" })
+                                                        <div class="col-sm-8">
+                                                            @Html.TextBoxFor(m => m.SubLedgerTotal, new { @class = "form-control", @disabled = "disabled" })
+                                                            @Html.ValidationMessageFor(m => m.SubLedgerTotal, "", new { @style = "color: red" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div class="form-group" style="padding-top:1%;padding-left:50%;">
+                                                        <button type="button" id="subAddToGrid" name="addToGrid" style="height:300%; font-size:100%;" class="btn">Add To Grid</button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="col-md-2"></div>
+                                                    <div class="col-md-8" style="color:lightseagreen;">
+                                                        <div class="box-body">
+                                                            <table class="table table-responsive" id="subLedgerList">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Sub Ledger A/C</th>
+                                                                        <th>Amount</th>
+                                                                        <th>Description</th>
+                                                                        <th>Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody></tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2"></div>
+                                                </div>
+                                                <div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <br />
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.RVAmount, new { @class = "col-md-4 control-label" })
+                                                    <div class="col-sm-8">
+                                                        @Html.TextBoxFor(m => m.RVAmount, new { @class = "form-control", @type = "number" })
+                                                        @Html.ValidationMessageFor(m => m.RVAmount, "", new { @style = "color: red" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <br />
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.Description, new { @class = "col-md-4 control-label" })
+                                                    <div class="col-sm-8">
+                                                        @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                                                        @Html.ValidationMessageFor(m => m.Description, "", new { @style = "color: red" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="form-group" style="padding-top:2%;padding-left:50%;">
+                                                    <button type="button" id="addToGrid" name="addToGrid" style="height:300%; font-size:100%;" class="btn btn-primary">Add To Grid</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="box ">
+                                        <div class="box-header with-border box-head-back" style=" background: #82E0AA;">
+                                            <h4 class="box-title">Payment Voucher Line Item</h4>
+                                        </div>
+                                        <div class="box-body">
+                                            <table class="table table-responsive" id="JVlist">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Debit A/C</th>
+                                                        <th>Cost Group</th>
+                                                        <th>Amount</th>
+                                                        <th>Description</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="box">
+                                        <div class="box-footer">
+                                            <div class="form-group" , style="text-align:center">
+                                                <input type="button" value="Save" id="save" class="btn btn-primary" style="padding-left:20px;" />
+                                                <input type="button" value="Approve" id="approve" class="btn btn-primary" style="padding-left:20px;" />
+                                                <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                                                <input type="button" name="delete" id="delete" value="Delete" class="btn btn-primary" />
+                                                <input type="button" name="clear" id="clear" value="Clear" class="btn btn-primary" />
+                                                <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                                <input type="button" name="print" id="print" value="Print PV" class="btn btn-primary" />
+                                                <input type="button" name="printpvsl" id="printpvsl" value="Print PVSL" class="btn btn-primary" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<input type="hidden" id="TotalAmount" />*@
+</form>
+
+@section scripts
+{
+    <script src="~/Scripts/AccountModule/PaymentVoucherInputFocus.js"></script>
+    <script>
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+
+        $(".select2").select2();
+
+        var subLId = "";
+        var accId = "";
+        var isValid = true;
+        var addedItems = [];
+        var addedItems1 = [];
+        var acctype = "";
+        var pv = { PVNo: 0, PVDate: "", CashBankID: 0, ReceiverName: "", RefNo: "", SalesCenterID: 0, PVTotalAmount: 0.0 };
+        var fromNotificationPvNo = "";
+
+        var table1 = $('#JVlist').DataTable({
+            'paging': false,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+
+        var table = $('#subLedgerList').DataTable({
+            'paging': false,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+
+        EnterPress();
+
+        $(document).ready(function () {
+            $("#subLedger").hide();
+            $("#ref").hide();
+            $("#update").hide();
+            $("#delete").hide();
+            $("#clear").hide();
+            $("#print").hide();
+            $("#printpvsl").hide();
+            $("#SalesCenterID").focus();
+            $("#debitError").hide();
+            $("#approve").hide();
+            $("#TotalAmount").prop("disabled", true);
+            @*$("#BranchId").val(@ViewBag.DepotId).change();*@
+
+
+            @*if ($("#PVNo").val() != "") {
+                fromNotificationPvNo = $("#PVNo").val();
+                SearchClick();
+                //condition
+                if (@ViewBag.Approve == 0) {
+                    $("#approve").show();
+                    $("#print").show();
+                    $("#printpvsl").show();
+                }
+                else {
+                    $("#approve").hide();
+                    $("#print").show();
+                    $("#printpvsl").show();
+                }
+            }
+            else {
+
+            }*@
+        });
+
+        $(document).on('click', "#print", function (event) {
+            event.preventDefault();
+            if ($("#message").val() != "true") {
+                $("#report").attr("action", "/PaymentVoucher/GetPaymentVoucherPreview")
+                $("#report").submit();
+            }
+        });
+
+        $(document).on('click', "#printpvsl", function (event) {
+            event.preventDefault();
+            if ($("#message").val() != "true") {
+                $("#report").attr("action", "/PaymentVoucher/GetPaymentVoucherSubPreview")
+                $("#report").submit();
+            }
+        });
+        $(document).on('change', "#DebitAccID", function () {
+            $("#SubLedgerID").prop('disabled', false);
+            var id = { accId: $(this).val() };
+            if (id.accId != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetSubLedgerByLedger", "PaymentVoucher")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas.Message == 1) {
+                                $("#subLedger").show();
+                                $("#SubLedgerID").empty();
+                                $("#SubLedgerID").prop("disabled", false);
+                                $.each(datas.subLed, function (index, value) {
+                                    $("#SubLedgerID").append($('<option />', {
+                                        value: value.Value,
+                                        text: value.Text
+                                    })).trigger('change');
+                                });
+                                acctype = datas.acctype;
+                                $("#SubLedgerID").focus();
+                                if (accId != "") {
+                                    accId = "";
+                                }
+                                else {
+                                    table.clear().draw();
+                                }
+                            }
+                            if (datas.Message == 0) {
+                                $("#subLedger").hide();
+                                $("#SubLedgerID").empty();
+                                $("#SubLedgerID").prop("disabled", false);
+                                $.each(datas.subLed, function (index, value) {
+                                    $("#SubLedgerID").append($('<option />', {
+                                        value: value.Value,
+                                        text: value.Text
+                                    })).trigger('change');
+                                });
+                                $("#SubLedgerID").focus();
+                                acctype = datas.acctype;
+                            }
+                            if (subLId != "") {
+                                $("#SubLedgerID").val(subLId).change();
+                                subLId = "";
+                            }
+                        }
+                    });
+            }
+            else {
+                $("#SubLedgerID").val("").change();
+                $("#SubLedgerID").prop("disabled", true);
+                acctype = "";
+            }
+        });
+
+        $(document).on('click', "#subAddToGrid", function () {
+            RemoveError();
+
+            var item = { PVNo: 0, DebitAccID: 0, SubLedgerID: 0, PVAmount: 0.0, Note: "", SubLedgerName: ""}
+            ValidateAddToGrid();
+            if (isValid == true) {
+                item.DebitAccID = $("#DebitAccID").val();
+                item.SubLedgerID = $("#SubLedgerID").val();
+                item.SubLedgerName = $("#SubLedgerID :selected").text();
+                item.PVAmount = $("#PVAmount").val();
+                item.Note = $("#Note").val();
+                addedItems.push(item);
+                ClearOnSearch();
+                ShowOnTable(item.DebitAccID);
+                acctype = "";
+            }
+        })
+
+        function ValidateAddToGrid() {
+            isValid = true;
+            if ($("#SubLedgerID").val() == "") {
+                setError("SubLedgerID", "SubLedger is required field");
+                isValid = false;
+            }
+            if ($("#PVAmount").val() == "") {
+                setError("PVAmount", "Amount is required field");
+                isValid = false;
+            }
+            if ($("#PVAmount").val() <= 0) {
+                setError("PVAmount", "Amount must be grater than zero.");
+                isValid = false;
+            }
+            if (acctype == "as" || acctype == "li") { }
+            else {
+                if ($("#CostGroupID").val() == "") {
+                    setError("CostGroupID", "Please Select a Cost group.");
+                    isValid = false;
+                }
+            }
+
+            $.each(addedItems, function (index, value) {
+                if (value.SubLedgerID == $("#SubLedgerID").val() && value.DebitAccID == $("#DebitAccID").val()) {
+                    setError("SubLedgerID", "This Sub Ledger is Already Added To This Gl Account.");
+                    isValid = false;
+                }
+            });
+        }
+
+        function ClearOnSearch() {
+            $("#SubLedgerID").val("").change();
+            $("#PVAmount").val("");
+            $("#Note").val("");
+        }
+
+        function ShowOnTable(accountId) {
+            table.clear().draw();
+            var totSubAmount = 0;
+            $.each(addedItems, function (index, value) {
+                if (accountId == value.DebitAccID) {
+                    table.row.add([value.SubLedgerName, value.PVAmount, value.Note,
+                    '<a href="#"><i class="fa fa-edit" name="editRow" value="' +
+                    value.SubLedgerID + '"></i></a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.SubLedgerID + '"></i></a>']).draw();
+                    totSubAmount += parseFloat(value.PVAmount);
+                }
+            });
+            $("#SubLedgerTotal").val(totSubAmount);
+            $("#RVAmount").val(totSubAmount);
+        }
+
+        //delete Row
+        $(document).on('click', '[name="deleteRow"]', function () {
+            var item = $(this).attr("value");
+            var newItem = [];
+            var acc = "";
+            if (confirm('Are you sure you want to delete this from Grid ?')) {
+                $.each(addedItems, function (index, value) {
+                    if (value.SubLedgerID == item) {
+
+                    }
+                    else {
+                        newItem.push(value);
+                    }
+                    acc = value.DebitAccID;
+                });
+                addedItems = newItem;
+                ShowOnTable(acc);
+            }
+        });
+
+
+        //edit Row
+        $(document).on('click', '[name="editRow"]', function () {
+            var item = $(this).attr("value");
+            var newItem = [];
+            var acc = "";
+            $.each(addedItems, function (index, value) {
+                if (value.SubLedgerID == item) {
+                    //subLId = value.SubLedgerID;
+                    $("#SubLedgerID").val(value.SubLedgerID).change();
+                    $("#PVAmount").val(value.PVAmount);
+                    $("#Note").val(value.Note);
+                }
+                else {
+                    newItem.push(value);
+                }
+                acc = value.DebitAccID;
+            });
+            addedItems = newItem;
+            ShowOnTable(acc);
+        });
+
+        $(document).on('click', "#addToGrid", function () {
+            $("#subLedger").hide();
+            $("#DebitAccID").prop("disabled", false);
+            RemoveError();
+            var item = { PVNo: 0, CostGroupID: 0, DebitAccID: 0, RVAmount: 0, Description: "", DebitAccName: "", CostGroupName: "" }
+            ValidateAddToGrid1();
+            if (isValid == true) {
+                item.RVAmount = $("#RVAmount").val();
+                item.CostGroupID = $("#CostGroupID").val();
+                item.Description = $("#Description").val();
+                item.DebitAccID = $("#DebitAccID").val();
+                item.DebitAccName = $("#DebitAccID :selected").text();
+                if ($("#CostGroupID").val() == "") {
+                    item.CostGroupName = "NA";
+                } else {
+                    item.CostGroupName = $("#CostGroupID :selected").text();
+                }
+
+                addedItems1.push(item);
+                ClearOnSearch1();
+                ShowOnTable1();
+                acctype = "";
+            }
+
+        });
+
+        function ValidateAddToGrid1() {
+            isValid = true;
+            if ($("#DebitAccID").val() == "") {
+                setError("DebitAccID", "Debit Account is required field");
+                isValid = false;
+            }
+            if (acctype == "as" || acctype == "li") { }
+            else {
+                if ($("#CostGroupID").val() == "") {
+                    setError("CostGroupID", "Please Select a Cost group.");
+                    isValid = false;
+                }
+            }
+
+
+            if ($("#RVAmount").val() == "") {
+                setError("RVAmount", "Amount is required field");
+                isValid = false;
+            }
+            if ($("#RVAmount").val() <= 0) {
+                setError("RVAmount", "Amount must be grater than zero.");
+                isValid = false;
+            }
+            $.each(addedItems1, function (index, value) {
+                if (value.DebitAccID == $("#DebitAccID").val()) {
+                    setError("DebitAccID", "This Debit Account is Already Added.");
+                    isValid = false;
+                }
+            });
+        }
+
+        function ClearOnSearch1() {
+            $("#DebitAccID").val("").change();
+            $("#RVAmount").val("");
+            $("#CostGroupID").val("").change();
+            $("#Description").val("");
+            $("#SubLedgerTotal").val("");
+        }
+
+        function ShowOnTable1() {
+            table1.clear().draw();
+            var totAmount = 0;
+            $.each(addedItems1, function (index, value) {
+                table1.row.add([value.DebitAccName, value.CostGroupName, value.RVAmount, value.Description,
+                '<a href="#"><i class="fa fa-edit" name="editRow1" value="' +
+                value.DebitAccID + '"></i></a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow1" value="' + value.DebitAccID + '"></i></a>']).draw();
+
+                totAmount += parseFloat(value.RVAmount);
+            });
+            $("#TotalAmount").val(totAmount);
+        }
+
+        //delete Row
+        $(document).on('click', '[name="deleteRow1"]', function () {
+            var item = $(this).attr("value");
+            var newItem = [];
+            var subLdgr = [];
+            if (confirm('Are you sure you want to delete this from Grid ?')) {
+                $.each(addedItems1, function (index, value) {
+                    if (value.DebitAccID == item) {
+                        $.each(addedItems, function (index, value) {
+                            if (value.DebitAccID == item) {
+
+                            }
+                            else {
+                                subLdgr.push(value);
+                            }
+                        });
+
+                    }
+                    else {
+                        newItem.push(value);
+                    }
+
+                });
+                addedItems = subLdgr;
+                addedItems1 = newItem;
+                ShowOnTable1();
+            }
+        });
+
+        //edit Row
+        $(document).on('click', '[name="editRow1"]', function () {
+            var item = $(this).attr("value");
+            var newItem = [];
+            $.each(addedItems1, function (index, value) {
+                if (value.DebitAccID == item) {
+                    $.each(addedItems, function (index, v) {
+                        if (v.DebitAccID == item) {
+                            accId = v.DebitAccID;
+                            ShowOnTable(v.DebitAccID);
+                        }
+                    });
+                    $("#RVAmount").val(value.RVAmount);
+                    $("#DebitAccID").val(value.DebitAccID).change();
+                    $("#CostGroupID").val(value.CostGroupID).change();
+                    $("#Description").val(value.Description);
+                    //$("#SubLedgerTotal").val(value.RVAmount);
+                }
+                else {
+                    newItem.push(value);
+                }
+
+            });
+            addedItems1 = newItem;
+            ShowOnTable1();
+        });
+
+        $(document).on('click', "#refresh", function () {
+            window.location.reload(true);
+        });
+
+        $(document).on('click', "#save", function () {
+            RemoveError();
+            $("#save").prop('disabled', true);
+            SetPv();
+            if (addedItems1.length <= 0) {
+                alert("At least One Item should be added for save.");
+                $("#save").prop('disabled', false);
+            }
+            else {
+                ValidateJv();
+                if (isValid == true) {
+                    if (confirm('Do you want to save')) {
+                        $.ajax({
+                            url: '@Url.Action("SavePv", "PaymentVoucher")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ pv: pv, addedItems: addedItems, addedItems1: addedItems1 }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Failed To Saved.");
+                                    $("#save").prop('disabled', false);
+                                } else if (datas == 3) {
+                                    alert("Please select a valid entry date");
+                                    $("#PVDate").focus();
+                                    $("#save").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully Saved.");
+                                    $("#PVNo").val(datas.pv.PVNo);
+                                    $("#save").prop('disabled', true);
+                                    $("#print").show();
+                                    $("#printpvsl").show();
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        $("#save").prop('disabled', false);
+                    }
+                }
+                else {
+                    $("#save").prop('disabled', false);
+                }
+            }
+        });
+
+        function SetPv() {
+            pv.PVNo = 0;
+            pv.PVDate = $("#PVDate").val();
+            pv.CashBankID = $("#CashBankID").val();
+            pv.ReceiverName = $("#ReceiverName").val();
+            pv.RefNo = $("#RefNo").val();
+            pv.SalesCenterID = $("#SalesCenterID").val();
+            pv.PVTotalAmount = $("#TotalAmount").val();
+        }
+
+        function ValidateJv() {
+            isValid = true;
+            if (pv.PVDate == "") {
+                setError("PVDate", "Date is required field");
+                isValid = false;
+            }
+            if (pv.CashBankID == "") {
+                setError("CashBankID", "Payment A/C is required field");
+                isValid = false;
+            }
+            if (pv.ReceiverName == "") {
+                setError("ReceiverName", "Receiver Name is required field");
+                isValid = false;
+            }
+            if (pv.SalesCenterID == "") {
+                setError("SalesCenterID", "Sales Center Name is required field");
+                isValid = false;
+            }
+        }
+
+        $(document).on('click', "#approve", function () {
+            RemoveError();
+            $("#approve").prop('disabled', true);
+            SetPv();
+            pv.PVNo = $("#PVNo").val();
+            if (addedItems1.length <= 0) {
+                alert("At least One Item should be added for approve.");
+                $("#approve").prop('disabled', false);
+            }
+            else {
+                ValidateJv();
+                if (isValid == true) {
+                    if (confirm('Do you want to Approve.')) {
+                        $.ajax({
+                            url: '@Url.Action("TransectionEffect", "PaymentVoucher")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ pv: pv, addedItems: addedItems, addedItems1: addedItems1 }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Failed To Approve.");
+                                    $("#approve").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully Saved.");
+                                    //$("#PVNo").val(datas.pv.PVNo);
+                                    $("#approve").prop('disabled', true);
+                                    $("#print").show();
+                                    $("#printpvsl").show();
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        $("#approve").prop('disabled', false);
+                    }
+                }
+                else {
+                    $("#approve").prop('disabled', false);
+                }
+            }
+        });
+
+        //search code
+        $(document).on('click', '#search', function () {
+
+            SearchClick();
+            @*$("#print").show();
+            $("#printpvsl").show();
+            var id = { id: $("#PVNo").val() };
+             $.ajax({
+                     url: '@Url.Action("GetPvById", "PaymentVoucher")',
+                     contentType: "application/json;charset=utf-8",
+                     data: id,
+                     type: 'GET',
+                     dataType: 'json',
+                     success: function (datas) {
+
+                         if (datas == 0) {
+                             alert("Your entered Pv No. Doesn't exist");
+                         }
+                         else {
+                             $("#save").hide();
+                             $("#update").show();
+                             $("#delete").show();
+                             $("#PVDate").val((moment(datas.pvItem.PVDate).format("DD-MM-YYYY")));
+                             $("#CashBankID").val(datas.pvItem.CashBankID).change();
+                             $("#ReceiverName").val(datas.pvItem.ReceiverName);
+                             $("#RefNo").val(datas.pvItem.RefNo);
+                             $("#TotalAmount").val(datas.pvItem.PVTotalAmount);
+                             $("#SalesCenterID").val(datas.pvItem.SalesCenterID).change();
+                             addedItems = [];
+                             addedItems1 = [];
+                             $.each(datas.pvLineItem, function (index, value) {
+                                 var item = { PVNo: 0, CostGroupID: 0, DebitAccID: 0, RVAmount: 0, Description: "", DebitAccName: "", CostGroupName: "" }
+                                 item.CostGroupID = value.CostGroupID;
+                                 item.DebitAccID = value.DebitAccID;
+                                 item.RVAmount = value.RVAmount;
+                                 item.Description = value.Description;
+                                 item.DebitAccName = value.DebitAccName;
+                                 item.CostGroupName = value.CostGroupName;
+                                 addedItems1.push(item);
+                             });
+                             $.each(datas.pvSubledgerLineItem, function (index, value) {
+                                 var item = { PVNo: 0, DebitAccID: 0, SubLedgerID: 0, PVAmount: 0.0, Note: "", SubLedgerName: "" }
+                                 item.DebitAccID = value.DebitAccID;
+                                 item.SubLedgerID = value.SubLedgerID;
+                                 item.PVAmount = value.PVAmount;
+                                 item.Note = value.Note;
+                                 item.SubLedgerName = value.SubLedgerName;
+                                 addedItems.push(item);
+                             });
+
+                             ShowOnTable1();
+                             ShowOnTable();
+                         }
+                 },
+                 error: function () {
+                     alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+                     $("#search").prop('disabled', false);
+                 }
+             });*@
+        });
+
+        function SearchClick() {
+            $("#print").show();
+            $("#printpvsl").show();
+            var id = { id: $("#PVNo").val() };
+             $.ajax({
+                     url: '@Url.Action("GetPvById", "PaymentVoucher")',
+                     contentType: "application/json;charset=utf-8",
+                     data: id,
+                     type: 'GET',
+                     dataType: 'json',
+                     success: function (datas) {
+
+                         if (datas == 0) {
+                             alert("Your entered Pv No. Doesn't exist");
+                         }
+                         else {
+                             $("#save").hide();
+                             if (fromNotificationPvNo == "") {
+                                 $("#update").show();
+                                 $("#delete").show();
+                             }
+                             $("#PVDate").val((moment(datas.pvItem.PVDate).format("DD-MM-YYYY")));
+                             $("#CashBankID").val(datas.pvItem.CashBankID).change();
+                             $("#ReceiverName").val(datas.pvItem.ReceiverName);
+                             $("#RefNo").val(datas.pvItem.RefNo);
+                             $("#TotalAmount").val(datas.pvItem.PVTotalAmount);
+                             $("#SalesCenterID").val(datas.pvItem.SalesCenterID).change();
+                             addedItems = [];
+                             addedItems1 = [];
+                             $.each(datas.pvLineItem, function (index, value) {
+                                 var item = { PVNo: 0, CostGroupID: 0, DebitAccID: 0, RVAmount: 0, Description: "", DebitAccName: "", CostGroupName: "" }
+                                 item.CostGroupID = value.CostGroupID;
+                                 item.DebitAccID = value.DebitAccID;
+                                 item.RVAmount = value.RVAmount;
+                                 item.Description = value.Description;
+                                 item.DebitAccName = value.DebitAccName;
+                                 item.CostGroupName = value.CostGroupName;
+                                 addedItems1.push(item);
+                             });
+                             $.each(datas.pvSubledgerLineItem, function (index, value) {
+                                 var item = { PVNo: 0, DebitAccID: 0, SubLedgerID: 0, PVAmount: 0.0, Note: "", SubLedgerName: "" }
+                                 item.DebitAccID = value.DebitAccID;
+                                 item.SubLedgerID = value.SubLedgerID;
+                                 item.PVAmount = value.PVAmount;
+                                 item.Note = value.Note;
+                                 item.SubLedgerName = value.SubLedgerName;
+                                 addedItems.push(item);
+                             });
+
+                             ShowOnTable1();
+                             ShowOnTable();
+                         }
+                 },
+                 error: function () {
+                     alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+                     $("#search").prop('disabled', false);
+                 }
+             });
+        }
+
+        //function ClearOnSearch() {
+        //    $("#JVDate").val("");
+        //    $("#RefNo").val("");
+        //    $("#TotalAmount").val("");
+        //    $("#BranchId").val("").change();
+        //    $("#CostGroupId").val("").change();
+        //}
+
+        $(document).on('click', "#update", function () {
+            RemoveError();
+            $("#update").prop('disabled', true);
+            SetPv();
+            pv.PVNo = $("#PVNo").val();
+
+            if (addedItems1.length <= 0) {
+                alert("At least One Item should be added for Update.");
+                $("#update").prop('disabled', false);
+            }
+            else {
+                ValidateJv();
+                if (isValid == true) {
+                    if (confirm('Do you want to Update')) {
+                    $.ajax({
+                        url: '@Url.Action("UpdatePv", "PaymentVoucher")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ pv: pv, addedItems: addedItems, addedItems1: addedItems1 }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Update.");
+                                $("#update").prop('disabled', false);
+                            }
+                            else if (datas.Message == 2) {
+                                alert("This Payment Voucher Is Already Approve, so Update is not Applicable for this Voucher.");
+                                $("#delete").prop('disabled', false);
+                                $("#update").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Updated.");
+                                $("#update").prop('disabled', true);
+                            }
+                        }
+                    });
+                }
+                    else {
+                        $("#update").prop('disabled', false);
+                    }
+                }
+                else {
+                    $("#update").prop('disabled', false);
+                }
+            }
+        });
+
+        //delete code
+        $(document).on('click', '#delete', function () {
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var id = $("#PVNo").val();
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeletePvByid", "PaymentVoucher")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Delete failed.");
+                            $("#delete").prop('disabled', false);
+                            $("#update").prop('disabled', false);
+                        }
+                        else if (datas.Message == 2) {
+                            alert("This Payment Voucher Is Already Approve, so Update is not Applicable for this Voucher.");
+                            $("#delete").prop('disabled', false);
+                            $("#update").prop('disabled', false);
+                        }
+                        else {
+                            alert("Delete Successfull");
+                            location.reload();
+                        }
+                    }
+                });
+            }
+            else {
+                $("#update").prop('disabled', false);
+                $("#delete").prop('disabled', false);
+            }
+        });
+
+    </script>
+}
+

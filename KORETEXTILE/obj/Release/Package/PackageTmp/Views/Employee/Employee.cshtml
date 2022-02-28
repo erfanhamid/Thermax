@@ -1,0 +1,1248 @@
+﻿@model BEEERP.Models.HRModule.Employee
+
+@{
+    ViewBag.Title = "Employee";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<h3 style="text-align:center">Create Employee</h3>
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="col-md-12">
+                    <div class="box ">
+                        <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                            <h6 class="box-title">Basic Info</h6>
+                        </div>
+                        <div class="box-body">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.Id, new { @class = "col-md-4 control-label" })
+                                        <div class="input-group input-group-sm" style="padding-right:15px;padding-left:14px;">
+                                            @Html.TextBoxFor(m => m.Id, new { @class = "form-control", @Value = @ViewBag.EmployeeId })
+                                            @Html.ValidationMessageFor(m => m.Id, "", new { @style = "color: red" })
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn skin-blue btn-flat" id="empSearch" style="min-width: 50px">Search</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.OBDate, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 date input-group" style="padding-left:15px; padding-right:15px">
+                                            @Html.TextBoxFor(m => m.OBDate, new { @class = "form-control", @Value = @ViewBag.Date })
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            @Html.ValidationMessageFor(m => m.OBDate, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.OpBalance, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.OpBalance, new { @class = "form-control digit", @Value = 0 })
+                                            @Html.ValidationMessageFor(m => m.OpBalance, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.Name, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Name, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.EmpGrade, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.EmpGrade, (IEnumerable<SelectListItem>)ViewBag.GradeList, new { @class = "form-control select2" })
+
+                                            @Html.ValidationMessageFor(m => m.EmpGrade, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.Status, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.Status, (IEnumerable<SelectListItem>)ViewBag.EmpCheck, new { @class = "form-control select2", @disabled = "disabled" })
+                                            @Html.ValidationMessageFor(m => m.Status, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div>
+                                        <label>Employee Image </label>
+                                        <input type="file" id="employeeImage" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2" id="imagePlate">
+                                    <img id="empImage" src="" alt="Employee" width="150" height="150" style="border-radius:10px">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box ">
+                        <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                            <h6 class="box-title">Personal Details</h6>
+                        </div>
+                        <div class="box-body">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.FatherName, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.FatherName, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.FatherName, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.MotherName, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.MotherName, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.MotherName, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.NationalID, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.NationalID, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.NationalID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.BloodGroup, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.BloodGroup, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.BloodGroup, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.NomineeName, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.NomineeName, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.NomineeName, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.NomineeRelation, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.NomineeRelation, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.NomineeRelation, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.MarstausID, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.MarstausID, (IEnumerable<SelectListItem>)ViewBag.MaritualStatus, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.MarstausID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.ReligionID, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.ReligionID, (IEnumerable<SelectListItem>)ViewBag.Religion, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.ReligionID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.Sex, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.Sex, (IEnumerable<SelectListItem>)ViewBag.Gender, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.Sex, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.DateOfBirth, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 date input-group" style="padding-left:15px;padding-right:15px">
+                                            @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "form-control", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            @Html.ValidationMessageFor(m => m.DateOfBirth, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box ">
+                        <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                            <h6 class="box-title">Contact Details</h6>
+                        </div>
+                        <div class="box-body">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.PresentAddress, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextAreaFor(m => m.PresentAddress, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.PresentAddress, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.Email, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Email, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.PermanentAddress, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextAreaFor(m => m.PermanentAddress, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.PermanentAddress, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.PersonalEmail, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.PersonalEmail, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.PersonalEmail, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.Mobile, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Mobile, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.AlternativeContct, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.AlternativeContct, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.AlternativeContct, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box ">
+                        <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                            <h6 class="box-title">Official Details</h6>
+                        </div>
+                        <div class="box-body">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.DepatmentID, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.DepatmentID, (IEnumerable<SelectListItem>)ViewBag.Department, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.DepatmentID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.CompanyId, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.CompanyId, (IEnumerable<SelectListItem>)ViewBag.CompanyInfo, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.CompanyId, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.BranchID, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.BranchID, (IEnumerable<SelectListItem>)ViewBag.Branch, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.BranchID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.Section, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.Section, (IEnumerable<SelectListItem>)ViewBag.Section, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.Section, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.Designation, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.Designation, (IEnumerable<SelectListItem>)ViewBag.Designation, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.Designation, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.FunctDesignation, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.FunctDesignation, (IEnumerable<SelectListItem>)ViewBag.FuncDesignation, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.FunctDesignation, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.StaffType, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.StaffType, (IEnumerable<SelectListItem>)ViewBag.StaffType, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.StaffType, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.JoiningDate, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 date input-group" style="padding-left:15px;padding-right:15px">
+                                            @Html.TextBoxFor(m => m.JoiningDate, new { @class = "form-control", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            @Html.ValidationMessageFor(m => m.JoiningDate, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.ConfirmationDate, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 date input-group" style="padding-left:15px;padding-right:15px">
+                                            @Html.TextBoxFor(m => m.ConfirmationDate, new { @class = "form-control", @Value = "" })
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            @Html.ValidationMessageFor(m => m.ConfirmationDate, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.HighestEducation, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.HighestEducation, (IEnumerable<SelectListItem>)ViewBag.Education, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.HighestEducation, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box ">
+                        <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                            <h6 class="box-title">Attachments </h6>
+                        </div>
+                        <div class="box-body">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <label>Attachment.1</label>
+                                    <input type="file" id="attachment1" />
+                                    <br />
+                                    <button type="button" id="showAttachment1" style="height:33px; font-size:13px;" class="btn" data-toggle="modal" data-target="#attachmentPlate1">Show</button>
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Attachment.2</label>
+                                    <input type="file" id="attachment2" />
+                                    <br />
+                                    <button type="button" id="showAttachment2" style="height:33px; font-size:13px;" class="btn" data-toggle="modal" data-target="#attachmentPlate2">Show</button>
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Attachment.3</label>
+                                    <input type="file" id="attachment3" />
+                                    <br />
+                                    <button type="button" id="showAttachment3" style="height:33px; font-size:13px;" class="btn" data-toggle="modal" data-target="#attachmentPlate3">Show</button>
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Attachment.4</label>
+                                    <input type="file" id="attachment4" />
+                                    <br />
+                                    <button type="button" id="showAttachment4" style="height:33px; font-size:13px;" class="btn" data-toggle="modal" data-target="#attachmentPlate4">Show</button>
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Attachment.5</label>
+                                    <input type="file" id="attachment5" />
+                                    <br />
+                                    <button type="button" id="showAttachment5" style="height:33px; font-size:13px;" class="btn" data-toggle="modal" data-target="#attachmentPlate5">Show</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-body">
+                            <div class="col-md-12 col-sm-offset-5 ">
+                                <button type="button" id="save" style="height:33px; font-size:13px;" class="btn">Save</button>
+                                <button type="button" id="update" style="height:33px; font-size:13px;" class="btn">Update</button>
+                                <button type="button" id="delete" style="height:33px; font-size:13px;" class="btn">Delete</button>
+                                <button type="button" id="refresh" style="height:33px; font-size:13px;" class="btn">Refresh</button>
+                            </div>                     
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-lg" id="attachmentPlate1" data-backdrop="static">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <button type="button" style="float:right" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <div class="modal-header ">
+                <h4 class="modal-title"><b></b></h4>
+            </div>
+            <div class="modal-body">
+                <div class="box ">
+                    <div class="box-header with-border box-head-back">
+                        <h3 class="box-title">Your Attachment (1)</h3>
+                    </div>
+                    <div class="box-body" align="center">
+                        <img src="" style="height:700px;width:650px;" id="atta1" class="img-responsive" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-lg" id="attachmentPlate2" data-backdrop="static">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <button type="button" style="float:right" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <div class="modal-header ">
+                <h4 class="modal-title"><b></b></h4>
+            </div>
+            <div class="modal-body">
+                <div class="box ">
+                    <div class="box-header with-border box-head-back">
+                        <h3 class="box-title">Your Attachment (2)</h3>
+                    </div>
+                    <div class="box-body" align="center">
+                        <img src="" style="height:700px;width:650px;" id="atta2" class="img-responsive" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-lg" id="attachmentPlate3" data-backdrop="static">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <button type="button" style="float:right" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <div class="modal-header ">
+                <h4 class="modal-title"><b></b></h4>
+            </div>
+            <div class="modal-body">
+                <div class="box ">
+                    <div class="box-header with-border box-head-back">
+                        <h3 class="box-title">Your Attachment (3)</h3>
+                    </div>
+                    <div class="box-body" align="center">
+                        <img src="" style="height:700px;width:650px;" id="atta3" class="img-responsive" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-lg" id="attachmentPlate4" data-backdrop="static">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <button type="button" style="float:right" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <div class="modal-header ">
+                <h4 class="modal-title"><b></b></h4>
+            </div>
+            <div class="modal-body">
+                <div class="box ">
+                    <div class="box-header with-border box-head-back">
+                        <h3 class="box-title">Your Attachment (4)</h3>
+                    </div>
+                    <div class="box-body" align="center">
+                        <img src="" style="height:700px;width:650px;" id="atta4" class="img-responsive" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-lg" id="attachmentPlate5" data-backdrop="static">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <button type="button" style="float:right" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <div class="modal-header ">
+                <h4 class="modal-title"><b></b></h4>
+            </div>
+            <div class="modal-body">
+                <div class="box ">
+                    <div class="box-header with-border box-head-back">
+                        <h3 class="box-title">Your Attachment (5)</h3>
+                    </div>
+                    <div class="box-body" align="center">
+                        <img src="" style="height:700px;width:650px;" id="atta5" class="img-responsive" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/PayRollModule/EmployeeInputFocus.js"></script>
+
+    <script>
+        $(".select2").select2();
+        $(document).ready(function (){
+            $("#update").hide();
+            $("#delete").hide();
+            $("#BranchID").val("@ViewBag.DepotId").change();
+            //$("#BranchID").prop('disabled', true);
+            isValid = false;
+            $("#Id").focus();
+
+            $("#imagePlate").hide();
+            $("#showAttachment1").hide();
+            $("#showAttachment2").hide();
+            $("#showAttachment3").hide();
+            $("#showAttachment4").hide();
+            $("#showAttachment5").hide();
+            $("#employeeImage").show();
+            $("#attachment1").show();
+            $("#attachment2").show();
+            $("#attachment3").show();
+            $("#attachment4").show();
+            $("#attachment5").show();
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#employeeImage').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+            $("#employeeImage").change(function () {
+
+                readURL(this);
+                //$("#empImage").attr('src', $(this).src + '?' + (new Date()).getTime());
+                $("#empImage").attr("src","");
+                var data = new FormData();
+                var files = $("#employeeImage").get(0).files;
+                if (files.length > 0) {
+                    data.append("employeeImage", files[0]);
+                    data.append("EmployeeId", $("#Id").val());
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("SubmitImage", "Employee")',
+                    processData: false,
+                    contentType: false,
+                    data:data,
+                    success: function (result) {
+                        if (result.error == 0) {
+                            $("#imagePlate").show();
+                            $("#empImage").attr("src", result.ImagePathe);
+
+                        }
+                    },
+                    error: function (result) {
+                    }
+                });
+            });
+
+            //attachment1
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#attachment1').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+            $("#attachment1").change(function () {
+                readURL(this);
+
+                var data = new FormData();
+                var files = $("#attachment1").get(0).files;
+                if (files.length > 0) {
+                    data.append("AttachmentImage1", files[0]);
+                    data.append("employeeId", $("#Id").val());
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("SubmitAttachement1", "Employee")',
+                    processData: false,
+                    contentType: false,
+                    data:data,
+                    success: function (result) {
+                        if (result.error == 0) {
+                            $("#atta1").attr("src", result.attachpath1);
+                            $("#showAttachment1").show();
+                        }
+                    },
+                    error: function (result) {
+                    }
+                });
+            });
+            //attachment2
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#attachment2').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+            $("#attachment2").change(function () {
+                readURL(this);
+
+                var data = new FormData();
+                var files = $("#attachment2").get(0).files;
+                if (files.length > 0) {
+                    data.append("AttachmentImage2", files[0]);
+                    data.append("employeeId", $("#Id").val());
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("SubmitAttachement2", "Employee")',
+                    processData: false,
+                    contentType: false,
+                    data:data,
+                    success: function (result) {
+                        if (result.error == 0) {
+                            $("#atta2").attr("src", result.attachpath2);
+                            $("#showAttachment2").show();
+                        }
+                    },
+                    error: function (result) {
+                    }
+                });
+            });
+            //attachment3
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#attachment3').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+            $("#attachment3").change(function () {
+                readURL(this);
+
+                var data = new FormData();
+                var files = $("#attachment3").get(0).files;
+                if (files.length > 0) {
+                    data.append("AttachmentImage3", files[0]);
+                    data.append("employeeId", $("#Id").val());
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("SubmitAttachement3", "Employee")',
+                    processData: false,
+                    contentType: false,
+                    data:data,
+                    success: function (result) {
+                        if (result.error == 0) {
+                            $("#atta3").attr("src", result.attachpath3);
+                            $("#showAttachment3").show();
+                        }
+                    },
+                    error: function (result) {
+                    }
+                });
+            });
+            //attachment4
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#attachment4').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+            $("#attachment4").change(function () {
+
+                readURL(this);
+
+                var data = new FormData();
+                var files = $("#attachment4").get(0).files;
+                if (files.length > 0) {
+                    data.append("AttachmentImage4", files[0]);
+                    data.append("employeeId", $("#Id").val());
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("SubmitAttachement4", "Employee")',
+                    processData: false,
+                    contentType: false,
+                    data:data,
+                    success: function (result) {
+                        if (result.error == 0) {
+                            $("#atta4").attr("src", result.attachpath4);
+                            $("#showAttachment3").show();
+                        }
+                    },
+                    error: function (result) {
+                    }
+                });
+            });
+            //attachment5
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#attachment5').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+            $("#attachment5").change(function () {
+                readURL(this);
+
+                var data = new FormData();
+                var files = $("#attachment5").get(0).files;
+                if (files.length > 0) {
+                    data.append("AttachmentImage5", files[0]);
+                    data.append("employeeId", $("#Id").val());
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("SubmitAttachement5", "Employee")',
+                    processData: false,
+                    contentType: false,
+                    data:data,
+                    success: function (result) {
+                        if (result.error == 0) {
+                            $("#atta5").attr("src", result.attachpath5);
+                            $("#showAttachment5").show();
+                        }
+                    },
+                    error: function (result) {
+                    }
+                });
+            });
+
+        });
+        EnterPress();
+        var emp = { Id: 0, Name: "", EmpGrade: "", OpBalance: 0.0, OBDate: "", FatherName: "", MotherName: "", NomineeName: "", NomineeRelation: "", PresentAddress: "", PermanentAddress: "", Mobile: "", Email: "", Sex: 0, DateOfBirth: "", JoiningDate: "", Designation: 0, HighestEducation: 0, Salary: 0.0, MarstausID: 0, ReligionID: 0, DepatmentID: 0, BloodGroup: "", AlternativeContct: "", PersonalEmail: "", NationalID: "", FunctDesignation: 0, Section: 0, BranchID: 0, StaffType: "", LogInUserName: "", CompanyId: 0, ConfirmationDate: "",Status: true };
+
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+
+        $(document).on('click', "#refresh", function () {
+            window.location.reload(true);
+        });
+
+        $(".digit").keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                //$("#errormsg").html("Digits Only").show().fadeOut("slow");
+                return false;
+            }
+        });
+
+        @*$(document).on('click', '#save', function () {
+            RemoveError();
+            //$("#save").prop('disabled', true);
+            SetEmp();
+            ValidateEmp();
+            if (isValid == true) {
+                if (confirm('Do you want to save')) {
+                    $.ajax({
+                    url: '@Url.Action("SaveEmployee", "Employee")',
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({ emp: emp }),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Failed To Saved. Employee Id is already Exist");
+                            $("#save").prop('disabled', false);
+                        }
+                        else {
+                            alert("Sucessfully Saved.");
+                            $("#save").hide();
+                        }
+                    }
+                    });
+                }
+
+            }
+            else {
+                $("#save").show();
+            }
+        });*@
+
+        $(document).on('click', '#update', function () {
+            RemoveError();
+            //$("#save").prop('disabled', true);
+            SetEmp();
+            ValidateEmp();
+            if (isValid == true) {
+
+
+                    if (confirm('Do you want to Update?')) {
+                        $.ajax({
+                            url: '@Url.Action("UpdateEmployee", "Employee")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ emp: emp }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Failed To update. Employee Id is already Exist");
+                                    $("#save").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully Saved.");
+                                    $("#save").hide();
+                                }
+                            }
+
+                        });
+                    }
+
+
+
+            }
+            else {
+                $("#save").show();
+            }
+        });
+        $(document).on('click', '#save', function () {
+            RemoveError();
+            //$("#save").prop('disabled', true);
+            SetEmp();
+            ValidateEmp();
+            if (isValid == true) {
+                if (emp.ConfirmationDate != "") {
+                    if (confirm('Do you want to Save Confirmation Date at the time of new employee?')) {
+                        if (confirm('Do you want to save')) {
+                            $.ajax({
+                                url: '@Url.Action("SaveEmployee", "Employee")',
+                                contentType: "application/json;charset=utf-8",
+                                data: JSON.stringify({ emp: emp }),
+                                type: 'POST',
+                                dataType: 'json',
+                                success: function (datas) {
+                                    if (datas == 0) {
+                                        alert("Failed To Saved. Employee Id is already Exist");
+                                        $("#save").prop('disabled', false);
+                                    }
+                                    else if (datas == 3) {
+                                        alert("Please select a valid entry date");
+                                        $("#JoiningDate").focus();
+                                        $("#save").prop('disabled', false);
+                                    }
+                                    else {
+                                        alert("Sucessfully Saved.");
+                                        $("#Id").val(datas.id);
+                                        $("#save").hide();
+                                    }
+                                }
+
+                            });
+                        }
+
+                    }
+                } else {
+
+
+                    if (confirm('Do you want to save')) {
+                        $.ajax({
+                            url: '@Url.Action("SaveEmployee", "Employee")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ emp: emp }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Failed To Saved. Employee Id is already Exist");
+                                    $("#save").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully Saved.");
+                                    $("#Id").val(datas.id);
+                                    $("#save").hide();
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+            else {
+                $("#save").show();
+            }
+        });
+
+        //search employee
+        $(document).on('click', "#empSearch", function () {
+            RemoveError();
+            $("#update").show();
+            $("#delete").show();
+            $("#save").hide();
+            $("#imagePlate").show();
+            $("#showAttachment1").show();
+            $("#showAttachment2").show();
+            $("#showAttachment3").show();
+            $("#showAttachment4").show();
+            $("#showAttachment5").show();
+
+            $("#employeeImage").show();
+            $("#attachment1").show();
+            $("#attachment2").show();
+            $("#attachment3").show();
+            $("#attachment4").show();
+            $("#attachment5").show();
+            var param = { empId: $("#Id").val() };
+            $.ajax({
+                url: '@Url.Action("SearchEmployeeById", "Employee")',
+                contentType: "application/json;charset=utf-8",
+                data: param,
+                type: 'GET',
+                dataType: 'json',
+                success: function (datas) {
+                    if (datas != 0) {
+
+                        if (datas.IsUpdate == 1) {
+                            $("#DepatmentID").attr('disabled', false);
+                            $("#BranchID").attr('disabled', false);
+                            $("#Section").attr('disabled', false);
+                            $("#Designation").attr('disabled', false);
+                            $("#FunctDesignation").attr('disabled', false);
+                            $("#StaffType").attr('disabled', false);
+                            $("#JoiningDate").attr('disabled', false);
+                            $("#HighestEducation").attr('disabled', false);
+                            $("#ConfirmationDate").attr('disabled', false);
+                            $("#CompanyId").attr('disabled', false);
+
+                        }
+                        else {
+                            $("#DepatmentID").attr('disabled', true);
+                            $("#BranchID").attr('disabled', true);
+                            $("#Section").attr('disabled', true);
+                            $("#Designation").attr('disabled', true);
+                            $("#FunctDesignation").attr('disabled', true);
+                            $("#StaffType").attr('disabled', true);
+                            $("#JoiningDate").attr('disabled', true);
+                            $("#HighestEducation").attr('disabled', true);
+                            $("#ConfirmationDate").attr('disabled', true);
+                            $("#CompanyId").attr('disabled', true);
+                        }
+                        $("#OBDate").val(datas.OBDate);
+                        $("#Name").val(datas.Name);
+                        //$("#EmpGrade").val(datas.EmpGrade);
+                        $("#EmpGrade").val(parseInt(datas.EmpGrade)).change();
+                        $("#OpBalance").val(datas.OpBalance);
+                        $("#FatherName").val(datas.FatherName);
+                        $("#MotherName").val(datas.MotherName);
+                        $("#NationalID").val(datas.NationalID);
+                        $("#BloodGroup").val(datas.BloodGroup);
+                        $("#NomineeName").val(datas.NomineeName);
+                        $("#NomineeRelation").val(datas.NomineeRelation);
+                        $("#MarstausID").val(datas.MarstausID).change();
+                        $("#ReligionID").val(datas.ReligionID).change();
+                        $("#Sex").val(datas.Sex).change();
+                        $("#DateOfBirth").val(datas.DateOfBirth);
+                        $("#PresentAddress").val(datas.PresentAddress);
+                        $("#Email").val(datas.Email);
+                        $("#PermanentAddress").val(datas.PermanentAddress);
+                        $("#PersonalEmail").val(datas.PersonalEmail);
+                        $("#Mobile").val(datas.Mobile);
+                        $("#AlternativeContct").val(datas.AlternativeContct);
+                        $("#DepatmentID").val(datas.DepatmentID).change();
+                        $("#BranchID").val(datas.BranchID).change();
+                        $("#Section").val(datas.Section).change();
+                        $("#Designation").val(datas.Designation).change();
+                        $("#FunctDesignation").val(datas.FunctDesignation).change();
+                        $("#StaffType").val(datas.StaffType).change();
+                        $("#JoiningDate").val(datas.JoiningDate);
+                        $("#CompanyId").val(datas.CompanyId).change();
+                        $("#Status").val(String(datas.Status)).change();
+
+                        if (datas.ConfirmationDate == "" || datas.ConfirmationDate == null) {
+                            $("#ConfirmationDate").val("").change();
+                        } else {
+                            $("#ConfirmationDate").val(moment(datas.ConfirmationDate).format('DD-MM-YYYY'));
+                        }
+                        $("#HighestEducation").val(datas.HighestEducation).change();
+                        $("#empImage").attr("src", datas.imagePathe);
+                        $("#atta1").attr("src", datas.attaPath1);
+                        $("#atta2").attr("src", datas.attaPath2);
+                        $("#atta3").attr("src", datas.attaPath3);
+                        $("#atta4").attr("src", datas.attaPath4);
+                        $("#atta5").attr("src", datas.attaPath5);
+                        //if (datas.Status==true) {
+                            $("#update").show();
+                        //}
+                        //else {
+                        //    $("#update").hide();
+                        //}
+                        $("#delete").show();
+                        $("#save").hide();
+                        $("#update").attr("disabled", false);
+                    }
+                    else {
+                        $("#OBDate").val("");
+                        $("#Name").val("");
+                        $("#EmpGrade").val("");
+                        $("#OpBalance").val("");
+                        $("#FatherName").val("");
+                        $("#MotherName").val("");
+                        $("#NationalID").val("");
+                        $("#BloodGroup").val("");
+                        $("#NomineeName").val("");
+                        $("#NomineeRelation").val("");
+                        $("#MarstausID").val("");
+                        $("#ReligionID").val("");
+                        $("#Sex").val("");
+                        $("#DateOfBirth").val("");
+                        $("#PresentAddress").val("");
+                        $("#Email").val("");
+                        $("#PermanentAddress").val("");
+                        $("#PersonalEmail").val("");
+                        $("#Mobile").val("");
+                        $("#AlternativeContct").val("");
+                        $("#DepatmentID").val("").change();
+                        $("#BranchID").val("").change();
+                        $("#Section").val("").change();
+                        $("#Designation").val("").change();
+                        $("#FunctDesignation").val("").change();
+                        $("#StaffType").val("").change();
+                        $("#JoiningDate").val("").change();
+                        $("#HighestEducation").val("").change();
+                        $("#ConfirmationDate").val("").change();
+                        $("#save").hide();
+                        $("#update").show();
+                        $("#update").attr("disabled", true);
+                        $("#delete").hide();
+                        alert("May be this Employee Is not Exist");
+                    }
+                }
+
+            });
+        });
+
+        //delete Employee
+        $(document).on('click', "#delete", function () {
+            $("#delete").prop('disabled', true);
+            var param = { id: $("#Id").val() };
+
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteEmpById", "Employee")',
+                    contentType: "application/json;charset=utf-8",
+                    data: param,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Delete Failed");
+                            $("#delete").prop('disabled', false);
+                        }
+                        else {
+                            alert("Successfully Deleted");
+                            window.location.reload(true);
+                        }
+                    }
+                });
+            }
+            else {
+                $("#delete").prop('disabled', false);
+            }
+        });
+
+
+        //not done
+        @*$(document).on('click', "#update", function () {
+            ValidateEmp();
+            $("#update").prop('disabled', true);
+            if (isValid == true)
+            {
+                if (confirm('Do you want to Update')) {
+                    SetEmp();
+                    $.ajax({
+                    url: '@Url.Action("UpdateEmployee", "Employee")',
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({ emp: emp }),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Update Failed");
+                            $("#update").prop('disabled', false);
+                        }
+                        else {
+                            alert("Update Sucessfull.");
+                            location.reload();
+                        }
+                    }
+                    });
+                }
+            }
+        });*@
+
+        function SetEmp() {
+            emp.Id = $("#Id").val();
+            emp.Name = $("#Name").val();
+            emp.EmpGrade = $("#EmpGrade").val();
+            //emp.EmpGrade = $("#EmpGrade option:selected").html();
+            emp.OpBalance = $("#OpBalance").val();
+            emp.OBDate = $("#OBDate").val();
+            emp.FatherName = $("#FatherName").val();
+            emp.MotherName = $("#MotherName").val();
+            emp.NomineeName = $("#NomineeName").val();
+            emp.NomineeRelation = $("#NomineeRelation").val();
+            emp.PresentAddress = $("#PresentAddress").val();
+            emp.PermanentAddress = $("#PermanentAddress").val();
+            emp.Mobile = $("#Mobile").val();
+            emp.Email = $("#Email").val();
+            emp.Sex = $("#Sex").val();
+            emp.DateOfBirth = $("#DateOfBirth").val();
+            emp.JoiningDate = $("#JoiningDate").val();
+            emp.Designation = $("#Designation").val();
+            emp.HighestEducation = $("#HighestEducation").val();
+            emp.Salary = $("#Salary").val();
+            emp.MarstausID = $("#MarstausID").val();
+            emp.ReligionID = $("#ReligionID").val();
+            emp.DepatmentID = $("#DepatmentID").val();
+            emp.BloodGroup = $("#BloodGroup").val();
+            emp.AlternativeContct = $("#AlternativeContct").val();
+            emp.PersonalEmail = $("#PersonalEmail").val();
+            emp.NationalID = $("#NationalID").val();
+            emp.FunctDesignation = $("#FunctDesignation").val();
+            emp.Section = $("#Section").val();
+            emp.BranchID = $("#BranchID").val();
+            emp.StaffType = $("#StaffType").val();
+            emp.LogInUserName = $("#LogInUserName").val();
+            emp.CompanyId = $("#CompanyId").val();
+            emp.ConfirmationDate = $("#ConfirmationDate").val();
+            emp.Status = $("#Status").val()
+            //if ($("#Status").val()==1) {
+            //    emp.Status = true;
+            //} else {
+            //    emp.Status = false;
+            //}
+
+        }
+
+        function ClearEmp() {
+           $("#Id").val();
+           $("#Name").val();
+           $("#EmpGrade").val();
+           $("#OpBalance").val(0);
+           $("#OBDate").val();
+           $("#FatherName").val();
+           $("#MotherName").val();
+           $("#NomineeName").val();
+           $("#NomineeRelation").val();
+           $("#PresentAddress").val();
+           $("#PermanentAddress").val();
+           $("#Mobile").val();
+           $("#Email").val();
+           $("#Sex").val();
+           $("#DateOfBirth").val();
+           $("#JoiningDate").val();
+           $("#Designation").val();
+           $("#HighestEducation").val();
+           $("#Salary").val();
+           $("#MarstausID").val();
+           $("#ReligionID").val();
+           $("#DepatmentID").val();
+           $("#BloodGroup").val();
+           $("#AlternativeContct").val();
+           $("#PersonalEmail").val();
+           $("#NationalID").val();
+           $("#FunctDesignation").val();
+           $("#Section").val();
+           $("#BranchID").val();
+           $("#StaffType").val();
+           $("#LogInUserName").val();
+        }
+
+        function ValidateEmp() {
+            isValid = true;
+            if (emp.Id == "") {
+                setError("Id", "Employee No is required field");
+                isValid = false;
+            }
+            if (emp.Name == "") {
+                setError("Name", "Name is required field");
+                isValid = false;
+            }
+
+            if (emp.OpBalance == "") {
+                setError("OpBalance", "EOB is required field And only digit is Acceptable");
+                isValid = false;
+            }
+
+            if (emp.Sex == "") {
+                setError("Sex", "Gender is required field");
+                isValid = false;
+            }
+
+            if (emp.DepatmentID == "") {
+                setError("DepatmentID", "Department is required field");
+                isValid = false;
+            }
+
+            if (emp.CompanyId == "") {
+                setError("CompanyId", "Company is required field");
+                isValid = false;
+            }
+
+            if (emp.BranchID == "") {
+                setError("BranchID", "Work Station is required field");
+                isValid = false;
+            }
+            if (emp.Section == "") {
+                setError("Section", "Section is required field");
+                isValid = false;
+            }
+
+            if (emp.Designation == "") {
+                setError("Designation", "Designation is required field");
+                isValid = false;
+            }
+
+            if (emp.FunctDesignation == "") {
+                setError("FunctDesignation", "Functional Designation is required field");
+                isValid = false;
+            }
+
+            if (emp.ReligionID == "") {
+                setError("ReligionID", "Religion is required field");
+                isValid = false;
+            }
+
+        }
+
+    </script>
+}

@@ -1,0 +1,669 @@
+﻿@using BEEERP.Models.Authentication
+@using BEEERP.Models.CommonInformation
+@model BEEERP.Models.ViewModel.Sales.Retailer.FRIVModel
+@{
+    ViewBag.Title = "FRI";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<h3 style="text-align:center">Freeze Rent Income (FRI) Entry</h3>
+<form id="report" , target="_blank">
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                    <h5 class="box-title">FRI Details</h5>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.FRINo, "FRI No", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-7 input-group" style="padding-left:15px; padding-right:15px;">
+                                                @Html.TextBoxFor(m => m.FRINo, new { @class = "form-control", @Value = ViewBag.Id })
+                                                @Html.ValidationMessageFor(m => m.FRINo, "", new { @style = "color: red" })
+                                                <div class="input-group-btn">
+                                                    <input type="button" name="search" id="search" value="Search" class="btn btn-primary" style="min-width: 50px" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.DepotId, "Depot", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-7">
+                                                @Html.DropDownListFor(m => m.DepotId, (IEnumerable<SelectListItem>)ViewBag.Depot, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.DepotId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.CustomerID, "Dealer", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-7">
+                                                @Html.DropDownListFor(m => m.CustomerID, (IEnumerable<SelectListItem>)ViewBag.Dealer, new { @class = "form-control  select2", })
+                                                @Html.ValidationMessageFor(m => m.CustomerID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Date, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-7 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.Date, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                @Html.ValidationMessageFor(m => m.Date, "", new { @style = "color: red" })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Area, "Area", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-7 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.Area, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.Area, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Zone, "Zone", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-7 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.Zone, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.Zone, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div class="box-body">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.RetailerId, "Retailer", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-7">
+                                                @Html.DropDownListFor(m => m.RetailerId, (IEnumerable<SelectListItem>)ViewBag.Retailer, new { @class = "form-control  select2", })
+                                                @Html.ValidationMessageFor(m => m.RetailerId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.RType, "Type", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-7 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.RType, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.RType, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Amount, "Income Amount", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-7 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.Amount, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Amount, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.RefNo, "Reference No ", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-7 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.RefNo, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.RefNo, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Description, "Description", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-7 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Description, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box-footer">
+                                    <div class="form-group" , style="text-align:center">
+                                        <input type="button" name="addToGrid" id="addToGrid" value="Add To Grid" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                    <h4 class="box-title">Freeze Rent Income Amount</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Total, "Total", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.Total, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.Total, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="box ">
+                                        <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                            <h5 class="box-title">FRI Line Items</h5>
+                                        </div>
+                                        <div class="box-body">
+                                            <table class="table table-responsive" id="FRIDetails">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Retailer</th>
+                                                        <th>Reference</th>
+                                                        <th>Decription</th>
+                                                        <th>Amount</th>
+                                                        <th>Type</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                        <div class="box">
+                                            <div class="box-footer">
+                                                <div class="form-group" , style="text-align:center">
+                                                    <input type="button" name="save" id="save" value="Save" class="btn btn-primary" />
+                                                    <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                                                    <input type="button" name="delete" id="delete" value="Delete" class="btn btn-primary" />
+                                                    <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                                    <input type="button" name="print" id="print" value="Print" class="btn btn-primary" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<input type="hidden" id="hPacSize" />
+@section scripts
+    {
+    <script src="~/Scripts/Common.js"></script>
+    @*<script src="~/Scripts/Procurement/FreezerWorkOrderInputFocus.js"></script>*@
+
+    <script>
+
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+        $(".select2").select2();
+        $(document).on('click', "#refresh", function () {
+            location.reload();
+
+        });
+        var table = $('#FRIDetails').DataTable({
+            'paging': false,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+        $(document).ready(function () {
+            function getCheckboxStatus() {
+                var status = document.getElementById("processedCheckBox").checked;
+                if (status) {
+                    alert("Yes");
+                } else {
+                    alert("No");
+                }
+            }
+            $("#Amount").val(parseFloat(0));
+            $("#DepotId").focus();
+            $("#update").hide();
+            $("#delete").hide();
+            $("#print").hide();
+        });
+
+        var isValid = true;
+        var isSearch = false;
+        var addedItems = [];
+        var fri = { clmFRINo: 0, clmDealerID: 0, clmDate: "", clmAccountID: 0, clmDepotID: 0, clmRetailerID: 0, clmRefNo: "", clmDescriptions: "", clmDealerYN: "", clmTotal: 0 }
+        var customer = 0;
+
+        //Get all Dealer By Depot
+        $(document).on('change', "#DepotId", function () {
+            // ClearOnDepotChange();
+            var id = { id: $(this).val() };
+            if (id.id != "") {
+                $.ajax({
+                    url: '@Url.Action("GetDealerByDepot", "FRR")',
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify(id),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+                        //$("#CustomerID").empty();
+                        $("#CustomerID").prop("disabled", false);
+                        $("#CustomerID").focus();
+                        $.each(datas, function (index, value) {
+                            $("#CustomerID").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                        if (customer != 0) {
+                            $("#CustomerID").val(customer).change();
+                            //$("#CustomerID").val("");
+                        }
+                    }
+                });
+            }
+            else {
+                //$("#CustomerID").empty();
+                $("#DepotId").prop("disabled", true);
+            }
+        });
+
+        //Get all Retailer By Depot
+        $(document).on('change', "#CustomerID", function () {
+            // ClearOnDepotChange();
+            var id = { id: $(this).val() };
+            if (id.id != "") {
+                $.ajax({
+                    url: '@Url.Action("GetRetailerByDealer", "FRI")',
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify(id),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+                        //$("#RetailerId").empty();
+                        $("#RetailerId").prop("disabled", false);
+                        $("#RetailerId").focus();
+                        $.each(datas.retailer, function (index, value) {
+                            $("#RetailerId").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                       
+                        $("#Zone").val(datas.Zone);
+                        $("#Area").val(datas.Area);
+                        
+                    }
+                });
+            }
+            else {
+                $("#RetailerId").empty();
+                //$("#CustomerID").prop("disabled", true);
+            }
+        });
+
+        @*$(document).on('change', "#CustomerID", function () {
+            //$("#CustomerID").prop('disabled', true);
+            var param = { custId: $("#CustomerID").val() };
+            //RemoveError();
+            if (param.custId!="") {
+                $.ajax({
+                url: '@Url.Action("GetCustomerById", "FRI")',
+                contentType: "application/json;charset=utf-8",
+                data: param,
+                type: 'GET',
+                dataType: 'json',
+                success: function (datas) {
+                    if (datas != 0) {
+                        $("#Zone").val(datas.Zone);
+                        $("#Area").val(datas.Area);
+                    }
+                }
+            });
+            }
+
+        });*@
+        //Retailer Change Event
+        $(document).on('change', "#RetailerId", function () {
+            //$("#CustomerID").prop('disabled', true);
+            var param = { retId: $("#RetailerId").val() };
+            //RemoveError();
+            if (param.retId != "") {
+
+                $.ajax({
+                url: '@Url.Action("GetRetailerById", "FRI")',
+                contentType: "application/json;charset=utf-8",
+                data: param,
+                type: 'GET',
+                dataType: 'json',
+                    success: function (datas) {
+                        $("#Amount").focus();
+                    if (datas != 0) {
+                        if (datas.RType == "No") {
+                            rType = "RFRI";
+                        }
+                        else {
+                            rType = "DFRI";
+                        }
+                        $("#RType").val(rType);
+                    }
+                }
+            });
+            }
+        });
+
+        //focusout
+        $(document).on('focusout', "#Amount", function () {
+            $("#RefNo").focus();
+        });
+        $(document).on('focusout', "#RefNo", function () {
+            $("#Description").focus();
+        });
+
+        //add to grid
+        $(document).on('click', "#addToGrid", function () {
+            RemoveError();
+            ValidateAddToGrid();
+            var item = { clmRetailerID: 0, RetailerName: "", clmRefNo: "", clmDescriptions: "", clmAmount: 0, clmDealerYN: "", DealerId: 0}
+
+            if (isValid == true) {
+                item.clmRetailerID = $("#RetailerId").val();
+                item.RetailerName = $("#RetailerId :selected").text();
+                item.clmRefNo = $("#RefNo").val();
+                item.clmDescriptions = $("#Description").val();
+                item.clmAmount = $("#Amount").val();
+                item.clmDealerYN = $("#RType").val();
+                item.DealerId = $("#CustomerID").val();
+                addedItems.push(item);
+
+                if (isSearch == false) {
+                    ShowOnTable();
+                    $("#addToGrid").hide();
+                } else {
+                    ShowOnTable();
+                    $("#addToGrid").hide();
+                }
+            }
+        });
+
+        $(document).on('click', '[name="editRow"]', function () {
+            var item = parseInt($(this).attr("value"));
+            var newItem = [];
+            $.each(addedItems, function (index, value) {
+                if (value.clmRetailerID == item) {
+                    $("#RetailerId").val(value.clmRetailerID).change();
+                    retId = value.clmRetailerID;
+                    $("#Amount").val(value.clmAmount);
+                    $("#RefNo").val(value.clmRefNo);
+                    $("#Description").val(value.clmDescriptions);
+                    $("#RetailerId").focus();
+                    //itemId = value.ItemID;
+                }
+                else {
+                    newItem.push(value);
+                }
+
+            });
+            addedItems = newItem;
+            ShowOnTable();
+        });
+
+        //deleteRow
+        $(document).on('click', '[name="deleteRow"]', function () {
+            var item = $(this).attr("value");
+            if (confirm('Are you sure you want to delete this from grid ?')) {
+                var newItem = [];
+                $.each(addedItems, function (index, value) {
+                    if (value.clmRetailerID == item) {
+
+                    }
+                    else {
+                        newItem.push(value);
+                    }
+                });
+                addedItems = newItem;
+                ShowOnTable();
+            }
+        });
+
+        //Save Button click Event
+        $(document).on('click', "#save", function () {
+            ///RemoveError();
+            SetFRI();
+            if (addedItems.length <= 0) {
+                alert("At least One Item should be added for save.");
+            }
+            else {
+                //ValidateWorkOrder();
+                if (isValid == true) {
+                    if (confirm('Do you want to save')) {
+                        $.ajax({
+                            url: '@Url.Action("SaveFRI", "FRI")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ fri: fri, addedItems: addedItems }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Failed To Saved.");
+                                    $("#save").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully Saved.");
+                                    $("#FRINo").val(datas.clmFRINo);
+                                    $("#save").hide();
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        $("#save").show();
+                    }
+                }
+            }
+        });
+        //Update
+        $(document).on('click', '#update', function () {
+            RemoveError();
+            $("#update").prop('disabled', true);
+            SetFRI();
+            fri.clmFRINo = $("#FRINo").val();
+            //ValidateRMSales();
+
+            if (addedItems.length <= 0) {
+                alert("At least One Item should be added for Update.");
+                $("#update").prop('disabled', false);
+            }
+            else {
+                if (confirm('Do you want to Update')) {
+                    if (isValid == true) {
+                    $.ajax({
+                        url: '@Url.Action("UpdateFRI", "FRI")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ fri: fri, addedItems: addedItems }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("This FRI Is Already Received. Unable To Update.");
+                                $("#update").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Updated.");
+                                $("#update").prop('disabled', true);
+                            }
+                        }
+                    });
+                    }
+                    else {
+                        $("#update").prop('disabled', false);
+                    }
+                }
+            }
+
+        });
+         //delete
+        $(document).on('click', '#delete', function (){
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var id = $("#FRINo").val();
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteFRI", "FRI")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("This  Is Already Received. Unable To Delete.");
+                            $("#delete").prop('disabled', false);
+                            $("#update").prop('disabled', false);
+                        }
+                        else {
+                            alert("Delete Successfull");
+                            location.reload();
+                        }
+                    }
+                });
+            }
+        });
+
+
+        //Search Button click
+        $(document).on('click', '#search', function () {
+            isSearch = true;
+            if ($("#FRINo").val()!="") {
+                var id = { id: $("#FRINo").val() };
+                ClearOnSearch();
+                if (id.id != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetFRIById", "FRI")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            if (datas == 0) {
+                                alert("Your entered Work Order No. Doesn't exist");
+                            }
+                            else {
+                                $("#save").hide();
+                                $("#update").show();
+                                $("#delete").show();
+                                $("#Date").val((moment(datas.fri.clmDate).format("DD-MM-YYYY")));
+                                customer = datas.fri.clmDealerID;
+                                $("#DepotId").val(datas.fri.clmDepotID).change();
+                                $("#CustomerID").val(datas.fri.clmDealerID).change();
+                                $("#Total").val(datas.fri.clmTotal);
+
+
+                                addedItems = [];
+                                $.each(datas.friLineItem, function (index, value) {
+                                    var item = { clmRetailerID: 0, RetailerName: "", clmRefNo: "", clmDescriptions: "", clmAmount: 0, clmDealerYN: "", DealerId:0 }
+                                    item.clmRetailerID = value.clmRetailerID;
+                                    item.RetailerName = value.RetailerName;
+                                    item.clmRefNo = value.clmRefNo;
+                                    item.clmDescriptions = value.clmDescriptions;
+                                    item.clmAmount = value.clmAmount;
+                                    item.clmDealerYN = value.clmDealerYN;
+                                    item.DealerId = value.DealerId;
+                                    addedItems.push(item);
+                                });
+                                ShowOnTable();
+                            }
+                    },
+                    error: function () {
+                        alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+
+                    }
+                });
+                }
+
+            }
+            else {
+                alert("Please Enter a work order No first");
+            }
+        });
+
+        function ShowOnTable() {
+            table.clear().draw();
+            var clmRetailerID = 0;
+            var clmRefNo = "";
+            var clmDescriptions = "";
+            var clmAmount = 0.0;
+            var clmDealerYN = "";
+            var totAmount = 0;
+            $.each(addedItems, function (index, value) {
+                table.row.add([value.RetailerName, value.clmRefNo, value.clmDescriptions, value.clmAmount, value.clmDealerYN,
+                    '<a href="#"><i class="fa fa-edit" name="editRow" value="' +
+                    value.clmRetailerID + '"></i></a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.clmRetailerID + '"></i></a>']).draw();
+                totAmount += parseFloat(value.clmAmount);
+            });
+            $("#Total").val(totAmount);
+        }
+
+        function SetFRI() {
+            fri.clmFRINo = 0;
+            fri.clmAccountID = 0;
+            fri.clmDate = $("#Date").val();
+            fri.clmDealerID = $("#CustomerID").val();
+            fri.clmDepotID = $("#DepotId").val();
+            fri.clmTotal = $("#Total").val();
+            fri.clmAmount = $('#Amount').val();
+            fri.clmRetailerID = $('#RetailerId').val();
+            fri.clmRefNo = $('#RefNo').val();
+            fri.clmDescriptions = $('#Description').val();
+            fri.clmDealerYN = $('#RType').val();
+
+        }
+
+        function ClearOnSearch() {
+            $("#RetailerId").val("").change();
+            $("#Amount").val("");
+            $("#RefNo").val("");
+            $("#Description").val("");
+            $("#RType").val("");
+        }
+
+        function ValidateAddToGrid() {
+            isValid = true;
+            if ($("#RType").val() == "") {
+                setError("RType", "First select a Retailer");
+                isValid = false;
+            }
+            if ($("#Amount").val() == 0) {
+                setError("Amount", "Amount Can not be Zero");
+                isValid = false;
+            }
+        }
+    </script>
+
+}

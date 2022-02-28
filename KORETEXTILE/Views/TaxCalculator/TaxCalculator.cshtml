@@ -1,0 +1,506 @@
+﻿@model BEEERP.Models.ViewModel.TaxCalculator.TaxCalculatorViewModel
+@{
+    ViewBag.Title = "TaxCalculator";
+}
+
+<link href="~/Content/loading.css" rel="stylesheet" />
+<style>
+    /*tbody tr:hover {
+        background-color: dodgerblue;
+        color: white;
+    }*/
+
+    .btn:hover {
+        color: blue !important;
+    }
+
+    .btn:focus {
+        background-color: aqua !important;
+    }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+    .sk-fading-circle{
+        
+    }
+
+</style>
+
+<form id="report" target="_blank" method="post">
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 class="box-title">Tax Statement</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-3"></div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.ID, "TSID", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:2%; padding-right:2%;">
+                                                @Html.TextBoxFor(m => m.ID, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.ID, "", new { @style = "color: red" })
+                                                <div class="input-group-btn">
+                                                    <input type="button" name="searchId" id="searchId" value="Search" class="btn skin-blue" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.AssesmentYear, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.AssesmentYear, (IEnumerable<SelectListItem>)ViewBag.AssesmentYear, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.AssesmentYear, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.DuringYear, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @*@Html.DropDownListFor(m => m.DuringYear, (IEnumerable<SelectListItem>)ViewBag.DuringYear, new { @class = "form-control select2" })*@
+                                                @Html.TextBoxFor(m => m.DuringYear, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.DuringYear, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Location, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.Location, (IEnumerable<SelectListItem>)ViewBag.LoadLocation, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.Location, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Corpuration, "Corporation", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.Corpuration, (IEnumerable<SelectListItem>)ViewBag.Cororation, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.Corpuration, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Date, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:2%; padding-right:2%">
+                                                @Html.TextBoxFor(m => m.Date, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                @Html.ValidationMessageFor(m => m.Date, "", new { @style = "color: red" })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-4"></div>
+                                            <div class="col-sm-8">
+                                                <input type="button" name="Search" id="search" value="Generate Info" class="btn skin-blue" />
+                                                <input type="button" name="save" id="save" value="Save" class="btn skin-blue" />
+                                                <input type="button" name="Refresh" id="refresh" value="Refresh" class="btn skin-blue" />
+                                                <div class="sk-fading-circle">
+                                                    <div class="sk-circle1 sk-circle"></div>
+                                                    <div class="sk-circle2 sk-circle"></div>
+                                                    <div class="sk-circle3 sk-circle"></div>
+                                                    <div class="sk-circle4 sk-circle"></div>
+                                                    <div class="sk-circle5 sk-circle"></div>
+                                                    <div class="sk-circle6 sk-circle"></div>
+                                                    <div class="sk-circle7 sk-circle"></div>
+                                                    <div class="sk-circle8 sk-circle"></div>
+                                                    <div class="sk-circle9 sk-circle"></div>
+                                                    <div class="sk-circle10 sk-circle"></div>
+                                                    <div class="sk-circle11 sk-circle"></div>
+                                                    <div class="sk-circle12 sk-circle"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 class="box-title">Tax Statement Details</h3>
+                                </div>
+                                <div class="box-body">
+                                    <table class="table table-responsive" id="EmpList">
+                                        <thead>
+                                            <tr>
+                                                <th>Employee No</th>
+                                                <th>Employee Name</th>
+                                                <th>Designation</th>
+                                                <th>Type</th>
+                                                <th>Total Tax (Tk.)</th>
+                                                <th>Net Payable Tax (Tk.)</th>
+                                                <th id="details">Details</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="empId" name="empId" />
+    <input type="hidden" id="duringYear" name="duringYear" />
+    <input type="hidden" id="assesmentYear" name="assesmentYear" />
+    <input type="hidden" id="type" name="type" />
+</form>
+
+@section scripts
+{
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/TaxCalculator/TaxCalculatorInputFocus.js"></script>
+    <script>
+        $(".select2").select2();
+        var isValid = true;
+        var addedItems = [];
+        var newItem = [];
+        var isSearch = false;
+
+        var taxCalculation = { ID: 0, AssesYear: "", FinancialYear: "", Corporation: 0, Location: "", Date: "" }
+
+        var table = $('#EmpList').DataTable({
+            'paging': false,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+        EnterPress();
+
+        $('.date').datepicker({
+            autoclose: true,
+            format: "dd-mm-yyyy"
+        });
+
+        $(document).ready(function () {
+            $(".sk-fading-circle").hide();
+            $("#AssesmentYear").focus();
+            $("#save").hide();
+        });
+
+        $(document).on('click', "#refresh", function () {
+            location.reload();
+        });
+
+        $(document).on('change', "#AssesmentYear", function () {
+            if ($("#AssesmentYear").val() != "") {
+                var assYear = $("#AssesmentYear").val();
+                var s1 = assYear.substring(0, 4);
+                var e1 = assYear.substring(7, 11);
+                s1 = s1 - 1;
+                e1 = e1 - 1;
+                $("#DuringYear").val(s1 + " - " + e1);
+            }
+            else {
+                $("#DuringYear").val("");
+            }
+
+        });
+
+        $(document).on('click', '[name="editRow"]', function () {
+            event.preventDefault();
+            var $row = $(this).closest('tr');
+            var data = table.row($row).data();
+            var empId = $(this).attr("value");
+            var year = $("#DuringYear").val();
+            if ($("#DuringYear").val() != "") {
+                $("#report").attr("action", "/TaxCalculator/GetEmployeeDetails")
+                $("#empId").val(empId);
+                $("#duringYear").val(year);
+                $("#assesmentYear").val($("#AssesmentYear").val());
+                $("#type").val(data[3]);
+                $("#report").submit();
+            }
+            else {
+                setError("DuringYear", "During Year is required field for Tax Details.");
+            }
+        });
+
+        $(document).on('click', "#search", function () {
+            $("#search").prop('disabled', true);
+            RemoveError();
+            var id = { duringYear: $("#DuringYear").val(), location: $("#Location").val(), corpuration: $("#Corpuration").val(), assesmentY: $("#assesmentYear").val()};
+            ValidateSearchClick();
+            if (isValid == true) {
+                $(".sk-fading-circle").show();
+                $.ajax({
+                    url: '@Url.Action("GetEmployees", "TaxCalculator")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas != 0) {
+                            addedItems = datas;
+                            ShowOnTable();
+                            $(".sk-fading-circle").hide();
+                            $("#save").show();
+                        }
+                        else {
+                            alert("No Employee Found for This Search Combination.");
+                            $(".sk-fading-circle").hide();
+                            $("#search").prop('disabled', false);
+                        }
+
+                    }
+                });
+            }
+            else {
+                $("#search").prop('disabled', false);
+            }
+        });
+
+        //$('thead input[name="select_allWithoutInv"]', table.table().container()).on('click', function (e) {
+        //    if (this.checked) {
+        //        $('#EmpList tbody input[type="checkbox"]:not(:checked)').trigger('click');
+        //    } else {
+        //        $('#EmpList tbody input[type="checkbox"]:checked').trigger('click');
+        //    }
+
+        //    // Prevent click event from propagating to parent
+        //    e.stopPropagation();
+        //});
+
+        //var rows_selected = [];
+        //$('#EmpList tbody').on('click', 'input[type="checkbox"]', function (e) {
+        //    var $row = $(this).closest('tr');
+        //    var data = table.row($row).data();
+        //    var rowId = data[1];
+        //    var index = $.inArray(rowId, rows_selected);
+        //    //var a = 
+
+        //    var changedvalue = "Without Investment";
+        //    var changeAmount = 0.0;
+        //    if (index < 0) {
+        //        rows_selected.push(rowId);
+        //        changedvalue = "With Investment";
+        //        $.each(addedItems, function (index, value) {
+        //            if (value.EmployeeId == rowId) {
+        //                changeAmount = parseFloat(value.TaxPayable).toFixed(2);
+        //            }
+        //        });
+        //    }
+        //    else {
+        //        rows_selected.splice(index, 1);
+        //        $.each(addedItems, function (index, value) {
+        //            if (value.EmployeeId == rowId) {
+        //                changeAmount = parseFloat(value.TaxPayWithoutInv).toFixed(2);
+        //            }
+        //        });
+        //    }
+
+
+        //    $("#" + data[1]).text(changedvalue);
+        //    $("#" + data[0]).text(changeAmount);
+            
+        //    //updateDataTableSelectAllCtrl(table);
+
+
+        //    e.stopPropagation();
+        //});
+        
+        $(document).on('click', "#save", function () {
+            RemoveError();
+            var msg = "";
+            $("#save").prop('disabled', true);
+            SetTaxCalculation();
+            SetTaxCalculationLine();
+            $.each(newItem, function (index, value) {
+                if (value.NetPayable == 0) {
+                    msg = "Payable Tax Can Not be Empty.";
+                }
+            });
+            if (newItem.length <= 0) {
+                $.each(newItem, function () {
+                    if (value.NetPayable == 0) {
+                        alert("PayAble Tax Can Not be Empty.");
+                    }
+                });
+                alert("At least One Item should be added for save.");
+                $("#save").prop('disabled', false);
+            }
+            else {
+                ValidateSearchClick();
+                if (isValid == true && msg == "") {
+                    if (confirm('Do you want to save')) {
+                        $.ajax({
+                            url: '@Url.Action("SaveTaxStatement", "TaxCalculator")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ taxCalculation: taxCalculation, newItem: newItem }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Failed To Saved.");
+                                    $("#save").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully Saved.");
+                                    $("#ID").val(datas.taxCalculation.ID);
+                                    $("#save").prop('disabled', true);
+                                    $("#refresh").focus();
+                                }
+                            }
+                        });
+                        
+                    }
+                    else {
+                        $("#save").prop('disabled', false);
+                    }
+                }
+                else {
+                    if (msg != "") {
+                        alert(msg);
+                    }
+                    $("#save").prop('disabled', false);
+                }
+            }
+        });
+
+
+        //search code
+        $(document).on('click', '#searchId', function () {
+            RemoveError();
+                isSearch = true;
+                var id = { id: $("#ID").val() };
+            if ($("#ID").val() != "") {
+                $.ajax({
+                    url: '@Url.Action("GetTaxStatementById", "TaxCalculator")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+
+                        if (datas == 0) {
+                            alert("Your entered ID Doesn't exist");
+                            //$("#search").prop('disabled', false);
+                            location.reload();
+                        }
+                        else {
+                            $("#save").hide();
+                            $("#ID").val(datas.taxItem.ID);
+                            $("#AssesmentYear").val(datas.taxItem.AssesYear).change();
+                            $("#Location").val(datas.taxItem.Location).change();
+                            $("#Corpuration").val(datas.taxItem.Corporation).change();
+
+                            newItem = [];
+                            $.each(datas.taxLineItem, function (index, value) {
+                                var item = { ID: 0, EmployeeID: 0, WIth_Without: "", TaxAmount: 0.0, NetPayable: 0.0, EmployeeDesignation: "" }
+                                item.ID = 0;
+                                item.EmployeeID = value.EmployeeID;
+                                item.WIth_Without = value.WIth_Without;
+                                item.EmployeeDesignation = value.EmployeeDesignation;
+                                item.TaxAmount = value.TaxAmount;
+                                item.NetPayable = value.NetPayable;
+
+                                newItem.push(item);
+                            });
+
+                            ShowOnTable();
+                            $("#search").prop('disabled', true);
+
+                        }
+                    },
+                    error: function () {
+                        alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+                        $("#search").prop('disabled', false);
+                    }
+                });
+            }
+            else {
+                setError("ID", "ID is required To Get Data.");
+            }
+        });
+
+        //data table fill up
+        function ShowOnTable() {
+            table.clear().draw();
+            if (isSearch == true) {
+                $("#details").hide();
+                $.each(newItem, function (index, value) {
+                    table.row.add([value.EmployeeID, "Employee Name", value.EmployeeDesignation, value.WIth_Without, parseFloat(value.TaxAmount).toFixed(2), parseFloat(value.NetPayable).toFixed(2), ""]).draw();
+                });
+            }
+            else {
+                $.each(addedItems, function (index, value) {
+                    if (value.WIth_Without == "With Investment") {
+                        table.row.add([value.EmployeeId, "Employee Name", value.EmployeeDesignation, value.WIth_Without, parseFloat(value.TotTaxWithInv).toFixed(2), parseFloat(value.TaxPayable).toFixed(2), '<a href="#"><i class="fa fa-caret-square-o-right" name="editRow" value="' +
+                            value.EmployeeId + '"></i></a>']).draw();
+                    }
+                    else {
+                        table.row.add([value.EmployeeId, "Employee Name", value.EmployeeDesignation, value.WIth_Without, parseFloat(value.TotTAxWithoutInv).toFixed(2), parseFloat(value.TaxPayWithoutInv).toFixed(2), '<a href="#"><i class="fa fa-caret-square-o-right" name="editRow" value="' +
+                            value.EmployeeId + '"></i></a>']).draw();
+                    }
+                });
+            }
+        }
+
+        function ValidateSearchClick() {
+            isValid = true;
+            if ($("#AssesmentYear").val() == "") {
+                setError("AssesmentYear", "Assesment Year is required field");
+                isValid = false;
+            }
+
+            if ($("#Location").val() == "") {
+                setError("Location", "Location is required field");
+                isValid = false;
+            }
+
+            if ($("#Corpuration").val() == "") {
+                setError("Corpuration", "Corpuration is required field");
+                isValid = false;
+            }
+            if ($("#Date").val() == "") {
+                setError("Date", "Date is required field");
+                isValid = false;
+            }
+        }
+        
+        function SetTaxCalculation() {
+            taxCalculation.ID = 0;
+            taxCalculation.AssesYear = $("#AssesmentYear").val();
+            taxCalculation.FinancialYear = $("#DuringYear").val(); 
+            taxCalculation.Corporation = $("#Corpuration").val();
+            taxCalculation.Location = $("#Location").val();
+            taxCalculation.Date = $("#Date").val();
+        }
+
+        function SetTaxCalculationLine() {
+            newItem = [];
+            $.each(addedItems, function (index, value) {
+                var item = { ID: 0, EmployeeID: 0, WIth_Without: "", TaxAmount: 0.0, NetPayable: 0.0, EmployeeDesignation: "" }
+                item.ID = 0;
+                item.EmployeeID = value.EmployeeId;
+                item.WIth_Without = value.WIth_Without;
+                item.EmployeeDesignation = value.EmployeeDesignation;
+
+                if (value.WIth_Without == "With Investment") {
+                    item.TaxAmount = parseFloat(value.TotTaxWithInv).toFixed(2);
+                    item.NetPayable = parseFloat(value.TaxPayable).toFixed(2);
+                }
+                else {
+                    item.TaxAmount = parseFloat(value.TotTAxWithoutInv).toFixed(2);
+                    item.NetPayable = parseFloat(value.TaxPayWithoutInv).toFixed(2);
+                }
+
+                newItem.push(item);
+            });
+
+        }
+        
+
+    </script>
+}
+

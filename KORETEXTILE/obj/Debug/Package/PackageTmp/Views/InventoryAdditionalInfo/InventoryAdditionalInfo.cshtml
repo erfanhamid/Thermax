@@ -1,0 +1,328 @@
+﻿@model BEEERP.Models.InventoryModule.InventoryAdditionalInfo
+
+@{
+    ViewBag.Title = "InventoryAdditionalInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+<h3 style="text-align:center">Inventory Additional Information</h3>
+
+<div class="content">
+    <div class="row">
+        <h4 style="text-align:center"></h4>
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="box">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h6 class="box-title">IOB Details</h6>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.InventoryType, "Type", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.DropDownListFor(m => m.InventoryType, (IEnumerable<SelectListItem>)ViewBag.InvType, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.InventoryType, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.GroupID, "Group", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.DropDownListFor(m => m.GroupID, (IEnumerable<SelectListItem>)ViewBag.Group, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.GroupID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ItemID, "Item", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.DropDownListFor(m => m.ItemID, (IEnumerable<SelectListItem>)ViewBag.Item, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.ItemID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ItemCode, "Item Code", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.TextBoxFor(m => m.ItemCode, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.ItemCode, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ShortDescription, "Short Description", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.TextBoxFor(m => m.ShortDescription, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.ShortDescription, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.StandardCost, "Standard Cost", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.TextBoxFor(m => m.StandardCost, new { @class = "form-control", @type = "number" })
+                                            @Html.ValidationMessageFor(m => m.StandardCost, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.SellingPrice, "Selling Price", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.TextBoxFor(m => m.SellingPrice, new { @class = "form-control", @type = "number" })
+                                            @Html.ValidationMessageFor(m => m.SellingPrice, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.VatPerc, "VAT %", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.TextBoxFor(m => m.VatPerc, new { @class = "form-control", @type = "number" })
+                                            @Html.ValidationMessageFor(m => m.VatPerc, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.MinStockLevel, "Minimum Stock Level", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.TextBoxFor(m => m.MinStockLevel, new { @class = "form-control", @type = "number" })
+                                            @Html.ValidationMessageFor(m => m.MinStockLevel, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.MaxStockLevel, "Maximum Stock Lelvel", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.TextBoxFor(m => m.MaxStockLevel, new { @class = "form-control", @type = "number" })
+                                            @Html.ValidationMessageFor(m => m.MaxStockLevel, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ReorderLevel, "Reorder Level", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.TextBoxFor(m => m.ReorderLevel, new { @class = "form-control", @type = "number" })
+                                            @Html.ValidationMessageFor(m => m.ReorderLevel, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.EOQuantity, "Economic Order Qty", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.TextBoxFor(m => m.EOQuantity, new { @class = "form-control", @type = "number" })
+                                            @Html.ValidationMessageFor(m => m.EOQuantity, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.CountryID, "Country Of Origin", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.DropDownListFor(m => m.CountryID, (IEnumerable<SelectListItem>)ViewBag.Country, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.CountryID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Remarks, "Remarks", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.TextBoxFor(m => m.Remarks, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Remarks, "", new { @style = "color : red" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class=" col-md-12">
+                        <div class="box" style="border:none">
+                            <div class="box-footer">
+                                <div class="form-group" , style="text-align:center;margin-top:10px">
+                                    <button type="button" id="save" style="height:500%; font-size:100%;" class="btn btn-primary">Save</button>
+                                    <button type="button" id="update" style="height:500%; font-size:100%;" class="btn btn-primary">Update</button>
+                                    <button type="button" id="delete" style="height:500%; font-size:100%;" class="btn btn-primary">Delete</button>
+                                    <button type="button" id="refresh" style="height:500%; font-size:100%;" class="btn btn-primary">Refresh</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script src="~/Scripts/CommercialModule/LTRInputFocus.js"></script>
+    <script>
+        var isValid = true;
+        var iai = {
+            ItemID: 0, ItemCode: "", ShortDescription: "", StandardCost: 0, SellingPrice: 0, VatPerc: 0, PacSize: 0,
+            CountryID: 0, MinStockLevel: 0, MaxStockLevel: 0, ReorderLevel: 0, EOQuantity: 0, Remarks: ""
+        }
+        $(document).ready(function () {
+
+            $('.date').datepicker({
+                autoclose: true,
+                format: 'dd-mm-yyyy',
+            });
+            $(".select2").select2();
+            $("#update").hide();
+            $("#delete").hide();
+
+        });
+
+        $(document).on('click', "#refresh", function () {
+            location.reload();
+        });
+         
+         $(document).on('click', "#save", function (e) {
+                RemoveError();
+                Validateiai();
+                if (isValid == true) {
+                    if (confirm('Do you want to save')) {
+                        setiaiData();
+                       $.ajax({
+                        url: '@Url.Action("SaveInventoryAdditionalInfo", "InventoryAdditionalInfo")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ iai : iai}),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 1) {
+                                alert("Sucessfully Saved.");
+                                $("#save").prop('disabled', true);
+                            }
+                            else {
+                                alert("This item already saved.");
+                            }
+                        }
+                       });
+                    }
+                    else {
+                        $("#save").prop('disabled', false);
+                    }
+                }
+                else {
+                    $("#save").prop('disabled', false);
+                }
+
+         });
+
+        function setiaiData() {
+
+            iai.ItemID = $("#ItemID").val();
+            iai.ItemCode = $("#ItemCode").val();
+            iai.ShortDescription = $("#ShortDescription").val();
+            iai.StandardCost = $("#StandardCost").val();
+            iai.SellingPrice = $("#SellingPrice").val();
+            iai.VatPerc = $("#VatPerc").val();
+            iai.PacSize = $("#PacSize").val();
+            iai.CountryID = $("#CountryID").val();
+            iai.MinStockLevel = $("#MinStockLevel").val();
+            iai.MaxStockLevel = $("#MaxStockLevel").val();
+            iai.ReorderLevel = $("#ReorderLevel").val();
+            iai.EOQuantity = $("#EOQuantity").val();
+            iai.Remarks = $("#Remarks").val();
+        }
+
+        function Validateiai() {
+            isValid = true;
+
+            if ($("#ItemID").val() == "") {
+                setError("ItemID", "Item is required field");
+                isValid = false;
+            }
+        }
+
+    </script>
+
+}
+
+@*$(document).on('click', "#update", function () {
+        RemoveError();
+           setLTR();
+           Validate();
+        if (isValid == true) {
+                if (confirm('Do you want to Update')) {
+                $.ajax({
+                    url: '@Url.Action("UpdateLTR", "LATROB")',
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({ LTR : LTR}),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Update Failed");
+                            $("#update").prop('disabled', false);
+                        }
+
+                        else if (datas == 2) {
+                            alert("LATR No Alreay Exist.");
+                            window.location.reload(true);
+                        }
+                        else{
+                            alert("Sucessfully Updated.");
+
+                            location.reload();
+
+                        }
+                    }
+                });
+                }
+                else {
+                    $("#update").show();
+                }
+            }
+            else {
+                $("#update").show();
+            }
+
+        });
+
+     $(document).on('click', '#delete', function () {
+        $("#update").prop('disabled', true);
+         $("#delete").prop('disabled', true);
+         setLTR();
+
+        if (confirm('Are you sure you want to delete this from the database?')) {
+            $.ajax({
+                url: '@Url.Action("DeleteLTR", "LATROB")',
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify({LTR : LTR }),
+                type: 'POST',
+                dataType: 'json',
+                success: function (datas) {
+                    if (datas == 0) {
+                        alert("Delete failed.");
+                        $("#delete").prop('disabled', false);
+                        $("#update").prop('disabled', false);
+                    }
+                    else {
+                        alert("Delete Successful");
+                        location.reload();
+                    }
+                }
+            });
+        }
+    });*@

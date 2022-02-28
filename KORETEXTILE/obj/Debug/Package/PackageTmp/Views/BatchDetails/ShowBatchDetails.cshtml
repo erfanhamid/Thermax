@@ -1,0 +1,158 @@
+﻿@model BEEERP.Models.ViewModel.Sales.Report.InventoryReportVModel
+@{
+    ViewBag.Title = "ShowBatchDetails";
+}
+
+<h2 style="text-align:center">Show Batch Reports</h2>
+
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "report", target = "_blank" }))
+{
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 class="box-title">Selection</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label" for="BatchID">Batch No</label>
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownList("BatchId", (IEnumerable<SelectListItem>)ViewBag.LoadBatch, new { @class = "form-control select2", @id = "BatchId" })
+                                                    @Html.ValidationMessage("BatchId", "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.FromDate, "From Date", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8 date input-group" , style="padding-left:15px;padding-right:15px;">
+                                                    @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                    @Html.ValidationMessageFor(m => m.FromDate)
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.ToDate, "To Date", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8 date input-group" , style="padding-left:15px;padding-right:15px;">
+                                                    @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                    @Html.ValidationMessageFor(m => m.ToDate)
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 class="box-title">Batch Reports</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group" style="text-align:center;">
+                                                <button class="btn skin-blue" id="showBatchDatails" style="min-width:400px;" type="submit">Show Batch Datails</button>
+                                            </div>
+
+                                            <div class="form-group" style="text-align:center;">
+                                                <button class="btn skin-blue" id="showBatchSummary" style="min-width:400px;" type="submit">Show Batch Summary</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@section scripts{
+    <script src="~/Scripts/Search.js"></script>
+    <script src="~/Scripts/ReportSearch.js"></script>
+    <script>
+        $(".select2").select2();
+        $('.date').datepicker({
+            autoclose: true,
+            format: "dd-mm-yyyy"
+        });
+        var isValid = "";
+
+        $(document).on('click', "#showBatchDatails", function (event) {
+            event.preventDefault();
+            validateOnBatchDetails();
+            if (isValid == "") {
+                if ($("#message").val() != "true") {
+                    $("#Depot").val($("#DepotId").val());
+                    $("#report").attr("action", "/BatchDetails/GetBatchDetails")
+                    $("#report").submit();
+                }
+            }
+        });
+
+        $(document).on('click', "#showBatchSummary", function (event) {
+            event.preventDefault();
+            validateOnShowBatchSummary();
+            if (isValid == "") {
+                if ($("#message").val() != "true") {
+                    $("#Depot").val($("#DepotId").val());
+                    $("#report").attr("action", "/BatchDetails/GetBatchSummary")
+                    $("#report").submit();
+                }
+            }
+        });
+
+        function validateOnBatchDetails() {
+            isValid = "";
+            RemoveError();
+            if ($("#BatchId").val() == "") {
+                setError("BatchId", "Batch No is Required Field");
+                isValid = "required";
+            }
+        }
+
+        function validateOnShowBatchSummary() {
+            isValid = "";
+            RemoveError();
+            //if ($("#BatchId").val() == "") {
+            //    setError("BatchId", "Batch No is Required Field");
+            //    isValid = "required";
+            //}
+            if ($("#FromDate").val() == "") {
+                setError("FromDate", "From Date is Required Field");
+                isValid = "required";
+            }
+
+            if ($("#ToDate").val() == "") {
+                setError("ToDate", "To Date is Required Field");
+                isValid = "required";
+            }
+            var fromDate = $('#FromDate').val().split("-");
+            var f = new Date(fromDate[2], fromDate[1] - 1, fromDate[0]);
+
+            var toDate = $('#ToDate').val().split("-");
+            var t = new Date(toDate[2], toDate[1] - 1, toDate[0]);
+
+            if (f > t) {
+                setError("FromDate", "From Date can't greater than To Date");
+                isValid = "required";
+            }
+        }
+
+    </script>
+}
+

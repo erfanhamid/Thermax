@@ -1,0 +1,278 @@
+﻿@model BEEERP.Models.ViewModel.Sales.Report.ReportVModel
+
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Report";
+    int i = 0;
+}
+
+<style>
+
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+    /*h3 {
+        background: #F5B041;
+        border-radius: 8px;
+    }*/
+    /*box-title {
+        background: #82E0AA;
+        border-radius: 8px;
+    }*/
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        /*padding: 15px 32px;*/
+        /*text-align: center;*/
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 8px;
+        min-width: 400px;
+        /*height: 12px;*/
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+        }
+</style>
+
+<h3 style="text-align:center">Financial Statement</h3>
+
+@using (Html.BeginForm("ShowLedgerReport", "LedgerReport", FormMethod.Post, new { id = "ledgerReport", target = "_blank" }))
+{
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h4 class="box-title">Select Date Range</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.LedgerGroup, "Ledger Group", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DropDownListFor(m => m.LedgerGroup, (IEnumerable<SelectListItem>)ViewBag.LedgerGroup, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.LedgerGroup)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.From, "From Date", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6 date input-group" style="padding-left:15px;padding-right:15px;">
+                                        @Html.TextBoxFor(m => m.From, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.From)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.To, "To Date", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6 date input-group" style="padding-left:15px; padding-right:15px">
+                                        @Html.TextBoxFor(m => m.To, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.To)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                    @Html.LabelFor(m => m.AsOnDate, "As on Date", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6 date input-group" style="padding-left:15px; padding-right:15px">
+                                        @Html.TextBoxFor(m => m.AsOnDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.AsOnDate)
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <br />
+                        <div class="box" id="account">
+                            <div class="box-header with-border box-default box-solid" style="background-color:#d2d6de;">
+                                <h4 class="box-title">Select Account</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.LedgerAC, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.DropDownListFor(m => m.LedgerAC, (IEnumerable<SelectListItem>)ViewBag.LedgerAC, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.LedgerAC)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="box" id="depot">
+                            <div class="box-header with-border box-default box-solid" style="background-color:#d2d6de;">
+                                <h3 class="box-title">Select Depot</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.DepotId, "Depot", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.DropDownListFor(m => m.DepotId, (IEnumerable<SelectListItem>)ViewBag.Depot, new { @class = "form-control select2", @Value = ViewBag.DepotId, @disabled = "disabled" })
+                                        @Html.ValidationMessageFor(m => m.DepotId)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="box" id="customer">
+                            <div class="box-header with-border box-default box-solid" style="background-color:#d2d6de;">
+                                <h3 class="box-title">Select Customer</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group ">
+                                    @Html.LabelFor(m => m.CustomerID, new { @class = "col-md-4 control-label" })
+                                    <div class="input-group input-group-sm" style="padding-right:19px;padding-left:14px;">
+                                        @Html.TextBoxFor(m => m.CustomerID, new { @class = "form-control", @Value = "" })
+                                        @Html.ValidationMessageFor(m => m.CustomerID)
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn skin-blue btn-flat" id="searchCustomer">Go!</button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @if (Session["validation"] != null)
+                                    {
+                                        <p style="color:red;text-align:center;" id="customerValidation">@Session["validation"]</p>
+                                        Session["validation"] = null;
+                                    }
+                                    @Html.LabelFor(m => m.CustName, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.CustName, new { @class = "form-control", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.CustName)
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="box " style="min-height:163px;">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                <h4 class="box-title">Financial Statements</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="showGroupLedgerTransum" type="submit">@i. Group Ledger Transaction Summary</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="showTrialBalance" type="submit">@i. Trial Balance</button>
+                                </div>
+
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="showIncomeStatement" type="submit">@i. Income Statement</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="showBalanceSheet" type="submit">@i. Balance Sheet</button>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <br />
+
+                    </div>
+                    <input type="hidden" id="Depot" value="" name="Depot" />
+                    <input type="hidden" id="message" value="false" />
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+}
+
+
+@section scripts{
+    <script src="~/Scripts/Search.js"></script>
+    <script src="~/Scripts/ReportSearch.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#account").hide();
+            $("#depot").hide();
+            $("#customer").hide();
+            $(document).on('click', "#CustomerID", function () {
+                $("#customerValidation").text("");
+            });
+
+            //$("#lReport").hide();
+
+            var selectedDepot = $("#Depot").val();
+            if (selectedDepot != "") {
+                $("#Depot").prop("disabled", true);
+            }
+            SearchCustomer();
+            $(".select2").select2();
+            $('.date').datepicker({
+                autoclose: true,
+                format: "dd-mm-yyyy"
+            });
+            $(document).on('click', "#showCustLedger", function () {
+                ValidateReportSearchParam(["From", "To", "DepotId", "CustomerID"]);
+                event.preventDefault();
+
+                if ($("#message").val() != "true") {
+                    $("#Depot").val($("#DepotId").val());
+                    $("#ledgerReport").attr("action", "/LedgerReport/ShowLedgerReport")
+                    $("#ledgerReport").submit();
+                }
+
+            });
+            $(document).on('click', "#showAccountLedger", function () {
+                event.preventDefault();
+                $("#ledgerReport").attr("action", "/AccountsReport/ShowAccountLedger")
+                $("#ledgerReport").submit();
+            });
+            $(document).on('click', "#showGroupLedgerTransum", function () {
+                event.preventDefault();
+                $("#ledgerReport").attr("action", "/AccountsReport/ShowGroupLedgerTransectionSummary")
+                $("#ledgerReport").submit();
+            });
+
+            $(document).on('click', "#showBalanceSheet", function () {
+                event.preventDefault();
+                $("#ledgerReport").attr("action", "/AccountsReport/ShowbalanceSheet")
+                $("#ledgerReport").submit();
+            });
+            $(document).on('click', "#showIncomeStatement", function () {
+                event.preventDefault();
+                $("#ledgerReport").attr("action", "/AccountsReport/ShowIncomeStatement")
+                $("#ledgerReport").submit();
+            });
+            $(document).on('click', "#showTrialBalance", function () {
+                ValidateReportSearchParam(["From", "To"]);
+                event.preventDefault();
+
+                if ($("#message").val() != "true") {
+                    $("#ledgerReport").attr("action", "/AccountsReport/ShowTrialBalance")
+                    $("#ledgerReport").submit();
+                }
+            });
+        });
+    </script>
+}

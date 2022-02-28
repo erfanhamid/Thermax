@@ -1,0 +1,564 @@
+﻿@model BEEERP.Models.ViewModel.Payroll.SalaryProcessVModel
+@{
+    ViewBag.Title = "SalaryProcess";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+    #loader {
+        display: none;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        z-index: 1;
+        width: 150px;
+        height: 150px;
+        margin: -75px 0 0 -75px;
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        border-bottom: 16px solid #3498db;
+        width: 120px;
+        height: 120px;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+    }
+
+    @@-webkit-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @@keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+<h3 style="text-align:center">Monthly Salary Entry</h3>
+@using (Html.BeginForm("PrintVoucher", "SalaryProcess", FormMethod.Post, new { id = "report", target = "_blank" }))
+{
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box">
+                    <div class="box-header with-border box-head-back" style="background: #82E0AA;">
+                        <h4 class="box-title">Salary Process Section</h4>
+                    </div>
+                    <div class="box-body">
+                        <div class="row" style="margin-left:10px">
+                            <div class="col-md-0"></div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.SalaryInfoNo, "SP No ", new { @class = "col-md-4 control-label", @Title = "Salary Process No" })
+                                    <div class="col-sm-7 input-group" style="padding-left:10px; padding-right:10px">
+                                        @Html.TextBoxFor(m => m.SalaryInfoNo, new { @class = "form-control", @Value = "" })
+                                        @Html.ValidationMessageFor(m => m.SalaryInfoNo, "", new { @style = "color: red" })
+                                        <div class="input-group-btn">
+                                            <input class="btn btn-primary" type="button" id="search" value="Search" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.CompanyId, "Company ", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-7 input-group" style="padding-left:10px; padding-right:10px">
+                                        @Html.DropDownListFor(m => m.CompanyId, (IEnumerable<SelectListItem>)ViewBag.CompanyInfo, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.CompanyId, "", new { @style = "color: red" })
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.FromDate, "From ", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-7 input-group" style="padding-left:10px; padding-right:10px">
+                                        @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control fromdate", @Placeholder = "Select From Date", @autocomplete = "off" })
+                                        @Html.ValidationMessageFor(m => m.FromDate, "", new { @style = "color: red" })
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ToDate, "To ", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-7 input-group" style="padding-left:10px; padding-right:10px">
+                                        @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control todate", @Placeholder = "Select To Date", @autocomplete = "off" })
+                                        @Html.ValidationMessageFor(m => m.ToDate, "", new { @style = "color: red" })
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ProcessDate, "Process Date ", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-7 input-group" style="padding-left:10px; padding-right:10px">
+                                        @Html.TextBoxFor(m => m.ProcessDate, new { @class = "form-control processdate", @Placeholder = "Select Process Date", @id = "ProcessDate", @autocomplete = "off" })
+                                        @Html.ValidationMessageFor(m => m.ProcessDate, "", new { @style = "color: red" })
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1"></div>
+                        </div>
+                        <div class="row input-group" style="margin-left:29%;margin-right:23%" id="ProcessDiv">
+                            <div class="col-md-4" style="margin-left:1%; margin-right:15%">
+                                <div class="form-group">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row input-group" style="margin-left:29%;margin-right:23%" id="PrintDiv">
+                            <div class="col-md-4" style="margin-left:1%; margin-right:15%">
+                                <div class="form-group">
+                                    <button class="btn skin-blue" id="Reset" style="min-width:100px;">Refresh</button>
+                                </div>
+                            </div>
+                            <div class="col-md-4" style="margin-left:15%; margin-right:1%">
+                                <div class="form-group">
+                                    <button class="btn skin-green btn-success" id="PrintVoucher" target="_blank" style="min-width:100px;">Print Voucher</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color:white; ">
+                    <div class="form-group" style="padding:3px;">
+                        <div class="col-md-12" style="text-align:center;">
+                            <button class="btn skin-blue" id="Process">Process</button>
+                            <button class="btn skin-blue" id="Reset">Refresh</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA;">
+                                    <h4 class="box-title">Employees Salary Information</h4>
+                                </div>
+                                <div class="box-body">
+                                    <table class="table table-responsive" id="myTable">
+                                        <thead>
+                                            <tr>
+                                                <td>Serial No</td>
+                                                <td>Employee Id</td>
+                                                <td>Employee Name</td>
+                                                <td>Total Salary Payable </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                    <div class="loader" id="loader"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color:white; ">
+                    <div class="form-group" style="padding:3px;">
+                        <div class="col-md-12" style="text-align:center;">
+                            <button class="btn btn-primary" id="Save">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section scripts
+{
+    <script src="~/Scripts/Common.js"></script>
+    <script>
+        EnterPress();
+        var salaryProcess = SalaryInfoNo,CompanyId, FromDate, ToDate, ProcessDate;
+        var check = false;
+        var valid = false;
+        var update = 0;
+        $('.select2').select2();
+        var table = $('#myTable').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+        $(document).ready(function () {
+            $('#CompanyId').attr('disabled', false);
+            $("#CompanyId").val(1).change();
+            RemoveError();
+            $("#PrintDiv").hide();
+            $(".processdate").datepicker({
+                autoclose: true,
+                format: 'dd-mm-yyyy',
+                changeMonth: true,
+                changeYear: true,
+                orientation: 'bottom auto'
+            });
+            $(".fromdate").datepicker({
+                autoclose: true,
+                format: 'dd-mm-yyyy',
+                changeMonth: true,
+                changeYear: true,
+                orientation: 'bottom auto'
+            }).on('changeDate', function (selected) {
+                var minDate = new Date(selected.date.valueOf());
+                $('#ToDate').datepicker('setStartDate', minDate);
+                $('#ProcessDate').datepicker('setStartDate', minDate);
+            });
+            $(".todate").datepicker({
+                autoclose: true,
+                format: 'dd-mm-yyyy',
+                changeMonth: true,
+                changeYear: true,
+                orientation: 'bottom auto'
+            }).on('changeDate', function (selected) {
+                var maxDate = new Date(selected.date.valueOf());
+                $('#FromDate').datepicker('setEndDate', maxDate);
+            });
+            $('input[type="checkbox"]').click(function () {
+                if ($(this).prop("checked") == true) {
+                    $('#CompanyId').attr('disabled', true);
+                    check = true;
+                    setError("CompanyId", "");
+                }
+                else if ($(this).prop("checked") == false) {
+                    $('#CompanyId').attr('disabled', false);
+                    check = false;
+                }
+            });
+            $("#Save").prop("disabled", true);
+        });
+        $(document).on('click', "#Process", function () {
+            event.preventDefault();
+            RemoveError();
+            validation();
+            if (valid) {
+                if (update == 0) {
+                    if (confirm('Do you want to Process ?')) {
+                        document.getElementById("loader").style.display = "block";
+                        setProcessData();
+                        getProcessData(salaryProcess);
+                    }
+                }
+                else if (update == 1) {
+                    if (confirm('Do you want to Update ?')) {
+                        document.getElementById("loader").style.display = "block";
+                        setProcessData();
+                        getProcessData(salaryProcess);
+                    }
+                }
+            }
+            else {
+                alert("Information not valid");
+            }
+        });
+        $(document).on('click', "#search", function () {
+            var serial = 1;
+            document.getElementById("loader").style.display = "block";
+            $("#PrintDiv").hide();
+            $("#ProcessDiv").show();
+            var salaryinfono = $("#SalaryInfoNo").val();
+            if (salaryinfono > 0) {
+                RemoveError();
+                var params = { salaryinfono: salaryinfono };
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetSalaryInformation", "SalaryProcess")',
+                    contentType: "application/Json;charset=utf-8",
+                    data: JSON.stringify(params),
+                    success: function (rData) {
+                        if (rData.id > 0) {
+                            update = 1;
+                            table.clear().draw();
+                            $('#SalaryInfoNo').val(rData.datas[0].SalaryInfoNo);
+                            $('#CompanyId').val(rData.datas[0].CompanyId).change();
+                            $('#ProcessDate').val(moment(rData.datas[0].ProcessDate).format("DD-MM-YYYY")).change();
+                            $('#FromDate').val(moment(rData.datas[0].FromDate).format("DD-MM-YYYY")).change();
+                            $('#ToDate').val(moment(rData.datas[0].ToDate).format("DD-MM-YYYY")).change();
+                            $('#SalaryInfoNo').attr('readonly', true);
+                            document.getElementById("Save").innerHTML = "Update";
+                            $("#Process").prop("disabled", false);
+                            $("#search").prop("disabled", true);
+                            var list = rData.datas;
+                            $.each(list, function (index, value) {
+                                table.row.add([serial++, value.EmployeeId, value.EmployeeName, parseInt(value.PayableSalary)]).draw();
+                            });
+                            $("#Save").prop("disabled", true);
+                            document.getElementById("loader").style.display = "none";
+                        }
+                        if (rData.id <= 0) {
+                            alert("No Data Found");
+                            $("#Save").prop("disabled", true);
+                            document.getElementById("loader").style.display = "none";
+                        }
+                    },
+                    error: function () {
+                        alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services");
+                        document.getElementById("loader").style.display = "none";
+                    }
+                });
+            }
+            else {
+                setError("SalaryInfoNo", "SP No is required");
+                document.getElementById("loader").style.display = "none";
+            }
+        });
+        $(document).on('click', "#Save", function () {
+            event.preventDefault();
+            if (confirm('Do you want to ' + document.getElementById("Save").innerHTML + ' ?')) {
+                document.getElementById("loader").style.display = "block";
+                setProcessData();
+                saveProcessData(salaryProcess);
+            }
+        });
+        $(document).on('click', "#PrintVoucher", function (event) {
+            event.preventDefault();
+            $("#report").attr("action", "/SalaryProcess/PrintVoucher")
+            $("#report").submit();
+        });
+        $(document).on('click', "#Reset", function (event) {
+            event.preventDefault();
+            location.reload();
+        });
+        function getProcessData(salaryprocess) {
+            var serial = 1;
+            var params = { salaryprocess: salaryprocess, update: update };
+             $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetProcessData", "SalaryProcess")',
+                contentType: "application/Json;charset=utf-8",
+                data: JSON.stringify(params),
+                 success: function (rData) {
+                     if (rData.id == 0 && update==0) {
+                         alert(rData.message);
+                         $("#Save").prop("disabled", true);
+                         document.getElementById("loader").style.display = "none";
+                     }
+                     else if (rData.id == 0 && update == 1)
+                     { 
+                         var params = { salaryprocess: salaryprocess, update: update };
+                         $.ajax({
+                                 type: "POST",
+                                 url: '@Url.Action("GetProcessData", "SalaryProcess")',
+                                 contentType: "application/Json;charset=utf-8",
+                             data: JSON.stringify(params),
+                             success: function (rData) {
+                                 if (rData.id == 0 && update == 1) {
+                                     alert(rData.message);
+                                     $("#Save").prop("disabled", true);
+                                     document.getElementById("loader").style.display = "none";
+                                 }
+                                 else if (rData != null || rData.length != 0) {
+                                         table.clear().draw();
+                                         var list = rData;
+                                         $.each(list, function (index, value) {
+                                             table.row.add([serial++, value.EmployeeId, value.EmployeeName, parseInt(value.PayableSalary)]).draw();
+                                         });
+                                         RemoveError();
+                                         $('#ProcessDate').attr('readonly', true);
+                                         $('#FromDate').attr('readonly', true);
+                                         $('#ToDate').attr('readonly', true);
+                                         document.getElementById("Save").innerHTML = "Update";
+                                         $("#Save").prop("disabled", false);
+                                         $("#Save").focus();
+                                     update = 0;
+                                     document.getElementById("loader").style.display = "none";
+                                 }
+                                 else {
+                                         alert("No Data Found");
+                                     $("#Save").prop("disabled", true);
+                                     document.getElementById("loader").style.display = "none";
+                                     }
+                                 }
+                         });
+                     }
+                     else if (rData != null || rData.length != 0) {
+                        table.clear().draw();
+                        var list = rData;
+                        $.each(list, function (index, value) {
+                            table.row.add([serial++, value.EmployeeId, value.EmployeeName, parseInt(value.PayableSalary)]).draw();;
+                        });
+                        RemoveError();
+                         $('#CompanyId').attr('readonly', true);
+                         $('#ProcessDate').attr('readonly', true);
+                         $('#FromDate').attr('readonly', true);
+                         $('#ToDate').attr('readonly', true);
+                         $("#Save").prop("disabled", false);
+                         update = 0;
+                         document.getElementById("loader").style.display = "none";
+                    }
+                    else{
+                         alert("No Data Found");
+                         document.getElementById("loader").style.display = "none";
+                    }
+                },
+                error: function () {
+                    alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services");
+                    document.getElementById("loader").style.display = "none";
+                }
+            });
+        }
+        function saveProcessData(salaryprocess) {
+            var params = { salaryprocess: salaryprocess};
+            $.ajax({
+                url: '@Url.Action("SaveProcessSalaryData", "SalaryProcess")',
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify(params),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas.id == 0) {
+                                alert("Failed To Save");
+                                valid = false;
+                                document.getElementById("loader").style.display = "none";
+                            }
+                            if (datas.update == 0){
+                                alert("Save Successfully");
+                                $("#Process").prop('disabled', true);
+                                $("#Save").prop('disabled', true);
+                                $("#SalaryInfoNo").val(datas.id);
+                                $("#CompanyId").val(datas.comid).change();
+                                $('#FromDate').val(moment(datas.FromDate).format("DD-MM-YYYY")).change();
+                                $('#ToDate').val(moment(datas.ToDate).format("DD-MM-YYYY")).change();
+                                $("#PrintDiv").show();
+                                $("#ProcessDiv").hide();
+                                document.body.scrollTop = 0;
+                                document.documentElement.scrollTop = 0;
+                                valid = false;
+                                update = 0;
+                                document.getElementById("loader").style.display = "none";
+                            }
+                            if (datas.update == 1) {
+                                alert("Update Successfully");
+                                $("#Process").prop('disabled', true);
+                                $("#Save").prop('disabled', true);
+                                $("#SalaryInfoNo").val(datas.id);
+                                $("#CompanyId").val(datas.comid).change();
+                                $('#FromDate').val(moment(datas.FromDate).format("DD-MM-YYYY")).change();
+                                $('#ToDate').val(moment(datas.ToDate).format("DD-MM-YYYY")).change();
+                                $("#PrintDiv").show();
+                                $("#ProcessDiv").hide();
+                                document.body.scrollTop = 0;
+                                document.documentElement.scrollTop = 0;
+                                valid = false;
+                                update = 0;
+                                document.getElementById("loader").style.display = "none";
+                            }
+                        }
+                    });
+        }
+        function setProcessData() {
+            if (check) {
+                salaryProcess.SalaryInfoNo = $("#SalaryInfoNo").val();
+                salaryProcess.CompanyId = 0;
+                salaryProcess.FromDate = $("#FromDate").val();
+                salaryProcess.ToDate = $("#ToDate").val();
+                salaryProcess.ProcessDate = $("#ProcessDate").val();
+            }
+            if (!check) {
+                salaryProcess.SalaryInfoNo = $("#SalaryInfoNo").val();
+                salaryProcess.CompanyId = $("#CompanyId").val();
+                salaryProcess.FromDate = $("#FromDate").val();
+                salaryProcess.ToDate = $("#ToDate").val();
+                salaryProcess.ProcessDate = $("#ProcessDate").val();
+            }
+        }
+        function validation() {
+            if ($("#FromDate").val() == "") {
+                setError("FromDate", "From Date is required field");
+                valid = false;
+            }
+            if ($("#ToDate").val() == "") {
+                setError("ToDate", "To Date is required field");
+                valid = false;
+            }
+            if ($("#CompanyId").val() == "") {
+                setError("CompanyId", "Company Name is required field");
+                valid = false;
+            }
+            if ($("#ProcessDate").val() == "") {
+                setError("ProcessDate", "Process Date is required field");
+                valid = false;
+            }
+            if ($("#CompanyId").val() > 0 && $("#FromDate").val() != "" && $("#ToDate").val() != "" && $("#ProcessDate").val() != "") {
+                valid = true;
+            }
+        }
+        function EnterPress() {
+            $(document).on("keydown", "#SalaryInfoNo", function (e) {
+                if (e.keyCode == 13 || e.keyCode == 9) {
+                    e.preventDefault();
+                    $("#search").focus();
+                }
+            });
+            $(document).on("keydown", "#search", function (e) {
+                if (e.keyCode == 13 || e.keyCode == 9) {
+                    e.preventDefault();
+                    $("#search").click();
+                    $("#Process").focus();
+                }
+            });
+            $(document).on("keydown", "#Save", function (e) {
+                if (e.keyCode == 13 || e.keyCode == 9) {
+                    e.preventDefault();
+                    $("#Save").click();
+                }
+            });
+            $(document).on("keydown", "#FromDate", function (e) {
+                if (e.keyCode == 13 || e.keyCode == 9) {
+                    e.preventDefault();
+                    $("#ToDate").focus();
+                }
+            });
+            $(document).on("keydown", "#ToDate", function (e) {
+                if (e.keyCode == 13 || e.keyCode == 9) {
+                    e.preventDefault();
+                    $("#ProcessDate").focus();
+                }
+            });
+            $(document).on("keydown", "#ProcessDate", function (e) {
+                if (e.keyCode == 13 || e.keyCode == 9) {
+                    e.preventDefault();
+                    $("#Process").focus();
+                }
+            });
+        }
+    </script>
+}

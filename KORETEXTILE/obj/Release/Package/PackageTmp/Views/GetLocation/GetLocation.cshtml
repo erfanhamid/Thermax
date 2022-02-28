@@ -1,0 +1,107 @@
+﻿@model BEEERP.Models.ViewModel.Location.LocationVModel
+@{
+    ViewBag.Title = "GetLocation";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="box ">
+                <div class="box-header with-border box-head-back" style="text-align:center;">
+                    <h3 class="box-title">User Location Details</h3>
+                </div>
+                <div class="box-body">
+                <div style="text-align:center;font-weight:bold">User Name: @Model.UserId</div>
+                <div style="text-align:center;font-weight:bold">From: @Model.FromDateS To: @Model.ToDateS</div>
+                <table class="table table-responsive" id="locationGrid">
+                    <thead>
+                        <tr>
+                            <th>User Id</th>
+                            <th>Longitude</th>
+                            <th>Latitude</th>
+                            <th>Location</th>
+                            <th>Kilometer</th>
+                            <th>DateTime</th>
+                            <th>Battery percent</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in @ViewBag.Location)
+                        {
+                        <tr>
+                            <td>@item.UserId</td>
+                            <td>@item.Longitude</td>
+                            <td>@item.Latitude</td>
+                            <td>@item.LocationName</td>
+                            <td>@item.Kilometer</td>
+                            <td>@item.DateTime</td>
+                            <td>@item.BatteryPerc</td>
+                            <td> <img class="img-responsive" src="~/Image/@item.Image" alt="Photo"></td>
+                        </tr>
+                        }
+                    </tbody>
+                    <tr>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td>Total: @ViewBag.TotalKm</td>
+                    </tr>
+                </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        var table = $('#locationGrid').DataTable({
+            'paging': false,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': false,
+            'autoWidth': false
+        });
+
+
+        $('img.img-responsive').css({ cursor: 'pointer' }).on('click', function () {
+            var img = $(this);
+            var bigImg = $('<img />').css({
+                'min-width': '70%',
+                'min-height': '70%',
+                'display': 'inline',
+                'margin-top': '6%'
+            });
+            bigImg.attr({
+                src: img.attr('src'),
+                alt: img.attr('alt'),
+                title: img.attr('title')
+              
+            });
+            var over = $('<div />').text(' ').css({
+                'height': '100%',
+                'width': '100%',
+                'background': 'rgba(0,0,0,.82)',
+                'position': 'fixed',
+                'top': 0,
+                'left': 0,
+                'opacity': 0.0,
+                'cursor': 'pointer',
+                'z-index': 9999,
+                'text-align': 'center'
+            }).append(bigImg).bind('click', function () {
+                $(this).fadeOut(300, function () {
+                    $(this).remove();
+                });
+            }).insertAfter(this).animate({
+                'opacity': 1
+            }, 300);
+        });
+
+    </script>
+}

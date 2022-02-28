@@ -1,0 +1,248 @@
+﻿@model BEEERP.Models.ViewModel.Sales.Report.ReportVModel
+
+@{
+    ViewBag.Title = "LTRReport";
+    int i = 0;
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        /*padding: 15px 32px;*/
+        /*text-align: center;*/
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 8px;
+        min-width: 400px;
+        /*height: 12px;*/
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+        }
+
+
+
+
+</style>
+
+<h3 style="text-align:center">LATR Report</h3>
+
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "ltrReport", target = "_blank" }))
+{
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                <h4 class="box-title">Select Date Range and Parameters</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.LTRID, "LATR", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.DropDownListFor(m => m.LTRID, (IEnumerable<SelectListItem>)ViewBag.LATR, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.LTRID)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.From, "From Date", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6 date input-group" style="padding-left:15px;padding-right:15px;">
+                                        @Html.TextBoxFor(m => m.From, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        @Html.ValidationMessageFor(m => m.From)
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.To, "To Date", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6 date input-group" style="padding-left:15px;padding-right:15px;">
+                                        @Html.TextBoxFor(m => m.To, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        @Html.ValidationMessageFor(m => m.To)
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.AsOnDate, "As on Date", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6 date input-group" style="padding-left:15px;padding-right:15px;">
+                                        @Html.TextBoxFor(m => m.AsOnDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        @Html.ValidationMessageFor(m => m.AsOnDate)
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                <h4 class="box-title">LATR Reports</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+            i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="ltrLedger" type="submit">@i. Show LATR Ledger</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+            i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="BankWiseLtrACBSummary" type="submit">@i. Bank Wise LATR Account Balance Summary</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+            i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="AllLATRP" type="submit">@i. Show All LATR Payment</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+            i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="NewLATR" type="submit">@i. Show All New LATR</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+            i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="AllLATRA" type="submit">@i. Show All LATR Adjustment</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+            i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="AllLATROB" type="submit">@i. Show All LATR OB</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="message" value="false" />
+    </div>
+}
+@section scripts{
+    <script src="~/Scripts/ReportSearch.js"></script>
+    <script>
+        $(".select2").select2();
+        $(document).ready(function () {
+            $(".select2").select2();
+            $('.date').datepicker({
+                autoclose: true,
+                format: "dd-mm-yyyy"
+            });
+        });
+
+        $(document).on('click', "#go", function () {
+            var param = { Id: $("#LTRID").val() };
+
+            $.ajax({
+                    url: '@Url.Action("GetLTRNoById", "LTRReport")',
+                    contentType: "application/json;charset=utf-8",
+                    data: param,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas != 0) {
+                            $("#LTRNO").val(datas.lTRNo);
+                        }
+                        else {
+                            $("#LTRNO").val("");
+                            alert("May be LATR Id doesn't exist.");
+                        }
+                    }
+            });
+        });
+        $(document).on('click', "#go2", function () {
+            var No = $("#LTRNO").val();
+
+            $.ajax({
+                    url: '@Url.Action("GetLTRIDByNo", "LTRReport")',
+                    contentType: "application/json;charset=utf-8",
+                    data: {No : No} ,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas != 0) {
+                            $("#LTRID").val(datas.lTRId);
+                        }
+                        else {
+                            $("#LTRID").val("");
+                            alert("May be LATR No doesn't exist.");
+                        }
+                    }
+            });
+        });
+
+        $(document).on('click', "#ltrLedger", function () {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To", "LTRID"]);
+            if ($("#message").val() != "true") {
+                $("#ltrReport").attr("action", "/LTRReport/ShowLATRLedger")
+                $("#ltrReport").submit();
+            }
+        });   
+
+        $(document).on('click', "#BankWiseLtrACBSummary", function () {
+            event.preventDefault();
+            ValidateReportSearchParam(["AsOnDate"]);
+            if ($("#message").val() != "true") {
+                $("#ltrReport").attr("action", "/LTRReport/BankWiseLATRABS")
+                $("#ltrReport").submit();
+            }
+        });  
+        $(document).on('click', "#AllLATRP", function () {
+            event.preventDefault();
+            ValidateReportSearchParam(["From","To"]);
+            if ($("#message").val() != "true") {
+                $("#ltrReport").attr("action", "/LTRReport/LATRPayment")
+                $("#ltrReport").submit();
+            }
+        });
+        $(document).on('click', "#NewLATR", function () {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#message").val() != "true") {
+                $("#ltrReport").attr("action", "/LTRReport/LATRNew")
+                $("#ltrReport").submit();
+            }
+        });
+        $(document).on('click', "#AllLATRA", function () {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#message").val() != "true") {
+                $("#ltrReport").attr("action", "/LTRReport/AllLATRA")
+                $("#ltrReport").submit();
+            }
+        });
+        $(document).on('click', "#AllLATROB", function () {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#message").val() != "true") {
+                $("#ltrReport").attr("action", "/LTRReport/AllLATROB")
+                $("#ltrReport").submit();
+            }
+        });
+        
+        
+    </script>
+}

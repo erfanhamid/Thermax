@@ -1,0 +1,588 @@
+﻿@model BEEERP.Models.ViewModel.Sales.Report.ReportVModel
+@{
+    ViewBag.Title = "Search";
+    int i = 0;
+}
+
+<style>
+
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+    /*h3 {
+        background: #F5B041;
+        border-radius: 8px;
+    }*/
+    /*box-title {
+        background: #82E0AA;
+        border-radius: 8px;
+    }*/
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        /*padding: 15px 32px;*/
+        /*text-align: center;*/
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 8px;
+        min-width: 400px;
+        /*height: 12px;*/
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+        }
+</style>
+<h3 style="text-align:center">Ledger Reports</h3>
+
+@using (Html.BeginForm("ShowLedgerReport", "LedgerReport", FormMethod.Post, new { id = "ledgerReport", target = "_blank" }))
+{
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h4 class="box-title">Select Date Range</h4>
+                            </div>
+                            <div class="box-body">
+                            
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.From,"From Date", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8 date input-group" style="padding-left:15px;padding-right:15px;">
+                                        @Html.TextBoxFor(m => m.From, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.From)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                    @Html.LabelFor(m => m.To,"To Date", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8 date input-group" style="padding-left:15px; padding-right:15px">
+                                        @Html.TextBoxFor(m => m.To, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.To)
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <br />
+                        <div class="box">
+                            <div class="box-header with-border box-default box-solid" style="background: #82E0AA">
+                                <h4 class="box-title">Select Account and Sub Ledger</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.LedgerAC, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.DropDownListFor(m => m.LedgerAC, (IEnumerable<SelectListItem>)ViewBag.LedgerAC, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.LedgerAC)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.CostCenterID, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.DropDownListFor(m => m.CostCenterID, (IEnumerable<SelectListItem>)ViewBag.CostCenter, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.CostCenterID)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.SupplierGroup, "Supplier Group", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.DropDownListFor(m => m.SupplierGroup, (IEnumerable<SelectListItem>)ViewBag.SupplierGroup, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.SupplierGroup)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.SupplierID, "Supplier", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.DropDownListFor(m => m.SupplierID, (IEnumerable<SelectListItem>)ViewBag.Supplier, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.SupplierID)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.EmployeeID, "Employee", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.DropDownListFor(m => m.EmployeeID, (IEnumerable<SelectListItem>)ViewBag.Employee, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.EmployeeID)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.LTRID, "LATR", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.DropDownListFor(m => m.LTRID, (IEnumerable<SelectListItem>)ViewBag.LATR, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.LTRID)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ILCID, "Import LC", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.DropDownListFor(m => m.ILCID, (IEnumerable<SelectListItem>)ViewBag.ILC, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.ILCID)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="box">
+                            <div class="box-header with-border box-default box-solid" style="background: #82E0AA">
+                                <h4 class="box-title">Select Dealer & Retailer</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.DepotId, "Depot", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.DropDownListFor(m => m.DepotId, (IEnumerable<SelectListItem>)ViewBag.Depot, new { @class = "form-control select2", @Value = ViewBag.DepotId })
+                                        @Html.ValidationMessageFor(m => m.DepotId)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.CustomerID, "Dealer", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.DropDownListFor(m => m.CustomerID, (IEnumerable<SelectListItem>)ViewBag.Dealer, new { @class = "form-control  select2", })
+                                        @Html.ValidationMessageFor(m => m.CustomerID, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.RetailerId, "Retailer", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.DropDownListFor(m => m.RetailerId, (IEnumerable<SelectListItem>)ViewBag.Retailer, new { @class = "form-control  select2", })
+                                        @Html.ValidationMessageFor(m => m.RetailerId, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="box " style="min-height:163px;">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                <h4 class="box-title">Select Ledger and Sub Ledger Below</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group" style="text-align:center;" id="lReport">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="showAccountLedger" type="submit">@i. Show General Account Ledger</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="showAccountHistory" type="submit">@i. Show Account History</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="showSupplierLedger" type="submit">@i. Show Supplier Account Ledger</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="showCustLedger" type="submit">@i. Show Dealer Account Ledger</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="dealerfreezeledger" type="submit">@i. Show Dealer Freezer Rent Ledger</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="retailerfreezeledger" type="submit">@i. Show Retailer Freezer Rent Ledger</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="ltrLedger" type="submit">@i. Show LATR Ledger</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="ilcledger" type="submit">@i. Show Import LC Ledger</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="employeeLedger" type="submit">@i. Show Employee Account Ledger</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="employeemrLedger" type="submit">@i. Show Employee Money Requistion Ledger</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="EMCLedger" type="submit">@i. Show Employee MC Account Ledger</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="EITLedger" type="submit">@i. Show Employee IT Account Ledger</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="EPFLedger" type="submit">@i. Show Employee PF Account Ledger</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="EADAccLedger" type="submit">@i. Show Employee Advance Account Ledger</button>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                    </div>
+                    <input type="hidden" id="Depot" value="" name="Depot" />
+                    <input type="hidden" id="message" value="false" />
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+}
+
+
+@section scripts{
+    <script src="~/Scripts/Search.js"></script>
+    <script src="~/Scripts/ReportSearch.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $(document).on('click', "#CustomerID", function () {
+                $("#customerValidation").text("");
+            });
+            $(document).on('click', "#EmployeeID", function () {
+                $("#employeeValidation").text("");
+            });
+
+            $(document).on('change', "#SupplierGroup", function () {
+                var id = $(this).val();
+                if (id != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetSupplierByGroup", "AccountsReport")',
+                        contentType: "application/json;charset=utf-8",
+                        data: { id: id },
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas != 0) {
+                                $("#SupplierID").empty();
+                                $.each(datas, function (index, value) {
+                                    $("#SupplierID").append($('<option />', {
+                                        value: value.Value,
+                                        text: value.Text
+                                    })).trigger('change');
+                                });
+                            } else {
+                                $("#SupplierID").empty();
+                            }
+                        }
+                    });
+                } else {
+                    $("#SupplierID").empty();
+                }
+            });
+
+            $(document).on("click", "#searchCust", function () {
+                var depot = $("#DepotId").val();
+                var cust = $("#CustomerID").val();
+                $.ajax({
+                    url: '@Url.Action("GetCustNameByDepot", "AccountsReport")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { depot: depot, cust: cust },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas != 0) {
+                            $("#CustName").val(datas);
+                        } else {
+                            alert("please Enter a valid customer Id");
+                        }
+                    }
+                });
+            });
+            //$("#lReport").hide();
+
+            var selectedDepot = $("#Depot").val();
+            if (selectedDepot != "") {
+                $("#Depot").prop("disabled", true);
+            }
+            SearchCustomer();
+            $(".select2").select2();
+            $('.date').datepicker({
+                autoclose: true,
+                format: "dd-mm-yyyy"
+            });
+            $(document).on('click', "#showCustLedger", function () {
+                ValidateReportSearchParam(["From", "To", "DepotId", "CustomerID"]);
+                event.preventDefault();
+
+                if ($("#message").val() != "true") {
+                    $("#Depot").val($("#DepotId").val());
+                    $("#ledgerReport").attr("action", "/LedgerReport/ShowLedgerReport")
+                    $("#ledgerReport").submit();
+                }
+
+            });
+            $(document).on('click', "#showAccountLedger", function () {
+                ValidateReportSearchParam(["From", "To", "LedgerAC"]);
+                event.preventDefault();
+                if ($("#message").val() != "true") {
+                    $("#ledgerReport").attr("action", "/AccountsReport/ShowAccountLedger")
+                    $("#ledgerReport").submit();
+                }
+            });
+            // to show account history
+
+            $(document).on('click', "#showAccountHistory", function () {
+                //ValidateReportSearchParam(["From", "To", "ILCID"]);
+                RemoveError();
+                var isValid = true;
+                if ($("#From").val() == "") {
+                    setError("From", "From Date is Required.");
+                    isValid = false;
+                }
+                if ($("#To").val() == "") {
+                    setError("To", "To Date is Required.");
+                    isValid = false;
+                }
+                if ($("#LedgerAC").val() == "") {
+                    setError("LedgerAC", "Please select a ledger account from the list");
+                    isValid = false;
+                }
+                if ($("#CostCenterID").val() == "") {
+                    setError("CostCenterID", "Please select a cost center");
+                    isValid = false;
+                }
+                event.preventDefault();
+                if (isValid == true) {
+                    $("#ledgerReport").attr("action", "/AccountsReport/LedgerAccountHistory")
+                    $("#ledgerReport").submit();
+                }
+            });
+
+            $(document).on('click', "#showBalanceSheet", function () {
+                event.preventDefault();
+                $("#ledgerReport").attr("action", "/AccountsReport/ShowbalanceSheet")
+                $("#ledgerReport").submit();
+            });
+            $(document).on('click', "#showIncomeStatement", function () {
+                event.preventDefault();
+                $("#ledgerReport").attr("action", "/AccountsReport/ShowIncomeStatement")
+                $("#ledgerReport").submit();
+            });
+            $(document).on('click', "#employeeLedger", function (event) {
+
+                event.preventDefault();
+                if ($("#EmployeeID").val() == "" || $("#EmployeeID").val() <= 0) {
+                    setError("EmployeeID", "EmployeeId is required field");
+                }
+                ValidateReportSearchParam(["EmployeeId"]);
+                if ($("#EmployeeID").val() > 0) {
+                    RemoveError();
+                    
+                        $("#ledgerReport").attr("action", "/EmployeeReport/ShowEmployeeLedger")
+                        $("#ledgerReport").submit();
+                    
+                }
+            }); 
+            // for LATR Ledger
+            $(document).on('click', "#ltrLedger", function () {
+                event.preventDefault();
+                ValidateReportSearchParam(["From", "To", "LTRID"]);
+                if ($("#message").val() != "true") {
+                    $("#ledgerReport").attr("action", "/AccountsReport/ShowLATRLedger")
+                    $("#ledgerReport").submit();
+                }
+            });   
+            // for retailer rent ledger
+            $(document).on('click', "#retailerfreezeledger", function () {
+                event.preventDefault();
+                if ($("#RetailerId").val() == "") {
+                    setError("RetailerId", "Retailer is required field");
+                    isValid = false;
+                } else {
+                    $("#ledgerReport").attr("action", "/AccountsReport/RetailerRentLedger");
+                    $("#ledgerReport").submit();
+                }
+            });   
+            // for Dealer Freezer rent ledger
+            $(document).on('click', "#dealerfreezeledger", function () {
+                event.preventDefault();
+                if ($("#CustomerID").val() == "") {
+                    setError("CustomerID", "Dealer is required field");
+                    isValid = false;
+                } else {
+                    $("#ledgerReport").attr("action", "/AccountsReport/DealerRentLedger");
+                    $("#ledgerReport").submit();
+                }
+            });   
+
+            $(document).on('click', "#showSupplierLedger", function () {
+                ValidateReportSearchParam(["From", "To", "SupplierID"]);
+                event.preventDefault();
+                if ($("#message").val() != "true") {
+                    $("#ledgerReport").attr("action", "/AccountsReport/ShowSupplierLedger");
+                    $("#ledgerReport").submit();
+                }
+            });   
+            // to show import lc ledger
+            $(document).on('click', "#ilcledger", function () {
+                ValidateReportSearchParam(["From", "To", "ILCID"]);
+                event.preventDefault();
+                if ($("#message").val() != "true") {
+                    $("#ledgerReport").attr("action", "/AccountsReport/ShowImportLCLedger")
+                    $("#ledgerReport").submit();
+                }
+            }); 
+            // to show employee MR ledger
+            $(document).on('click', "#employeemrLedger", function () {
+                ValidateReportSearchParam(["From", "To", "EmployeeID"]);
+                event.preventDefault();
+                if ($("#message").val() != "true") {
+                    $("#ledgerReport").attr("action", "/AccountsReport/ShowMRLedgerReport")
+                    $("#ledgerReport").submit();
+                }
+            });      
+        });
+        var isValid = true;
+
+                $(document).on('change', "#DepotId", function () {
+               // ClearOnDepotChange();
+                var id = { id: $(this).val() };
+                if (id.id != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetDealerByDepot", "MDSI")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify(id),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            $("#CustomerID").empty();
+                            $("#CustomerID").prop("disabled", false);
+                            $.each(datas, function (index, value) {
+                                $("#CustomerID").append($('<option />', {
+                                    value: value.Value,
+                                    text: value.Text
+                                })).trigger('change');
+                            });
+
+                            if (dealerId!="")
+                            {
+                                $("#CustomerID").val(dealerId).change();
+                                storeId = "";
+                            }
+
+                        }
+                    });
+                }
+                else {
+                    $("#CustomerID").empty();
+                    $("#CustomerID").prop("disabled", true);
+                }
+
+        });
+         //Get all Retailer By Depot
+        $(document).on('change', "#CustomerID", function () {
+            var id = { id: $(this).val() };
+            if (id.id != "") {
+                $.ajax({
+                    url: '@Url.Action("GetRetailerByDealer", "FRR")',
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify(id),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+                        $("#RetailerId").empty();
+                        $("#RetailerId").prop("disabled", false);
+                        $("#DealerAcc").focus();
+                        $.each(datas, function (index, value) {
+                            $("#RetailerId").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                    }
+                });
+            }
+            else {
+                //$("#RetailerId").empty();
+                //$("#CustomerID").prop("disabled", true);
+            }
+        });
+
+        $(document).on('click', "#showMRLedger", function () {
+            //ValidateReportSearchParam(["From", "To", "EmployeeID"]);
+            RemoveError();
+            var isValid = true;
+            if ($("#From").val() == "") {
+                setError("From", "From Date is Required.");
+                isValid = false;
+            }
+            if ($("#To").val() == "") {
+                setError("To", "To Date is Required.");
+                isValid = false;
+            }
+            if ($("#EmployeeID").val() == "") {
+                setError("EmployeeID", "Employee ID is Required.");
+                isValid = false;
+            }
+            event.preventDefault();
+            if (isValid == true) {
+                $("#ledgerReport").attr("action", "/AccountsReport/ShowMRLedgerReport")
+                $("#ledgerReport").submit();
+            }
+        });
+        // for import lc ledger vaidatation
+        $(document).on('click', "#ilcledger", function () {
+            //ValidateReportSearchParam(["From", "To", "ILCID"]);
+            RemoveError();
+            var isValid = true;
+            if ($("#From").val() == "") {
+                setError("From", "From Date is Required.");
+                isValid = false;
+            }
+            if ($("#To").val() == "") {
+                setError("To", "To Date is Required.");
+                isValid = false;
+            }
+            if ($("#ILCID").val() == "") {
+                setError("ILCID", "Import LC ID is Required.");
+                isValid = false;
+            }
+            event.preventDefault();
+            if (isValid == true) {
+                $("#ledgerReport").attr("action", "/AccountsReport/ShowImportLCLedger")
+                $("#ledgerReport").submit();
+            }
+        });
+
+    </script>
+}

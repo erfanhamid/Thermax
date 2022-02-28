@@ -1,0 +1,354 @@
+﻿@model BEEERP.Models.ViewModel.Payroll.SalaryDeductionVModel
+
+@{
+    ViewBag.Title = "EmployeeDeduction";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+@*@using (Html.BeginForm("ShowSalaryDeductionReport", "SalaryDeduction", FormMethod.Post, new { id = "salarydeductionReport", target = "_blank" }))*@
+
+    <h3 style="text-align:center">Employee Deduction</h3>
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA;">
+                                    <h4 class="box-title">Enter Deduction Amount </h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.EmployeeID, "Employee ID ", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                    @Html.TextBoxFor(m => m.EmployeeID, new { @class = "form-control", @ReadOnly = "ReadOnly" })
+                                                    @Html.ValidationMessageFor(m => m.EmployeeID, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.EmployeeName, "Employee Name ", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                    @Html.TextBoxFor(m => m.EmployeeName, new { @class = "form-control", @ReadOnly = "ReadOnly" })
+                                                    @Html.ValidationMessageFor(m => m.EmployeeName, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.Designation, "Designation ", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                    @Html.TextBoxFor(m => m.Designation, new { @class = "form-control", @ReadOnly = "ReadOnly" })
+                                                    @Html.ValidationMessageFor(m => m.Designation, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.IncomeTax, "Income Tax ", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                    @Html.TextBoxFor(m => m.IncomeTax, new { @class = "form-control", @type = "number" })
+                                                    @Html.ValidationMessageFor(m => m.IncomeTax, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.ProvidentFund, "Provident Fund", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                    @Html.TextBoxFor(m => m.ProvidentFund, new { @class = "form-control", @type = "number" })
+                                                    @Html.ValidationMessageFor(m => m.ProvidentFund, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.MCAdjustment, "MC Adjustment", new { @class = "col-md-4 control-label", @title = "Tax deduction at source" })
+                                                <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                    @Html.TextBoxFor(m => m.MCAdjustment, new { @class = "form-control", @type = "number" })
+                                                    @Html.ValidationMessageFor(m => m.MCAdjustment, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.AdvanceAdjustment, "Advance Adjustment ", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                    @Html.TextBoxFor(m => m.AdvanceAdjustment, new { @class = "form-control", @type = "number" })
+                                                    @Html.ValidationMessageFor(m => m.AdvanceAdjustment, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.OtherAdjustment, "Other Adjustment", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                    @Html.TextBoxFor(m => m.OtherAdjustment, new { @class = "form-control", @type = "number" })
+                                                    @Html.ValidationMessageFor(m => m.OtherAdjustment, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="background-color:white; ">
+                                <div class="form-group" style="padding:3px;">
+                                    <div class="col-md-12" style="text-align:center;">
+                                        <button class="btn btn-primary" id="Save" type="submit">Save</button>
+                                        <button class="btn btn-primary" id="delete" type="submit">Delete</button>
+                                        <button class="btn btn-primary" id="Reset" type="submit">Reset</button>
+                                        <button class="btn btn-primary" id="print" type="submit">Print</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA;">
+                                    <h4 class="box-title">Employees Salary Deduction Information</h4>
+                                </div>
+                                <div class="box-body">
+                                    <table class="table table-responsive" id="deductionTable">
+                                        <thead>
+                                            <tr>
+                                                <td>Employee ID</td>
+                                                <td>Employee Name</td>
+                                                <td>Designation</td>
+                                                <td>Income Tax</td>
+                                                <td>Provident Fund</td>
+                                                <td>MC Adjustment</td>
+                                                <td>Advance Adjustment</td>
+                                                <td>Other Adjustment</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ViewBag.list)
+                                            {
+                                                <tr value="@item.EmployeeID" class="clickable-row">
+                                                    <td>@item.EmployeeID</td>
+                                                    <td>@item.EmployeeName</td>
+                                                    <td>@item.Designation</td>
+                                                    <td>@item.IncomeTax</td>
+                                                    <td>@item.ProvidentFund</td>
+                                                    <td>@item.MCAdjustment</td>
+                                                    <td>@item.AdvanceAdjustment</td>
+                                                    <td>@item.OtherAdjustment</td>
+                                                    @*<td> <a href="#" style="padding-right:40px;"><i class="fa fa-edit" value="@item.DeptmentID" id="edit"></i> </a></td>*@
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <div class="loader" id="loader"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+
+
+@section scripts{
+    <script>
+    document.getElementById("loader").style.display = "block";
+    var salaryDeduction = { EmployeeID: 0, EmployeeName:"", Designation:"", AdvanceAdjustment:0.0, IncomeTax:0.0, ProvidentFund:0.0, OtherAdjustment:0.0, MCAdjustment:0.0 };
+    var table = $('#deductionTable').DataTable({
+        'paging': true,
+        'lengthChange': false,
+        'searching': true,
+        'ordering': true,
+        'info': true,
+        'autoWidth': false,
+        'scrollX': true,
+    });
+    $(document).on('click', "#Reset", function () {
+        RemoveError();
+        Reset();
+        Location.reload();
+        $("#Save").prop('disabled', true);
+    });
+    $(document).on('click', "#Save", function () {
+    //SetDeduction();
+    if (confirm("Do you want to save?")) {
+        $.ajax
+            ({
+                url: '@Url.Action("SaveEmployeeDeduction", "EmployeeDeduction")',
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify({ employeeSalaryDeductions: empDeduction }),
+                type: 'Post',
+                dataType: 'json',
+                success: function (datas) {
+                    if (datas.Message == "0") {
+                        alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+
+                    }
+                    else if (datas.Message == "1") {
+                        alert("Sccessfully saved.")
+                        location.reload();
+                    }
+                    else if (datas.Message == "2") {
+                        alert("Updated successfully.");
+                        location.reload();
+                    }
+                }
+            });
+        }
+    });
+
+    //Clikable Row
+    $(document).on('click', ".clickable-row", function () {
+        var id = $(this).attr("value");
+
+            $.ajax({
+            url: '@Url.Action("GetEmployeeSalaryDeductions", "EmployeeDeduction")',
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify({ EmployeeId: id }),
+            type: 'POST',
+            dataType: 'json',
+            success: function (datas) {
+                if (datas.Message==0)
+                {
+                    alert("This Employee Salary Deductions  doesn't exist.");
+                }
+                else {
+                    $("#Reset").show();
+                    $("#Save").show();
+                    $("#delete").show();
+                    $("#EmployeeID").val(datas.employeesalarydeduction.EmployeeID);
+                    $("#EmployeeName").val(datas.employeesalarydeduction.EmployeeName);
+                    $("#Designation").val(datas.employeesalarydeduction.Designation);
+                    $("#IncomeTax").val(datas.employeesalarydeduction.IncomeTax);
+                    $("#ProvidentFund").val(datas.employeesalarydeduction.ProvidentFund);
+                    $("#MCAdjustment").val(datas.employeesalarydeduction.MCAdjustment);
+                    $("#AdvanceAdjustment").val(datas.employeesalarydeduction.AdvanceAdjustment);
+                    $("#OtherAdjustment").val(datas.employeesalarydeduction.OtherAdjustment);
+                }
+            }
+        });
+    });
+    $(document).ready(function () {
+        //event.preventDefault();
+        table = $("#deductionTable").DataTable();
+        //$("#Save").prop('disabled', true);
+        //getResult();
+        Reset();
+        RemoveError();
+    });
+    function getResult() {
+        $.ajax({
+            type: "GET",
+            //url: "/AttendanceLog/GetSearchResult",
+            url: '@Url.Action("GetAllEmployeeInfo", "EmployeeDeduction")',
+            contentType: "application/Json;charset=utf-8",
+            data: JSON.stringify(),
+            success: function (rData) {
+                if (rData != null || rData.length != 0) {
+                    table.clear().draw();
+                    var list = rData;
+                    $.each(list, function (index, value) {
+                        table.row.add([value.EmployeeID, value.EmployeeName, value.AdvanceAdjustment, value.IncomeTax, value.ProvidentFund, value.OtherAdjustment, value.Designation, value.CompanyName, value.MCAdjustment]).draw();;
+                    });
+                    document.getElementById("loader").style.display = "none";
+                }
+            },
+            error: function () {
+                alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services");
+            }
+        });
+    }
+    //Delete
+    $(document).on('click', '#delete', function () {
+        $("#Save").prop('disabled', true);
+        $("#delete").prop('disabled', true);
+        var id = parseInt( $("#EmployeeID").val());
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteEmployeeSalarayDeductionById", "EmployeeDeduction")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { EmployeeID: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Delete failed.");
+                        }
+                        else {
+                            alert("Deleted Successfully");
+                            location.reload();
+                        }
+                    }
+                });
+            }
+    });
+
+    //$(document).on('click', "#print", function (event) {
+    //    //event.preventDefault();
+    //    $("#print").attr("action", "/EmployeeDeduction/ShowSalaryDeductionReport"),
+    //        $("#print").submit();
+
+    //});
+    function SetDeduction() {
+        salaryDeduction.EmployeeID = $("#EmployeeID").val();
+        salaryDeduction.EmployeeName = $("#EmployeeName").val();
+        salaryDeduction.AdvanceAdjustment = $("#AdvanceAdjustment").val();
+        salaryDeduction.IncomeTax = $("#IncomeTax").val()
+        salaryDeduction.ProvidentFund = $("#ProvidentFund").val();
+        salaryDeduction.OtherAdjustment = $("#OtherAdjustment").val();
+        salaryDeduction.MCAdjustment = $("#MCAdjustment").val();
+        salaryDeduction.Designation = $("#Designation").val();
+    }
+    function Reset() {
+        $("#EmployeeID").val("");
+        $("#EmployeeName").val("");
+        $("#AdvanceAdjustment").val("");
+        $("#IncomeTax").val("");
+        $("#TMPhone").val("");
+        $("#ProvidentFund").val("");
+        $("#Designation").val("");
+        $("#CompanyName").val("");
+        $("#MCAdjustment").val("");
+    }
+    </script>
+}

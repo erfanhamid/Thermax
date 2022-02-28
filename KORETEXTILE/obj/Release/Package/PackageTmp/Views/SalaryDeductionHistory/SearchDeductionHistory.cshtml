@@ -1,0 +1,114 @@
+﻿@model BEEERP.Models.ViewModel.Payroll.SalaryDeductionHistoryVModel
+@{
+    ViewBag.Title = "SearchDeductionHistory";
+}
+@using (Html.BeginForm("SalaryDeductionHistoryReport", "SalaryDeductionHistory", FormMethod.Post, new { id = "report", target = "_blank" }))
+{
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 style="text-align:center" class="box-title">Salary Deduction History Reports</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-md-3 col-sm-3"> </div>
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.FromDate, "Date From ", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                    @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control fromdatepicker", @Value = DateTime.Now.ToString("dd-MM-yyyy"), @id = "From" })
+                                                    @Html.ValidationMessageFor(m => m.FromDate, "", new { @style = "color: red" })
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-3"> </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3 col-sm-3"> </div>
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.ToDate, "Date To ", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                    @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control todatepicker", @Value = DateTime.Now.ToString("dd-MM-yyyy"), @id = "To" })
+                                                    @Html.ValidationMessageFor(m => m.ToDate, "", new { @style = "color: red" })
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3"> </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-2"></div>
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    @Html.ValidationMessageFor(m => m.CheckDate, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2"></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 col-sm-3"> </div>
+                                            <div class="col-md-6">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group" style="text-align:left;">
+                                                        <button class="btn skin-blue" type="submit" id="showsalarydeductionhistory" style="min-width:400px;"> Show Salary Deduction History Datails</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3"> </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section scripts
+{
+    <script src="~/Scripts/Common.js"></script>
+    <script>
+        $(".select2").select2();
+        var isValid = true;
+
+        $(".fromdatepicker").datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+            onSelect: function (selected) {
+                $(".todatepicker").datepicker("option", "minDate", selected)
+            }
+        });
+        $(".todatepicker").datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+            onSelect: function (selected) {
+                $(".fromdatepicker").datepicker("option", "maxDate", selected)
+            }
+        });
+
+        $(document).on('click', "#showsalarydeductionhistory", function (event) {
+            event.preventDefault();
+            if (isValid == true) {
+                $("#report").attr("action", "/AttandanceLogReport/ShowAttandancelogDetails")
+                $("#report").submit();
+            }
+            else {
+                alert("You have to provide a year");
+
+            }
+
+        });
+    </script>
+}

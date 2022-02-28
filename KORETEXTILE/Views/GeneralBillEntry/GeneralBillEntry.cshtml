@@ -1,0 +1,918 @@
+﻿@using BEEERP.Models.Authentication
+@using BEEERP.Models.CommonInformation
+@model BEEERP.Models.ViewModel.Procurement.BillEntryVModel
+@{
+    ViewBag.Title = "GeneralBillEntry";
+}
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+<h3 style="text-align:center">General Supplier Bill (GSB) Entry</h3>
+
+<form id="report" , target="_blank">
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                    <h4 class="box-title">General Supplier Bill (GSB) Entry</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.GBENo, "GSB No", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px;">
+                                                @Html.TextBoxFor(m => m.GBENo, new { @class = "form-control", @type = "number" })
+                                                @Html.ValidationMessageFor(m => m.GBENo, "", new { @style = "color: red" })
+                                                <div class="input-group-btn">
+                                                    <input type="button" name="search" id="search" value="Search" class="btn btn-primary" style="min-width: 50px"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.DepotId,"Branch/Depot", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.DepotId, (IEnumerable<SelectListItem>)ViewBag.Depot, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.DepotId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.RefNo, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.RefNo, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.RefNo, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.SGId, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.SGId, (IEnumerable<SelectListItem>)ViewBag.SupplierGroup, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.SGId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.SupplierId, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.SupplierId, (IEnumerable<SelectListItem>)ViewBag.Supplier, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.SupplierId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.GBEDate, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.GBEDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                @Html.ValidationMessageFor(m => m.GBEDate, "", new { @style = "color: red" })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box ">
+                                <div class="box-body">
+                                    <div class="col-md-10">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.DebitAccId, "Debit Account", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.DebitAccId, (IEnumerable<SelectListItem>)ViewBag.DebitAcc, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.DebitAccId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.CGId, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.CGId, (IEnumerable<SelectListItem>)ViewBag.CostGroup, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.CGId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Amount, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", @type = "number" })
+                                                @Html.ValidationMessageFor(m => m.Amount, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Descriptions, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextAreaFor(m => m.Descriptions, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Descriptions, "", new { @style = "color: red" })
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br />
+                                <br />
+                                <div class="box">
+                                    <div class="box-footer">
+                                        <div class="form-group" , style="text-align:center">
+                                            <input type="button" name="addToGrid" id="addToGrid" value="Add To Grid" class="btn btn-primary" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                    <h4 class="box-title">GSB Amount</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.GBETotal, "GSB Total", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.GBETotal, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.GBETotal, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Discountamt, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.Discountamt, new { @class = "form-control" ,@type = "number" })
+                                                @Html.ValidationMessageFor(m => m.Discountamt, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.NetDiscountAmount, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.NetDiscountAmount, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.NetDiscountAmount, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.VAT, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.VAT, new { @class = "form-control"})
+                                                @Html.ValidationMessageFor(m => m.VAT, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.VATAmount, new { @class = "col-md-4 control-label", })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.VATAmount, new { @class = "form-control"})
+                                                @Html.ValidationMessageFor(m => m.VATAmount, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.NetOfVatAmount, "Total Amount", new { @class = "col-md-4 control-label", })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.NetOfVatAmount, new { @class = "form-control digit", @type = "number", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.NetOfVatAmount, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.VDS, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.VDS, new { @class = "form-control ", @type = "number" })
+                                                @Html.ValidationMessageFor(m => m.VDS, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.VDSAmount, new { @class = "col-md-4 control-label", })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.VDSAmount, new { @class = "form-control ", @type = "number" })
+                                                @Html.ValidationMessageFor(m => m.VDSAmount, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.AIT, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.AIT, new { @class = "form-control ", @type = "number" })
+                                                @Html.ValidationMessageFor(m => m.AIT, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.AITAmount, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.AITAmount, new { @class = "form-control ", @type = "number" })
+                                                @Html.ValidationMessageFor(m => m.AITAmount, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.NetAmount,"Net Payable", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.NetAmount, new { @class = "form-control ", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.NetAmount, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="box ">
+                                        <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                            <h4 class="box-title">General Bill Line Item</h4>
+                                        </div>
+                                        <div class="box-body">
+                                            <table class="table table-responsive" id="accountList">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Debit Account</th>
+                                                        <th>Cost Group</th>
+                                                        <th>Amount</th>
+                                                        <th>Description</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                        <div class="box ">
+                                            <div class="box-footer">
+                                                <div class="form-group" , style="text-align:center">
+                                                    @if (User.IsInRole("ProcurementOperator"))
+                                                    {
+                                                        <input type="button" name="save" id="save" value="Save" class="btn btn-primary" disabled />
+                                                        <input type="button" name="update" id="update" value="Update" class="btn btn-primary" disabled />
+                                                        <input type="button" name="delete" id="delete" value="Delete" class="btn btn-primary" />
+                                                        <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                                        <input type="button" name="print" id="print" value="Print" class="btn btn-primary" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="button" name="save" id="save" value="Save" class="btn btn-primary" />
+                                                        <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                                                        <input type="button" name="delete" id="delete" value="Delete" class="btn btn-primary" />
+                                                        <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                                        <input type="button" name="print" id="print" value="Print" class="btn btn-primary" />
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@section scripts{
+    <script src="~/Scripts/Procurement/GeneralBillEntryInputFunction.js"></script>
+    <script>
+        var jobonedit = "";
+        $("#JobNo").prop("disabled", true);
+        var supplierId = "";
+            $(document).ready(function () {
+            $("#VAT").val(parseFloat(0));
+            $("#AIT").val(parseFloat(0));
+            //$("#Amount").val(parseFloat(0));
+            $("#GBETotal").val(parseFloat(0));
+            $('#VATAmount').val(parseFloat(0));
+            $('#AITAmount').val(parseFloat(0));
+            $('#NetAmount').val(parseFloat(0));
+            $("#Discountamt").val(parseFloat(0));
+            $("#NetDiscountAmount").val(parseFloat(0));
+            $('#NetOfVatAmount').val(parseFloat(0));
+            $('#VDS').val(parseFloat(0));
+            $('#VDSAmount').val(parseFloat(0));
+            $('#update').hide();
+            $('#print').hide();
+            $('#delete').hide();
+            var addedItems = [];
+            var message = "";
+            //var gbeTotal = 0;
+            $(".select2").select2();
+            GeneralBillEnterPress();
+            var isValid = 0;
+            $(document).on('click', '#refresh', function () {
+                location.reload();
+            });
+            $(".digit").keypress(function (e) {
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    $("#errormsg").html("Digits Only").show().fadeOut("slow");
+                    return false;
+                }
+            });
+            var table = $('#accountList').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+            $('.date').datepicker({
+                autoclose: true,
+                format: 'dd-mm-yyyy',
+            });
+
+            $(document).on('click', "#search", function ()
+            {
+                if ($("#GBENo").val()!="") {
+                     var gbe = parseInt($("#GBENo").val());
+                ClearOnSearch();
+                 $.ajax(
+                 {
+                        url: '@Url.Action("SearcheGBEByGBENo", "GeneralBillEntry")',
+                         contentType: "application/json;charset=utf-8",
+                         data: JSON.stringify({ generalBill: gbe }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas)
+                        {
+                                if (datas.Message == 0)
+                                {
+                                  alert("Your entered GBE No. Doesn't exist");
+                                }
+                                else if (datas.Message == 2)
+                                {
+                                  alert("Fatal Error! Please Recheck your data");
+                                }
+                                else
+                                {
+                                    $("#save").hide();
+                                    $("#update").show();
+                                    $("#print").show();
+                                    $("#delete").show();
+                                    $("#GBENo").val(datas.GBE.GBENo);
+                                    $("#GBEDate").val((moment(datas.GBE.GBEDate).format("DD-MM-YYYY"))).change();
+                                    $("#DepotId").val(datas.GBE.clmCostCenterID).change();
+                                    $("#SGId").val(datas.GBE.SGId).change();
+                                    //$("#SupplierId").val(datas.GBE.SupplierId).change();
+                                    supplierId = datas.GBE.SupplierId;
+                                    $("#RefNo").val(datas.GBE.RefNo);
+                                    $("#GBETotal").val(datas.GBE.GBETotal);
+                                    $("#Discountamt").val(datas.GBE.Discountamt);
+                                    var vat = datas.GBE.VAT.toFixed(2);
+                                    $("#VAT ").val(vat);
+                                    $("#VATAmount ").val(datas.GBE.VATAmount);
+                                    var ait = datas.GBE.AIT.toFixed(2);
+                                    $("#AIT ").val(ait);
+                                    var vds = datas.GBE.VDS.toFixed(2);
+                                    $("#VDS ").val(vds);
+                                    $("#AITAmount ").val(datas.GBE.AITAmount);
+                                    $("#VDSAmount ").val(datas.GBE.VDSAmount);
+                                    $("#NetAmount ").val(datas.GBE.NetAmount);
+                                    $("#NetDiscountAmount ").val((datas.GBE.GBETotal) - (datas.GBE.Discountamt));
+                                    var disAmount = ((datas.GBE.GBETotal) - (datas.GBE.Discountamt));
+                                    $("#NetOfVatAmount ").val((datas.GBE.VATAmount) + disAmount);
+                                    addedItems = [];
+                                    $.each(datas.GBELineItems, function (index, value)
+                                    {
+                                        var gbeLineItem = { GBENo: 0, DebitAccId: 0, DebitAccName: "", CGId: 0, CGName: "", Amount: 0, Descriptions: "" }
+                                        gbeLineItem.GBENo = value.GBENo;
+                                        gbeLineItem.DebitAccName = value.DebitAccountName;
+                                        gbeLineItem.DebitAccId = value.DebitAccId;
+                                        gbeLineItem.CGName = value.CostGroupName;
+                                        gbeLineItem.CGId = value.CGId;
+                                        gbeLineItem.Amount = value.Amount;
+                                        gbeLineItem.Descriptions = value.Descriptions;
+                                        gbeLineItem.JobNo = value.JobNo;
+                                       // gbeLineItem.BusinessUnit = value.BusinessUnit;
+                                        //gbeLineItem.BusinessUnitName = $('#BusinessUnit').find('option[value=' + value.BusinessUnit + ']').text();
+                                        addedItems.push(gbeLineItem);
+                                    });
+                                    ShowOnTable();
+                                    calculateTotalAmount();
+                                    //calculation();
+                                  }
+                        },
+                        error: function ()
+                        {
+                            alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+
+                        }
+                 });
+                } else {
+                    alert("Please Enter a Bill No first");
+                }
+            });
+            $(document).on('click', '#update', function () {
+
+            if (addedItems.length > 0)
+            {
+                $("#update").prop('disabled', true);
+                if (confirm("Do you want to update?"))
+                {
+                    var gbe = { GBENo: 0, GBEDate: "", clmCostCenterID: 0, SGId: 0, SupplierId: 0, RefNo: 0, GBETotal: 0, VAT: 0, VATAmount: 0, AIT: 0, AITAmount: 0, Discountamt: 0, VDSAmount: 0, NetAmount: 0 };
+                    gbe.GBENo = $('#GBENo').val();
+                    gbe.GBEDate = $('#GBEDate').val();
+                    gbe.clmCostCenterID = $('#DepotId').val();
+                    gbe.SGId = $('#SGId').val();
+                    gbe.SupplierId = $('#SupplierId').val();
+                    gbe.RefNo = $('#RefNo').val();
+                    gbe.GBETotal = $('#GBETotal').val();
+                    gbe.VAT = $('#VAT').val();
+                    gbe.VATAmount = $('#VATAmount').val();
+                    gbe.AIT = $('#AIT').val();
+                    gbe.AITAmount = $('#AITAmount').val();
+                    gbe.NetAmount = $('#NetAmount').val();
+                    gbe.Discountamt = $('#Discountamt').val();
+                    gbe.VDSAmount = $('#VDSAmount').val();
+                        $.ajax
+                            ({
+                                url: '@Url.Action("UpdateGBE", "GeneralBillEntry")',
+                                contentType: "application/json;charset=utf-8",
+                                data: JSON.stringify({ generalBill: gbe, generalBillsLineItems: addedItems }),
+                                type: 'POST',
+                                dataType: 'json',
+                                success: function (datas) {
+                                    if (datas.Message == "0") {
+                                        alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                        $("#save").prop('disabled', false);
+                                    }
+                                    else if (datas.Message == "1") {
+                                        alert("Sccessfully Updated.")
+
+                                    }
+                                    else if (datas.Message == "2") {
+                                        alert("This Batch already Exist.");
+                                        $("#save").prop('disabled', false);
+                                    }
+
+                                }
+                            });
+                }
+            }
+            else
+            {
+                var messageforEmpty = "The Item list is empty";
+                alert(messageforEmpty);
+                $("#update").prop('disabled', false);
+            }
+            });
+
+              $(document).on('click', '#delete', function () {
+           // $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+                  var id = $("#GBENo").val();
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteGBByID", "GeneralBillEntry")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { gbeno: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Delete failed.");
+                            $("#delete").prop('disabled', false);
+                          //  $("#update").prop('disabled', false);
+                        }
+                        else {
+                            alert("Delete Successfull");
+                            window.location.reload(true);
+                        }
+                    }
+                });
+            }
+        });
+            $(document).on('click', "#print", function (event) {
+                event.preventDefault();
+                if ($("#message").val() != "true") {
+                    $("#report").attr("action", "/GeneralBillEntry/GetGBEPreview")
+                    $("#report").submit();
+                }
+            });
+
+            function ClearOnSearch() {
+                $("#GBEDate").val("");
+                $("#DepotId").val("").change();
+                $("#SGId").val("").change();
+                $("#SupplierId").val("").change();
+                $("#JobNo").val("").change();
+                $("#BusinessUnit").val(0).change();
+                $("#RefNo").val("");
+                $("#GBETotal").val("");
+                $("#VAT").val("");
+                $("#VATAmount").val("");
+                $("#AIT").val("");
+                $("#AITAmount").val("");
+                $("#VDS").val("");
+                $("#VDSAmount").val("");
+                $("#Discountamt").val("");
+                $('#NetAmount').val("");
+                $('#DebitAccId').val("");
+                $('#CGID').val("");
+                $('#Amount').val("");
+                $("#Descriptions").val("");
+            }
+            function ClearOnAddToGrid() {
+                $("#DebitAccId").val("").change();
+                $("#CGId").val("").change();
+                $("#Amount").val("");
+                $("#Descriptions").val("");
+                //$("#GBETotal").val("");
+                //$("#VAT").val("");
+                //$("#VATAmount").val("");
+                //$("#AIT").val("");
+                //$("#AITAmount").val("");
+                //$('#NetAmount').val("");
+                $("#JobNo").val("").change();
+                $("#BusinessUnit").val(0).change();
+            }
+            $(document).on('click', '#save', function () {
+               $("#save").prop('disabled', true);
+
+                if (addedItems.length > 0)
+                {
+                    if (confirm("Do you want to save?"))
+                    {
+                        var gbe = { GBENo: 0, GBEDate: "", clmCostCenterID: 0, SGId: 0, SupplierId: 0, RefNo: 0, GBETotal: 0, VAT: 0, VATAmount: 0, AIT: 0, AITAmount: 0, Discountamt: 0, VDSAmount: 0, NetAmount: 0 };
+                        gbe.GBENo = $('#GBENo').val();
+                        gbe.GBEDate = $('#GBEDate').val();
+                        gbe.clmCostCenterID = $('#DepotId').val();
+                        gbe.SGId = $('#SGId').val();
+                        gbe.SupplierId = $('#SupplierId').val();
+                        gbe.RefNo = $('#RefNo').val();
+                        gbe.GBETotal = $('#GBETotal').val();
+                        gbe.VAT = $('#VAT').val();
+                        gbe.VATAmount = $('#VATAmount').val();
+                        gbe.AIT = $('#AIT').val();
+                        gbe.AITAmount = $('#AITAmount').val();
+                        gbe.NetAmount = $('#NetAmount').val();
+                        gbe.Discountamt = $('#Discountamt').val();
+                        gbe.VDSAmount = $('#VDSAmount').val();
+                        $.ajax
+                        ({
+                            url: '@Url.Action("SaveGBE", "GeneralBillEntry")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ generalBill: gbe, generalBillsLineItems: addedItems }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas.Message == "0") {
+                                    alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                    $("#save").prop('disabled', false);
+                                    
+                                }
+                                else if (datas.Message == "1") {
+                                    alert("Sccessfully saved.")
+                                    $('#GBENo').val(datas.gbe);
+                                    $("#print").show();
+
+                                }
+                                else if (datas.Message == "2") {
+                                    alert("This GSB already Exist.");
+                                    $("#save").prop('disabled', false);
+                                }
+
+                            }
+                        });
+                    }
+                }
+                else
+                {
+                    var messageforEmpty = "The GSB list is empty";
+                    alert(messageforEmpty);
+                    $("#save").prop('disabled', false);
+                }
+
+            });
+
+            $(document).on('click', '#addToGrid', function () {
+                RemoveError();
+                ValidateOnSaveClick();
+                if (message == "") {
+                    var gbeLineItem = { GBENo: 0, DebitAccId: 0, DebitAccName: "", CGId: 0, CGName: "", Amount: 0, Descriptions: "" }
+                    gbeLineItem.GBENo = parseInt($('#GBENo').val());
+                    gbeLineItem.DebitAccName = $("#DebitAccId :selected").text();
+                    gbeLineItem.DebitAccId = $("#DebitAccId").val();
+                    gbeLineItem.CGName = $("#CGId :selected").text();
+                    gbeLineItem.CGId = $("#CGId").val();
+                    gbeLineItem.Amount = $("#Amount").val();
+                    gbeLineItem.Descriptions = $("#Descriptions").val();
+                    if ($("#JobNo").val() != "") {
+                        gbeLineItem.JobNo = $("#JobNo").val();
+                    }
+                    else {
+                        gbeLineItem.JobNo = "0001";
+                    }
+
+                    addedItems.push(gbeLineItem);
+                    ShowOnTable();
+                    calculateTotalAmount();
+                    calculation();
+                    ClearOnAddToGrid();
+                    if ($("#GBENo").val() != "") {
+                        $("#update").prop('disabled', false);
+                    }
+                }
+                else {
+                    //alert(message);
+                }
+            });
+            $(document).on('click', '[name="deleteRow"]', function () {
+                var item = $(this).attr("value");
+                if (confirm('Are you sure you want to delete this from grid ?')) {
+                    var newItem = [];
+                    $.each(addedItems, function (index, value) {
+                        if (value.DebitAccId == item) {
+
+                        }
+                        else {
+                            newItem.push(value);
+                        }
+                    });
+                    addedItems = newItem;
+                    ShowOnTable();
+                    calculateTotalAmount();
+                    //calculation();
+                }
+            });
+
+            $(document).on('click', '[name="editRow"]', function (e) {
+                var item = $(this).attr("value");
+                var newItem = [];
+                $.each(addedItems, function (index, value) {
+                    if (value.DebitAccId == item) {
+                        $("#DebitAccId").val(value.DebitAccId).change();
+                        $("#CGId").val(value.CGId).change();
+                        $("#Amount").val(value.Amount);
+                        $("#Descriptions").val(value.Descriptions);
+                        $("#GBETotal").val(parseFloat($("#GBETotal").val()) - value.Amount);
+                        $("#BusinessUnit").val(value.BusinessUnit).change();
+                        if (value.JobNo != "0001") {
+                            $("#JobNo").val(value.JobNo).change();
+                            jobonedit = value.JobNo;
+                        }
+                        else {
+                            $("#JobNo").val("").change();
+                            jobonedit = "";
+                        }
+                    }
+                    else {
+                        newItem.push(value);
+                    }
+                });
+                addedItems = newItem;
+                ShowOnTable();
+                calculateTotalAmount();
+                //calculation();
+            });
+            $(document).on('keyup', '#Discountamt', function () {
+                if ($("#Discountamt").val() == "") {
+                    $("#Discountamt").val(parseFloat(0));
+                } else {
+                    //var dis = parseFloat($("#Discountamt").val());
+                    $("#Discountamt").val();
+                }
+
+                $('#NetDiscountAmount').val(parseFloat(($('#GBETotal').val()) - parseFloat($("#Discountamt").val()).toFixed(2)));
+                var discount = $('#Discountamt').val();
+                if (discount > 0) {
+                    $('#NetAmount').val((parseFloat($("#NetDiscountAmount").val()) + parseFloat($("#VATAmount").val())) - (parseFloat($("#AITAmount").val()) + parseFloat($("#VDSAmount").val())));
+                }
+                else {
+                    $('#NetAmount').val((parseFloat($("#GBETotal").val()) + parseFloat($("#VATAmount").val())) - (parseFloat($("#AITAmount").val()) + parseFloat($("#VDSAmount").val())));
+                }
+            });
+            $(document).on('keyup', '#VAT', function () {
+                if ($("#VAT").val() == "") {
+                    $("#VAT").val(parseFloat(0));
+                } else {
+
+                    $("#VAT").val();
+                }
+                $('#VATAmount').val((parseFloat($('#VAT').val()) * parseFloat($("#GBETotal").val())) / 100);
+                $("#NetOfVatAmount").val(parseFloat($("#VATAmount").val()) + parseFloat($("#NetDiscountAmount").val()));
+                var discount = $('#Discountamt').val();
+                if (discount > 0) {
+                    $('#NetAmount').val((parseFloat($("#NetDiscountAmount").val()) + parseFloat($("#VATAmount").val())) - (parseFloat($("#AITAmount").val()) + parseFloat($("#VDSAmount").val())));
+                }
+                else {
+                    $('#NetAmount').val((parseFloat($("#GBETotal").val()) + parseFloat($("#VATAmount").val())) - (parseFloat($("#AITAmount").val()) + parseFloat($("#VDSAmount").val())));
+                }
+                });
+                //ecuation for vatamount
+            $(document).on('keyup', '#VATAmount', function () {
+                if ($("#VATAmount").val() == "") {
+                    $("#VATAmount").val(parseFloat(0));
+                } else {
+                    $("#VATAmount").val();
+                }
+                // $('#VATAmount').val((parseFloat($('#VAT').val()) * parseFloat($("#GBETotal").val())) / 100);
+                $("#NetOfVatAmount").val(parseFloat($("#VATAmount").val()) + parseFloat($("#NetDiscountAmount").val()));
+                var discount = $('#Discountamt').val();
+                if (discount > 0) {
+                    $('#NetAmount').val((parseFloat($("#NetDiscountAmount").val()) + parseFloat($("#VATAmount").val())) - (parseFloat($("#AITAmount").val()) + parseFloat($("#VDSAmount").val())));
+                }
+                else {
+                    $('#NetAmount').val((parseFloat($("#GBETotal").val()) + parseFloat($("#VATAmount").val())) - (parseFloat($("#AITAmount").val()) + parseFloat($("#VDSAmount").val())));
+                }
+                });
+            $(document).on('keyup', '#VDS', function () {
+                if ($("#VDS").val() == "") {
+                    $("#VDS").val(parseFloat(0));
+                } else {
+                    $("#VDS").val();
+                }
+                $('#VDSAmount').val((parseFloat($('#VDS').val()) * parseFloat($("#GBETotal").val())) / 100);
+                var discount = $('#Discountamt').val();
+                if (discount > 0) {
+                    $('#NetAmount').val((parseFloat($("#NetDiscountAmount").val()) + parseFloat($("#VATAmount").val())) - (parseFloat($("#AITAmount").val()) + parseFloat($("#VDSAmount").val())));
+                }
+                else {
+                    $('#NetAmount').val((parseFloat($("#GBETotal").val()) + parseFloat($("#VATAmount").val())) - (parseFloat($("#AITAmount").val()) + parseFloat($("#VDSAmount").val())));
+                }
+                });
+
+
+                $(document).on('keyup', '#VDSAmount', function () {
+                    if ($("#VDSAmount").val() == "") {
+                        $("#VDSAmount").val(parseFloat(0));
+                    } else {
+                        $("#VDSAmount").val();
+                    }
+                   // $('#VDSAmount').val((parseFloat($('#VDS').val()) * parseFloat($("#GBETotal").val())) / 100);
+                    var discount = $('#Discountamt').val();
+                    if (discount > 0) {
+                        $('#NetAmount').val((parseFloat($("#NetDiscountAmount").val()) + parseFloat($("#VATAmount").val())) - (parseFloat($("#AITAmount").val()) + parseFloat($("#VDSAmount").val())));
+                    }
+                    else {
+                        $('#NetAmount').val((parseFloat($("#GBETotal").val()) + parseFloat($("#VATAmount").val())) - (parseFloat($("#AITAmount").val()) + parseFloat($("#VDSAmount").val())));
+                    }
+                });
+
+            $(document).on('keyup', '#AIT', function () {
+                if ($("#AIT").val() == "") {
+                    $("#AIT").val(parseFloat(0));
+                }
+                else {
+                    $("#AIT").val();
+                }
+                $('#AITAmount').val(parseFloat(((parseFloat($('#AIT').val()) * parseFloat($("#GBETotal").val())) / 100).toFixed(2)));
+                var discount = $('#Discountamt').val();
+                if (discount > 0) {
+                    $('#NetAmount').val((parseFloat($("#NetDiscountAmount").val()) + parseFloat($("#VATAmount").val())) - (parseFloat($("#AITAmount").val()) + parseFloat($("#VDSAmount").val())));
+                }
+                else {
+                    $('#NetAmount').val((parseFloat($("#GBETotal").val()) + parseFloat($("#VATAmount").val())) - (parseFloat($("#AITAmount").val()) + parseFloat($("#VDSAmount").val())));
+                }
+                });
+
+
+            $(document).on('keyup', '#AITAmount', function () {
+                if ($("#AITAmount").val() == "") {
+                    $("#AITAmount").val(parseFloat(0));
+                }
+                else {
+                    $("#AITAmount").val();
+                }
+                //$('#AITAmount').val((parseFloat($('#AIT').val()) * parseFloat($("#GBETotal").val())) / 100);
+                var discount = $('#Discountamt').val();
+                if (discount > 0) {
+                    $('#NetAmount').val((parseFloat($("#NetDiscountAmount").val()) + parseFloat($("#VATAmount").val())) - (parseFloat($("#AITAmount").val()) + parseFloat($("#VDSAmount").val())));
+                }
+                else {
+                    $('#NetAmount').val((parseFloat($("#GBETotal").val()) + parseFloat($("#VATAmount").val())) - (parseFloat($("#AITAmount").val()) + parseFloat($("#VDSAmount").val())));
+                }
+                });
+
+            function ShowOnTable() {
+                table.clear().draw();
+                $.each(addedItems, function (index, value) {
+                    table.row.add([ value.DebitAccName, value.CGName, value.Amount, value.Descriptions, '<a href="#"><i class="fa fa-edit" name="editRow" value="' +
+                        value.DebitAccId + '"></i></a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.DebitAccId + '"></i></a>']).draw();
+                });
+            }
+            function calculation() {
+                $('#VATAmount').val((parseFloat($('#VAT').val()) * parseFloat($("#GBETotal").val())) / 100);
+                $('#AITAmount').val((parseFloat($('#AIT').val()) * parseFloat($("#GBETotal").val())) / 100);
+                $('#VDSAmount').val((parseFloat($('#VDS').val()) * parseFloat($("#GBETotal").val())) / 100);
+                var discount = $('#Discountamt').val();
+                if (discount > 0) {
+                    $('#NetAmount').val((parseFloat($("#NetDiscountAmount").val()) + parseFloat($("#VATAmount").val())) - (parseFloat($("#AITAmount").val()) + parseFloat($("#VDSAmount").val())));
+                }
+                else {
+                    $('#NetAmount').val((parseFloat($("#GBETotal").val()) + parseFloat($("#VATAmount").val())) - (parseFloat($("#AITAmount").val()) + parseFloat($("#VDSAmount").val())));
+                }
+                //$('#NetAmount').val(parseFloat($("#GBETotal").val()) + parseFloat($("#VATAmount").val()) - parseFloat($("#AITAmount").val()));
+            }
+            function calculateTotalAmount() {
+                var TotalAmount = 0;
+                $.each(addedItems, function (i, v) {
+                    TotalAmount += parseFloat(v.Amount);
+                })
+                $("#GBETotal").val(TotalAmount);
+            }
+            function ValidateOnSaveClick() {
+
+                message = "";
+                //if ($("#BusinessUnit").val() <=0) {
+                //    setError("BusinessUnit", "Business Unit is Required Field.\n");
+                //    message = "BusinessUnit  is Required Field."
+                //}
+                //if ($("#DebitAccId").val() == "") {
+                //    setError("DebitAccId", "COA is Required Field.\n");
+                //    message = "COA  is Required Field."
+                //}
+                if ($("#CGId").val() == "") {
+                    setError("CGId", "Cost Group is Required Field.\n");
+                    message = "Cost Grout is Required Field."
+                }
+                if ($("#Amount").val() == "") {
+                    setError("Amount", "Amount is Required Field.\n");
+                    message = "Amount is Required Field."
+                }
+                //if ($("#Descriptions").val() == "") {
+                //    setError("Descriptions", "Descriptions is Required Field.\n");
+                //    message = "Descriptions is Required Field."
+                //}
+                if ($("#DepotId").val() == "") {
+                    setError("DepotId", "Depot is Required Field.\n");
+                    message = "Depot is Required Field."
+                }
+                if ($("#SGId").val() == "") {
+                    setError("SGId", "Supplier Group is Required Field.\n");
+                    message = "Supplier Group is Required Field."
+                }
+                if ($("#SupplierId").val() == "") {
+                    setError("SupplierId", "Supplier is Required Field.\n");
+                    message = "Supplier is Required Field."
+                }
+                var coa = $("#DebitAccId").val();
+                var jobno = $("#JobNo").val();
+                var businessunit = $("#BusinessUnit").val();
+                $.each(addedItems, function (i, v) {
+                    if (coa == v.DebitAccId && jobno == v.JobNo && businessunit == v.BusinessUnit) {
+                        message = "The Cost Of Account for business unit " + v.BusinessUnitName + " and job no " + jobno + " is already added";
+                        alert(message);
+                    }
+                });
+
+            }
+            $(document).on('change', "#SGId", function () {
+                var id = { groupId: $(this).val() };
+
+                if (id.groupId != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetSupplierByGroupId", "GeneralBillEntry")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            $("#SupplierId").empty();
+                            $("#SupplierId").prop("disabled", false);
+                            $.each(datas, function (index, value) {
+                                $("#SupplierId").append($('<option />', {
+                                    value: value.Value,
+                                    text: value.Text
+                                })).trigger('change');
+                            });
+                            if (supplierId != "") {
+                                $("#SupplierId").val(supplierId).change();
+                            }
+                        }
+                    });
+                }
+                else {
+
+                    $("#SupplierId").empty();
+                    $("#SupplierId").append($('<option />', {
+                        value:"",
+                        text: "--- Select Supplier ---"
+                    })).trigger('change');
+                    $("#SupplierId").val("").change();
+                    $("#SupplierId").prop("disabled", true);
+                }
+            });
+        });
+    </script>
+}

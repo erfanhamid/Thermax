@@ -1,0 +1,53 @@
+﻿@model List<BEEERP.Models.ViewModel.Account.PermissionVModel>
+@{
+    ViewBag.Title = "PermissionIndex";
+}
+
+<div class="box-body">
+    <table id="UserList" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>User Name</th>
+                <th>Roles</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.UserName</td>
+                    
+                    <td>
+                        @item.Roles
+                    </td>
+                    <td>
+                        <a href="#" style="padding-right:40px;"><i class="fa fa-edit" name="@item.UserName"></i> </a>
+                        <a href="#"><i class="fa fa-trash" name="@item.UserName"></i></a>
+                    </td>
+                </tr>
+            }
+
+
+    </table>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(function () {
+            $('#UserList').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+    </script>
+}
+

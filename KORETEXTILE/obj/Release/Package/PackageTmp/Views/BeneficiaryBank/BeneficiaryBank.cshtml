@@ -1,0 +1,230 @@
+﻿@model BEEERP.Models.CommercialModule.BeneficiaryBank
+
+@{
+    ViewBag.Title = "BeneficiaryBank";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    tbody tr:hover {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    .btn:hover {
+        color: blue !important;
+    }
+
+    .btn:focus {
+        background-color: aqua !important;
+    }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div>
+                    <h4 style="color:red">@ViewBag.messege</h4>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" align="center">
+                                <h3 class="box-title">Create Beneficiary Bank List</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.BankId, "Bank No", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.BankId, new { @class = "form-control digit", @Value = ViewBag.numbersBeneficiaryBanks, })
+                                        @Html.ValidationMessageFor(m => m.BankId, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.BankName,"Bank Name", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.BankName, new { @class = "form-control", })
+                                        @Html.ValidationMessageFor(m => m.BankName, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-4"></div>
+                                    <div class="col-sm-8">
+                                        <input type="button" name="save" id="save" value="Save" class="btn btn-primary" />
+                                        <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                                        <input type="button" name="Refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box ">
+                <div class="box-header with-border box-head-back" align="center">
+                    <h3 class="box-title">Bank List</h3>
+                </div>
+                <div class="box-body">
+                    <table class="table table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Bank No</th>
+                                <th>Bank Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var bank in ViewBag.beneficiarybank)
+                            {
+                                <tr class='clickable-row' value="@bank.BankId">
+                                    <td>@bank.BankId</td>
+                                    <td>@bank.BankName</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/CommercialModule/BeneficiaryBankInputFocus.js"></script>
+    <script>
+    $(document).ready(function () {
+        IncotermFieldEnterPress();
+        var addedItems = [];
+        var message = "";
+        $("#update").hide();
+        $(document).on('click', '#save', function () {
+            $("#save").prop('disabled', true);
+                ValidateOnSaveClick();
+                if (message == "") {
+                    if (confirm("Do you want to save?")) {
+                        var bank = { BankId: 0, BankName: ""};
+                        bank.BankId = parseInt($("#BankId").val());
+                        bank.BankName = $("#BankName").val();
+                         $.ajax
+                            ({
+                                url: '@Url.Action("SaveBeneficiaryBank", "BeneficiaryBank")',
+                                 contentType: "application/json;charset=utf-8",
+                                 data: JSON.stringify({ beneficiaryBank: bank }),
+                                type: 'Post',
+                                dataType: 'json',
+                                success: function (datas) {
+                                    if (datas.Message == "0") {
+                                        alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                        $("#save").prop('disabled', false);
+                                    }
+                                    else if (datas.Message == "1") {
+                                        alert("Sccessfully saved.")
+                                        location.reload();
+                                    }
+                                    else if (datas.Message == "2") {
+                                        alert("This beneficiary bank already Exist.");
+                                        $("#save").prop('disabled', false);
+                                    }
+
+                                }
+                            });
+                    }
+
+                }
+        });
+        $(".clickable-row").on('click', function (e) {
+                var id = $(this).attr("value");
+                 $.ajax({
+                    url: '@Url.Action("GetBeneficiaryBankByBankId", "BeneficiaryBank")',
+                     contentType: "application/json;charset=utf-8",
+                     data: JSON.stringify({ bankId: id }),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if(datas==0)
+                        {
+                            alert("This beneficiary bank  doesn't exist.");
+                        }
+                        else {
+                            $("#save").hide();
+                            $("#update").show();
+                            $("#BankId").val(datas.beneficiaryBank.BankId);
+                            $("#BankName").val(datas.beneficiaryBank.BankName);
+                        }
+                    }
+                });
+        });
+        $(document).on('click', '#update', function () {
+            $("#update").prop('disabled', true);
+                ValidateOnSaveClick();
+                if (confirm("Do you want to update?"))
+                {
+                    if (message == "") {
+                        var bank = { BankId: 0, BankName: ""};
+                        bank.BankId = parseInt($("#BankId").val());
+                        bank.BankName = $("#BankName").val();
+                         $.ajax
+                            ({
+                                url: '@Url.Action("UpdateBeneficiaryBank", "BeneficiaryBank")',
+                                 contentType: "application/json;charset=utf-8",
+                                 data: JSON.stringify({ beneficiaryBank: bank }),
+                                type: 'Post',
+                                dataType: 'json',
+                                success: function (datas) {
+                                    if (datas.Message == "0") {
+                                        alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                        $("#update").prop('disabled', false);
+                                    }
+                                    else if (datas.Message == "1") {
+                                        alert("Sccessfully updated.")
+                                        location.reload();
+                                    }
+                                    else if (datas.Message == "2") {
+                                        alert("This beneficiary bank already Exist.");
+                                        $("#update").prop('disabled', false);
+                                    }
+
+                                }
+                            });
+                    }
+
+                }
+        });
+        //forNumberbox
+        $(".digit").keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $("#errormsg").html("Digits Only").show().fadeOut("slow");
+                return false;
+            }
+        });
+
+        //validator
+        function ValidateOnSaveClick() {
+
+            message = "";
+            if ($("#BankId").val() == "") {
+                setError("BankId", "Bank ID is Required Field.");
+                message = "BankId is Required Field."
+            }
+            if ($("#BankName").val() == "") {
+                setError("BankName", "Bank Name is Required Field.\n");
+                message = "BankName  is Required Field."
+            }
+        }
+        $(document).on('click', '#refresh', function () {
+            location.reload();
+        });
+    });
+
+    </script>
+
+}
+

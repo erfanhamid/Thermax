@@ -1,0 +1,405 @@
+﻿@model BEEERP.Models.StoreRM.GRN.Supplier
+
+@{
+    ViewBag.Title = "Supplier";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<h3 style="text-align:center">Create Supplier</h3>
+<div class="content">
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="col-md-8" style="padding:0%;">
+                    <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                        <h5 class="box-title">Supplier Info</h5>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 ">
+                            <div class="box-body" style="background-color:white">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Id, "Supplier No", new { @class = "col-md-4 control-label " })
+                                    <div class="input-group input-group-sm" style="padding-right:15px;padding-left:14px;">
+                                        @Html.TextBoxFor(m => m.Id, new { @class = "form-control enterTab digit", @Value = ViewBag.supplierNo })
+                                        @Html.ValidationMessageFor(m => m.Id)
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-primary" id="SNoSearch" style="min-width: 50px">Search</button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.GroupID, "Group", new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8 ">
+                                        @Html.DropDownListFor(m => m.GroupID, (IEnumerable<SelectListItem>)ViewBag.supplierGroup, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.GroupID, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.SupplierName, "Supplier Name", new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8 ">
+                                        @Html.TextBoxFor(m => m.SupplierName, new { @class = "form-control digit" })
+                                        @Html.ValidationMessageFor(m => m.SupplierName, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 ">
+                            <div class="box-body" style="background-color:white">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.OB, "SOB", new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8 ">
+                                        @Html.TextBoxFor(m => m.OB, new { @class = "form-control digit" })
+                                        @Html.ValidationMessageFor(m => m.OB, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.AsDate, "As On", new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8  date input-group" style="padding-left:15px; padding-right:15px">
+                                        @Html.TextBoxFor(m => m.AsDate, new { @class = "enterTab form-control", @Value = ViewBag.dateAsOf.ToString("dd-MM-yyyy"), @readonly = "readonly" })
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.AsDate, "", new { @style = "color: red" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.SCode, "Suppliers Code", new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8 ">
+                                        @Html.TextBoxFor(m => m.SCode, new { @class = "form-control digit" })
+                                        @Html.ValidationMessageFor(m => m.SCode, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" style="padding-right:0%;">
+                    <div class="box-body" style="background-color:white;padding-left:0px;padding-top:0px;padding-right:0px">
+                        <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                            <h5 class="box-title">Bank Account Info</h5>
+                        </div>
+                        <br />
+                        <div class="form-group" style="padding:0px 10px 0px 10px">
+                            @Html.LabelFor(m => m.BankAccountNumber, "Bank A/c No", new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8 ">
+                                @Html.TextBoxFor(m => m.BankAccountNumber, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.BankAccountNumber, "", new { @style = "color: red" })
+                            </div>
+                        </div>
+                        <div class="form-group" style="padding:0px 10px 0px 10px">
+                            @Html.LabelFor(m => m.BankName, "Bank Name", new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8 ">
+                                @Html.TextBoxFor(m => m.BankName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.BankName, "", new { @style = "color: red" })
+                            </div>
+                        </div>
+                        <div class="form-group" style="padding:0px 10px 0px 10px">
+                            @Html.LabelFor(m => m.BankAddress, "Bank Address", new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8 ">
+                                @Html.TextAreaFor(m => m.BankAddress, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.BankAddress, "", new { @style = "color: red" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="row">
+                    <div class="col-md-6 ">
+                        <div class="box-body" style="background-color:white;padding-left:0px;padding-top:0px;padding-right:0px">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h5 class="box-title">Contacts</h5>
+                            </div>
+                            <br />
+                            <div class="form-group" style="padding:0px 10px 0px 10px">
+                                @Html.LabelFor(m => m.ContactPerson, "Contact Person", new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.TextBoxFor(m => m.ContactPerson, new { @class = "form-control digit" })
+                                    @Html.ValidationMessageFor(m => m.ContactPerson, "", new { @style = "color: red" })
+                                </div>
+                            </div>
+                            <div class="form-group" style="padding:0px 10px 0px 10px">
+                                @Html.LabelFor(m => m.MobileNo, "Mobile No", new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.TextBoxFor(m => m.MobileNo, new { @class = "form-control digit" })
+                                    @Html.ValidationMessageFor(m => m.MobileNo, "", new { @style = "color: red" })
+                                </div>
+                            </div>
+                            <div class="form-group" style="padding:0px 10px 0px 10px">
+                                @Html.LabelFor(m => m.TelephoneNo, "Telephone No", new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.TextBoxFor(m => m.TelephoneNo, new { @class = "form-control digit" })
+                                    @Html.ValidationMessageFor(m => m.TelephoneNo, "", new { @style = "color: red" })
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6 ">
+                        <div class="box-body" style="background-color:white;padding-left:0px;padding-top:0px;padding-right:0px">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h5 class="box-title">Email & Address</h5>
+                            </div>
+                            <br />
+                            <div class="form-group" style="padding:0px 10px 0px 10px">
+                                @Html.LabelFor(m => m.EmailId, "Email", new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.TextBoxFor(m => m.EmailId, new { @class = "form-control digit" })
+                                    @Html.ValidationMessageFor(m => m.EmailId, "", new { @style = "color: red" })
+                                </div>
+                            </div>
+                            <div class="form-group" style="padding:0px 10px 0px 10px">
+                                @Html.LabelFor(m => m.Address, "Address", new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.TextAreaFor(m => m.Address, new { @class = "form-control digit", @rows = "2" })
+                                    @Html.ValidationMessageFor(m => m.Address, "", new { @style = "color: red" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="box">
+                <div class="form-group" style="padding:3px;">
+                    <div class="col-md-12" style="text-align:center;">
+                        <input type="button" value="Save" id="save" class="btn btn-primary" style="padding-left:20px;" />
+                        <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                        <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+<script src="~/Scripts/Procurement/SupplierInputFocus.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.select2').select2();
+        SupplierEnterpress();
+        var message = "";
+        
+        //$('.date').datepicker({
+        //    autoclose: true,
+        //    format: 'dd-mm-yyyy',
+        //});
+        $('#update').hide();
+        $(document).on('click', '#refresh', function () {
+            location.reload();
+        });
+        $(document).on('click', "#SNoSearch", function ()
+        {
+            if ($("#Id").val() != "") {
+                $('#save').hide();
+                var id = { Id: parseInt($("#Id").val()) };
+                ClearOnSearch();
+                $.ajax(
+                    {
+                        url: '@Url.Action("GetSupplierById", "Supplier")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ splr: id }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.Message == 0) {
+                                alert("No supplier is found against the Supplier No");
+                            }
+                            else {
+                                $('#update').show();
+                                $("#Id").val(data.supplier.Id);
+                                $("#SupplierName").val(data.supplier.SupplierName);
+                                $("#GroupID").val(data.supplier.GroupID).change();
+                                $("#OB").val(data.supplier.OB);
+                                $("#AsDate").val((moment(data.supplier.AsDate).format("DD-MM-YYYY"))).change();
+                                $("#SCode").val(data.supplier.SCode);
+                                $("#ContactPerson").val(data.supplier.ContactPerson);
+                                $("#MobileNo").val(data.supplier.MobileNo);
+                                $("#TelephoneNo").val(data.supplier.TelephoneNo);
+                                $("#EmailId").val(data.supplier.EmailId);
+                                $("#Address").val(data.supplier.Address);
+                                $("#BankAccountNumber").val(data.supplier.BankAccountNumber);
+                                $("#BankName").val(data.supplier.BankName);
+                                $("#BankAddress").val(data.supplier.BankAddress);
+                            }
+
+                        },
+                        error: function () {
+                            alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services");
+                        }
+                    });
+            }
+            else {
+                alert("Please enter a supplier No first");
+            }
+            
+        });
+        $(document).on('click', '#save', function () {
+        ValidateOnSaveClick();
+        $("#save").prop("disabled", true);
+            if (message == "") {
+                var supplier = { Id: 0, SupplierName: "", GroupID: 0, Credit: 0.0, OB: 0.0, AsDate: "", ContactPerson: "", MobileNo: "", TelephoneNo: "", EmailId: "", Address: "", SCode: "", BankAccountNumber: "", BankName: "", BankAddress: "" };
+                supplier.Id = $("#Id").val();
+                supplier.SupplierName = $("#SupplierName").val();
+                supplier.GroupID = $("#GroupID").val();
+                supplier.OB = $("#OB").val();
+                supplier.AsDate = $("#AsDate").val();
+                supplier.SCode = $("#SCode").val();
+                supplier.ContactPerson = $("#ContactPerson").val();
+                supplier.MobileNo = $("#MobileNo").val();
+                supplier.TelephoneNo = $("#TelephoneNo").val();
+                supplier.EmailId = $("#EmailId").val();
+                supplier.Address = $("#Address").val();
+                supplier.BankAccountNumber = $("#BankAccountNumber").val();
+                supplier.BankName = $("#BankName").val();
+                supplier.BankAddress = $("#BankAddress").val();
+
+                if (confirm("Do you want to Save?")) {
+                    $.ajax(
+                        {
+                            url: '@Url.Action("SaveSuppliers", "Supplier")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ supplier: supplier }),
+                            type: "POST",
+                            dataType: "json",
+                            success: function (datas) {
+                                if (datas.Message == 1) {
+                                    alert("Save Successfully");
+                                }
+                                else if (datas == 3) {
+                                    alert("Please select a valid entry date");
+                                    $("#AsDate").focus();
+                                    $("#save").prop('disabled', false);
+                                }
+                                else if (datas.Message == 0) {
+                                    alert("Please recheck data if it is not solve the problem.\n Then Contact with Avalanche Technology Ltd.");
+                                    $("#save").prop("disabled", false);
+                                }
+                            },
+                            error: function () {
+                                alert("Please check Internet connection. If doesn't solve problem. Contact with Avalanche Technology Ltd.");
+                                $("#save").prop("disabled", false);
+                            }
+                        });
+                }
+                else {
+                    $("#save").prop("disabled", false);
+                }
+            }
+            else {
+                $("#save").prop("disabled", false);
+            }
+        });
+        $(document).on('click', '#update', function () {
+        ValidateOnSaveClick();
+        $("#update").prop("disabled", true);
+            if (message == "") {
+                var supplier = { Id: 0, SupplierName: "", GroupID: 0, Credit: 0.0, OB: 0.0, AsDate: "", ContactPerson: "", MobileNo: "", TelephoneNo: "", EmailId: "", Address: "", SCode: "", BankAccountNumber: "", BankName: "", BankAddress: "" };
+                supplier.Id = $("#Id").val();
+                supplier.SupplierName = $("#SupplierName").val();
+                supplier.GroupID = $("#GroupID").val();
+                supplier.OB = $("#OB").val();
+                supplier.AsDate = $("#AsDate").val();
+                supplier.SCode = $("#SCode").val();
+                supplier.ContactPerson = $("#ContactPerson").val();
+                supplier.MobileNo = $("#MobileNo").val();
+                supplier.TelephoneNo = $("#TelephoneNo").val();
+                supplier.EmailId = $("#EmailId").val();
+                supplier.Address = $("#Address").val();
+                supplier.BankAccountNumber = $("#BankAccountNumber").val();
+                supplier.BankName = $("#BankName").val();
+                supplier.BankAddress = $("#BankAddress").val();
+
+                if (confirm("Do you want to Update?"))
+                {
+                    $.ajax(
+                    {
+                        url: '@Url.Action("UpdateSuppliers", "Supplier")',
+                        contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ supplier: supplier }),
+                        type: "POST",
+                        dataType: "json",
+                        success: function (datas)
+                        {
+                            if (datas.Message == "0") {
+                                alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                $("#update").prop('disabled', false);
+                            }
+                            else if (datas.Message == "1") {
+                                alert("Sccessfully updated.")
+                                //location.reload();
+                            }
+                            else if (datas.Message == "2") {
+                                alert("This supplier already Exist.");
+                                $("#update").prop('disabled', false);
+                            }
+                        },
+                        error: function ()
+                        {
+                            alert("Please check Internet connection. If doesn't solve problem. Contact with Avalanche Technology Ltd.");
+                            $("#save").prop("disabled", false);
+                        }
+                    });
+                }
+            }
+        });
+        function ValidateOnSaveClick() {
+
+            message = "";
+            if ($("#SupplierName").val() == "") {
+                setError("SupplierName", "Supplier Name is Required Field.");
+                message = "Supplier Name is Required Field."
+            }
+            if ($("#GroupID").val() == "") {
+                setError("GroupID", "Group is Required Field.\n");
+                message = "Group  is Required Field."
+            }
+            if ($("#Address").val() == "") {
+                setError("Address", "Address is Required Field.\n");
+                message = "Address  is Required Field."
+            }
+            //if ($("#BankAccountNumber").val() == "") {
+            //    setError("BankAccountNumber", "BankAccountNumber is Required Field.\n");
+            //    message = "BankAccountNumber  is Required Field."
+            //}
+           
+        }
+        function ClearOnSearch() {
+            $("#SupplierName").val("");
+            $("#GroupID").val("").change();
+            $("#ContactPerson").val("");
+            $("#Address").val("");
+            $("#BankAccountNumber").val("");
+        }
+    });
+</script>
+}

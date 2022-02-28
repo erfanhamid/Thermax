@@ -1,0 +1,325 @@
+﻿@model BEEERP.Models.HRModule.Employee
+
+@{
+    ViewBag.Title = "EmployeeProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    body {
+        background: #F1F3FA;
+    }
+
+    /* Profile container */
+    .profile {
+        margin: 20px 0;
+    }
+
+    /* Profile sidebar */
+    .profile-sidebar {
+        padding: 20px 0 10px 0;
+        background: #fff;
+        min-height: 350px;
+        width:auto;
+        border-radius: 10px;
+        border: 1px solid rgba(40, 121, 212, 0.3);
+    }
+
+    .profile-userpic img {
+        float: none;
+        margin: 0 auto;
+        width: 50%;
+        height: 50%;
+        -webkit-border-radius: 50% !important;
+        -moz-border-radius: 50% !important;
+        border-radius: 50% !important;
+    }
+
+    .profile-usertitle {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .profile-usertitle-name {
+        color: #5a7391;
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 7px;
+    }
+
+    .profile-usertitle-job {
+        text-transform: uppercase;
+        color: #5b9bd1;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    .profile-userbuttons {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+        .profile-userbuttons .btn {
+            text-transform: uppercase;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 6px 15px;
+            margin-right: 5px;
+        }
+
+            .profile-userbuttons .btn:last-child {
+                margin-right: 0px;
+            }
+
+    .profile-usermenu {
+        margin-top: 30px;
+    }
+
+        .profile-usermenu ul li {
+            border-bottom: 1px solid #f0f4f7;
+        }
+
+            .profile-usermenu ul li:last-child {
+                border-bottom: none;
+            }
+
+            .profile-usermenu ul li a {
+                color: #93a3b5;
+                font-size: 14px;
+                font-weight: 400;
+            }
+
+                .profile-usermenu ul li a i {
+                    margin-right: 8px;
+                    font-size: 14px;
+                }
+
+                .profile-usermenu ul li a:hover {
+                    background-color: #fafcfd;
+                    color: #5b9bd1;
+                }
+
+            .profile-usermenu ul li.active {
+                border-bottom: none;
+            }
+
+                .profile-usermenu ul li.active a {
+                    color: #5b9bd1;
+                    background-color: #f6f9fb;
+                    border-left: 2px solid #5b9bd1;
+                    margin-left: -2px;
+                }
+
+    /* Profile Content */
+    .profile-content {
+        padding-top: 10px;
+        background: #fff;
+        min-height: 200px;
+        border-radius: 8px;
+        /*width: 100vh !important;*/
+        width:auto;
+        border: 1px solid rgba(40, 121, 212, 0.3);
+    }
+    td{
+        width:50vh;
+        font-size:15px;
+    }
+</style>
+<div class="container"  style="padding-top:0px;margin:0px;">
+    <div class="row profile">
+        <div class="col-md-3">
+            <div class="profile-sidebar">
+                <!-- SIDEBAR USERPIC -->
+                <div class="profile-userpic">
+                    @{
+                        string pathFEmpImage = System.IO.Path.Combine(Server.MapPath("~/Image/Employees/"), Model.Id + "EmpImage.png");
+                        var userImageProfileName = Model.Id + "EmpImage.png";
+                    }
+                    <div class="profile-userpic">
+                        @if (File.Exists(pathFEmpImage))
+                        {
+                            <img src="~/Image/Employees/@userImageProfileName" style="height:150px;width:150px;" class="img-responsive thumbnail" alt="">
+                        }
+                        else
+                        {
+                            <img src="~/Image/Employees/profile-default.png" style="height:150px;width:150px;" class="img-responsive thumbnail" alt="">
+                        }
+                    </div>
+                </div>
+                <div class="profile-usertitle">
+                    <div class="profile-usertitle-name">
+                        @Model.Id
+                    </div>
+                    <div class="profile-usertitle-name">
+                        @Model.Name
+                    </div>
+                    <div class="profile-usertitle-name">
+                        @Model.DesignationName
+                    </div>
+                    <div class="profile-usertitle-name">
+                        @Model.Department
+                    </div>
+                    <div class="profile-usertitle-name">
+                        @Model.WorkStation
+                    </div>
+                    <div class="profile-usertitle-name">
+                        @Model.Mobile
+                    </div>
+                    <div class="profile-usertitle-name">
+                        @Model.Email
+                    </div>
+                </div>
+                <div class="profile-usermenu">
+                    <ul class="nav">
+                        <li>
+                            <a href="/EmployeeListView/EmployeeListView?namelike=">
+                                <i class="glyphicon glyphicon-home"></i>
+                               Go to list
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Employee/Employee">
+                                <i class="glyphicon glyphicon-user"></i>
+                                Update Profile
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- END MENU -->
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="profile-content" style="margin-bottom:20px">
+                <div align="center" style="border-bottom:1px solid #93a3b5">
+                    <p style="font-size:17px"><b>Personal Details</b></p>
+                </div>
+                <div>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>Father's Name</td>
+                                <td>@Model.FatherName</td>
+                            </tr>
+                            <tr>
+                                <td>Mother's Name</td>
+                                <td>@Model.MotherName</td>
+                            </tr>
+                            <tr>
+                                <td>National Id</td>
+                                <td>@Model.NationalID</td>
+                            </tr>
+                            <tr>
+                                <td>Blood Group</td>
+                                <td>@Model.BloodGroup</td>
+                            </tr>
+                            <tr>
+                                <td>Relation With Nominee</td>
+                                <td>@Model.NomineeRelation</td>
+                            </tr>
+                            <tr>
+                                <td>Marital Status</td>
+                                <td>@Model.MaritalStatus</td>
+                            </tr>
+                            <tr>
+                                <td>Religion</td>
+                                <td>@Model.ReligionName</td>
+                            </tr>
+                            <tr>
+                                <td>Gender</td>
+                                <td>@Model.GenderName</td>
+                            </tr>
+                            <tr>
+                                <td>Date of Birth</td>
+                                <td>@Model.DateOfBirth.ToString("dd/MM/yyyy")</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="profile-content" style="margin-bottom:20px">
+                <div align="center" style="border-bottom:1px solid #93a3b5">
+                    <p style="font-size:17px"><b>Contact Details</b></p>
+                </div>
+                <div>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>Present Address</td>
+                                <td>@Model.PresentAddress</td>
+                            </tr>
+                            <tr>
+                                <td>Permanent Address</td>
+                                <td>@Model.PermanentAddress</td>
+                            </tr>
+                            <tr>
+                                <td>Mobile No</td>
+                                <td>@Model.Mobile</td>
+                            </tr>
+                            <tr>
+                                <td>Alternative No</td>
+                                <td>@Model.AlternativeContct</td>
+                            </tr>
+                            <tr>
+                                <td>Personal Email</td>
+                                <td>@Model.PersonalEmail</td>
+                            </tr>
+                            <tr>
+                                <td>Office Email</td>
+                                <td>@Model.Email</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="profile-content" style="margin-bottom:20px">
+                <div align="center" style="border-bottom:1px solid #93a3b5">
+                    <p style="font-size:17px"><b>Official Details</b></p>
+                </div>
+                <div>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>Department</td>
+                                <td>@Model.Department</td>
+                            </tr>
+                            <tr>
+                                <td>Company</td>
+                                <td>@Model.CompanyName</td>
+                            </tr>
+                            <tr>
+                                <td>Work Station</td>
+                                <td>@Model.WorkStation</td>
+                            </tr>
+                            <tr>
+                                <td>Section</td>
+                                <td>@Model.SectionName</td>
+                            </tr>
+                            <tr>
+                                <td>Designation</td>
+                                <td>@Model.DesignationName</td>
+                            </tr>
+                            <tr>
+                                <td>Functional Designation</td>
+                                <td>@Model.FD</td>
+                            </tr>
+                            <tr>
+                                <td>Staff Type</td>
+                                <td>@Model.StaffType</td>
+                            </tr>
+                            <tr>
+                                <td>Joining Date</td>
+                                <td>@Model.JoiningDate.ToString("dd/MM/yyyy")</td>
+                            </tr>
+                            <tr>
+                                <td>Highest Education</td>
+                                <td>@Model.HigherEdu</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

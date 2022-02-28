@@ -1,0 +1,446 @@
+﻿@model BEEERP.Models.DataAdmin.SPSettings.SPAdditionalInfo
+
+@{
+    ViewBag.Title = "SPAdditionalInfoView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+<h3 style="text-align:center">Spare Parts Additional Item Information</h3>
+
+<div class="content">
+    <div class="row">
+        <h4 style="text-align:center"></h4>
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="box">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h6 class="box-title">SP Additional Info Details</h6>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.DepartmentID, "SP Department", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.DropDownListFor(m => m.DepartmentID, (IEnumerable<SelectListItem>)ViewBag.SPD, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.DepartmentID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.SPTypeID, "SP Item Type", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.DropDownListFor(m => m.SPTypeID, (IEnumerable<SelectListItem>)ViewBag.SPTypeID, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.SPTypeID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ItemID, "SP Item", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.DropDownListFor(m => m.ItemID, (IEnumerable<SelectListItem>)ViewBag.ItemID, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.ItemID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.StandardCost, "Standard Cost", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.TextBoxFor(m => m.StandardCost, new { @class = "form-control", @type = "number" })
+                                            @Html.ValidationMessageFor(m => m.StandardCost, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.MinStockLevel, "Minimum Stock Level", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.TextBoxFor(m => m.MinStockLevel, new { @class = "form-control", @type = "number" })
+                                            @Html.ValidationMessageFor(m => m.MinStockLevel, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.MaxStockLevel, "Maximum Stock Lelvel", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.TextBoxFor(m => m.MaxStockLevel, new { @class = "form-control", @type = "number" })
+                                            @Html.ValidationMessageFor(m => m.MaxStockLevel, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ReorderLevel, "Reorder Level", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.TextBoxFor(m => m.ReorderLevel, new { @class = "form-control", @type = "number" })
+                                            @Html.ValidationMessageFor(m => m.ReorderLevel, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.EconomicOQ, "Economic Order Qty", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.TextBoxFor(m => m.EconomicOQ, new { @class = "form-control", @type = "number" })
+                                            @Html.ValidationMessageFor(m => m.EconomicOQ, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.CountryID, "Country Of Origin", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.DropDownListFor(m => m.CountryID, (IEnumerable<SelectListItem>)ViewBag.Country, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.CountryID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Remarks, "Remarks", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.TextBoxFor(m => m.Remarks, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Remarks, "", new { @style = "color : red" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class=" col-md-12">
+                        <div class="box" style="border:none">
+                            <div class="box-footer">
+                                <div class="form-group" , style="text-align:center;margin-top:10px">
+                                    <button type="button" id="save" style="height:500%; font-size:100%;" class="btn btn-primary">Save</button>
+                                    <button type="button" id="update" style="height:500%; font-size:100%;" class="btn btn-primary">Update</button>
+                                    <button type="button" id="delete" style="height:500%; font-size:100%;" class="btn btn-primary">Delete</button>
+                                    <button type="button" id="refresh" style="height:500%; font-size:100%;" class="btn btn-primary">Refresh</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                    <h5 class="box-title">SP Additional Info</h5>
+                                </div>
+                                <div class="box-body">
+                                    <table class="table table-responsive" id="SpAdditionalInfo">
+                                        <thead>
+                                            <tr>
+                                                <th>Item ID</th>
+                                                <th>Item Part No</th>
+                                                <th>Standard Cost</th>
+                                                <th>Min StockLevel</th>
+                                                <th>Max StockLevel</th>
+                                                <th>Reorder Level</th>
+                                                <th>Quantity</th>
+                                                <th>CountryName</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ViewBag.SpareId)
+                                            {
+                                                <tr class='clickable-row' value="@item.ItemID">
+                                                    <td>@item.ItemID</td>
+                                                    <td>@item.ItemPartNo</td>
+                                                    <td>@item.StandardCost</td>
+                                                    <td>@item.MinStockLevel</td>
+                                                    <td>@item.MaxStockLevel</td>
+                                                    <td>@item.ReorderLevel</td>
+                                                    <td>@item.EconomicOQ</td>
+                                                    <td>@item.CountryName</td>
+
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script src="~/Scripts/CommercialModule/LTRInputFocus.js"></script>
+    <script>
+
+        $("#SPTypeID").prop("disabled", true);
+
+        $(function () {
+            $('#SpAdditionalInfo').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+        var isValid = true;
+        var iai = {
+            ItemID: 0, ItemCode: "", ShortDescription: "", StandardCost: 0, SellingPrice: 0, VatPerc: 0, PacSize: 0,
+            CountryID: 0, MinStockLevel: 0, MaxStockLevel: 0, ReorderLevel: 0, EOQuantity: 0, Remarks: ""
+        }
+        $(document).ready(function () {
+
+            $('.date').datepicker({
+                autoclose: true,
+                format: 'dd-mm-yyyy',
+            });
+            $(".select2").select2();
+            $("#update").hide();
+            $("#delete").hide();
+
+        });
+
+        $(document).on('click', "#refresh", function () {
+            location.reload();
+        });
+
+        //Department change reaction
+    $(document).on('change', "#DepartmentID", function () {
+        $("#SPTypeID").prop('disabled', false);
+            var id = { id: parseInt( $(this).val()) };
+            if (id.id != "") {
+                $.ajax({
+                    url: '@Url.Action("GetSPTypeByBatchID", "SparePartsItemList")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+
+                        $("#SPTypeID").empty();
+                        $("#SPTypeID").prop("disabled", false);
+                        $.each(datas, function (index, value) {
+                            $("#SPTypeID").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                        $("#SPTypeID").focus();
+                        if (itemTypeId != "") {
+                            $("#SPTypeID").val(itemTypeId).change();
+                            itemTypeId = "";
+                        }
+                    }
+                });
+            }
+                    else {
+                            $("#SPTypeID").val("").change();
+                            $("#SPTypeID").prop("disabled", true);
+                         }
+    });
+
+                // TextBox FillUp
+
+        $(document).on('click', '.clickable-row', function () {
+            var id = $(this).attr("value");
+            $.ajax({
+                url: '@Url.Action("GetAdditionalInfoByid", "SPAdditionalInfo")',
+                contentType: "application/json;charset = utf-8",
+                data: { id: id },
+                type: 'GET',
+                dataType: 'json',
+                success: function (datas) {
+                    if (datas == 0) {
+                        alert("This Additional Information Details Deoesn't Exist");
+                    }
+                    else {
+                        $("#save").prop('disabled', true);
+                        $("#update").show();
+                        $("#delete").show();
+                        $("#ItemID").val(datas.item.ItemID).change();
+                        $("#StandardCost").val(datas.item.StandardCost);
+                        $("#MinStockLevel").val(datas.item.MinStockLevel);
+                        $("#MaxStockLevel").val(datas.item.MaxStockLevel);
+                        $("#ReorderLevel").val(datas.item.ReorderLevel);
+                        $("#EconomicOQ").val(datas.item.EconomicOQ);
+                        $("#CountryID").val(datas.item.CountryID).change();
+
+
+
+                    }
+                }
+            });
+        });
+
+
+         $(document).on('click', "#save", function (e) {
+                RemoveError();
+                Validateiai();
+                if (isValid == true) {
+                    if (confirm('Do you want to save')) {
+                        setiaiData();
+                       $.ajax({
+                        url: '@Url.Action("SaveInventoryAdditionalInfo", "SPAdditionalInfo")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ iai : iai}),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 1) {
+                                alert("Sucessfully Saved.");
+                                $("#save").prop('disabled', true);
+                                location.reload();
+                            }
+                            else {
+                                alert("This item already saved.");
+                            }
+                        }
+                       });
+                    }
+                    else {
+                        $("#save").prop('disabled', false);
+                    }
+                }
+                else {
+                    $("#save").prop('disabled', false);
+                }
+
+         });
+
+         //UPDATE
+        $(document).on('click', '#update', function () {
+            $("#update").prop('disabled', true);
+            $("#ItemID").prop('disabled', true);
+            setiaiData();
+            iai.ItemID = $("#ItemID").val();
+            Validateiai();
+
+                if (confirm('Do you want to Update')) {
+                    $.ajax({
+                        url: '@Url.Action("UpdateAdditionalInfo", "SPAdditionalInfo")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ iai: iai }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Update.");
+                                $("#update").prop('disabled', false);
+                                $("#ItemID").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Updated.");
+                                $("#update").prop('disabled', true);
+                                $("#ItemID").prop('disabled', true);
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#update").prop('disabled', false);
+                    $("#ItemID").prop('disabled', false);
+                }
+        });
+
+         //Delete
+        $(document).on('click', '#delete', function () {
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var id = $("#ItemID").val();
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteAdditionalInfoByid", "SPAdditionalInfo")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Delete Failed.")
+                        }
+                        else {
+                            alert("Delete Successfull");
+                            $("#delete").prop('disabled', true);
+                            location.reload();
+
+                        }
+                    }
+                });
+            }
+            else {
+                $("#delete").prop('disabled', false);
+                $("#update").prop('disabled', false);
+            }
+        });
+
+        function setiaiData() {
+
+            iai.ItemID = $("#ItemID").val();
+            iai.ItemCode = $("#ItemCode").val();
+            iai.ShortDescription = $("#ShortDescription").val();
+            iai.StandardCost = $("#StandardCost").val();
+            iai.SellingPrice = $("#SellingPrice").val();
+            iai.VatPerc = $("#VatPerc").val();
+            iai.PacSize = $("#PacSize").val();
+            iai.CountryID = $("#CountryID").val();
+            iai.MinStockLevel = $("#MinStockLevel").val();
+            iai.MaxStockLevel = $("#MaxStockLevel").val();
+            iai.ReorderLevel = $("#ReorderLevel").val();
+            iai.EOQuantity = $("#EOQuantity").val();
+            iai.Remarks = $("#Remarks").val();
+        }
+
+        function Validateiai() {
+            isValid = true;
+
+            if ($("#ItemID").val() == "") {
+                setError("ItemID", "Item is required field");
+                isValid = false;
+            }
+            if ($("#StandardCost").val() == "") {
+                setError("StandardCost", "Standard Cost is required field");
+                isValid = false;
+            }
+            if ($("#CountryID").val() == "") {
+                setError("CountryID", "Country is required field");
+                isValid = false;
+            }
+            if ($("#MinStockLevel").val() == "") {
+                setError("MinStockLevel", "Min StockLevel is required field");
+                isValid = false;
+            }
+            if ($("#MaxStockLevel").val() == "") {
+                setError("MaxStockLevel", "Max StockLevel is required field");
+                isValid = false;
+            }
+            if ($("#EOQuantity").val() == "") {
+                setError("EOQuantity", "Quantity is required field");
+                isValid = false;
+            }
+        }
+
+    </script>
+
+}
+
+

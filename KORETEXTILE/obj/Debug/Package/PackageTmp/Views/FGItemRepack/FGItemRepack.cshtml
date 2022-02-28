@@ -1,0 +1,750 @@
+﻿@model BEEERP.Models.ViewModel.Production.FGItemRepackVModel
+@{
+    ViewBag.Title = "FGItemRepack";
+}
+
+
+<style>
+    .btn:hover {
+        color: blue !important;
+    }
+
+    .btn:focus {
+        background-color: aqua !important;
+    }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+<form id="report" target="_blank">
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="text-align:center;">
+                                    <h3 class="box-title">FG Item Repack (FGIR)</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.FGIRNo, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:2%; padding-right:2%;">
+                                                @Html.TextBoxFor(m => m.FGIRNo, new { @class = "form-control", @type = "number" })
+                                                @Html.ValidationMessageFor(m => m.FGIRNo, "", new { @style = "color: red" })
+                                                <div class="input-group-btn">
+                                                    <input type="button" name="search" id="search" value="Search" class="btn skin-blue" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Date, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:2%; padding-right:2%">
+                                                @Html.TextBoxFor(m => m.Date, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                @Html.ValidationMessageFor(m => m.Date, "", new { @style = "color: red" })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.TotalStanderdCostIn, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.TotalStanderdCostIn, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.TotalStanderdCostIn, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.RefNo, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.RefNo, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.RefNo, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Description, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Description, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.TotalStanderdCostOut, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.TotalStanderdCostOut, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.TotalStanderdCostOut, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-6" style="padding-left:0%;">
+                                        <div class="box" style="padding-bottom:6%;">
+                                            <div class="box-header with-border box-head-back" style="text-align:center;">
+                                                <h3 class="box-title">Input</h3>
+                                            </div>
+                                            <div class="box-body">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.InStore, new { @class = "col-md-4 control-label" })
+                                                    <div class="col-sm-8">
+                                                        @Html.DropDownListFor(m => m.InStore, (IEnumerable<SelectListItem>)ViewBag.Store, new { @class = "form-control select2", @disabled = "disabled" })
+                                                        @Html.ValidationMessageFor(m => m.InStore, "", new { @style = "color: red" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.ItemIdIn, new { @class = "col-md-4 control-label" })
+                                                    <div class="col-sm-8">
+                                                        @Html.DropDownListFor(m => m.ItemIdIn, (IEnumerable<SelectListItem>)ViewBag.ItemInput, new { @class = "form-control select2" })
+                                                        @Html.ValidationMessageFor(m => m.ItemIdIn, "", new { @style = "color: red" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.RemQty, new { @class = "col-md-4 control-label" })
+                                                    <div class="col-sm-8">
+                                                        @Html.TextBoxFor(m => m.RemQty, new { @class = "form-control", @disabled = "disabled" })
+                                                        @Html.ValidationMessageFor(m => m.RemQty, "", new { @style = "color: red" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.QtyIn, new { @class = "col-md-4 control-label" })
+                                                    <div class="col-sm-8">
+                                                        @Html.TextBoxFor(m => m.QtyIn, new { @class = "form-control", @type = "number" })
+                                                        @Html.ValidationMessageFor(m => m.QtyIn, "", new { @style = "color: red" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" style="padding-right:0%;">
+                                        <div class="box" style="padding-bottom:.8%;">
+                                            <div class="box-header with-border box-head-back" style="text-align:center;">
+                                                <h3 class="box-title">Output</h3>
+                                            </div>
+                                            <div class="box-body">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.OutStore, new { @class = "col-md-4 control-label" })
+                                                    <div class="col-sm-8">
+                                                        @Html.DropDownListFor(m => m.OutStore, (IEnumerable<SelectListItem>)ViewBag.Store, new { @class = "form-control select2", @disabled = "disabled" })
+                                                        @Html.ValidationMessageFor(m => m.OutStore, "", new { @style = "color: red" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.BatchNo, new { @class = "col-md-4 control-label" })
+                                                    <div class="col-sm-8">
+                                                        @Html.DropDownListFor(m => m.BatchNo, (IEnumerable<SelectListItem>)ViewBag.Batch, new { @class = "form-control select2" })
+                                                        @Html.ValidationMessageFor(m => m.BatchNo, "", new { @style = "color: red" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.ItemIdOut, new { @class = "col-md-4 control-label" })
+                                                    <div class="col-sm-8">
+                                                        @Html.DropDownListFor(m => m.ItemIdOut, (IEnumerable<SelectListItem>)ViewBag.ItemByBatch, new { @class = "form-control select2" })
+                                                        @Html.ValidationMessageFor(m => m.ItemIdOut, "", new { @style = "color: red" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.QtyOut, new { @class = "col-md-4 control-label" })
+                                                    <div class="col-sm-8">
+                                                        @Html.TextBoxFor(m => m.QtyOut, new { @class = "form-control", @type = "number" })
+                                                        @Html.ValidationMessageFor(m => m.QtyOut, "", new { @style = "color: red" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.RemQtyOut, new { @class = "col-md-4 control-label" })
+                                                    <div class="col-sm-8">
+                                                        @Html.TextBoxFor(m => m.RemQtyOut, new { @class = "form-control", @type = "number", @disabled = "disabled" })
+                                                        @Html.ValidationMessageFor(m => m.RemQtyOut, "", new { @style = "color: red" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group" style="text-align:center;">
+                                    <button type="button" id="addToGrid" name="addToGrid" style="height:300%; font-size:100%;" class="btn">Add To Grid</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="box ">
+                                        <div class="box-header with-border box-head-back" style="text-align:center;">
+                                            <h3 class="box-title">FG Item Repack List</h3>
+                                        </div>
+                                        <div class="box-body">
+                                            <table class="table table-responsive" id="DSIAlist">
+                                                <thead>
+                                                    <tr>
+                                                        <th>In Item</th>
+                                                        <th>In Pack Size</th>
+                                                        <th>In Qty</th>
+                                                        <th>In Standerd Cost</th>
+                                                        <th>Out Item</th>
+                                                        <th>Out Pack Size</th>
+                                                        <th>Out Qty</th>
+                                                        <th>Out Standerd Cost</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-8" style="text-align:center;">
+                                            <input type="button" value="Save" id="save" class="btn skin-blue" style="padding-left:20px;" />
+                                            <input type="button" name="update" id="update" value="Update" class="btn skin-blue" />
+                                            <input type="button" name="delete" id="delete" value="Delete" class="btn skin-blue" />
+                                            <input type="button" name="clear" id="clear" value="Clear" class="btn skin-blue" />
+                                            <input type="button" name="refresh" id="refresh" value="Refresh" class="btn skin-blue" />
+                                            <input type="button" name="print" id="print" value="Print" class="btn skin-blue" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="pacSizeIn" />
+    <input type="hidden" id="pacSizeOut" />
+    <input type="hidden" id="standerdCostOut" />
+    <input type="hidden" id="standerdCostIn" />
+    <input type="hidden" id="qtyOut" />
+</form>
+
+
+
+@section scripts
+{
+    <script src="~/Scripts/ProductionModule/FGItemRepackInputFocus.js"></script>
+    <script>
+
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+        
+        var table = $('#DSIAlist').DataTable({
+            'paging': false,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+
+        EnterPress();
+
+        $(document).ready(function () {
+            $("#update").hide();
+            $("#delete").hide();
+            $("#clear").hide();
+            $("#print").hide();
+            $("#InStore").val(@ViewBag.FloorId).change();
+            $("#OutStore").val(@ViewBag.FloorId).change();
+            //$("#Date").focus();
+            $("#RefNo").focus();
+        });
+
+        //EnterPress();
+        $(".select2").select2();
+        var isValid = true;
+        var addedItems = [];
+        var itemIdOut = "";
+        var qtyout = "";
+        
+        var fgir = { FGIRNo: 0, Date: "", BatchNo: 0, InStore: 0, OutStore: 0, RefNo: "", Description: "", TotalStanderdCostIn: 0.0, TotalStanderdCostOut: 0.0 }
+
+        $(document).on('click', "#refresh", function () {
+            location.reload();
+        });
+        
+        //group change reaction
+        $(document).on('change', "#BatchNo", function () {
+            var id = { batchNo: $("#BatchNo :selected").text() };
+            if (id.batchNo != "") {
+                $.ajax({
+                    url: '@Url.Action("LoadItemByBatch", "FGItemRepack")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+
+                        $("#ItemIdOut").empty();
+                        $("#ItemIdOut").prop("disabled", false);
+                        $.each(datas, function (index, value) {
+                            $("#ItemIdOut").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                        //$("#ItemIdOut").focus();
+                        if (itemIdOut != "") {
+                            $("#ItemIdOut").val(itemIdOut).change();
+                            itemIdOut = "";
+                        }
+                    }
+                });
+            }
+            else {
+                $("#ItemIdOut").val("").change();
+            }
+        });
+
+        //item change reaction
+        $(document).on('change', "#ItemIdIn", function () {
+            var id = { itemId: $(this).val(), storeId: $("#InStore").val() };
+
+                if (id.itemId != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetItemRemainQty", "Sales")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            $("#pacSizeIn").val(datas.PacSize);
+                            $("#standerdCostIn").val(datas.SCost);
+                            $("#RemQty").val(datas.RemQty);
+                        }
+                    });
+                }
+        });
+        
+        //item change reaction
+        $(document).on('change', "#ItemIdOut", function () {
+            var id = { itemId: $(this).val(), batchNo: $("#BatchNo :selected").text() };
+
+            if (id.itemId != "" && id.batchNo != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetItemDetails", "FGItemRepack")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            $("#pacSizeOut").val(datas.Item.PacSize);
+                            $("#standerdCostOut").val(datas.Item.clmStandardCost);
+                            $("#qtyOut").val(datas.Batch);
+
+                            if (qtyout != "") {
+                                $("#QtyOut").val(qtyout);
+                                $("#RemQtyOut").val(datas.Batch - qtyout);
+                                qtyout = "";
+                            }
+                            else {
+                                $("#QtyOut").val(datas.Batch);
+                            }
+                            
+                        }
+                    });
+                }
+        });
+
+        //item change reaction
+        $(document).on('focusout', "#QtyOut", function () {
+            $("#RemQtyOut").val($("#qtyOut").val() - $(this).val());
+        });
+        
+        //add to grid
+         $(document).on('click', '#addToGrid', function () {
+             RemoveError();
+             var item = { FGIRNo: 0, ItemIdOut: 0, ItemNameOut: "", PacSizeOut: "", QtyOut: 0, StanderdCostOut: 0.0, ItemIdIn: 0, ItemNameIn: "", PacSizeIn: "", QtyIn: 0, StanderdCostIn: 0.0/*, BatchNo: 0*/ };
+             ValidateAddToGrid();
+             if (isValid == true) {
+                 item.FGIRNo = 0;
+                 item.ItemNameOut = $("#ItemIdOut :selected").text();
+                 item.ItemIdOut = $("#ItemIdOut").val();
+                 item.PacSizeOut = $("#pacSizeOut").val();
+                 item.QtyOut = $("#QtyOut").val();
+                 item.StanderdCostOut = $("#standerdCostOut").val();
+                 item.ItemNameIn = $("#ItemIdIn :selected").text();
+                 item.ItemIdIn = $("#ItemIdIn").val();
+                 item.PacSizeIn = $("#pacSizeIn").val();
+                 item.QtyIn = $("#QtyIn").val();
+                 item.StanderdCostIn = $("#standerdCostIn").val();
+                 //item.BatchNo = $("#BatchNo").val();
+                 addedItems.push(item);
+                 ClearOnSearch();
+                 ShowOnTable();
+                 $("#ItemIdIn").prop('disabled', true);
+                 $("#QtyIn").prop('disabled', true);
+                 $("#ItemIdOut").focus();
+                 $("#BatchNo").prop('disabled', true);
+             }
+        });
+
+        //delete Row
+        $(document).on('click', '[name="deleteRow"]', function () {
+            var item = $(this).attr("value");
+            var newItem = [];
+            if (confirm('Are you sure you want to delete this from Grid ?')) {
+                $.each(addedItems, function (index, value) {
+                    if (value.ItemIdOut == item) {
+
+                    }
+                    else {
+                        newItem.push(value);
+                    }
+
+                });
+                addedItems = newItem;
+                ShowOnTable();
+            }
+        });
+
+
+        //edit Row
+        $(document).on('click', '[name="editRow"]', function () {
+            var item = $(this).attr("value");
+            var newItem = [];
+            $.each(addedItems, function (index, value) {
+                if (value.ItemIdOut == item) {
+                    
+                    $("#ItemIdIn").val(value.ItemIdIn).change();
+                    $("#QtyIn").val(value.QtyIn);
+                    //$("#BatchNo").val(value.BatchNo).change();
+                    $("#ItemIdOut").val(value.ItemIdOut).change();
+                    qtyout = value.QtyOut;
+                    //$("#QtyOut").val(value.QtyOut);
+                    
+                    //$("#RemQtyOut").val($("#qtyOut").val() - value.QtyOut);
+
+                    itemIdOut = value.ItemIdOut;
+
+                    $("#ItemIdIn").prop('disabled', false);
+                    $("#QtyIn").prop('disabled', false);
+                    $("#BatchNo").prop('disabled', false);
+                }
+                else {
+                    newItem.push(value);
+                }
+
+            });
+            addedItems = newItem;
+            ShowOnTable();
+        });
+
+        //save code
+        $(document).on('click', '#save', function () {
+            RemoveError();
+            $("#save").prop('disabled', true);
+            SetFGIR();
+            if (addedItems.length <= 0) {
+                alert("At least One Item should be added for save.");
+                $("#save").prop('disabled', false);
+            }
+            else {
+                ValidateFGIR();
+                if (isValid == true) {
+                    if (confirm('Do you want to save')) {
+                        $.ajax({
+                            url: '@Url.Action("SaveFGIR", "FGItemRepack")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ fgir: fgir, addedItems: addedItems }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Failed To Saved.");
+                                    $("#save").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully Saved.");
+                                    $("#FGIRNo").val(datas.fgir.FGIRNo);
+                                    $("#print").show();
+                                    $("#save").prop('disabled', true);
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        $("#save").prop('disabled', false);
+                    }
+                }
+                else {
+                    $("#save").prop('disabled', false);
+                }
+            }
+        });
+
+        //search code
+        $(document).on('click', '#search', function () {
+            //$("#search").prop('disabled', true);
+            var id = { id: $("#FGIRNo").val() };
+            ClearOnSearch();
+            if ($("#FGIRNo").val() != "") {
+                $.ajax({
+                    url: '@Url.Action("GetFGIRById", "FGItemRepack")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+
+                        if (datas == 0) {
+                            alert("Your entered FGIR No. Doesn't exist");
+                            //$("#search").prop('disabled', false);
+                        }
+                        else {
+                            $("#save").hide();
+                            $("#update").show();
+                            $("#delete").show();
+                            $("#Date").val((moment(datas.fgirItem.Date).format("DD-MM-YYYY")));
+                            $("#FGIRNo").val(datas.fgirItem.FGIRNo);
+                            $("#InStore").val(datas.fgirItem.InStore).change();
+                            $("#OutStore").val(datas.fgirItem.OutStore).change();
+                            $("#RefNo").val(datas.fgirItem.RefNo);
+                            $("#Description").val(datas.fgirItem.Description);
+                            $("#BatchNo").val(datas.fgirItem.BatchNo).change();
+                            //$("#BatchNo").prop('disabled', true);
+                            addedItems = [];
+
+                            $.each(datas.fgirLineItem, function (index, value) {
+                                var item = { FGIRNo: 0, ItemIdOut: 0, ItemNameOut: "", PacSizeOut: "", QtyOut: 0, StanderdCostOut: 0.0, ItemIdIn: 0, ItemNameIn: "", PacSizeIn: "", QtyIn: 0, StanderdCostIn: 0.0, BatchNo: 0 };
+
+                                item.FGIRNo = 0;
+                                item.ItemNameOut = value.ItemNameOut;
+                                item.ItemIdOut = value.ItemIdOut;
+                                item.PacSizeOut = value.PacSizeOut;
+                                item.QtyOut = value.QtyOut;
+                                item.StanderdCostOut = value.StanderdCostOut;
+                                item.ItemNameIn = value.ItemNameIn;
+                                item.ItemIdIn = value.ItemIdIn;
+                                item.PacSizeIn = value.PacSizeIn;
+                                item.QtyIn = value.QtyIn;
+                                item.StanderdCostIn = value.StanderdCostIn;
+                                //item.BatchNo = value.BatchNo;
+                                addedItems.push(item)
+                            });
+                            ShowOnTable();
+                            $("#search").prop('disabled', true);
+                            $("#StoreID").prop('disabled', true);
+                            //$("#Depot").prop('disabled', true);
+                            $("#print").show();
+                        }
+                    },
+                    error: function () {
+                        alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+                        //$("#search").prop('disabled', false);
+                    }
+                });
+            }
+            else {
+                alert("FGIR No is Required for get data.");
+                //$("#search").prop('disabled', false);
+            }
+            
+        });
+
+        //update
+        $(document).on('click', '#update', function () {
+            RemoveError();
+            $("#update").prop('disabled', true);
+            SetFGIR();
+            fgir.FGIRNo = $("#FGIRNo").val();
+
+            if (addedItems.length <= 0) {
+                alert("At least One Item should be added for Update.");
+                $("#update").prop('disabled', false);
+            }
+            else {
+                ValidateFGIR();
+                if (confirm('Do you want to Update')) {
+                    if (isValid == true) {
+                    $.ajax({
+                        url: '@Url.Action("UpdateFGIR", "FGItemRepack")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ fgir: fgir, addedItems: addedItems }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Update.");
+                                $("#update").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Updated.");
+                                $("#update").prop('disabled', true);
+                            }
+                        }
+                    });
+                }
+                    else {
+                        $("#update").prop('disabled', false);
+                    }
+                }
+                else {
+                    $("#update").prop('disabled', false);
+                }
+            }
+
+        });
+
+        //delete code
+        $(document).on('click', '#delete', function () {
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var id = $("#FGIRNo").val();
+            if ($("#FGIRNo").val() != "") {
+                if (confirm('Are you sure you want to delete this from the database?')) {
+                    $.ajax({
+                        url: '@Url.Action("DeleteFGIRById", "FGItemRepack")',
+                        contentType: "application/json;charset=utf-8",
+                        data: { id: id },
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Delete failed.");
+                                $("#delete").prop('disabled', false);
+                                $("#update").prop('disabled', false);
+                            }
+                            else {
+                                alert("Delete Successfull");
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#update").prop('disabled', false);
+                    $("#delete").prop('disabled', false);
+                }
+            }
+            else {
+                setError("FGIRNo", "FGIR No is required field for Delete FGIR.");
+            }
+            
+        });
+
+        $(document).on('click', "#print", function (event) {
+            event.preventDefault();
+            if ($("#message").val() != "true") {
+                $("#report").attr("action", "/FGItemRepack/GetFGIRPreview")
+                $("#report").submit();
+            }
+        });
+
+        //data table fill up
+        function ShowOnTable() {
+            table.clear().draw();
+            var totSCostOut = 0;
+            var totSCostIn = 0;
+            $.each(addedItems, function (index, value) {
+                table.row.add([value.ItemNameIn, value.PacSizeIn, value.QtyIn, parseFloat(value.StanderdCostIn).toFixed(2)/*, value.BatchNo*/, value.ItemNameOut, value.PacSizeOut, value.QtyOut, parseFloat(value.StanderdCostOut).toFixed(2),
+                    '<a href="#"><i class="fa fa-edit" name="editRow" value="' +
+                    value.ItemIdOut + '"></i></a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.ItemIdOut + '"></i></a>']).draw();
+
+                totSCostOut += parseFloat(value.StanderdCostOut);
+                totSCostIn += parseFloat(value.StanderdCostIn);
+            });
+            $("#TotalStanderdCostIn").val(totSCostIn);
+            $("#TotalStanderdCostOut").val(totSCostOut);
+        }
+
+        function ValidateAddToGrid() {
+            isValid = true;
+            if ($("#ItemIdIn").val() == "") {
+                setError("ItemIdIn", "Item is required field");
+                isValid = false;
+            }
+            if ($("#QtyIn").val() <= 0) {
+                setError("QtyIn", "Qty must be grater than Zero");
+                isValid = false;
+            }
+            if ($("#QtyIn").val() == "") {
+                setError("QtyIn", "Qty is required field");
+                isValid = false;
+            }
+            if ($("#BatchNo").val() == "") {
+                setError("BatchNo", "Batch No is required field");
+                isValid = false;
+            }
+            if ($("#ItemIdOut").val() == "") {
+                setError("ItemIdOut", "Item is required field");
+                isValid = false;
+            }
+            if ($("#QtyOut").val() <= 0) {
+                setError("QtyOut", "Qty must be grater than Zero");
+                isValid = false;
+            }
+            if ($("#QtyOut").val() == "") {
+                setError("QtyOut", "Qty is required field");
+                isValid = false;
+            }
+
+            if ($("#ItemIdIn").val() == $("#ItemIdOut").val()) {
+                setError("ItemIdOut", "Input Item And Output Item Can Not be Same.");
+                isValid = false;
+            }
+
+            if (parseFloat($("#QtyIn").val()) > parseFloat($("#RemQty").val())) {
+                setError("QtyIn", "Qty Can not be grater than Remaining Qty.");
+                isValid = false;
+            }
+            
+            $.each(addedItems, function (index, value) {
+                if (value.ItemIdOut == $("#ItemIdOut").val()) {
+                    setError("ItemIdOut", "Output Item is already Added.");
+                    isValid = false;
+                }
+            });
+        }
+
+        function ClearOnSearch() {
+            //$("#ItemIdIn").val("").change();
+            //$("#QtyIn").val("");
+            //$("#BatchNo").val("").change();
+            $("#ItemIdOut").val("").change();
+            $("#QtyOut").val("");
+            $("#pacSizeIn").val("");
+            $("#pacSizeOut").val("");
+            $("#standerdCostOut").val("");
+            $("#standerdCostIn").val("");
+
+            itemIdOut = "";
+        }
+
+        //get value from textbox
+        function SetFGIR() {
+            fgir.FGIRNo = 0;
+            fgir.Date = $("#Date").val();
+            fgir.BatchNo = $("#BatchNo").val();
+            fgir.InStore = $("#InStore").val();
+            fgir.OutStore = $("#OutStore").val();
+            fgir.RefNo = $("#RefNo").val();
+            fgir.Description = $("#Description").val();
+            fgir.TotalStanderdCostIn = $("#TotalStanderdCostIn").val();
+            fgir.TotalStanderdCostOut = $("#TotalStanderdCostOut").val();
+        }
+
+        function ValidateFGIR() {
+            isValid = true;
+            if (fgir.Date == "") {
+                setError("Date", "Date is required field");
+                isValid = false;
+            }
+        }
+
+    </script>
+}
+

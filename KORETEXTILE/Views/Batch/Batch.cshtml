@@ -1,0 +1,528 @@
+﻿@model BEEERP.Models.ViewModel.Production.BatchViewModel
+@{
+    ViewBag.Title = "Batch";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+}
+
+<form id="report" target="_blank">
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div>
+                        <h4 style="color:red">@ViewBag.messege</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" align="center">
+                                    <h3 class="box-title">Create Batch</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ID, "Batch ID", new { @class = "col-md-4 control-label" })
+                                        <div class="input-group input-group-sm" style="padding-right:15px;padding-left:14px;">
+                                            @Html.TextBoxFor(m => m.ID, new { @class = "form-control digit", @Value = ViewBag.countListPlusOne, @id = "batchid" })
+                                            @Html.ValidationMessageFor(m => m.ID)
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn skin-blue btn-flat enterTab" id="BatchIdSearch">Search</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.BatchNo, "Batch Name", new { @class = "col-md-4 control-label" })
+                                        <div class=" col-sm-8 ">
+                                            @Html.TextBoxFor(m => m.BatchNo, new { @class = "form-control", @id = "BatchNo" })
+                                            @Html.ValidationMessageFor(m => m.BatchNo, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.BatchDate, "Batch Date", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 date input-group" style="padding-left:15px; padding-right:15px">
+                                            @Html.TextBoxFor(m => m.BatchDate, new { @class = "enterTab form-control date ", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.BatchDate, "", new { @style = "color: red" })
+                                    </div>
+                                    @*<div class="form-group">
+                                        @Html.LabelFor(m => m.GroupId, "Group", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 col-xs-8 col-md-8 col-lg-8 input-group " style="padding-left:15px; padding-right:15px">
+                                            @Html.DropDownListFor(m => m.GroupId, (IEnumerable<SelectListItem>)ViewBag.Batch, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.GroupId, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>*@
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.GroupId, "Group", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 ">
+                                            @Html.DropDownListFor(m => m.GroupId, (IEnumerable<SelectListItem>)ViewBag.Batch, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.GroupId, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ItemID, "Item", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 ">
+                                            @Html.DropDownListFor(m => m.ItemID, (IEnumerable<SelectListItem>)ViewBag.Item, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.ItemID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.UOM, "UOM", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 ">
+                                            @Html.TextBoxFor(m => m.UOM, new { @class = "form-control ", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.UOM, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Qty, "Target Production", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 ">
+                                            @Html.TextBoxFor(m => m.Qty, new { @class = "form-control digit  " })
+                                            @Html.ValidationMessageFor(m => m.Qty, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.BatchDesc, "Description", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 ">
+                                            @Html.TextBoxFor(m => m.BatchDesc, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.BatchDesc, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-sm-4 "></div>
+                                        <div class="col-sm-8 ">
+                                            <input type="button" name="add" id="add" value="Add" class="btn skin-blue" />
+                                            <input type="button" name="save" id="save" value="Save" class="btn skin-blue" />
+                                            <input type="button" name="update" id="update" value="Update" class="btn skin-blue" />
+                                            <input type="button" name="Refresh" id="refresh" value="Refresh" class="btn skin-blue" />
+                                            <input type="button" name="print" id="print" value="Print" class="btn skin-blue" />
+                                        </div>
+                                    </div>
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 ">
+                <div class="box ">
+                    <div class="box-header with-border box-head-back" align="center">
+                        <h3 class="box-title">Item List</h3>
+                    </div>
+                    <div class="box-body">
+                        <table class="table table-responsive" id="ItemList">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Pack Size</th>
+                                    <th>Target Production</th>
+                                    <th>Description</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<input type="hidden" id="message" value="false" />
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<input type="hidden" id="hPacSize" />
+
+@section scripts{
+    <script src="~/Scripts/ProductionModule/BatchInputFocus.js"></script>
+    <script src="~/Scripts/Common.js"></script>
+    <script>
+
+    $(document).ready(function () {
+        $('.select2').select2();
+
+        BatchFieldEnterPress();
+        var addedItems = [];
+        var message = "";
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+         var itemid = 0;
+        $("#update").hide();
+
+        $(document).on('click', "#print", function (event) {
+            event.preventDefault();
+            if ($("#message").val() != "true") {
+                $("#report").attr("action", "/Batch/GetBatchPreview")
+                $("#report").submit();
+            }
+        });
+
+        $(document).on('click', "#BatchIdSearch", function ()
+        {
+            var id = { batchid: parseInt($("#batchid").val()) };
+                ClearOnSearch();
+                $.ajax(
+                {
+                        url: '@Url.Action("GetBatchByBatchId", "Batch")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas)
+                        {
+                                if (datas.Message == 0)
+                                {
+                                  alert("Your entered Batch No. Doesn't exist");
+                                }
+                                else if (datas.Message == 2)
+                                {
+                                  alert("Fatal Error! Please Recheck your data");
+                                }
+                                else
+                                {
+                                        $("#save").hide();
+                                        $("#update").show();
+                                        $("#batchid").val(datas.batch.ID);
+                                        $("#BatchNo").val(datas.batch.BatchNo);
+                                        $("#BatchDate").val((moment(datas.batch.BatchDate).format("DD-MM-YYYY"))).change();
+                                        addedItems = [];
+                                        $.each(datas.batchLineItem, function (index, value)
+                                            {
+                                            var batchLineItem = { BatchDate: "", GroupId: 0, ItemID: 0, Qty: 0, ItemName: "", BatchDesc: "", PacSize : "" };
+                                            batchLineItem.BatchDate = value.BatchDate;
+                                            batchLineItem.PacSize = value.PacSize;
+                                            batchLineItem.ItemID = value.ItemID;
+                                            batchLineItem.GroupId = value.groupId;
+                                            batchLineItem.BatchDesc = value.BatchDesc;
+                                            batchLineItem.Qty = value.Qty;
+                                            batchLineItem.ItemName = value.ItemName;
+                                            addedItems.push(batchLineItem);
+                                        });
+                                          ShowOnTable();
+                                     }
+                        },
+                        error: function ()
+                        {
+                            alert("Please check your internet connection first. If this doesn't sole your problem, then Contact With Paankouri Software & Services")
+
+                        }
+               });
+        });
+        $(document).on('click', '#update', function () {
+            if (addedItems.length > 0)
+            {
+                $("#update").prop('disabled', true);
+                if (confirm("Do you want to update?"))
+                {
+                     var batch = { ID: 0, BatchNo: "", BatchDate: "", BatchDesc: "", Status: "" };
+                        batch.ID = $("#batchid").val();
+                        batch.BatchNo = $("#BatchNo").val();
+                        batch.BatchDate = $("#BatchDate").val();
+                        batch.BatchDesc = $("#BatchDesc").val();
+                        batch.Status = "Active";
+                        $.ajax
+                            ({
+                                url: '@Url.Action("UpdateBatch", "Batch")',
+                                contentType: "application/json;charset=utf-8",
+                                data: JSON.stringify({ batch: batch, addedItems: addedItems }),
+                                type: 'POST',
+                                dataType: 'json',
+                                success: function (datas) {
+                                    if (datas.Message == "0") {
+                                        alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                        $("#save").prop('disabled', false);
+                                    }
+                                    else if (datas.Message == "1") {
+                                        alert("Sccessfully Updated.")
+
+                                    }
+                                    else if (datas.Message == "2") {
+                                        alert("This Batch already Exist.");
+                                        $("#save").prop('disabled', false);
+                                    }
+
+                                }
+                            });
+                }
+            }
+            else
+            {
+                var messageforEmpty = "The Item list is empty";
+                alert(messageforEmpty);
+                $("#update").prop('disabled', false);
+            }
+        });
+        $(document).on('change', "#ItemID", function () {
+                var id = { id: $(this).val() };
+                if (id.id != "") {
+                    $.ajax({
+                        url: '@Url.Action("UOMOnItemChange", "Batch")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'Get',
+                        dataType: 'json',
+                        success: function (datas) {
+                            $("#UOM").val(datas.Uom);
+                        }
+                    });
+                }
+                else {
+
+                }
+        });
+        //addTable
+        var table = $('#ItemList').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+        //forNumberTextbox
+        $(".digit").keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $("#errormsg").html("Digits Only").show().fadeOut("slow");
+                return false;
+            }
+        });
+        //doupdown
+        $(document).on('change', "#GroupId", function () {
+            var id = { groupId: $(this).val() };
+            var isItFromEdit = false;
+                if (isItFromEdit == false) {
+                    if (id.groupId != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetItemByGroupId", "Batch")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            $("#ItemID").empty();
+                            $("#ItemID").prop("disabled", false);
+                            $.each(datas, function (index, value) {
+                                $("#ItemID").append($('<option />', {
+                                    value: value.Value,
+                                    text: value.Text
+                                })).trigger('change');
+                            });
+                            $("#ItemID").focus();
+                            if (itemid != 0) {
+                                $("#ItemID").val(itemid).change();
+                                itemid = 0;
+                            }
+                        }
+                    });
+                }
+                else {
+                        $("#ItemID").val("").change();
+                        $("#ItemID").prop("disabled", true);
+                }
+                }
+                isItFromEdit = false;
+        });
+
+        $(document).on('change', "#ItemID", function () {
+                var id = { itemId: $(this).val(), storeId: 0 };
+
+                if (id.itemId != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetItemRemainQty", "Sales")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            $("#hPacSize").val(datas.PacSize);
+                        }
+                    });
+                }
+            });
+
+        //save
+        $(document).on('click', '#save', function () {
+
+            $("#save").prop('disabled', true);
+            if (addedItems.length > 0)
+            {
+                if (confirm("Do you want to save?"))
+                {
+                     var batch = { ID: 0, BatchNo: "", BatchDate: "", BatchDesc: "", Status: "" };
+                        batch.ID = $("#batchid").val();
+                        batch.BatchNo = $("#BatchNo").val();
+                        batch.BatchDate = $("#BatchDate").val();
+                        batch.BatchDesc = $("#BatchDesc").val();
+                        batch.Status = "Active";
+                        $.ajax
+                            ({
+                                url: '@Url.Action("SaveBatch", "Batch")',
+                                contentType: "application/json;charset=utf-8",
+                                data: JSON.stringify({ batch: batch, addedItems: addedItems }),
+                                type: 'POST',
+                                dataType: 'json',
+                                success: function (datas) {
+                                    if (datas.Message == "0") {
+                                        alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                        $("#save").prop('disabled', false);
+                                    }
+                                    else if (datas.Message == "1") {
+                                        alert("Sccessfully saved.")
+
+                                    }
+                                    else if (datas.Message == "2") {
+                                        alert("This Batch already Exist.");
+                                        $("#save").prop('disabled', false);
+                                    }
+
+                                }
+                            });
+                }
+            }
+            else
+            {
+                var messageforEmpty = "The Item list is empty";
+                alert(messageforEmpty);
+                $("#save").prop('disabled', false);
+            }
+
+
+
+        });
+
+        //add click
+        $(document).on('click', '#add', function () {
+            RemoveError();
+            ValidateOnSaveClick();
+            var batchLineItem = { BatchId: 0, BatchNo: "", BatchDate: "", GroupId: 0, ItemID: 0, Qty: 0, ItemName: "", BatchDesc: "", PacSize : ""};
+
+                if (message == "")
+                {
+                    batchLineItem.PacSize = $("#hPacSize").val();
+                    batchLineItem.BatchId = 0;
+                    batchLineItem.BatchNo = $("#BatchNo").val();
+                    batchLineItem.BatchDate = $("#BatchDate").val();
+                    batchLineItem.GroupId = $("#GroupId").val();
+                    batchLineItem.ItemID = $("#ItemID").val();
+                    batchLineItem.Qty = $("#Qty").val();
+                    batchLineItem.ItemName = $("#ItemID :selected").text();
+                    batchLineItem.BatchDesc = $("#BatchDesc").val();
+                    addedItems.push(batchLineItem);
+                    ShowOnTable();
+                }
+                else {
+                    //alert(message);
+                }
+        });
+        $(document).on('click', '[name="deleteRow"]', function () {
+            var item = $(this).attr("value");
+            if (confirm('Are you sure you want to delete this from grid ?')) {
+                var newItem = [];
+                $.each(addedItems, function (index, value) {
+                    if (value.ItemID == item) {
+                        addedItems.pop(value.ItemID)
+                    }
+                    else {
+                        newItem.push(value);
+                    }
+                });
+                addedItems = newItem;
+                ShowOnTable();
+            }
+        });
+        $(document).on('click', '[name="editRow"]', function (e) {
+            var item = $(this).attr("value");
+            var newItem = [];
+            $.each(addedItems, function (index, value)
+            {
+                if (value.ItemID == item) {
+                    $("#GroupId").val(value.GroupId).change();
+                    $("#Qty").val(value.Qty);
+                    $("#BatchDesc").val(value.BatchDesc);
+                    itemid = value.ItemID;
+                }
+                else {
+                    newItem.push(value);
+                }
+            });
+            addedItems = newItem;
+            ShowOnTable();
+        });
+        //validator
+        function ValidateOnSaveClick() {
+
+            message = "";
+            if ($("#BatchNo").val() == "") {
+                setError("BatchNo", "Batch Name is Required Field.");
+                message = "Batch Name is Required Field."
+            }
+            if ($("#BatchDate").val() == "") {
+                setError("BatchDate", "Date is Required Field.\n");
+                message = "Batch date is Required Field."
+            }
+            if ($("#GroupId").val() == "") {
+                setError("GroupId", "Group is Required Field.\n");
+                message = "Group Name is Required Field."
+            }
+            if ($("#ItemID").val() == "") {
+                setError("ItemCode", "item is Required Field.\n");
+                message = "item  is Required Field."
+            }
+            if ($("#Qty").val() == "") {
+                setError("Qty", "Qty is Required Field.\n");
+                message = "Quantity is Required Field."
+            }
+            var item = $("#ItemID").val();
+            $.each(addedItems, function (key, value) {
+
+                if (value.ItemID == item) {
+                    message += "Already Exist";
+                    alert(message);
+                }
+            });
+        }
+        $(document).on('click', '#refresh', function () {
+            location.reload();
+        });
+        function ShowOnTable() {
+            table.clear().draw();
+            $.each(addedItems, function (index, value) {
+                table.row.add([value.ItemName, value.PacSize,value.Qty, value.BatchDesc,
+                    '<a href="#"><i class="fa fa-edit" name="editRow" value="' +
+                    value.ItemID + '"></i></a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.ItemID + '"></i></a>']).draw();
+            });
+            afterAddClick();
+        }
+        function ClearOnSearch() {
+            $("#BatchNo").val("").change();
+            $("#BatchDate").val("");
+            $("#GroupId").val("").change();
+            $("#ItemID").val("").change();
+            $("#BatchDesc").val("");
+            $("#Qty").val("");
+        }
+    })
+        function afterAddClick() {
+            $("#BatchNo").prop('disabled', true);
+            $("#GroupId").val("").change();
+            $("#ItemID").val("").change();
+            $("#BatchDesc").val("");
+            $("#Qty").val(""); 
+            $("#UOM").val("");
+        }
+    </script>
+
+}
+

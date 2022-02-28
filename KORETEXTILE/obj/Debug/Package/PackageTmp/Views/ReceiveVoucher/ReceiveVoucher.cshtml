@@ -1,0 +1,568 @@
+﻿@model BEEERP.Models.ViewModel.Account.ReceiveVoucherVModel
+
+@{
+    ViewBag.Title = "ReceiveVoucher";
+}
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+    box-header with-border box-head-back {
+        
+    }
+</style>
+<h3 style="text-align:center">Receive Voucher (RV) Entry</h3>
+<form id="report" , target="_blank">
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                    <h4 class="box-title">RV Details</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.RVNo, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:2.75%; padding-right:2.5%;">
+                                                @Html.TextBoxFor(m => m.RVNo, new { @class = "form-control", @type = "number"@*, @Value = ViewBag.RVNo*@ })
+                                                @*@Html.ValidationMessageFor(m => m.RVNo, "", new { @style = "color: red" })*@
+                                                <div class="input-group-btn">
+                                                    <input type="button" name="search" id="search" value="Search" class="btn btn-primary" style="min-width: 40px" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-8">
+                                                @Html.ValidationMessageFor(m => m.RVNo, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.BranchID, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.BranchID, (IEnumerable<SelectListItem>)ViewBag.CostCenter, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.BranchID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.RVDate, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:2.75%; padding-right:2.75%">
+                                                @Html.TextBoxFor(m => m.RVDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-8">
+                                                @Html.ValidationMessageFor(m => m.RVDate, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        @*<div class="form-group">
+                                            @Html.LabelFor(m => m.CostGroupID, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.CostGroupID, (IEnumerable<SelectListItem>)ViewBag.CostGroup, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.CostGroupID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>*@
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.ReceiveAccountID, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.ReceiveAccountID, (IEnumerable<SelectListItem>)ViewBag.ReceiveAccount, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.ReceiveAccountID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        @*<div class="form-group">
+                                            @Html.LabelFor(m => m.BussinessUnitId, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.BussinessUnitId, (IEnumerable<SelectListItem>)ViewBag.BussinessUnit, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.BussinessUnitId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box ">
+                                <div class="box-body">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.CreditAccountID, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.CreditAccountID, (IEnumerable<SelectListItem>)ViewBag.CreditAcc, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.CreditAccountID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.RVAmount, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.RVAmount, new { @class = "form-control", @type = "Number" })
+                                                @Html.ValidationMessageFor(m => m.RVAmount, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.PayeeName, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @*@Html.DropDownListFor(m => m.PayeeName, (IEnumerable<SelectListItem>)ViewBag.PayeeName, new { @class = "form-control select2" })*@
+                                                @Html.TextBoxFor(m => m.PayeeName, new { @class = "form-control", list = "payeeList" })
+                                                <datalist id="payeeList">
+                                                    @foreach (var item in ViewBag.PayeeName)
+                                                    {
+                                                        <option value=@item.Name></option>
+                                                    }
+                                                </datalist>
+                                                @Html.ValidationMessageFor(m => m.PayeeName, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.RefNo, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.RefNo, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.RefNo, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Description, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Description, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                                <div class="box">
+                                    <div class="box-footer">
+                                        <div class="form-group" , style="text-align:center">
+                                            <input type="button" name="save" id="save" value="Save" class="btn btn-primary" />
+                                            <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                                            <input type="button" name="delete" id="delete" value="Delete" class="btn btn-primary" />
+                                            <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                            <input type="button" name="print" id="print" value="Print" class="btn btn-primary" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<input type="hidden" id="message" value="false" />
+
+@section scripts{
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/AccountModule/ReceiveVoucherInputFocus.js"></script>
+    <script>
+        $(document).ready(function () {
+            ReceiveVFieldEnterPress();
+            $('#update').hide();
+            $('#delete').hide();
+            $("#print").hide();
+            $("#approve").hide();
+
+            @*if ($("#RVNo").val() != "") {
+                var rvno = { rv: parseInt($("#RVNo").val()) };
+                SearchClick(rvno);
+                //condition
+                if (@ViewBag.Approve == 0) {
+                    $("#approve").show();
+                    $("#print").show();
+                }
+                else {
+                    $("#approve").hide();
+                    $("#print").show();
+                }
+
+            }*@
+
+            $(document).on('click', '#refresh', function () {
+                window.location.reload(true);
+            });
+            $('.select2').select2();
+            $('.date').datepicker({
+                autoclose: true,
+                format: 'dd-mm-yyyy',
+            });
+
+            $(document).on('click', "#print", function (event) {
+                event.preventDefault();
+                if ($("#message").val() != "true") {
+                    $("#report").attr("action", "/ReceiveVoucher/GetReceiveVoucherPreview")
+                    $("#report").submit();
+                }
+            });
+
+
+            //Save
+            $(document).on('click', '#save', function () {
+                RemoveError();
+                ValidateOnSaveClick();
+                $("#save").prop("disabled", false);
+                if (message == "") {
+                    var receiveVoucher = { RVNo: 0, RVDate: "", RVAmount: 0.0, ReceiveAccountID: 0, CreditAccountID: 0, PayeeName: "", Description: "", RefNo: "", BranchID: 0, CostGroupID: 0, BussinessUnitId: 0};
+                    receiveVoucher.RVNo = $("#RVNo").val();
+                    receiveVoucher.RVDate = $("#RVDate").val();
+                    receiveVoucher.RVAmount = $("#RVAmount").val();
+                    receiveVoucher.ReceiveAccountID = $("#ReceiveAccountID").val();
+                    receiveVoucher.CreditAccountID = $("#CreditAccountID").val();
+                    receiveVoucher.PayeeName = $("#PayeeName").val();
+                    receiveVoucher.Description = $("#Description").val();
+                    receiveVoucher.RefNo = $("#RefNo").val();
+                    receiveVoucher.BranchID = $("#BranchID").val();
+                    receiveVoucher.CostGroupID = $("#CostGroupID").val();
+                    receiveVoucher.BussinessUnitId = $("#BussinessUnitId").val();
+
+                    if (confirm("Do you want to Save?"))
+                    {
+                        $.ajax(
+                        {
+                            url: '@Url.Action("SaveReceiveVoucher", "ReceiveVoucher")',
+                            contentType: "application/json;charset=utf-8",
+                                data: JSON.stringify({ receiveVoucher: receiveVoucher }),
+                            type: "POST",
+                            dataType: "json",
+                            success: function (datas)
+                            {
+                                if (datas.Message == 1) {
+                                    alert("Saved Successfully");
+                                    //location.reload();
+                                    $("#RVNo").val(datas.rVNo);
+                                    $("#save").hide();
+                                    $("#print").show();
+
+                                } else if (datas == 3) {
+                                    alert("Please select a valid entry date");
+                                    $("#RVDate").focus();
+                                    $("#save").prop('disabled', false);
+                                }
+                                else if (datas.Message == 0)
+                                {
+                                    alert("Please recheck data if it is not solve the problem.\n Then Contact with Avalanche Technology Ltd.");
+                                    $("#save").prop("disabled", false);
+                                }
+                            },
+                            error: function ()
+                            {
+                                alert("Please check Internet connection. If doesn't solve problem. Contact with Avalanche Technology Ltd.");
+                                $("#save").prop("disabled", false);
+                            }
+                        });
+                    }
+                }
+            });
+
+            //Search
+            $(document).on('click', "#search", function () {
+                $("#update").prop('disabled', false);
+                RemoveError();
+                $("#print").show();
+                if ($("#RVNo").val() == "") {
+                    alert("Please Enter a RV No First.");
+                }
+                else {
+                    var rvno = { rv: parseInt($("#RVNo").val()) };
+                    ClearOnSearch();
+                    SearchClick(rvno);
+                    $("#update").show();
+                    $("#delete").show();
+                    @*$.ajax(
+                    {
+                            url: '@Url.Action("GetReceiveVoucherById", "ReceiveVoucher")',
+                            contentType: "application/json;charset=utf-8",
+                            data: rvno,
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Your RV No Doesn't Exist");
+                                }
+                                else
+                                {
+                                    $("#save").hide();
+                                    $("#approve").show();
+                                    $("#update").show();
+                                    $("#delete").show();
+                                    $("#RVNo").val(datas.RVNo);
+                                    $("#RVDate").val((moment(datas.RVDate).format("DD-MM-YYYY"))).change();
+                                    $("#RVAmount").val(datas.RVAmount);
+                                    $("#ReceiveAccountID").val(datas.ReceiveAccountID).change();
+                                    $("#CreditAccountID").val(datas.CreditAccountID).change();
+                                    $("#PayeeName").val(datas.PayeeName).change();
+                                    $("#Description").val(datas.Description);
+                                    $("#RefNo").val(datas.RefNo);
+                                    $("#BranchID").val(datas.BranchID).change();
+                                    $("#CostGroupID").val(datas.CostGroupID).change();
+                                }
+                            },
+                            error: function ()
+                            {
+                              alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+
+                            }
+                   });*@
+
+                }
+            });
+
+            //Update
+            $(document).on('click', '#update', function () {
+                RemoveError();
+                ValidateOnSaveClick();
+                $("#update").prop("disabled", false);
+                if (message == "") {
+                    var receiveVoucher = { RVNo: 0, RVDate: "", RVAmount: 0.0, ReceiveAccountID: 0, CreditAccountID: 0, PayeeName: "", Description: "", RefNo: "", BranchID: 0, CostGroupID: 0, BussinessUnitId: 0 };
+                    receiveVoucher.RVNo = $("#RVNo").val();
+                    receiveVoucher.RVDate = $("#RVDate").val();
+                    receiveVoucher.RVAmount = $("#RVAmount").val();
+                    receiveVoucher.ReceiveAccountID = $("#ReceiveAccountID").val();
+                    receiveVoucher.CreditAccountID = $("#CreditAccountID").val();
+                    receiveVoucher.PayeeName = $("#PayeeName").val();
+                    receiveVoucher.Description = $("#Description").val();
+                    receiveVoucher.RefNo = $("#RefNo").val();
+                    receiveVoucher.BranchID = $("#BranchID").val();
+                    receiveVoucher.CostGroupID = $("#CostGroupID").val();
+                    receiveVoucher.BussinessUnitId = $("#BussinessUnitId").val();
+                    if (confirm("Do you want to Update?"))
+                    {
+                        $.ajax(
+                        {
+                            url: '@Url.Action("UpdateReceiveVoucher", "ReceiveVoucher")',
+                            contentType: "application/json;charset=utf-8",
+                                data: JSON.stringify({ receiveVoucher: receiveVoucher }),
+                            type: "POST",
+                            dataType: "json",
+                            success: function (datas)
+                            {
+                                if (datas.Message == "0") {
+                                    alert("Critical Error! Please try Again. \n If retry doesn't solve your problem, then Contact With Paankouri Software & Services");
+                                    $("#update").prop('disabled', false);
+                                }
+                                else if (datas.Message == "1") {
+                                    alert("Sccessfully updated.")
+                                    $("#update").prop('disabled', true);
+                                    //location.reload();
+                                }
+                                else if (datas.Message == "2") {
+                                    alert("This Receive Voucher Doesn't exist.");
+                                    $("#update").prop('disabled', false);
+                                }
+                                if (datas.Message == 5) {
+                                    alert("This Voucher Is already Approve, so Update is not available.");
+                                    $("#update").prop('disabled', false);
+                                }
+                            },
+                            error: function ()
+                            {
+                                alert("Please check Internet connection. If doesn't solve problem. Contact with Avalanche Technology Ltd.");
+                                $("#save").prop("disabled", false);
+                            }
+                        });
+                    }
+                }
+            });
+
+            //Delete
+            $(document).on('click', '#delete', function () {
+                $("#update").prop('disabled', true);
+                $("#delete").prop('disabled', true);
+                var id = $("#RVNo").val();
+                if (confirm('Are you sure you want to delete this from the database?')) {
+                    $.ajax({
+                        url: '@Url.Action("DeleteRVById", "ReceiveVoucher")',
+                        contentType: "application/json;charset=utf-8",
+                        data: { id: id },
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Delete failed.");
+                                $("#delete").prop('disabled', false);
+                                $("#update").prop('disabled', false);
+                            }
+                            //else if (datas.Message == 2) {
+                            //    alert("This Voucher Is already Approve, so Delete is not available.");
+                            //    $("#delete").prop('disabled', false);
+                            //    $("#update").prop('disabled', false);
+                            //}
+                            else {
+                                alert("Delete Successfull");
+                                window.location.reload(true);
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#update").prop('disabled', false);
+                    $("#delete").prop('disabled', false);
+                }
+            });
+
+
+            //Validation
+            function ValidateOnSaveClick() {
+                message = "";
+                if ($("#RVAmount").val() == "") {
+                    setError("RVAmount", "Please enter valid amount");
+                    message = "Amount is Required Field."
+                }
+                if ($("#ReceiveAccountID").val() == "") {
+                    setError("ReceiveAccountID", "Please select a receive account from the list");
+                    message = "Receive Account is Required Field."
+                }
+                if ($("#RVDate").val() == "") {
+                    setError("RVDate", "Please select a date from the calendar");
+                    message = "RVDate Account is Required Field."
+                }
+                if ($("#CreditAccountID").val() == "") {
+                    setError("CreditAccountID", "Please select a credit account");
+                    message = "Credit Account is Required Field."
+                }
+                if ($("#PayeeName").val() == "") {
+                    setError("PayeeName", "Please select a name or enter a name if not in list");
+                    message = "Receiver Name is Required Field."
+                }
+                if ($("#BranchID").val() == "") {
+                    setError("BranchID", "Please select a cost center from the list");
+                    message = "Cost Center is Required Field."
+                }
+                if ($("#CostGroupID").val() == "") {
+                    setError("CostGroupID", "Please select a cost group from the list");
+                    message = "Cost Group is Required Field."
+                }
+                if ($("#BussinessUnitId").val() == "") {
+                    setError("BussinessUnitId", "Please select a Bussiness Unit from the list");
+                    message = "Bussiness Unit is Required Field."
+                }
+            }
+
+            function ClearOnSearch() {
+                $("#RVAmount").val("");
+                $("#ReceiveAccountID").val("").change();
+                $("#CreditAccountID").val("").change();
+                $("#PayeeName").val("");
+                $("#Description").val("");
+                $("#RefNo").val("");
+                $("#BussinessUnitId").val("");
+                $("#BranchID").val("").change();
+                $("#CostGroupID").val("").change();
+            }
+
+
+            @*$(document).on('click', "#approve", function () {
+                ValidateOnSaveClick();
+                if (message == "") {
+                    var receiveVoucher = { RVNo: 0, RVDate: "", RVAmount: 0.0, ReceiveAccountID: 0, CreditAccountID: 0, PayeeName: "", Description: "", RefNo: "", BranchID: 0, CostGroupID: 0, BussinessUnitId: 0 };
+                    receiveVoucher.RVNo = $("#RVNo").val();
+                    receiveVoucher.RVDate = $("#RVDate").val();
+                    receiveVoucher.RVAmount = $("#RVAmount").val();
+                    receiveVoucher.ReceiveAccountID = $("#ReceiveAccountID").val();
+                    receiveVoucher.CreditAccountID = $("#CreditAccountID").val();
+                    receiveVoucher.PayeeName = $("#PayeeName").val();
+                    receiveVoucher.Description = $("#Description").val();
+                    receiveVoucher.RefNo = $("#RefNo").val();
+                    receiveVoucher.BranchID = $("#BranchID").val();
+                    receiveVoucher.CostGroupID = $("#CostGroupID").val();
+                    receiveVoucher.BussinessUnitId = $("#BussinessUnitId").val();
+
+                    if (confirm("Do you want to Approve?")) {
+                        $.ajax(
+                            {
+                                url: '@Url.Action("TransectionEffect", "ReceiveVoucher")',
+                                contentType: "application/json;charset=utf-8",
+                                data: JSON.stringify({ receiveVoucher: receiveVoucher }),
+                                type: "POST",
+                                dataType: "json",
+                                success: function (datas) {
+                                    if (datas.Message == 1) {
+                                        alert("Approve Successfully");
+                                        $("#save").hide();
+                                        $("#approve").hide();
+                                        $("#update").hide();
+                                        $("#delete").hide();
+                                        $("#print").show();
+
+                                    }
+                                    else if (datas.Message == 0) {
+                                        alert("Please recheck data if it is not solve the problem.\n Then Contact with Avalanche Technology Ltd.");
+                                        $("#approve").show();
+                                    }
+                                },
+                                error: function () {
+                                    alert("Please check Internet connection. If doesn't solve problem. Contact with Avalanche Technology Ltd.");
+                                    $("#approve").show();
+                                }
+                            });
+                    }
+                }
+                else {
+                    alert("Voucher Not found.");
+                }
+
+            });*@
+
+             function SearchClick(rvno) {
+
+                 $.ajax(
+                    {
+                       url: '@Url.Action("GetReceiveVoucherById", "ReceiveVoucher")',
+                       contentType: "application/json;charset=utf-8",
+                       data: rvno,
+                       type: 'GET',
+                       dataType: 'json',
+                       success: function (datas) {
+                           if (datas == 0) {
+                               alert("Your RV No Doesn't Exist");
+                           }
+                           else
+                           {
+                               $("#save").hide();
+                               $("#RVNo").val(datas.RVNo);
+                               $("#RVDate").val((moment(datas.RVDate).format("DD-MM-YYYY"))).change();
+                               $("#RVAmount").val(datas.RVAmount);
+                               $("#ReceiveAccountID").val(datas.ReceiveAccountID).change();
+                               $("#CreditAccountID").val(datas.CreditAccountID).change();
+                               $("#PayeeName").val(datas.PayeeName);
+                               $("#Description").val(datas.Description);
+                               $("#RefNo").val(datas.RefNo);
+                               $("#BranchID").val(datas.BranchID).change();
+                               $("#BussinessUnitId").val(datas.BussinessUnitId).change();
+                               $("#CostGroupID").val(datas.CostGroupID).change();
+                           }
+                       },
+                       error: function ()
+                       {
+                           alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+
+                       }
+                   });
+             }
+        });
+
+    </script>
+}

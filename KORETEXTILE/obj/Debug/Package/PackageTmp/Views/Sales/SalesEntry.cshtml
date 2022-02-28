@@ -1,0 +1,2554 @@
+﻿@model BEEERP.Models.ViewModel.Sales.Transaction.SalesVModel
+    @using BEEERP.Models.CommonInformation
+@{
+    ViewBag.Title = "SalesEntry";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .btn:hover{
+        color:blue!important;
+    }
+    .btn:focus{
+        background-color:aqua!important;
+    }
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+    #GroupIdCal, #ItemCal {
+        width: 250px;
+    }
+</style>
+
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <h4 id="order" style="padding-left: 42px;text-align: center; font-weight: bold;">Order Booking</h4>
+            <h4 id="sell" style="padding-left: 42px;text-align: center; font-weight: bold;">Sales Entry</h4>
+            <h4>@ViewBag.messege</h4>
+            <div class="box-body">
+                <div class="col-md-12">
+                    <div class="col-md-9">
+                        <div>
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 class="box-title">Order Info</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-12">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.OrderNumber, "Order No", new { @class = "col-md-4 " })
+                                                <div class="input-group input-group-sm" style="padding-right:15px;padding-left:14px;">
+                                                    @Html.TextBoxFor(m => m.OrderNumber, new { @class = "form-control enterTab", @Value = ViewBag.OrderNumber })
+                                                    @Html.ValidationMessageFor(m => m.OrderNumber)
+                                                    <span class="input-group-btn" id="orderSrc">
+                                                        <button type="button" class="btn skin-blue btn-flat enterTab" id="orderSearch">Search</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-4"></div>
+                                                <div class="col-sm-8 ">
+                                                    <br />
+                                                    <label for="corporate">Corporate</label>&ensp;&ensp;
+                                                    <input type="radio" id="corporate" name="saleType" value="corporate" checked />&ensp;&ensp;&ensp;&ensp;&ensp;
+                                                    <label for="normal">National</label>&ensp;&ensp;
+                                                    <input type="radio" id="normal" name="saleType" value="normal" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group icheckbox_minimal-blue" id="isOrderDiv">
+                                                <label for="isOrder" class="col-md-3 ">
+                                                    Order
+                                                    <input type="checkbox" id="isOrder" class="checkbox " checked />
+                                                </label>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.OrderDate, "Order Date", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8 date input-group" style="padding-left:15px; padding-right:15px">
+                                                    @Html.TextBoxFor(m => m.OrderDate, new { @class = "enterTab form-control date ", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h6 class="box-title">Basic Info</h6>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        <div class="form-group" id="invoiceNo">
+                                            @Html.LabelFor(m => m.InvoiceNo, "Invoice No", new { @class = "col-md-4 control-label" })
+                                            <div class="input-group input-group-sm" style="padding-right:15px;padding-left:14px;">
+                                                @Html.TextBoxFor(m => m.InvoiceNo, new { @class = "form-control enterTab" })
+                                                @Html.ValidationMessageFor(m => m.InvoiceNo)
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn skin-blue btn-flat enterTab" id="custSearch">Search</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        @if (UserAccessAction.IsAdmin)
+    {
+                                    <div class="form-group">
+                                        <label for="DepotId" class="col-md-4"></label>
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.DepotId, (IEnumerable<SelectListItem>)ViewBag.Depot, new { @class = "enterTab form-control select2 " })
+                                            @Html.ValidationMessageFor(m => m.DepotId)
+                                        </div>
+                                    </div>
+}
+else
+{
+                                    <div class="form-group">
+                                        <label for="DepotId" class="col-md-4"></label>
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.DepotId, (IEnumerable<SelectListItem>)ViewBag.Depot, new { @class = "enterTab form-control select2 ", @disabled = "disabled" })
+                                            @Html.ValidationMessageFor(m => m.DepotId)
+                                        </div>
+                                    </div>
+}
+
+                                        <div class="form-group" id="saleDate">
+                                            @Html.LabelFor(m => m.SalesDate, "Sales Date", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 date input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.SalesDate, new { @class = "enterTab form-control date ", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                @Html.ValidationMessageFor(m => m.SalesDate)
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            @Html.LabelFor(m => m.StoreId, "Store", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.StoreId, (IEnumerable<SelectListItem>)ViewBag.Store, new { @class = "enterTab form-control select2 " })
+                                                @Html.ValidationMessageFor(m => m.StoreId)
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            @Html.LabelFor(m => m.RefNo, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.RefNo, new { @class = "enterTab form-control" })
+                                                @Html.ValidationMessageFor(m => m.RefNo)
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Description, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                <textarea class="form-control"
+                                                          id="Description"
+                                                          name="Description"
+                                                          rows="2"
+                                                          cols="20"></textarea>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4">
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.CustomerID, "Customer", new {@class = "col-md-4 control-label"})
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.CustomerID, (IEnumerable<SelectListItem>)ViewBag.Customer, new { @class = "enterTab form-control select2 " })
+                                                @Html.ValidationMessageFor(m => m.CustomerID)
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            <lable for="CustName" class="col-md-4 control-label" style="font-weight:bold;">Customer</lable>
+                                            <div class="col-sm-8">
+                                                <input type="text" id="CustName" class="enterTab form-control" readonly="readonly" />
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            @Html.LabelFor(m => m.ZoneId, "Zone", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.ZoneId, new { @class = "form-control ", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.ZoneId)
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            @Html.LabelFor(m => m.Area, "Area", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.Area, new { @class = "enterTab form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.Area)
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            @Html.LabelFor(m => m.CustMobileNo, "Mobile No", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.CustMobileNo, new { @class = "enterTab form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.CustMobileNo)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group ">
+                                            @Html.LabelFor(m => m.SRId, "TSO Id", new { @class = "col-md-4 control-label" })
+                                            <div class="@*input-group input-group-sm*@ col-md-8" @*style="padding-right:15px;padding-left:14px;"*@>
+                                                @Html.TextBoxFor(m => m.SRId, new { @class = "enterTab form-control" })
+                                                @Html.ValidationMessageFor(m => m.SRId)
+                                                @*<span class="input-group-btn">
+                    <button type="button" class="btn skin-blue btn-flat" id="searchEmployee">Go!</button>
+                </span>*@
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            @Html.LabelFor(m => m.SrName, "TSO Name", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.SrName, new { @class = "enterTab form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.CustomerID)
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            @Html.LabelFor(m => m.SrDesignation, "Designation", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.SrDesignation, new { @class = "enterTab form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.SrDesignation)
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" id="type">
+                                            @Html.LabelFor(m => m.Type, "Type", new { @class = "col-md-5 control-label" })
+                                            <div class="col-sm-7">
+                                                @Html.TextBoxFor(m => m.Type, new { @class = "enterTab form-control", @readonly = "readonly", @Value = ViewBag.Type })
+                                                @Html.ValidationMessageFor(m => m.Type)
+                                            </div>
+                                        </div>
+                                        <div class="form-group" id="remarksdiv">
+                                            @Html.LabelFor(m => m.Remarks, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                <textarea class="form-control"
+                                                          id="Remarks"
+                                                          name="Remarks"
+                                                          rows="2"
+                                                          cols="20"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 class="box-title">Item Info</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <div class="form-group ">
+                                                @Html.LabelFor(m => m.GroupId, "Group", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(m => m.GroupId, (IEnumerable<SelectListItem>)ViewBag.GroupId, new { @class = "enterTab form-control select2", @disabled = "disabled" })
+                                                    @Html.ValidationMessageFor(m => m.GroupId)
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.Item, "Item", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(m => m.Item, (IEnumerable<SelectListItem>)ViewBag.Item, new { @class = "enterTab form-control select2", @disabled = "disabled" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 class="box-title">Quantity and Value</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-12">
+                                        <div class="col-md-4">
+                                            <div class="form-group ">
+                                                @Html.LabelFor(m => m.AvalCarton, "Remaining Carton", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(m => m.AvalCarton, new { @class = "enterTab form-control", @readonly = "readonly" })
+                                                    @Html.ValidationMessageFor(m => m.AvalCarton)
+                                                </div>
+                                            </div>
+                                            <div class="form-group ">
+                                                @Html.LabelFor(m => m.Qty, "Remaining Qty", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(m => m.Qty, new { @class = "enterTab form-control", @readonly = "readonly" })
+                                                    @Html.ValidationMessageFor(m => m.Qty)
+                                                </div>
+                                            </div>
+                                            <div class="form-group ">
+                                                @Html.LabelFor(m => m.Price, "Unit Price", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(m => m.Price, new { @class = "enterTab form-control" })
+                                                    @Html.ValidationMessageFor(m => m.Price)
+                                                </div>
+                                            </div>
+                                            <div class="form-group ">
+                                                @Html.LabelFor(m => m.VatPerc, new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(m => m.VatPerc, new { @class = "enterTab form-control", @type = "number" })
+                                                    @Html.ValidationMessageFor(m => m.VatPerc)
+                                                </div>
+                                            </div>
+                                            <div class="form-group ">
+                                                @Html.LabelFor(m => m.DisPerc, new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(m => m.DisPerc, new { @class = "enterTab form-control", @type = "number" })
+                                                    @Html.ValidationMessageFor(m => m.DisPerc)
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group ">
+                                                @Html.LabelFor(m => m.Carton, new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(m => m.Carton, new { @class = "enterTab form-control", @type = "number" })
+                                                    @Html.ValidationMessageFor(m => m.Carton)
+                                                </div>
+                                            </div>
+                                            <div class="form-group ">
+                                                @Html.LabelFor(m => m.SoldQuantity, "Sold Qty", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(m => m.SoldQuantity, new { @class = "enterTab form-control", @type = "number" })
+                                                    @Html.ValidationMessageFor(m => m.SoldQuantity)
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.FreeQty, "Free Qty", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(m => m.FreeQty, new { @class = "enterTab form-control", @type = "number" })
+                                                    @Html.ValidationMessageFor(m => m.FreeQty)
+                                                </div>
+                                            </div>
+                                            <div class="form-group ">
+                                                @Html.LabelFor(m => m.VatAmount, new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(m => m.VatAmount, new { @class = "enterTab form-control", @readonly = "radonly", @type = "number" })
+                                                    @Html.ValidationMessageFor(m => m.VatAmount)
+                                                </div>
+                                            </div>
+                                            <div class="form-group ">
+                                                @Html.LabelFor(m => m.DisAmount, new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(m => m.DisAmount, new { @class = "enterTab form-control", @readonly = "radonly", @type = "number" })
+                                                    @Html.ValidationMessageFor(m => m.DisAmount)
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.TotalQty, "Total Qty", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(m => m.TotalQty, new { @class = "enterTab form-control", @readonly = "readonly" })
+                                                    @Html.ValidationMessageFor(m => m.TotalQty)
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.TotalAmount, "Total Amount", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(m => m.TotalAmount, new { @class = "enterTab form-control", @readonly = "readonly" })
+                                                    @Html.ValidationMessageFor(m => m.TotalAmount)
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.AfterVat, new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(m => m.AfterVat, new { @class = "enterTab form-control", @readonly = "readonly" })
+                                                    @Html.ValidationMessageFor(m => m.AfterVat)
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.AfterDis, new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(m => m.AfterDis, new { @class = "enterTab form-control", @readonly = "readonly" })
+                                                    @Html.ValidationMessageFor(m => m.AfterDis)
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="form-group" style="padding-top:162px;">
+                                                <button type="button" id="addToGrid" name="addToGrid" style="height:33px; font-size:13px;" class="btn">Add To Grid</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div>
+                            <table class="table table-responsive" id="salesGrid">
+                                <thead>
+                                    <tr>
+                                        <th>Item </th>
+                                        <th>Pac Size</th>
+                                        <th>Qty</th>
+                                        <th>Offer Qty</th>
+                                        <th>Price</th>
+                                        <th>Value</th>
+                                        <th>Vat (%)</th>
+                                        <th>Vat Amount</th>
+                                        <th>Discount (%)</th>
+                                        <th>Discount Amount</th>
+                                        <th>Amount</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="box ">
+                            <div class="box-body">
+                                <div class="form-group ">
+                                    @Html.LabelFor(m => m.Balance, "Balance", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.Balance, new { @class = "enterTab form-control", @Value = 0, @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.Balance)
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    @Html.LabelFor(m => m.CreditLimit, "Credit Limit", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.CreditLimit, new { @class = "enterTab form-control", @readonly = "radonly" })
+                                        @Html.ValidationMessageFor(m => m.CreditLimit)
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    @Html.LabelFor(m => m.CreditDays, "Credit Days", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.CreditDays, new { @class = "enterTab form-control", @readonly = "radonly" })
+                                        @Html.ValidationMessageFor(m => m.CreditDays)
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    @Html.LabelFor(m => m.InvoiceTotal, "Invoice Total", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.InvoiceTotal, new { @class = "enterTab form-control", @readonly = "radonly" })
+                                        @Html.ValidationMessageFor(m => m.InvoiceTotal)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box " id="comDiv">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Commision</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group ">
+                                    @Html.LabelFor(m => m.Comission, "Commission", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.Comission, new { @class = "enterTab form-control" })
+                                        @Html.ValidationMessageFor(m => m.Comission)
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    @Html.LabelFor(m => m.CommissionAmt, "Amount", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.CommissionAmt, new { @class = "enterTab form-control", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.CommissionAmt)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box " id="netDiv">
+                            <div class="box-body">
+                                <div class="form-group ">
+                                    @Html.LabelFor(m => m.NetAmount, "Net of Discount", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.NetAmount, new { @class = "enterTab form-control", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.NetAmount)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box " id="disDiv">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Trade Discount</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group ">
+                                    @Html.LabelFor(m => m.Discount, "Discount", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.Discount, new { @class = "enterTab form-control" })
+                                        @Html.ValidationMessageFor(m => m.Discount)
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    @Html.LabelFor(m => m.DiscountAmt, "Amount", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.DiscountAmt, new { @class = "enterTab form-control", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.DiscountAmt)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Total Discount</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group ">
+                                    @Html.LabelFor(m => m.TotDiscount, "Total Discount", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.TotDiscount, new { @class = "enterTab form-control", @readonly = "readonloy" })
+                                        @Html.ValidationMessageFor(m => m.TotDiscount)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">VAT</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group ">
+                                    @Html.LabelFor(m => m.TotVat, "Total VAT", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.TotVat, new { @class = "enterTab form-control", @readonly = "readonloy" })
+                                        @Html.ValidationMessageFor(m => m.TotVat)
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Net Amount</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group ">
+                                    @Html.LabelFor(m => m.NetInvoice, "Net Invoice", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.NetInvoice, new { @class = "enterTab form-control", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.NetInvoice)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group form-horizontal" style="text-align:center;">
+                        <button type="button" id="clear" style="height:33px; font-size:13px;" class="btn">Clear</button>
+                        <button type="button" id="save" style="height:33px; font-size:13px;" class="btn">Save</button>
+                        <button type="button" id="update" style="height:33px; font-size:13px;" class="btn">Update</button>
+                        <button type="button" id="priceCalculate" style="height:33px; font-size:13px;" class="btn" data-toggle="modal" data-target="#priceCalculator">Price Calculator</button>
+                        <button type="button" id="approve" style="height:33px; font-size:13px;overflow:hidden" class="btn">Approve</button>
+                        @if (UserAccessAction.HavePerOnUpdate)
+                        {
+
+                        }
+                        @*@if (UserAccessAction.HavePerOnDelete)
+                        {*@
+                            <button type="button" id="cancel" style="height:33px; font-size:13px;" class="btn">Cancel</button>
+                        @*}*@
+                        <button type="button" id="print" style="height:33px; font-size:13px;" class="btn">Print</button>
+                        @if (UserAccessAction.HavePerOnApprove)
+                        {
+
+                        }
+                        <button type="button" id="refresh" style="height:33px; font-size:13px;" class="btn">Refresh</button>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-lg" id="priceCalculator" data-backdrop="static">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <button type="button"  style="float:right" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <div class="modal-header ">
+                <h4 class="modal-title"><b>Price Calculator</b></h4>
+            </div>
+            <div class="modal-body">
+                <div class="box ">
+                    <div class="box-header with-border box-head-back">
+                        <h3 class="box-title">Item Info</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                <div class="col-md-12">
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.TotDiscount, "Total Discount", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.TotDiscount, new { @class = "enterTab form-control", @readonly = "readonloy", @id = "TotDiscountCal" })
+                                            @Html.ValidationMessageFor(m => m.TotDiscount)
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group ">
+                                    @Html.LabelFor(m => m.TotVat, "Total VAT", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.TotVat, new { @class = "enterTab form-control", @readonly = "readonloy", @id = "TotVatCal" })
+                                        @Html.ValidationMessageFor(m => m.TotVat)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group ">
+                                    @Html.LabelFor(m => m.NetInvoice, "Net Invoice", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.NetInvoice, new { @class = "enterTab form-control", @readonly = "readonly", @id = "NetInvoiceCal" })
+                                        @Html.ValidationMessageFor(m => m.NetInvoice)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box ">
+                    <div class="box-header with-border box-head-back">
+                        <h3 class="box-title">Item Info</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="col-md-12">
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.GroupId, "Group", new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-10 form-group">
+                                            @Html.DropDownListFor(m => m.GroupId, (IEnumerable<SelectListItem>)ViewBag.GroupId, new { @class = "form-control select2 col-md-10", @id = "GroupIdCal" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Item, "Item", new { @class = "col-md-2 control-label" })
+                                    <div class="col-sm-8 form-group">
+                                        @Html.DropDownListFor(m => m.Item, (IEnumerable<SelectListItem>)ViewBag.Item, new { @class = "form-control select2", @id = "ItemCal" })
+                                        @Html.ValidationMessageFor(m => m.GroupId)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box ">
+                    <div class="box-header with-border box-head-back">
+                        <h3 class="box-title">Quantity and Value</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="col-md-12">
+                            <div class="form-group col-md-6 ">
+                                @Html.LabelFor(m => m.SoldQuantity, "Sold Qty", new { @class = "col-md-4 control-label" })
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.SoldQuantity, new { @class = "enterTab form-control", @type = "number", @id = "SoldQuantityCal" })
+                                    @Html.ValidationMessageFor(m => m.SoldQuantity)
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                @Html.LabelFor(m => m.Price, "Unit Price", new { @class = "col-md-4 control-label" })
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.Price, new { @class = "enterTab form-control", @readonly = "readonly", @id = "PriceCal" })
+                                    @Html.ValidationMessageFor(m => m.Price)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group col-md-6 ">
+                                @Html.LabelFor(m => m.DisAmount, new { @class = "col-md-4 control-label" })
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.DisAmount, new { @class = "enterTab form-control", @readonly = "radonly", @type = "number", @id = "DisAmountCal" })
+                                    @Html.ValidationMessageFor(m => m.DisAmount)
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 ">
+                                @Html.LabelFor(m => m.DisPerc, "Discount (%)", new { @class = "col-md-4 control-label" })
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.DisPerc, new { @class = "enterTab form-control", @type = "number", @id = "DisPercCal" })
+                                    @Html.ValidationMessageFor(m => m.DisPerc)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group  col-md-6">
+                                @Html.LabelFor(m => m.VatPerc, new { @class = "col-md-4 control-label" })
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.VatPerc, new { @class = "enterTab form-control", @type = "number", @disabled = "disabled", @id = "VatPercCal" })
+                                    @Html.ValidationMessageFor(m => m.VatPerc)
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 ">
+                                @Html.LabelFor(m => m.VatAmount, new { @class = "col-md-4 control-label" })
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.VatAmount, new { @class = "enterTab form-control", @readonly = "radonly", @type = "number", @id = "VatAmountCal" })
+                                    @Html.ValidationMessageFor(m => m.VatAmount)
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group col-md-6">
+                                @Html.LabelFor(m => m.TotalQty, "Total Qty", new { @class = "col-md-4 control-label" })
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.TotalQty, new { @class = "enterTab form-control", @readonly = "readonly", @id = "TotalQtyCal" })
+                                    @Html.ValidationMessageFor(m => m.TotalQty)
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                @Html.LabelFor(m => m.TotalAmount, "Total Amount", new { @class = "col-md-4 control-label" })
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.TotalAmount, new { @class = "enterTab form-control", @readonly = "readonly", @id = "TotalAmountCal" })
+                                    @Html.ValidationMessageFor(m => m.TotalAmount)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group col-md-6">
+                                @Html.LabelFor(m => m.AfterVat, new { @class = "col-md-4 control-label" })
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.AfterVat, new { @class = "enterTab form-control", @readonly = "readonly", @id = "AfterVatCal" })
+                                    @Html.ValidationMessageFor(m => m.AfterVat)
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                @Html.LabelFor(m => m.AfterDis, new { @class = "col-md-4 control-label" })
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.AfterDis, new { @class = "enterTab form-control", @readonly = "readonly", @id = "AfterDisCal" })
+                                    @Html.ValidationMessageFor(m => m.AfterDis)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            
+                            <div class="">
+                                <div class="form-group col-md-6 ">
+                                    <div class="col-sm-8 col-sm-offset-4">
+                                        <button type="button" id="addToGridCal" name="addToGridCal" style="height:33px; font-size:13px; float:right" class="btn">Add To Grid</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div>
+                    <table class="table table-responsive" id="salesGridCal">
+                        <thead>
+                            <tr>
+                                <th>Item </th>
+                                <th>Pac Size</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                                <th>Value</th>
+                                <th>Vat (%)</th>
+                                <th>Vat Amount</th>
+                                <th>Discount (%)</th>
+                                <th>Discount Amount</th>
+                                <th>Amount</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    <!-- /.modal-content -->
+    <!-- /.modal-dialog -->    
+</div>
+<input type="hidden" id="hPacSize"/>
+<input type="hidden" id="hPacSizeCal" />
+@section scripts{
+    
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/Search.js"></script>
+    <script src="~/Scripts/SalesModule/SalesModuleInputFocus.js"></script>
+
+    <script>
+        $(".select2").select2();
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+
+        
+        $(document).ready(function () {
+            $("#CustomerID").focus();
+            $("#approve").hide();
+            $("#saleDate").hide();
+            $("#invoiceNo").hide();
+            $("#sell").hide();
+            $("#type").hide();
+            $("#remarksdiv").hide();
+            
+            $("#searchEmployee").hide();
+            $("#SRId").prop('disabled', true);
+            
+            SearchCustomer();          
+            SalesModuleValidatePage();
+            
+            var isItFromEdit = false;
+            //var a=$("#InvoiceNo").val();
+            if($("#InvoiceNo").val()!="")
+            {
+                clickOnCustSearch();
+                $("#update").show();
+                $("#remarksdiv").show();
+                $("#OrderDate").prop("disabled", true);
+                $("#saleDate").show();
+                $("#invoiceNo").show();
+                $("#order").hide();
+                $("#sell").show();
+                $("#save").hide();
+                $("#orderSrc").hide();
+            }
+
+
+            
+            DisableStoreId(@ViewBag.Disabled);
+            var message = "";
+            var storeId = "";
+            var saleLineItems = [];
+            var saleLineItemForCals = [];
+            $("#update").hide();
+            $("#cancel").hide();
+            $("#disDiv").hide();
+            $("#comDiv").hide();
+            $("#netDiv").hide();
+            $("#print").hide();
+            var salesLineItemNew = { InvoiceNo: 0, SalesDate: "", InvoiceAmount: 0, CommissionAmt: 0, DiscountAmt: 0, SalesManID: 0, CustomerID: 0, CustBal: 0.0, StoreID: 0 }
+            var table = $('#salesGrid').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+            var tableCal = $('#salesGridCal').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+            var selectedDepot = $("#StoreId").val();
+            if(@ViewBag.Disabled==true)
+            {
+                $("#StoreId").prop("disabled",true);
+            }
+            else{
+                $("#StoreId").prop("disabled",false);
+            }
+            if (selectedDepot != "")
+            {
+                $("#DepotId").change();
+            }
+            $(".select2").select2();
+            //$(document).on('click','#approve',function(){
+            //    alert("not done yet");
+            //});
+
+            //print click
+            $(document).on('click', '#print', function () {
+                if ($("#InvoiceNo").val() != "")
+                {
+                    window.open("/sales/Invoice?invoiceNo=" + $("#InvoiceNo").val(), "_blank");
+                }
+                else if ($("#OrderNumber").val()) {
+                    window.open("/sales/Order?orderNo=" + $("#OrderNumber").val(), "_blank");
+                }
+
+
+            });
+            if ($("#Type").val() == "SalesEntry") {
+                $("#isOrderDiv").hide();
+            }
+            $(document).on('change', '#isOrder', function () {
+                
+                if (!$(this).is(":checked")) {
+                    $("#saleDate").show();
+                    $("#invoiceNo").show();
+                    $("#Type").val("SalesEntry");
+                }
+                else {
+                    $("#saleDate").hide();
+                    $("#invoiceNo").hide();
+                }
+            });
+            //employee search 
+            $(document).on('click', "#searchEmployee", function () {
+                SearchCustomer();
+                var param = { depotId: $("#DepotId").val(), empId: $("#SRId").val() };
+
+                if(param.depotId!="")
+                {
+                    $.ajax({
+                        url: '@Url.Action("GetEmployeeById", "Sales")',
+                        contentType: "application/json;charset=utf-8",
+                        data: param,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas != 0) {
+                                $("#SrName").val(datas.Name);
+                                $("#SrDesignation ").val(datas.Designation);
+
+                            }
+                            else {
+                                $("#SrName").val("");
+                                $("#SrDesignation ").val("");
+
+                                alert("May be Employee doesn't exist or Employee isn't exist on this Depot.");
+
+                            }
+                        }
+                    });
+                }
+                else {
+                    alert("Depot is required for search employee.");
+                }
+            });
+            $(document).on('change','#CustomerID', function () {
+                var custId = $("#CustomerID").val();
+                var Did = $("#DepotId").val();
+                if (custId != "" && Did != "") {
+
+                    $.ajax({
+                        url: '/Sales/GetCustomerById/',
+                        contentType: "application/json;charset=utf-8",
+                        data: { custId: custId, depotId: Did },
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas != 0) {
+                                if (typeof ($("#CustName").val()) != 'undefined' && $("#CustName").val() != null) {
+                                    $("#CustName").val(datas.Name);
+                                }
+                                if (typeof ($("#ZoneId").val()) != 'undefined' && $("#ZoneId").val() != null) {
+                                    $("#ZoneId ").val(datas.Zone);
+                                }
+                                if (typeof ($("#Area").val()) != 'undefined' && $("#Area").val() != null) {
+                                    $("#Area").val(datas.Area);
+                                }
+                                if (typeof ($("#CustMobileNo").val()) != 'undefined' && $("#CustMobileNo").val() != null) {
+                                    $("#CustMobileNo").val(datas.MobileNo);
+                                }
+                                if (typeof ($("#CreditLimit").val()) != 'undefined' && $("#CreditLimit").val() != null) {
+                                    $("#CreditLimit").val(datas.Credit);
+                                }
+                                if (typeof ($("#Balance").val()) != 'undefined' && $("#Balance").val() != null) {
+                                    $("#Balance").val(datas.Due);
+                                }
+                                if (typeof ($("#Due").val()) != 'undefined' && $("#Due").val() != null) {
+                                    $("#Due").val(datas.Due);
+                                }
+                                if (typeof ($("#CreditDays").val()) != 'undefined' && $("#CreditDays").val() != null) {
+                                    $("#CreditDays").val(datas.CreditDays);
+                                }
+                                if (typeof ($("#SRId").val()) != 'undefined' && $("#SRId").val() != null) {
+                                    $("#SRId").val(datas.TSOId);
+                                }
+                                if (typeof ($("#SrName").val()) != 'undefined' && $("#SrName").val() != null) {
+                                    $("#SrName").val(datas.TSOName);
+                                }
+                                if (typeof ($("#SrDesignation").val()) != 'undefined' && $("#SrDesignation").val() != null) {
+                                    $("#SrDesignation").val(datas.Designation);
+                                }
+                            }
+                            else {
+                                if (typeof ($("#CustName").val()) != 'undefined' && $("#CustName").val() != null) {
+                                    $("#CustName").val("");
+                                }
+                                if (typeof ($("#ZoneId").val()) != 'undefined' && $("#ZoneId").val() != null) {
+                                    $("#ZoneId ").val("");
+                                }
+                                if (typeof ($("#Area").val()) != 'undefined' && $("#Area").val() != null) {
+                                    $("#Area").val("");
+                                }
+                                if (typeof ($("#CustMobileNo").val()) != 'undefined' && $("#CustMobileNo").val() != null) {
+                                    $("#CustMobileNo").val("");
+                                }
+                                if (typeof ($("#CreditLimit").val()) != 'undefined' && $("#CreditLimit").val() != null) {
+                                    $("#CreditLimit").val(0);
+                                }
+                                if (typeof ($("#Balance").val()) != 'undefined' && $("#Balance").val() != null) {
+                                    $("#Balance").val(0);
+                                }
+                                if (typeof ($("#Due").val()) != 'undefined' && $("#Due").val() != null) {
+                                    $("#Due").val(0);
+                                }
+                                if (typeof ($("#CreditDays").val()) != 'undefined' && $("#CreditDays").val() != null) {
+                                    $("#CreditDays").val(0);
+                                }
+                                if (typeof ($("#SRId").val()) != 'undefined' && $("#SRId").val() != null) {
+                                    $("#SRId").val(0);
+                                }
+                                if (typeof ($("#SrName").val()) != 'undefined' && $("#SrName").val() != null) {
+                                    $("#SrName").val(0);
+                                }
+                                if (typeof ($("#SrDesignation").val()) != 'undefined' && $("#SrDesignation").val() != null) {
+                                    $("#SrDesignation").val(datas.TSOName);
+                                }
+                                alert("May be customer doesn't exist or customer doesn't not exist on this Depot.");
+
+                            }
+                        }
+
+                    });
+                } else {
+                   
+                    $("#CustName").val("");
+                    $("#ZoneId").val("");
+                    $("#Area").val("");
+                    $("#CustMobileNo").val("");
+                    $("#CreditLimit").val("");
+                    $("#Balance").val("");
+                    $("#Due").val("");
+                    $("#CreditDays").val("");
+                    $("#SRId").val("");
+                    $("#SrName").val("");
+                    $("#SrDesignation").val("");
+                    
+                }
+                
+            });
+            $(document).on('blur', "#Comission", function () {
+                var invoiceTotal = $("#InvoiceTotal").val();
+                if (invoiceTotal == "") {
+                    alert("You don't have any Invoice balance to calculate.");
+                }
+                else {
+                    CalculateAmount();
+                }
+            });
+            $(document).on('focusout', "#SoldQuantity", function () {
+                var soldQty = $("#SoldQuantity").val();
+                if (soldQty <= 0 || soldQty == "") {
+                    $("#SoldQuantity").val("0")
+                    CalCulateQty();
+                }
+                else {
+                    var sQuty=$("#SoldQuantity").val();
+                    if (sQuty == "")
+                    {
+                        sQuty = 0;
+                    }
+                    var totAmount = $("#Price").val();
+                    if (totAmount == "")
+                    {
+                        totAmount = 0;
+                    }
+                    $("#TotalAmount").val(parseFloat(sQuty) * parseFloat(totAmount));
+                    CalCulateQty();
+                    CalculateAmount();
+                    CalculateItemTotal();
+                }
+            });
+            $(document).on('focusout', "#Price", function () {
+                var soldQty = $("#SoldQuantity").val();
+                if (soldQty <= 0 || soldQty == "") {
+                    $("#SoldQuantity").val("0")
+                    CalCulateQty();
+                }
+                else {
+                    var sQuty = $("#SoldQuantity").val();
+                    if (sQuty == "") {
+                        sQuty = 0;
+                    }
+                    var totAmount = $("#Price").val();
+                    if (totAmount == "") {
+                        totAmount = 0;
+                    }
+                    $("#TotalAmount").val(parseFloat(sQuty) * parseFloat(totAmount));
+                    CalCulateQty();
+                    CalculateAmount();
+                    CalculateItemTotal();
+                }
+            });
+            $(document).on('focusout', "#SoldQuantityCal", function () {
+                var soldQty = $("#SoldQuantityCal").val();
+                if (soldQty <= 0 || soldQty == "") {
+                    $("#SoldQuantityCal").val("0")
+                    CalCulateQty();
+                }
+                else {
+                    var sQuty=$("#SoldQuantityCal").val();
+                    if (sQuty == "")
+                    {
+                        sQuty = 0;
+                    }
+                    var totAmount = $("#PriceCal").val();
+                    if (totAmount == "")
+                    {
+                        totAmount = 0;
+                    }
+                    $("#TotalAmountCal").val(parseFloat(sQuty) * parseFloat(totAmount));
+                    CalCulateQtyForCal();
+                    CalculateAmountForCal();
+                    CalculateItemTotalForCal();
+                }
+            });
+            $(document).on('blur', "#FreeQty", function () {
+                var freeQty = $("#FreeQty").val();
+                var message = "";
+                if (freeQty < 0 || freeQty == "") {
+                    $("#FreeQty").val("0")
+                    CalCulateQty();
+                }
+                else if (freeQty == 0) {
+                    CalCulateQty();
+                }
+                else {
+                    CalCulateQty();
+                }
+
+            });
+            $(document).on('blur', "#Discount", function () {
+                var invoiceTotal = $("#InvoiceTotal").val();
+                if (invoiceTotal == "") {
+                    alert("You don't have any Invoice balance to calculate.");
+                }
+                else {
+                    CalculateAmount();
+                }
+            });
+
+            $(document).on('blur', "#VatPerc", function () {
+                var invoiceTotal = $("#TotalAmount").val();
+                if (invoiceTotal == "") {
+                    //$("#VatPerc").val(0);
+                    //$("#VatAmount").val(0);
+                    //$("#AfterVat").val(0);
+                }
+                else {
+                    CalculateItemTotal();
+                }
+            });
+            $(document).on('blur', "#DisPerc", function () {
+                var invoiceTotal = $("#TotalAmount").val();
+                if (invoiceTotal == "") {
+                    //$("#DisPerc").val(0);
+                    //$("#DisAmount").val(0);
+                    //$("#AfterDis").val(0);
+                }
+                else {
+                    CalculateItemTotal();
+                }
+            });
+            $(document).on('blur', "#DiscountCal", function () {
+                var invoiceTotal = $("#InvoiceTotalCal").val();
+                if (invoiceTotal == "") {
+                    alert("You don't have any Invoice balance to calculate.");
+                }
+                else {
+                    CalculateAmountForCal();
+                }
+            });
+
+            $(document).on('blur', "#VatPercCal", function () {
+                var invoiceTotal = $("#TotalAmountCal").val();
+                if (invoiceTotal == "") {
+                    $("#VatPercCal").val(0);
+                    $("#VatAmountCal").val(0);
+                    $("#AfterVatCal").val(0);
+                }
+                else {
+                    CalculateItemTotalForCal();
+                }
+            });
+            $(document).on('blur', "#DisPercCal", function () {
+                var invoiceTotal = $("#TotalAmountCal").val();
+                if (invoiceTotal == "") {
+                    $("#DisPercCal").val(0);
+                    $("#DisAmountCal").val(0);
+                    $("#AfterDisCal").val(0);
+                }
+                else {
+                    CalculateItemTotalForCal();
+                }
+            });
+
+            $(document).on('change', "#DepotId", function () {
+                ClearOnDepotChange();
+                var id = { id: $(this).val() };
+                if (id.id != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetStoreByDepotId", "Sales")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify(id),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            $("#StoreId").empty();
+                            $("#StoreId").prop("disabled", false);
+                            $.each(datas, function (index, value) {
+                                $("#StoreId").append($('<option />', {
+                                    value: value.Value,
+                                    text: value.Text
+                                })).trigger('change');
+                            });
+
+                            if(storeId!="")
+                            {
+                                $("#StoreId").val(storeId).change();
+                                storeId = "";
+                            }
+
+                        }
+                    });
+                }
+                else {
+                    $("#StoreId").empty();
+                    $("#StoreId").prop("disabled", true);
+                }
+
+            });
+            $(document).on('change', "#GroupId", function () {
+                var id = { groupId: $(this).val() };
+                if (isItFromEdit == false) {
+                    if (id.groupId != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetItemByGroupId", "Sales")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            $("#Item").empty();
+                            $("#Item").prop("disabled", false);
+                            $.each(datas, function (index, value) {
+                                $("#Item").append($('<option />', {
+                                    value: value.Value,
+                                    text: value.Text
+                                })).trigger('change');
+                            });
+                            $("#Item").focus();
+                        }
+                    });
+                }
+                else {
+                    $("#Item").val("").change();
+                    $("#Item").prop("disabled", true);
+                }
+                }
+                isItFromEdit = false;
+            });
+            $(document).on('change', "#GroupIdCal", function () {
+                var id = { groupIdCal: $(this).val() };
+                if (isItFromEdit == false) {
+                    if (id.groupIdCal != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetItemByGroupIdForCal", "Sales")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            $("#ItemCal").empty();
+                            $("#ItemCal").prop("disabled", false);
+                            $.each(datas, function (index, value) {
+                                $("#ItemCal").append($('<option />', {
+                                    value: value.Value,
+                                    text: value.Text
+                                })).trigger('change');
+                            });
+                            $("#ItemCal").focus();
+                        }
+                    });
+                }
+                else {
+                        $("#ItemCal").val("").change();
+                        $("#ItemCal").prop("disabled", true);
+                }
+                }
+                isItFromEdit = false;
+            });
+            $(document).on('change', "#StoreId", function () {
+                var store =$(this).val();
+                if(store=="")
+                {
+                 $("#GroupId").val("").change();
+                 $("#GroupId").prop("disabled", true);
+                }
+                else{
+                 $("#GroupId").prop("disabled", false);
+                }
+            });
+
+            var curtonCapacity = 0;
+            $(document).on('change', "#Item", function () {
+                var id = { itemId: $(this).val(), storeId: $("#StoreId").val() };
+
+                if (id.itemId != "" && id.storeId != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetItemRemainQty", "Sales")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            $("#Qty").val(datas.RemQty);
+                            $("#Price").val(datas.Price);
+                            $("#VatPerc").val(datas.Vat);
+                            $("#DisPerc").val(datas.Discount);
+                            $("#hPacSize").val(datas.PacSize);
+                            curtonCapacity = datas.cartoncapacity;
+                            if (curtonCapacity == 0) {
+
+                            }
+                            else if (curtonCapacity == 0 && parseFloat(datas.RemQty) == 0.0) {
+
+                            } else {
+                                $('#AvalCarton').val((parseFloat(datas.RemQty) / parseFloat(curtonCapacity)).toFixed(2));
+                            }
+                        }
+                    });
+                }
+            });
+            
+            $(document).on('change', "#ItemCal", function () {
+                var id = { itemId: $(this).val()};
+
+                if (id.itemId != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetItemUnitPrice", "Sales")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            $("#PriceCal").val(datas.itemunitPrice); 
+                            $("#VatPercCal").val(datas.itemvatprice);
+                            $("#hPacSizeCal").val(datas.packSize);
+                            
+                        }
+                    });
+                }
+            });
+            $(document).on("click", "#addToGrid", function () {
+                ValidateOnAddToGrid();
+                var customerId = { customerId: parseInt($("#CustomerID").val()) }
+                $.ajax
+                     ({
+                        url: '@Url.Action("GetCustomerValidOrNot", "Sales")',
+                        contentType: "application/json;charset=utf-8",
+                        data: customerId,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == true) {
+                                if (message != "") {
+                                    alert(message);
+                                }
+                                else {
+                                    var saleLineItem = { InvoiceNo: 0, ItemID: 0, Qty: 0, Price: 0, SalesValue: 0, StoreID: 0, OfferQty: 0, clmCOGSRate: 0, clmCOGSValue: 0, ItemName: "", Sl: 0, VatPerc: 0.0, VatAmount: 0.0, AfterVat: 0.0, DisPerc: 0.0, DisAmount: 0.0, AfterDis: 0.0, ItemTotal: 0.0, GroupId: 0, PacSize: "" };
+                                    var id = { itemId: $("#Item").val(), storeId: $("#StoreId").val() };
+                                    saleLineItem.InvoiceNo = 0;
+                                    saleLineItem.ItemID = $("#Item").val();
+                                    saleLineItem.Qty = $("#SoldQuantity").val();
+                                    saleLineItem.Price = $("#Price").val();
+                                    saleLineItem.SalesValue = saleLineItem.Qty * saleLineItem.Price;
+                                    saleLineItem.StoreID = $("#StoreId").val();
+                                    saleLineItem.OfferQty = $("#FreeQty").val();
+                                    saleLineItem.clmCOGSRate = 0;
+                                    saleLineItem.clmCOGSValue = 0;
+                                    saleLineItem.ItemName = $("#Item :selected").text();
+                                    saleLineItem.VatPerc = $("#VatPerc").val();
+                                    saleLineItem.VatAmount = $("#VatAmount").val();
+                                    saleLineItem.AfterVat = $("#AfterVat").val();
+                                    saleLineItem.DisPerc = $("#DisPerc").val();
+                                    saleLineItem.DisAmount = $("#DisAmount").val();
+                                    saleLineItem.AfterDis = $("#AfterDis").val();
+                                    saleLineItem.ItemTotal = parseFloat(saleLineItem.SalesValue);
+                                    saleLineItem.GroupId = $("#GroupId").val();
+                                    saleLineItem.PacSize = $("#hPacSize").val();
+                                    if (saleLineItem.AfterDis == "") {
+                                        saleLineItem.AfterDis = 0;
+                                        saleLineItem.DisAmount = 0;
+                                    }
+                                    if (saleLineItem.AfterVat == "") {
+                                        saleLineItem.AfterVat = 0;
+                                        saleLineItem.VatAmount = 0;
+                                    }
+                                    if (saleLineItem.AfterDis != 0 || saleLineItem.AfterDis != "") {
+                                        saleLineItem.ItemTotal -= parseFloat(saleLineItem.DisAmount);
+                                    }
+
+                                    if (saleLineItem.AfterVat != 0 || saleLineItem.AfterVat != "") {
+                                        saleLineItem.ItemTotal += parseFloat(saleLineItem.VatAmount);
+                                    }
+                                    if (saleLineItems.length > 0) {
+                                        var isExist = false;
+                                        $.each(saleLineItems, function (index, value) {
+                                            if (value.ItemID == saleLineItem.ItemID) {
+                                                isExist = true;
+                                                return false;
+                                            }
+                                        });
+                                        if (isExist == false) {
+                                            saleLineItems.push(saleLineItem);
+                                        }
+                                        else {
+                                            alert("This Item is already Added");
+                                        }
+                                    }
+                                    else {
+                                        saleLineItems.push(saleLineItem);
+                                    }
+
+
+                                    ShowOnTable();
+                                    ClearAfterAddToGrid();
+
+                                }
+                            }
+                            else {
+                                alert("You cannot sell to this customer because of credit days limit exceed");
+                            }
+                           
+                        }
+                        
+                    });
+
+                
+            });
+            $(document).on("click", "#addToGridCal", function () {
+               
+                var saleLineItemForCal = {
+                    ItemIDCal: 0, ItemNameCal: "", PacSizeCal: "", PriceCal: 0, SoldQuantityCal: 0, SalesValueCal: 0,  VatPercCal: 0.0,
+                    VatAmountCal: 0.0, AfterVatCal: 0.0, DisPercCal: 0.0, DisAmountCal: 0.0, AfterDisCal: 0.0, ItemTotalCal: 0.0, GroupIdCal: 0
+                };
+                saleLineItemForCal.ItemIDCal = $("#ItemCal").val();
+                saleLineItemForCal.ItemNameCal = $("#ItemCal :selected").text();
+                saleLineItemForCal.PacSizeCal = $("#hPacSizeCal").val();
+                saleLineItemForCal.PriceCal = $("#PriceCal").val();
+                saleLineItemForCal.SoldQuantityCal = $("#SoldQuantityCal").val();
+                saleLineItemForCal.SalesValueCal = saleLineItemForCal.SoldQuantityCal * saleLineItemForCal.PriceCal;
+                saleLineItemForCal.VatPercCal = $("#VatPercCal").val();
+                saleLineItemForCal.VatAmountCal = $("#VatAmountCal").val();
+                saleLineItemForCal.AfterVatCal = $("#AfterVatCal").val();
+                saleLineItemForCal.DisPercCal = $("#DisPercCal").val();
+                saleLineItemForCal.DisAmountCal = $("#DisAmountCal").val();
+                saleLineItemForCal.AfterDisCal = $("#AfterDisCal").val();
+                saleLineItemForCal.ItemTotalCal = parseFloat(saleLineItemForCal.SalesValueCal);
+                saleLineItemForCal.GroupIdCal = $("#GroupIdCal").val();
+                
+                if (saleLineItemForCal.AfterDisCal == "") {
+                    saleLineItemForCal.AfterDisCal = 0;
+                    saleLineItemForCal.DisAmountCal = 0;
+                }
+                if (saleLineItemForCal.AfterVatCal == "") {
+                    saleLineItemForCal.AfterVatCal = 0;
+                    saleLineItemForCal.VatAmountCal = 0;
+                }
+                if (saleLineItemForCal.AfterDisCal != 0 || saleLineItemForCal.AfterDisCal != "") {
+                    saleLineItemForCal.ItemTotalCal -= parseFloat(saleLineItemForCal.DisAmountCal);
+                }
+
+                if (saleLineItemForCal.AfterVatCal != 0 || saleLineItemForCal.AfterVatCal != "") {
+                    saleLineItemForCal.ItemTotalCal += parseFloat(saleLineItemForCal.VatAmountCal);
+                }
+                if (saleLineItemForCals.length > 0) {
+                    var isExist = false;
+                    $.each(saleLineItemForCals, function (index, value) {
+                        if (value.ItemIDCal == saleLineItemForCal.ItemIDCal) {
+                            isExist = true;
+                            return false;
+                        }
+                    });
+                    if (isExist == false) {
+                        saleLineItemForCals.push(saleLineItemForCal);
+                    }
+                    else {
+                        alert("This Item is already Added");
+                    }
+                }
+                else {
+                    saleLineItemForCals.push(saleLineItemForCal);
+                }
+                ShowOnTableForCal();
+                //getTotalForCal();
+                ClearAfterAddToGridCal();
+
+                              
+                           
+                
+            });
+            $(document).on('click', '[name=editRow]', function (e) {
+                var sl = $(this).attr("value");
+                if ($("#Type").val() == "") {
+                    //alert("it's a order entry page");
+                    var id = { orderNo: $("#OrderNumber").val() };
+
+                    if (id.orderNo != "") {
+                        $.ajax({
+                            url: '@Url.Action("GetOrderStatus", "Sales")',
+                            contentType: "application/json;charset=utf-8",
+                            data: id,
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas.Message == 0) {
+
+                                    $.each(saleLineItems, function (index, value) {
+                                        if (value.Sl == sl) {
+                                            isItFromEdit = true;
+                                            $("#GroupId").val(value.GroupId).change();
+                                            e.preventDefault();
+                                            var id = { groupId: value.GroupId };
+                                            $.ajax({
+                                                url: '@Url.Action("GetItemByGroupId", "Sales")',
+                                                contentType: "application/json;charset=utf-8",
+                                                data: id,
+                                                type: 'GET',
+                                                dataType: 'json',
+                                                success: function (datas) {
+
+                                                    $("#Item").empty();
+                                                    $("#Item").prop("disabled", false);
+                                                    $.each(datas, function (index, value) {
+                                                        $("#Item").append($('<option />', {
+                                                            value: value.Value,
+                                                            text: value.Text
+                                                        })).trigger('change');
+                                                    });
+                                                    $("#Item").val(value.ItemID).change();
+                                                    $("#TotalAmount").val(value.Qty * value.Price);
+                                                    $("#VatPerc").val(value.VatPerc);
+                                                    $("#DisPerc").val(value.DisPerc);
+                                                    $("#SoldQuantity").val(value.Qty);
+                                                    $("#FreeQty").val(value.OfferQty);
+                                                    $("#hPacSize").val(value.PacSize);
+                                                    $("#SoldQuantity").focus();
+                                                    //$("#SoldQuantity").focusout();
+                                                    CalCulateQty();
+                                                    CalculateAmount();
+                                                    CalculateItemTotal();
+                                                }
+                                            });
+                                        }
+                                    });
+                                    DeleteRowFromGrid(sl);
+                                }
+                                else {
+                                    alert("This Order is Already Approved. Unable to edit");
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        $.each(saleLineItems, function (index, value) {
+                                        if (value.Sl == sl) {
+                                            isItFromEdit = true;
+                                            $("#GroupId").val(value.GroupId).change();
+                                            e.preventDefault();
+                                            var id = { groupId: value.GroupId };
+                                            $.ajax({
+                                                url: '@Url.Action("GetItemByGroupId", "Sales")',
+                                                contentType: "application/json;charset=utf-8",
+                                                data: id,
+                                                type: 'GET',
+                                                dataType: 'json',
+                                                success: function (datas) {
+
+                                                    $("#Item").empty();
+                                                    $("#Item").prop("disabled", false);
+                                                    $.each(datas, function (index, value) {
+                                                        $("#Item").append($('<option />', {
+                                                            value: value.Value,
+                                                            text: value.Text
+                                                        })).trigger('change');
+                                                    });
+                                                    $("#Item").val(value.ItemID).change();
+                                                    $("#TotalAmount").val(value.Qty * value.Price);
+                                                    $("#VatPerc").val(value.VatPerc);
+                                                    $("#DisPerc").val(value.DisPerc);
+                                                    $("#SoldQuantity").val(value.Qty);
+                                                    $("#FreeQty").val(value.OfferQty);
+                                                    $("#SoldQuantity").focus();
+
+                                                    CalCulateQty();
+                                                    CalculateAmount();
+                                                    CalculateItemTotal();
+                                                }
+                                            });
+                                        }
+                                    });
+                                    DeleteRowFromGrid(sl);
+                    }
+                    
+                }
+                else {
+                  
+                    $.each(saleLineItems, function (index, value) {
+                    if (value.Sl == sl) {
+                        isItFromEdit = true;
+                        $("#GroupId").val(value.GroupId).change();
+                        e.preventDefault();
+                        var id = { groupId: value.GroupId };
+                        $.ajax({
+                        url: '@Url.Action("GetItemByGroupId", "Sales")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            $("#Item").empty();
+                            $("#Item").prop("disabled", false);
+                            $.each(datas, function (index, value) {
+                                $("#Item").append($('<option />', {
+                                    value: value.Value,
+                                    text: value.Text
+                                })).trigger('change');
+                            });
+                            $("#Item").val(value.ItemID).change();
+                            $("#TotalAmount").val(value.Qty * value.Price);
+                            $("#VatPerc").val(value.VatPerc);
+                            $("#DisPerc").val(value.DisPerc);
+                            $("#SoldQuantity").val(value.Qty);
+                            $("#FreeQty").val(value.OfferQty);
+                            $("#SoldQuantity").focus();
+
+                            CalCulateQty();
+                            CalculateAmount();
+                            CalculateItemTotal();
+                        }
+                    });
+                    }
+                });
+                DeleteRowFromGrid($(this).attr("value"));
+                }
+                
+            });
+            $(document).on('click', '[name=deleteRow]', function () {
+                DeleteRowFromGrid($(this).attr("value"));
+            });
+            $(document).on('click', '#clearItem', function () {
+                ClearItemInGrid();
+            });
+
+            //order Approve
+            $(document).on('click', '#approve', function () {
+                $("#save").hide();
+                ValidateOnSaveClick();
+                if (message == "")
+                {
+                    var salesNewEntry = { InvoiceNo: 0, SalesDate: "", InvoiceAmount: 0.0, CommissionAmt: 0.0, DiscountAmt: 0.0, SalesManID: 0, CustomerID: 0, CustBal: 0, clmCOGSTotal: 0.0, OrderNumber: 0, BranchId: 0, SaleType: "", Remarks: "", Description: "", RefNo: "" };
+                    salesNewEntry.InvoiceNo = 0;
+                    salesNewEntry.SalesDate = $("#SalesDate").val();
+                    salesNewEntry.InvoiceAmount = $("#InvoiceTotal").val();
+                    salesNewEntry.CommissionAmt = $("#CommissionAmt").val();
+                    salesNewEntry.DiscountAmt = $("#DiscountAmt").val();
+                    salesNewEntry.SalesManID = $("#SRId").val();
+                    salesNewEntry.CustomerID = $("#CustomerID").val();
+                    salesNewEntry.BranchId = $("#DepotId").val();
+                    salesNewEntry.clmCOGSTotal = 0.0;
+                    salesNewEntry.OrderNumber = $("#OrderNumber").val();
+                    salesNewEntry.Remarks = $("#Remarks").val();
+                    salesNewEntry.Description = $("#Description").val();
+                    salesNewEntry.SaleType = $('[name="saleType"]:checked').val();
+                    salesNewEntry.RefNo = $("#RefNo").val();
+                    
+                    $.ajax({
+                        url: '@Url.Action("SaveSale", "Sales")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ salesNewEntry: salesNewEntry, salesLineItemNew: saleLineItems }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas.Message == 0) {
+                                alert("Failed To Saved.");
+                                $("#approve").show();   
+                            }
+                            else if (datas.Message == 3) {
+                                alert("This order already Approved. " + "\n" + "Invoice No is " + datas.InvoiceNo);
+                            }
+                            else {
+                                alert("Approved Successfully.");
+                                $("#InvoiceNo").val(datas.InvoiceNo);
+                                $("#approve").hide(); 
+                            }
+
+                        }
+                    });
+                }
+                else {
+                    alert(message);
+                    $("#approve").show();
+                }
+            });
+
+
+            //order Save
+            $(document).on('click', '#save', function () {
+                $("#save").hide();
+                ValidateOnSaveClick();
+                if (message == "")
+                {
+                    var orderLineItem = { InvoiceNo: 0, OrderDate: "", InvoiceAmount: 0.0, CommissionAmt: 0.0, DiscountAmt: 0.0, SalesManID: 0, CustomerID: 0, CustBal: 0, clmCOGSTotal: 0.0, SaleType: "", Description: "", RefNo: "" };
+                    orderLineItem.InvoiceNo = 0;
+                    orderLineItem.OrderDate = $("#OrderDate").val();
+                    orderLineItem.InvoiceAmount = $("#InvoiceTotal").val();
+                    orderLineItem.CommissionAmt = $("#CommissionAmt").val();
+                    orderLineItem.DiscountAmt = $("#DiscountAmt").val();
+                    orderLineItem.SalesManID = $("#SRId").val();
+                    orderLineItem.CustomerID = $("#CustomerID").val();
+                    orderLineItem.CustBal = $("#DepotId").val();
+                    orderLineItem.clmCOGSTotal = 0.0;
+                    orderLineItem.SaleType = $('[name="saleType"]:checked').val();
+                    orderLineItem.Description = $("#Description").val();
+                    orderLineItem.RefNo = $("#RefNo").val();
+                  
+                    $.ajax({
+                        url: '@Url.Action("SaveOrder", "Sales")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ orderBooking: orderLineItem, orderBookingLineItem: saleLineItems }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Order Failed");
+                                $("#save").show();
+                            }
+                            else {
+                                alert("Ordered Sucessfull.");
+                                $("#OrderNumber").val(datas);
+                                $("#print").show();
+                            }
+                        }
+                    });
+                }
+                else {
+                    alert(message);
+                    $("#save").show();
+                }
+
+            });
+
+            //sell updateupdate
+            $(document).on('click', '#update', function () {
+                
+                if ($("#Type").val() == "SalesEntry") {
+                    $("#save").hide();
+                    var salesNewEntry = { InvoiceNo: 0, SalesDate: "", InvoiceAmount: 0.0, CommissionAmt: 0.0, DiscountAmt: 0.0, SalesManID: 0, CustomerID: 0, CustBal: 0, clmCOGSTotal: 0.0, OrderNumber: 0, BranchId: 0, SaleType: "", Remarks: "", Description: "", RefNo: ""};
+                    salesNewEntry.InvoiceNo = $("#InvoiceNo").val();
+                    salesNewEntry.SalesDate = $("#SalesDate").val();
+                    salesNewEntry.InvoiceAmount = $("#InvoiceTotal").val();
+                    salesNewEntry.CommissionAmt = $("#CommissionAmt").val();
+                    salesNewEntry.DiscountAmt = $("#DiscountAmt").val();
+                    salesNewEntry.SalesManID = $("#SRId").val();
+                    salesNewEntry.CustomerID = $("#CustomerID").val();
+                    salesNewEntry.BranchId = $("#DepotId").val();
+                    salesNewEntry.clmCOGSTotal = 0.0;
+                    salesNewEntry.OrderNumber = $("#OrderNumber").val();
+                    salesNewEntry.SaleType = $('[name="saleType"]:checked').val();
+                    salesNewEntry.Remarks = $("#Remarks").val();
+                    salesNewEntry.Description = $("#Description").val();
+                    salesNewEntry.RefNo = $("#RefNo").val();
+
+                    $.each(saleLineItems, function (index, value) {
+                        saleLineItems[index].InvoiceNo = salesNewEntry.InvoiceNo;
+                    });
+                    $.ajax({
+                        url: '@Url.Action("UpdateSale", "Sales")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ salesNewEntry: salesNewEntry, salesLineItemNew: saleLineItems }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Update.");
+                                //$("#save").show();
+                            }
+                            else {
+                                alert("Sucessfully Update.");
+                                $("#InvoiceNo").val(datas);
+                            }
+
+                        }
+                    });
+                }
+                else {
+                     $("#save").hide();
+                    var salesNewEntry = { OrderNo: 0, OrderDate: "", InvoiceAmount: 0.0, CommissionAmt: 0.0, DiscountAmt: 0.0, SalesManID: 0, CustomerID: 0, CustBal: 0, clmCOGSTotal: 0.0, OrderNumber: 0, SaleType: "", Remarks: "", Description: "", RefNo: ""  };
+                    salesNewEntry.OrderNo = $("#OrderNumber").val();
+                    salesNewEntry.OrderDate = $("#OrderDate").val();
+                    salesNewEntry.InvoiceAmount = $("#InvoiceTotal").val();
+                    salesNewEntry.CommissionAmt = $("#CommissionAmt").val();
+                    salesNewEntry.DiscountAmt = $("#DiscountAmt").val();
+                    salesNewEntry.SalesManID = $("#SRId").val();
+                    salesNewEntry.CustomerID = $("#CustomerID").val();
+                    salesNewEntry.CustBal = $("#DepotId").val();
+                    salesNewEntry.clmCOGSTotal = 0.0;
+                    salesNewEntry.Description = $("#Description").val();
+                    salesNewEntry.RefNo = $("#RefNo").val();
+                    salesNewEntry.SaleType = $('[name="saleType"]:checked').val();
+
+                    $.each(saleLineItems, function (index, value) {
+                        saleLineItems[index].OrderNo = salesNewEntry.OrderNo;
+                    });
+                    $.ajax({
+                        url: '@Url.Action("UpdateOrder", "Sales")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ salesNewEntry: salesNewEntry, salesLineItemNew: saleLineItems }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Update.");
+                                //$("#save").show();
+                            }
+                            else {
+                                alert("Sucessfully Update.");
+                                $("#InvoiceNo").val(datas);
+                            }
+
+                        }
+                    });
+                }
+                   
+            });
+
+            $(document).on('click', "#cancel", function () {
+                $("#cancel").prop('disabled', true);
+                var invoiceNo = $("#InvoiceNo").val();
+                if ($("#InvoiceNo").val() != "") {
+                    if (confirm('Are you sure you want to delete this from the database?')) {
+                        $.ajax({
+                            url: '@Url.Action("DeleteSalesByInvoice", "Sales")',
+                            contentType: "application/json;charset=utf-8",
+                            data: { invoiceNo: invoiceNo },
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Delete failed.");
+                                    $("#cancel").prop('disabled', false);
+                                }
+                                else if (datas.Message == 0) {
+                                    alert("This Sale is not allow for delete, Because it is already adjusted.");
+                                    $("#cancel").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Delete Successfull");
+                                    location.reload();
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        $("#cancel").prop('disabled', false);
+                    }
+                }
+                else {
+                    alert("Invoice Number is needed for delete sale.");
+                }
+                
+            });
+
+            $(document).on('click', "#refresh", function () {
+                location.reload();
+            });
+            $('#custSearch').click(function () {
+                clickOnCustSearch();
+                $("#approve").hide();
+            });
+
+
+            //order search for approve
+            if ($("#OrderNumber").val() != "") {
+                $("#OrderDate").prop("disabled", true);
+                $("#saleDate").show();
+                $("#invoiceNo").show();
+                $("#order").hide();
+                $("#sell").show();
+                $("#approve").show();
+                $("#remarksdiv").show();
+                $("#save").hide();
+                $("#orderSrc").hide();
+                clickOnOrderSearch();
+            }
+
+            //order search for review or edit
+            $('#orderSearch').click(function () {
+                $("#OrderDate").prop("disabled", true);
+                $("#order").show();
+                $("#update").show();
+                $("#save").hide();
+                clickOnOrderSearch();
+            });
+            
+            
+            function clickOnOrderSearch() {
+                $.ajax({
+                    url: '@Url.Action("GetOrderByOrderNo", "Sales")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { orderNo: $("#OrderNumber").val() },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if(datas==0)
+                        {
+                            $("#save").hide();
+                            $("#update").hide();
+                            $("#cancel").hide();
+                            $("#print").hide();
+                            alert("This Order no doesn't exist.");
+                            location.reload();
+                        }
+                        else {
+
+                            $("#DepotId").prop("disabled", true);
+                            saleLineItems = [];
+                            $("#OrderDate").val(moment(datas.item.OrderDate).format("DD-MM-YYYY"));
+                            $("#CustomerID").val(datas.item.CustomerID).change();
+                            $("#SRId").val(datas.item.SalesManID);
+                            storeId = datas.item.StoreId;
+                            $("#DepotId").val(datas.item.DepotId).change();
+                            $("#CustName").val(datas.item.CustName);
+                            $("#ZoneId").val(datas.item.ZoneId);
+                            $("#Area").val(datas.item.Area);
+                            $("#CustMobileNo").val(datas.item.CustMobileNo);
+                            $("#SRId").val(datas.item.SRId);
+                            $("#SrName").val(datas.item.SrName);
+                            $("#SrDesignation").val(datas.item.SrDesignation);
+                            $("#CreditLimit").val(datas.item.CreditLimit);
+                            $("#CommissionAmt").val(datas.item.CommissionAmt);
+                            $("#NetAmount").val(datas.item.NetAmount);
+                            $("#TotDiscount").val(datas.item.DisAmount);
+                            $("#TotVat").val(datas.item.VatAmount);
+                            $("#Description").val(datas.item.Description);
+                            $("#RefNo").val(datas.item.RefNo)
+                            $("#NetInvoice").val(datas.item.NetInvoice + datas.item.DisAmount - datas.item.VatAmount);
+                            if (datas.item.SaleType == "corporate") {
+                                $("#corporate").prop('checked', true);
+                            }
+                            else if (datas.item.SaleType == "normal") {
+                                $("#normal").prop('checked', true);
+                            }
+
+                            var sl = 0;
+                            $.each(datas.itemDetails, function (index, value) {
+                                var saleLineItem = { InvoiceNo: 0, ItemID: 0, Qty: 0, Price: 0, SalesValue: 0, StoreID: 0, OfferQty: 0, clmCOGSRate: 0, clmCOGSValue: 0, ItemName: "", Sl: 0, VatPerc: 0.0, VatAmount: 0.0, AfterVat: 0.0, DisPerc: 0.0, DisAmount: 0.0, AfterDis: 0.0, ItemTotal: 0.0, GroupId: 0 };
+                                sl = sl + 1;
+                                saleLineItem.InvoiceNo = value.InvoiceNo;
+                                saleLineItem.ItemID = value.ItemID;
+                                saleLineItem.Qty = value.Qty;
+                                saleLineItem.Price = value.Price;
+                                saleLineItem.SalesValue = value.SalesValue;
+                                saleLineItem.StoreID = value.StoreID;
+                                saleLineItem.OfferQty = value.OfferQty;
+                                saleLineItem.clmCOGSRate = value.clmCOGSRate;
+                                saleLineItem.clmCOGSValue = value.clmCOGSValue;
+                                saleLineItem.Sl = sl;
+                                saleLineItem.ItemName = value.ItemName;
+                                saleLineItem.DisAmount = parseFloat(((value.SalesValue * value.DisPerc) / 100).toFixed(2));
+                                saleLineItem.VatAmount = parseFloat(((value.SalesValue * value.VatPerc) / 100).toFixed(2));
+                                saleLineItem.ItemTotal = saleLineItem.SalesValue - saleLineItem.DisAmount + saleLineItem.VatAmount;
+                                saleLineItem.VatPerc = value.VatPerc;
+                                saleLineItem.DisPerc = value.DisPerc;
+                                saleLineItem.GroupId = value.GroupId;
+                                saleLineItem.PacSize = value.PacSize;
+                                saleLineItems.push(saleLineItem);
+                            });
+                            ShowOnTable();
+                            $("#print").show();
+                        }
+                    }
+                });
+            }
+
+            function clickOnCustSearch()
+            {
+                $.ajax({
+                    url: '@Url.Action("GetSaleByInvoiceNo", "Sales")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { invoiceNo: $("#InvoiceNo").val() },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if(datas==0)
+                        {
+                            $("#save").show();
+                            $("#update").hide();
+                            $("#cancel").hide();
+                            $("#print").hide();
+                            alert("This Invoice no doesn't exist.");
+                        }
+                        else {
+                            $("#save").hide();
+                            $("#update").show();
+                            $("#print").show();
+                            $("#cancel").show();
+                            $("#remarksdiv").show();
+                            $("#DepotId").prop("disabled", true);
+                            saleLineItems = [];
+                            $("#OrderNumber").val(datas.item.OrderNumber);
+                            $("#OrderDate").val(moment(datas.item.OrderDate).format("DD-MM-YYYY"));
+                            $("#SalesDate").val(moment(datas.item.SalesDate).format("DD-MM-YYYY"));
+                            $("#CustomerID").val(datas.item.CustomerID).change();
+                            $("#SRId").val(datas.item.SalesManID);
+                            storeId = datas.item.StoreId;
+                            $("#DepotId").val(datas.item.DepotId).change();
+                            $("#CustName").val(datas.item.CustName);
+                            $("#ZoneId").val(datas.item.ZoneId);
+                            $("#Area").val(datas.item.Area);
+                            $("#CustMobileNo").val(datas.item.CustMobileNo);
+                            $("#SRId").val(datas.item.SRId);
+                            $("#SrName").val(datas.item.SrName);
+                            $("#SrDesignation").val(datas.item.SrDesignation);
+                            $("#CreditLimit").val(datas.item.CreditLimit);
+                            $("#CommissionAmt").val(datas.item.CommissionAmt);
+                            $("#NetAmount").val(datas.item.NetAmount);
+                            $("#TotDiscount").val(datas.item.DisAmount);
+                            $("#TotVat").val(datas.item.VatAmount);
+                            $("#NetInvoice").val(datas.item.NetInvoice + datas.item.DisAmount - datas.item.VatAmount);
+                            $("#Remarks").val(datas.item.Remarks);
+                            $("#Description").val(datas.item.Description);
+                            $("#RefNo").val(datas.item.RefNo);
+                            if (datas.item.SaleType == "corporate") {
+                                $("#corporate").prop('checked', true);
+                            }
+                            else if (datas.item.SaleType == "normal") {
+                                $("#normal").prop('checked', true);
+                            }
+
+                            var sl = 0;
+                            $.each(datas.itemDetails, function (index, value) {
+                                var saleLineItem = { InvoiceNo: 0, ItemID: 0, Qty: 0, Price: 0, SalesValue: 0, StoreID: 0, OfferQty: 0, clmCOGSRate: 0, clmCOGSValue: 0, ItemName: "", Sl: 0, VatPerc: 0.0, VatAmount: 0.0, AfterVat: 0.0, DisPerc: 0.0, DisAmount: 0.0, AfterDis: 0.0, ItemTotal: 0.0, GroupId: 0 };
+                                sl = sl + 1;
+                                saleLineItem.InvoiceNo = value.InvoiceNo;
+                                saleLineItem.ItemID = value.ItemID;
+                                saleLineItem.Qty = value.Qty;
+                                saleLineItem.Price = value.Price;
+                                saleLineItem.SalesValue = value.SalesValue;
+                                saleLineItem.StoreID = value.StoreID;
+                                saleLineItem.OfferQty = value.OfferQty;
+                                saleLineItem.clmCOGSRate = value.clmCOGSRate;
+                                saleLineItem.clmCOGSValue = value.clmCOGSValue;
+                                saleLineItem.Sl = sl;
+                                saleLineItem.ItemName = value.ItemName;
+                                saleLineItem.DisAmount = parseFloat(((value.SalesValue * value.DisPerc) / 100).toFixed(2));
+                                saleLineItem.VatAmount = parseFloat(((value.SalesValue * value.VatPerc) / 100).toFixed(2));
+                                saleLineItem.ItemTotal = saleLineItem.SalesValue - saleLineItem.DisAmount + saleLineItem.VatAmount;
+                                saleLineItem.VatPerc = value.VatPerc;
+                                saleLineItem.DisPerc = value.DisPerc;
+                                saleLineItem.GroupId = value.GroupId;
+                                saleLineItem.PacSize = value.PacSize;
+                                saleLineItems.push(saleLineItem);
+                            });
+                            ShowOnTable();
+                        }
+                    }
+                });
+            }
+            
+            function CalculateAmount() {
+                var comPer = $("#Comission").val();
+                var comAmount = 0;
+                var invoiceTotal = $("#InvoiceTotal").val();
+                var netOfDiscount = 0;
+                var disPer = 0;
+                disPer = $("#Discount").val();
+                var disAmount = 0;
+                var afterDiscount = 0;
+                if (comPer != "") {
+                    comAmount = (parseFloat(invoiceTotal).toFixed(2) * parseFloat(comPer)) / 100;
+                    comAmount = comAmount.toFixed(2);
+                }
+                else {
+                    comAmount = 0;
+                }
+                $("#CommissionAmt").val(comAmount);
+                netOfDiscount = parseFloat(parseFloat(parseFloat(invoiceTotal) + parseFloat(comAmount)).toFixed(2));
+                $("#NetAmount").val(netOfDiscount);
+
+                if (disPer != "") {
+                    disAmount = (parseFloat(netOfDiscount).toFixed(2) * parseFloat(disPer)) / 100;
+                    disAmount = disAmount.toFixed(2);
+                }
+                else {
+                    disAmount = 0;
+                }
+                $("#DiscountAmt").val(disAmount);
+                afterDiscount = parseFloat(parseFloat(parseFloat(netOfDiscount) - parseFloat(disAmount)).toFixed(2));
+                $("#NetInvoice").val(afterDiscount);
+
+
+            }
+            function CalculateAmountForCal() {
+                var comPer = $("#ComissionCal").val();
+                var comAmount = 0;
+                var invoiceTotal = $("#InvoiceTotalCal").val();
+                var netOfDiscount = 0;
+                var disPer = 0;
+                disPer = $("#DiscountCal").val();
+                var disAmount = 0;
+                var afterDiscount = 0;
+                if (comPer != "") {
+                    comAmount = (parseFloat(invoiceTotal).toFixed(2) * parseFloat(comPer)) / 100;
+                    comAmount = comAmount.toFixed(2);
+                }
+                else {
+                    comAmount = 0;
+                }
+                $("#CommissionAmtCal").val(comAmount);
+                netOfDiscount = parseFloat(parseFloat(parseFloat(invoiceTotal) + parseFloat(comAmount)).toFixed(2));
+                $("#NetAmountCal").val(netOfDiscount);
+
+                if (disPer != "") {
+                    disAmount = (parseFloat(netOfDiscount).toFixed(2) * parseFloat(disPer)) / 100;
+                    disAmount = disAmount.toFixed(2);
+                }
+                else {
+                    disAmount = 0;
+                }
+                $("#DiscountAmtCal").val(disAmount);
+                afterDiscount = parseFloat(parseFloat(parseFloat(netOfDiscount) - parseFloat(disAmount)).toFixed(2));
+                $("#NetInvoiceCal").val(afterDiscount);
+
+
+            }
+            function ClearOnDepotChange() {
+                $("#SrName").val("");
+                $("#SrDesignation ").val("");
+                $("#CustName").val("");
+                $("#ZoneId ").val("");
+                $("#Area").val("");
+            }
+            function ValidateOnAddToGrid() {
+
+                var storeId = $("#StoreId").val();
+                var customerId = $("#CustomerID").val();
+                var groupId = $("#GroupId").val();
+                var item = $("#Item").val();
+                var reQty = $("#Qty").val();
+                var totalQty = $("#TotalQty").val();
+                var soldQuantity = $("#SoldQuantity").val();
+                var freeQty = $("#FreeQty").val();
+                message = "";
+
+                if(storeId == ""){
+                    message += "Store Is Required Field \n";
+                }
+                if(customerId == ""){
+                   message += "Customer Id Is Required Field \n";
+                }
+
+                if (groupId == "") {
+                    message += "Group is required Field \n";
+                }
+                if (freeQty == "") {
+                    freeQty = 0;
+                }
+                if (soldQuantity <= 0) {
+                    //soldQuantity = 0;
+                    message += "Sold Qty must be grater than zero. \n"
+                }
+                if (item == "") {
+                    message += "Item is Required Field \n"
+                }
+                if (parseFloat(reQty) <= 0) {
+                    message += "Sorry! This Item Don't Have Balance \n";
+                }
+                if (parseFloat(totalQty) <= 0) {
+                    message += "Sold Quantity should be greater than zero(>0) \n";
+                }
+                if ((parseFloat(freeQty) + parseFloat(soldQuantity)) != parseFloat(totalQty)) {
+                    message += "Total Quantity=Free Qunatity+Sold Qunatity \n";
+                }
+                if (parseFloat(reQty) < (parseFloat(soldQuantity) + parseFloat(freeQty))) {
+                    message += "Total quantity cannot be greater than Remaining Quantity \n";
+                }
+                if (parseFloat(totalQty) == 0 || totalQty == "") {
+                    message += "Total Quantity Should be Greate then zero(>0)\n";
+                }
+                var balance = $("#Balance").val();
+                var credit = $("#CreditLimit").val();
+                if (balance == "") {
+                    balance = 0;
+                }
+                if (credit == "") {
+                    credit = 0;
+                }
+                var credit = parseFloat(parseFloat(credit) - parseFloat(balance));
+                var vatAmount = 0;
+                var disAmount = 0;
+                if ($("#VatAmount").val() == "" || $("#VatAmount").val() == 0)
+                {
+                    vatAmount = 0;
+                }
+                else {
+                    vatAmount = $("#VatAmount").val();
+                }
+                if ($("#DisAmount").val() == "" || $("#DisAmount").val() == 0) {
+                    disAmount = 0;
+                }
+                else {
+                    disAmount = $("#DisAmount").val();
+                }
+                var invoiceAmt=$("#InvoiceTotal").val();
+                if(invoiceAmt=="")
+                {
+                     invoiceAmt=0;
+                }
+                var invoiceTotal = ((parseFloat($("#Price").val()) * parseFloat($("#SoldQuantity").val())) + parseFloat(invoiceAmt))+parseFloat(vatAmount)-parseFloat(disAmount);
+                if ((credit - invoiceTotal) < 0) {
+                    message += "This item price will exceed credit limit.\n";
+                }
+
+            }
+            function CalCulateQty() {
+                var balance = 0;
+                var soldQty = $("#SoldQuantity").val();
+                if (soldQty <= 0 || soldQty == "") {
+                    //$("#SoldQuantity").val();
+                    //alert("Sold Quantity Should be greater than zero.(>0)");
+                }
+                else {
+                    balance += parseFloat(soldQty);
+                }
+                var freeQty = $("#FreeQty").val();
+                if (freeQty == "") {
+
+                }
+                else {
+                    balance += parseFloat(freeQty);
+                }
+                $("#TotalQty").val(balance);
+            }
+            function CalCulateQtyForCal() {
+                var balance = 0;
+                var soldQty = $("#SoldQuantityCal").val();
+                if (soldQty <= 0 || soldQty == "") {
+                     //$("#SoldQuantity").val();
+                    //alert("Sold Quantity Should be greater than zero.(>0)");
+                }
+                else {
+                    balance += parseFloat(soldQty);
+                }
+                var freeQty = $("#FreeQty").val();
+                if (freeQty == "") {
+
+                }
+                else {
+                    balance += parseFloat(freeQty);
+                }
+                $("#TotalQtyCal").val(balance);
+            }
+            function ShowOnTable() {
+                table.clear().draw();
+                var sl = 0;
+                var items = [];
+                var invoiceAmount = 0.0;
+                var totDiscount = 0.0;
+                var totVat = 0.0;
+                var netInvoice = 0.0;
+                $.each(saleLineItems, function (index, value) {
+                    sl = sl + 1;
+                    value.Sl = sl;
+                    invoiceAmount += parseFloat(value.SalesValue);
+                    totDiscount += parseFloat(value.DisAmount);
+                    totVat += parseFloat(value.VatAmount);
+                    items.push(value);
+                    table.row.add([value.ItemName, value.PacSize, value.Qty, value.OfferQty, value.Price, value.SalesValue, value.VatPerc, value.VatAmount, value.DisPerc,
+                        value.DisAmount, parseFloat(value.ItemTotal).toFixed(2),
+                        '<a href="#"><i class="fa fa-edit" name="editRow" value="' +
+                        sl + '"></i></a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + sl + '"></i></a>']).draw();
+                });
+                saleLineItems = items;
+                if (invoiceAmount == 0.0)
+                {
+                    $("#CommissionAmt").val(0);
+                    $("#NetAmount").val(0);
+                    $("#DiscountAmt").val(0);
+                    $("#NetInvoice").val(0);
+                }
+                $("#InvoiceTotal").val(parseFloat(invoiceAmount).toFixed(2));
+                $("#TotVat").val(parseFloat(totVat).toFixed(2));
+                $("#TotDiscount").val(parseFloat(totDiscount).toFixed(2));
+                $("#NetInvoice").val(parseFloat(invoiceAmount-totDiscount+totVat).toFixed(2));
+            }
+            function ShowOnTableForCal() {
+                tableCal.clear().draw();
+                var items = [];
+                var invoiceAmount = 0.0;
+                var totDiscount = 0.0;
+                var totVat = 0.0;
+                var netInvoice = 0.0;
+                $.each(saleLineItemForCals, function (index, value) {
+                    invoiceAmount += parseFloat(value.SalesValueCal);
+                    totDiscount += parseFloat(value.DisAmountCal);
+                    totVat += parseFloat(value.VatAmountCal);
+                    items.push(value);
+                    tableCal.row.add([value.ItemNameCal, value.PacSizeCal, value.SoldQuantityCal, value.PriceCal, value.SalesValueCal, value.VatPercCal, value.VatAmountCal, value.DisPercCal,
+                        value.DisAmountCal, parseFloat(value.AfterDisCal).toFixed(2),
+                    '<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.ItemIDCal + '"></i></a>']).draw();
+                
+                });
+                $("#NetInvoiceCal").val(parseFloat(invoiceAmount).toFixed(2));
+                $("#TotVatCal").val(parseFloat(totVat).toFixed(2));
+                $("#TotDiscountCal").val(parseFloat(totDiscount).toFixed(2));
+                //$("#NetInvoiceCal").val(parseFloat(invoiceAmount - totDiscount + totVat).toFixed(2));
+                
+            }
+            function getTotalForCal() {
+                var totalVat;
+                if ($("#TotDiscountCal") == "") {
+                    totalVat = 0.0;
+                }
+                else {
+                    totalVat = $("#TotDiscountCal").val();
+                }
+                var totalDis;
+                if ($("#TotVatCal") == "") {
+                    totalDis = 0.0;
+                }
+                else {
+                    totalDis = $("#TotVatCal").val();
+                }
+                var totalInvoice;
+                if ($("#NetInvoiceCal") == "") {
+                    totalInvoice = 0.0;
+                }
+                else {
+                    totalInvoice = $("#NetInvoiceCal").val(); 
+                }
+               
+                $.each(saleLineItemForCals, function (i,v) {
+                    totalVat = totalVat + v.VatAmountCal;
+                    totalDis = totalDis + v.DisAmountCal;
+                    totalInvoice = totalInvoice + v.AfterDisCal;
+                })
+
+                $("#TotDiscountCal").val(totalDis);
+                $("#TotVatCal").val(totalVat);
+                $("#NetInvoiceCal").val(totalInvoice);
+            }
+
+
+            function DeleteRowFromGrid(rowSL) {
+                var items = [];
+                $.each(saleLineItems, function (index, value) {
+                    if (value.Sl != rowSL) {
+                        items.push(value);
+                    }
+                });
+                saleLineItems = items;
+                ShowOnTable();
+                CalculateAmount();
+            }
+            function ClearItemInGrid() {
+                saleLineItems = [];
+                ShowOnTable();
+            }
+            function ClearAfterAddToGrid()
+            {
+                $("#Item").val("").change();
+                $("#Qty").val(0);
+                $("#Price").val(0);
+                $("#SoldQuantity").val(0);
+                $("#FreeQty").val(0);
+                $("#TotalQty").val(0);
+                $("#TotalAmount").val(0);
+                $("#VatPerc").val(0);
+                $("#VatAmount").val(0);
+                $("#AfterVat").val(0);
+                $("#DisPerc").val(0);
+                $("#DisAmount").val(0);
+                $("#AfterDis").val(0);
+                $("#AvalCarton").val(0);
+                $("#Carton").val(0);
+            }
+            function ClearAfterAddToGridCal() {
+                $("#ItemCal").val("").change();
+                $("#QtyCal").val(0);
+                $("#PriceCal").val(0);
+                $("#SoldQuantityCal").val(0);
+                $("#FreeQtyCal").val(0);
+                $("#TotalQtyCal").val(0);
+                $("#TotalAmountCal").val(0);
+                $("#VatPercCal").val(0);
+                $("#VatAmountCal").val(0);
+                $("#AfterVatCal").val(0);
+                $("#DisPercCal").val(0);
+                $("#DisAmountCal").val(0);
+                $("#AfterDisCal").val(0);
+            }
+            function CalculateItemTotal()
+            {
+                var invoiceTotal = $("#TotalAmount").val();
+                var vatPer = $("#VatPerc").val();
+                var vatAmount = 0;
+                if (vatPer <= 0 || vatPer == "") {
+                    vatPer = 0;
+                    $("#VatPerc").val(0);
+                    $("#VatAmount").val(0);
+                    $("#AfterVat").val(parseFloat(invoiceTotal));
+                }
+                else {
+                    var vatAmount = ((parseFloat(invoiceTotal) * parseFloat(vatPer)) / 100).toFixed(2);
+                    $("#VatAmount").val(vatAmount);
+                    $("#AfterVat").val((parseFloat(invoiceTotal) + parseFloat(vatAmount)).toFixed(2));
+                }
+                var disPer = $("#DisPerc").val();
+                if (disPer <= 0 || disPer == "") {
+                    disPer = 0;
+                    $("#DisPerc").val(0);
+                    $("#DisAmount").val(0);
+                    $("#AfterDis").val(parseFloat(invoiceTotal));
+                }
+                else {
+                    var disAmount = ((parseFloat(invoiceTotal) * parseFloat(disPer)) / 100).toFixed(2);
+                    $("#DisAmount").val(disAmount);
+                    $("#AfterDis").val((parseFloat(invoiceTotal) - parseFloat(disAmount) + parseFloat(vatAmount)).toFixed(2));
+                }
+            }
+            function CalculateItemTotalForCal() {
+                var invoiceTotal = $("#TotalAmountCal").val();
+                var vatPer = $("#VatPercCal").val();
+                var vatAmount = 0;
+                if (vatPer <= 0 || vatPer == "") {
+                    vatPer = 0;
+                    $("#VatPercCal").val(0);
+                    $("#VatAmountCal").val(0);
+                    $("#AfterVatCal").val(0);
+                }
+                else {
+                    var vatAmount = ((parseFloat(invoiceTotal) * parseFloat(vatPer)) / 100).toFixed(2);
+                    $("#VatAmountCal").val(vatAmount);
+                    $("#AfterVatCal").val((parseFloat(invoiceTotal) + parseFloat(vatAmount)).toFixed(2));
+                }
+                var disPer = $("#DisPercCal").val();
+                if (disPer <= 0 || disPer == "") {
+                    disPer = 0;
+                    $("#DisPercCal").val(0);
+                    $("#DisAmountCal").val(0);
+                    $("#AfterDisCal").val(0);
+                }
+                else {
+                    var disAmount = ((parseFloat(invoiceTotal) * parseFloat(disPer)) / 100).toFixed(2);
+                    $("#DisAmountCal").val(disAmount);
+                    $("#AfterDisCal").val((parseFloat(invoiceTotal) - parseFloat(disAmount) + parseFloat(vatAmount)).toFixed(2));
+                }
+            }
+            function ValidateOnSaveClick()
+            {
+            message = "";
+            if ($("#DepotId").val() == "") {
+                message += "Depot is Required Field.\n";
+            }
+            if ($("#CustomerID").val() == "")
+            {
+                message += "Customer is Required Field.\n";
+            }
+            if ($("#SRId").val() == "") {
+                message += "SR.ID is Required Field.\n";
+            }
+            if ($("#StoreId").val() == "") {
+                message += "Store is Required Field.\n";
+            }
+            if(saleLineItems.length<=0)
+            {
+                message += "You Must need to add at least one Item To Sale.\n";
+            }
+                
+        }
+           $(document).on('click','#add',function(){
+            alert("come");
+
+            });
+
+            $(document).on('keyup', '#Carton', function () {
+                var cartonNum;
+                if ($('#Carton').val() == "") {
+                    cartonNum = 0;
+                } else {
+                    cartonNum = parseFloat($('#Carton').val());
+                    $("#SoldQuantity").val((parseFloat(curtonCapacity) * cartonNum).toFixed(0));
+                }
+                //$("#SoldQuantity").val((parseFloat(curtonCapacity) * cartonNum).toFixed(0));
+                //$("#SoldQuantity").focus();
+            });
+            $(document).on('focusout', '#Carton', function () {
+                $("#SoldQuantity").focus();
+            });
+            $(document).on('keyup', '#SoldQuantity', function () {
+                var soldqty;
+                if ($('#SoldQuantity').val() == "") {
+                    soldqty = 0.0;
+                } else {
+                    soldqty = parseFloat($('#SoldQuantity').val());
+                }
+                var freeQty;
+                if ($('#FreeQty').val() == "") {
+                    freeQty = 0;
+                } else {
+                    freeQty = parseFloat($('#FreeQty').val());
+                }
+                $("#Carton").val(parseFloat(soldqty + freeQty) / parseFloat(curtonCapacity));
+            });
+
+            $(document).on('keyup', '#FreeQty', function () {
+                var soldqty;
+                if ($('#SoldQuantity').val() == "") {
+                    soldqty = 0.0;
+                } else {
+                    soldqty = parseFloat($('#SoldQuantity').val());
+                }
+                var freeQty;
+                if ($('#FreeQty').val() == "") {
+                    freeQty = 0;
+                } else {
+                    freeQty = parseFloat($('#FreeQty').val());
+                }
+                $("#Carton").val(parseFloat(soldqty + freeQty) / parseFloat(curtonCapacity));
+            }); 
+            $(document).on('focus', '#Carton', function () {
+                if ($("#Carton").val() == "0") {
+                    $("#Carton").val("")
+                }
+            });
+            $(document).on('focus', '#SoldQuantity', function () {
+                if ($("#SoldQuantity").val() == "0") {
+                    $("#SoldQuantity").val("")
+                }
+            }); 
+            $(document).on('focus', '#FreeQty', function () {
+                if ($("#FreeQty").val() == "0") {
+                    $("#FreeQty").val("")
+                }
+            });
+        });
+        
+    </script>
+
+
+}

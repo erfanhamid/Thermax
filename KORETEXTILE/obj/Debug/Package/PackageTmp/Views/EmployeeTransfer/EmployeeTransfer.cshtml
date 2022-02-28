@@ -1,0 +1,360 @@
+﻿@using BEEERP.Models.Authentication
+@using BEEERP.Models.CommonInformation
+@model BEEERP.Models.ViewModel.Payroll.EmployeeTransferVModel
+@{
+    ViewBag.Title = "EmployeeTransfer";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<h3 style="text-align:center">Inter Depot/Branch Employee Transfer</h3>
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h5 class="box-title">Transfer Details</h5>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.TransferID, "Transfer ID ", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.TransferID, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.TransferID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.EmployeeID, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:3%; padding-right:3%;">
+                                                @Html.DropDownListFor(m => m.EmployeeID, (IEnumerable<SelectListItem>)ViewBag.Employee, new { @class = "form-control select2" })
+                                            </div>
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-8">
+                                                @Html.ValidationMessageFor(m => m.EmployeeID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Designation, "Designation", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.Designation, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.Designation, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.EffectiveDate, "Effective From", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-7 input-group" style="padding-left:3%; padding-right:3%">
+                                                @Html.TextBoxFor(m => m.EffectiveDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                @Html.ValidationMessageFor(m => m.EffectiveDate, "", new { @style = "color: red" })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box">
+                            <div class="box-body" style="padding-right:10%;padding-left:0%">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.PreviousBranch, "Previous Branch", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.PreviousBranch, (IEnumerable<SelectListItem>)ViewBag.Depot, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.PreviousBranch, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.TRefNO, "Reference NO", new { @class = "col-md-5 control-label" })
+                                        <div class="col-sm-7">
+                                            @Html.TextBoxFor(m => m.TRefNO, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.TRefNO, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.PresentBranch, "Present Branch", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.PresentBranch, (IEnumerable<SelectListItem>)ViewBag.Depot, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.PresentBranch, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.TDescription, "Description", new { @class = "col-md-5 control-label" })
+                                        <div class="col-sm-7">
+                                            @Html.TextBoxFor(m => m.TDescription, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.TDescription, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3"></div>
+                            </div>
+                        </div>
+                        <div style="background-color:white; ">
+                            <div class="form-group">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8" style="text-align:center;">
+                                    <input type="button" value="Save" id="save" class="btn skin-blue" style="padding-left:20px;" />
+                                    <input type="button" name="update" id="update" value="Update" class="btn skin-blue" />
+                                    @*<input type="button" name="delete" id="delete" value="Delete" class="btn skin-blue" />*@
+                                    <input type="button" name="refresh" id="refresh" value="Refresh" class="btn skin-blue" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/Common.js"></script>
+    @*<script src="~/Scripts/Procurement/EmployeeArrearEntry.js"></script>*@
+    <script>
+        $('.date').datepicker({
+        autoclose: true,
+        format: 'dd-mm-yyyy',
+        });
+        var isValid = true;
+        var Transfer = { TransferID: 0, EmployeeID: 0, EmployeeName:"", EffectiveDate: "", PresentBranchID: 0, PreviousBranchID: 0, TRefNO: "", TDescription: "" };
+
+    $(document).ready(function () {
+        $(".select2").select2();
+        $("#update").hide();
+        $("#delete").hide();
+        $("#EmployeeID").focus();
+        });
+
+    //EnterPress();
+        $(document).on('click', "#refresh", function () {
+    RemoveError();
+    Refresh();
+        $("#Save").prop('disabled', false);
+        });
+
+
+
+    //item change reaction
+    $(document).on('change', "#EmployeeID", function () {
+        RemoveError();
+        //ClearOnSearch();
+        var id = { empId: $("#EmployeeID").val() };
+
+        if (id.empId != "") {
+            $.ajax({
+                url: '@Url.Action("GetEmployeeDetails", "EmployeeTransfer")',
+                contentType: "application/json;charset=utf-8",
+                data: id,
+                type: 'GET',
+                dataType: 'json',
+                success: function (datas) {
+                    if (datas.message != 0) {
+                        $("#TransferID").val(datas.isExist.TransferID);
+                        $("#Designation").val(datas.desigation);
+                        $("#EffectiveDate").val((moment(datas.isExist.EffectiveDate).format("DD-MM-YYYY")));
+                        $("#PreviousBranch").val(datas.isExist.PreviousBranchID).trigger("change");
+                        $("#PresentBranch").val(datas.isExist.PresentBranchID).trigger("change");
+                        $("#TDescription").val(datas.isExist.TDescription);
+                        $("#TRefNO").val(datas.isExist.TRefNO);
+                        if (datas != "") {
+                            $("#save").hide();
+                            $("#update").show();
+                            $("#delete").show();
+                        }
+                    }
+                    else {
+                        $("#save").show();
+                        $("#Designation").val(datas.desigation);
+                    }
+                }
+            });
+        }
+        else {
+            setError("EmployeeId", "EmployeeId is required for get data.");
+        }
+        });
+
+        //save code
+    $(document).on('click', '#save', function () {
+        RemoveError();
+        $("#save").prop('disabled', false);
+        SetEmployeeTransfer();
+       ValidateEmployeeTransfer();
+        if (isValid == true) {
+            if (confirm('Do you want to save?')) {
+                $.ajax({
+                    url: '@Url.Action("SaveEmployeeTransfer", "EmployeeTransfer")',
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({ Transfer: Transfer }),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Failed To Saved.");
+                            $("#save").prop('disabled', false);
+                        }
+                        else {
+                            alert("Sucessfully Saved.");
+                            $("#save").prop('disabled', true);
+                            location.reload();
+                        }
+                    }
+                });
+            }
+            else {
+                $("#save").prop('disabled', false);
+            }
+        }
+        else {
+            $("#save").prop('disabled', false);
+        }
+        });
+
+        //update
+    $(document).on('click', '#update', function () {
+        RemoveError();
+        $("#update").prop('disabled', true);
+        $("#delete").prop('disabled', true);
+        SetEmployeeTransfer();
+        ValidateEmployeeTransfer();
+        if (confirm('Do you want to Update?')) {
+            if (isValid == true) {
+                $.ajax({
+                    url: '@Url.Action("UpdateEmployeeTransfer", "EmployeeTransfer")',
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({ Transfer: Transfer }),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Failed To Update.");
+                            $("#update").prop('disabled', false);
+                            $("#delete").prop('disabled', false);
+                        }
+                        else {
+                            alert("Sucessfully Updated.");
+                            $("#update").prop('disabled', true);
+                            location.reload();
+                        }
+                    }
+                });
+            }
+            else {
+                $("#update").prop('disabled', false);
+                $("#delete").prop('disabled', false);
+            }
+        }
+        else {
+            $("#update").prop('disabled', false);
+            $("#delete").prop('disabled', false);
+        }
+
+        });
+
+        @*//delete code
+    $(document).on('click', '#delete', function () {
+        $("#update").prop('disabled', true);
+        $("#delete").prop('disabled', true);
+        var id = $("#EmployeeID").val();
+        if (confirm('Are you sure you want to delete this from the database?')) {
+            $.ajax({
+                url: '@Url.Action("DeleteEmployeeTransfer", "EmployeeTransfer")',
+                contentType: "application/json;charset=utf-8",
+                data: { Transfer: id },
+                type: 'GET',
+                dataType: 'json',
+                success: function (datas) {
+                    if (datas == 0) {
+                        alert("Delete failed.");
+                        $("#delete").prop('disabled', false);
+                        $("#update").prop('disabled', false);
+                    }
+                    else {
+                        alert("Delete Successfull");
+                        location.reload();
+                    }
+                }
+            });
+        }
+        else {
+            $("#update").prop('disabled', false);
+            $("#delete").prop('disabled', false);
+        }
+    });*@
+        function SetEmployeeTransfer() {
+            Transfer.TransferID = $("#TransferID").val();
+            Transfer.EmployeeID = $("#EmployeeID").val();
+            Transfer.EffectiveDate = $("#EffectiveDate").val();
+            Transfer.PreviousBranchID = $("#PreviousBranch").val();
+            Transfer.PresentBranchID = $("#PresentBranch").val();
+            Transfer.TRefNO = $("#TRefNO").val();
+            Transfer.TDescription = $("#TDescription").val();
+        }
+
+        function ValidateEmployeeTransfer() {
+            isValid = true;
+            if (Transfer.EmployeeID == "") {
+                setError("EmployeeID", "Employee ID is required field.");
+                isValid = false;
+            }
+            if (Transfer.PresentBranchID == "") {
+                setError("PresentBranch", "PresentBranch is required field.");
+                isValid = false;
+            }
+            if (Transfer.PreviousBranchID == "") {
+                setError("PreviousBranch", "Amount is required field.");
+                isValid = false;
+            }
+        }
+        function Refresh() {
+            $("#EmployeeID").val("");
+            $("#TransferID").val("");
+            $("#EffectiveDate").val("");
+            $("#PresentBranch").val("");
+            $("#PreviousBranch").val("");
+            location.reload();
+        }
+    </script>
+}

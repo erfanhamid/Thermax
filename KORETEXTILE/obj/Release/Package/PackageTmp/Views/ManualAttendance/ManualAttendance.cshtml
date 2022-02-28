@@ -1,0 +1,120 @@
+﻿@model BEEERP.Models.Payroll.CheckInAttandanceLog
+@{
+    ViewBag.Title = "ManualAttendance";
+}
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<style>
+    tbody tr:hover {
+        background-color: dodgerblue;
+        color: white;
+    }
+</style>
+
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Manual Attendance</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.EmployeeID, "Employee", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.DropDownListFor(m => m.EmployeeID, (IEnumerable<SelectListItem>)ViewBag.Employee, new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.EmployeeID, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.CheckIn, "Check In", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8 input-group" style="padding-left:2%; padding-right:2%">
+                                        @Html.TextBoxFor(m => m.CheckIn, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy hh:mm") })
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.CheckIn, "", new { @style = "color: red; padding-left:35%;" })
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-4"></div>
+                                    <div class="col-sm-8">
+                                        <input type="button" name="save" id="save" value="Save" class="btn skin-blue" />
+                                        <input type="button" name="refresh" id="refresh" value="Refresh" class="btn skin-blue" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+<script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+
+        })
+        
+        $('#CheckIn').datetimepicker({
+            format: 'DD-MM-YYYY hh:mm'
+            //format: 'LT'
+        });
+
+        $(document).on('click', '#refresh', function () {
+            location.reload();
+        });
+
+        $(".select2").select2();
+        var employee = { EmployeeID: 0, CheckIn: "", IsCalculate: 0};
+
+        $(document).on('click', "#save", function () {
+            RemoveError();
+            $("#save").prop('disabled', true);
+            employee.EmployeeID = $("#EmployeeID").val();
+            employee.CheckIn = $("#CheckIn").val();
+            if (employee.EmployeeID != "" && employee.CheckIn != "") {
+                if (confirm('Do you want to save')) {
+                    $.ajax({
+                        url: '@Url.Action("SaveAttendence", "ManualAttendance")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ employee: employee }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Saved.");
+                                $("#save").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Saved.");
+                                $("#save").prop('disabled', true);
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#save").prop('disabled', false);
+                }
+            }
+            else {
+                if (employee.EmployeeID == "") {
+                    setError("EmployeeID", "Employee is required field");
+                }
+                if (employee.CheckIn == "") {
+                    setError("CheckIn", "Check In is required field");
+                }
+                $("#save").prop('disabled', false);
+            }
+        });
+
+    </script>
+
+}
+

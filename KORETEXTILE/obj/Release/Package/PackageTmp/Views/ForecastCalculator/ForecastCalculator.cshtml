@@ -1,0 +1,417 @@
+﻿@model BEEERP.Models.ViewModel.TaxCalculator.TaxCalculatorViewModel
+@{
+    ViewBag.Title = "ForecastCalculator";
+}
+ <link href="~/Content/loading.css" rel="stylesheet" />
+<style>
+    /*tbody tr:hover {
+        background-color: dodgerblue;
+        color: white;
+    }*/
+
+    .btn:hover {
+        color: blue !important;
+    }
+
+    .btn:focus {
+        background-color: aqua !important;
+    }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+<form id="report" target="_blank" method="post">
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 class="box-title">Forecast Statement</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-3"></div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.ID, "FSID", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:2%; padding-right:2%;">
+                                                @Html.TextBoxFor(m => m.ID, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.ID, "", new { @style = "color: red" })
+                                                <div class="input-group-btn">
+                                                    <input type="button" name="searchId" id="searchId" value="Search" class="btn skin-blue" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.AssesmentYear, "Financial Year", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.AssesmentYear, (IEnumerable<SelectListItem>)ViewBag.AssesmentYear, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.AssesmentYear, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group" id="duringYear">
+                                            @Html.LabelFor(m => m.DuringYear, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @*@Html.DropDownListFor(m => m.DuringYear, (IEnumerable<SelectListItem>)ViewBag.DuringYear, new { @class = "form-control select2" })*@
+                                                @Html.TextBoxFor(m => m.DuringYear, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.DuringYear, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Location, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.Location, (IEnumerable<SelectListItem>)ViewBag.LoadLocation, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.Location, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Corpuration, "Corporation", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.Corpuration, (IEnumerable<SelectListItem>)ViewBag.Cororation, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.Corpuration, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-4"></div>
+                                            <div class="col-sm-8">
+                                                <input type="button" name="search" id="search" value="Generate Info" class="btn skin-blue" />
+                                                <input type="button" name="Save" id="save" value="Save" class="btn skin-blue" />
+                                                <input type="button" name="Refresh" id="refresh" value="Refresh" class="btn skin-blue" />
+                                                <div class="sk-fading-circle">
+                                                    <div class="sk-circle1 sk-circle"></div>
+                                                    <div class="sk-circle2 sk-circle"></div>
+                                                    <div class="sk-circle3 sk-circle"></div>
+                                                    <div class="sk-circle4 sk-circle"></div>
+                                                    <div class="sk-circle5 sk-circle"></div>
+                                                    <div class="sk-circle6 sk-circle"></div>
+                                                    <div class="sk-circle7 sk-circle"></div>
+                                                    <div class="sk-circle8 sk-circle"></div>
+                                                    <div class="sk-circle9 sk-circle"></div>
+                                                    <div class="sk-circle10 sk-circle"></div>
+                                                    <div class="sk-circle11 sk-circle"></div>
+                                                    <div class="sk-circle12 sk-circle"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 class="box-title">Forecast Statement Details</h3>
+                                </div>
+                                <div class="box-body">
+                                    <table class="table table-responsive" id="EmpList">
+                                        <thead>
+                                            <tr>
+                                                <th>Serial No</th>
+                                                <th>Employee No</th>
+                                                <th>Employee Name</th>
+                                                <th>Designation</th>
+                                                <th><input type="checkbox" id="select_allWithoutInv" name="select_allWithoutInv" /> Type</th>
+                                                <th>Monthly Ait Amount (Tk.)</th>
+                                                <th id="details">Details</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="empId" name="empId" />
+    <input type="hidden" id="duringYear" name="duringYear" />
+    <input type="hidden" id="assesmentYear" name="assesmentYear" />
+</form>
+
+@section scripts
+{
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/TaxCalculator/ForcastCalculatorInputFocus.js"></script>
+    <script>
+        $(".select2").select2();
+        var isValid = true;
+        var isSearch = false;
+        var addedItems = [];
+        var table = $('#EmpList').DataTable({
+            'paging': false,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+
+        var aitForecast = { ID: 0, FinancialYear: "", StartDate: "", EndDate: "", Corporation: 0, Location: "" }
+
+        $(document).on('click', "#refresh", function () {
+            location.reload();
+        });
+
+        $(document).ready(function () {
+            $("#duringYear").hide();
+            $(".sk-fading-circle").hide();
+            $("#save").hide();
+            $("#AssesmentYear").focus();
+        });
+
+        EnterPress();
+
+        $(document).on('click', '[name="editRow"]', function () {
+            event.preventDefault();
+            var empId = $(this).attr("value");
+            if ($("#AssesmentYear").val() != "") {
+                $("#report").attr("action", "/ForecastCalculator/GetEmployeeForcastDetails")
+                $("#empId").val(empId);
+                $("#assesmentYear").val($("#AssesmentYear").val());
+                $("#report").submit();
+            }
+            else {
+                setError("DuringYear", "During Year is required field for Tax Details.");
+            }
+        });
+
+        $(document).on('click', "#search", function () {
+            $(".sk-fading-circle").show();
+            RemoveError();
+            var id = { location: $("#Location").val(), corpuration: $("#Corpuration").val(), assesmentY: $("#AssesmentYear").val()};
+            ValidateSearchClick();
+            if (isValid == true) {
+                $.ajax({
+                    url: '@Url.Action("GetEmployees", "ForecastCalculator")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas != 0) {
+                            addedItems = datas;
+                            $.each(addedItems, function (index, value) {
+                                addedItems[index].WIth_Without = "Without Investment";
+                                addedItems[index].MonthlyAIT = parseFloat(value.MonthlyAitWithoutInv).toFixed(2);
+                            });
+                            ShowOnTable();
+                            $(".sk-fading-circle").hide();
+                            $("#save").show();
+                        }
+                        else {
+                            alert("No Employee Found for This Search Combination.");
+                            $(".sk-fading-circle").hide();
+                        }
+
+                    }
+                });
+            }
+        });
+
+        $('thead input[name="select_allWithoutInv"]', table.table().container()).on('click', function (e) {
+            if (this.checked) {
+                $('#EmpList tbody input[type="checkbox"]:not(:checked)').trigger('click');
+            } else {
+                $('#EmpList tbody input[type="checkbox"]:checked').trigger('click');
+            }
+
+            // Prevent click event from propagating to parent
+            e.stopPropagation();
+        });
+        var rows_selected = [];
+        $('#EmpList tbody').on('click', 'input[type="checkbox"]', function (e) {
+            var $row = $(this).closest('tr');
+            var data = table.row($row).data();
+            var rowId = data[1];
+            var index = $.inArray(rowId, rows_selected);
+            //var a = 
+            
+            var changedvalue = "Without Investment";
+            var changeAmount = 0.0;
+            if (index < 0) {
+                rows_selected.push(rowId);
+                changedvalue = "With Investment";
+                $.each(addedItems, function (index, value) {
+                    if (value.EmployeeId == rowId) {
+                        changeAmount = parseFloat(value.MonthlyAitWithInv).toFixed(2);
+                    }
+                });
+            }
+            else {
+                rows_selected.splice(index, 1);
+                $.each(addedItems, function (index, value) {
+                    if (value.EmployeeId == rowId) {
+                        changeAmount = parseFloat(value.MonthlyAitWithoutInv).toFixed(2);
+                    }
+                });
+            }
+
+            
+            $("#" + data[1]).text(changedvalue);
+            $("#" + data[0]).text(changeAmount);
+
+            $.each(addedItems, function (index, value) {
+                if (value.EmployeeId == rowId) {
+                    addedItems[index].WIth_Without = $("#" + data[1]).text();
+                    addedItems[index].MonthlyAIT = $("#" + data[0]).text();
+                }
+            });
+            
+            e.stopPropagation();
+        });
+
+
+        $(document).on('click', "#save", function () {
+            RemoveError();
+            $("#save").prop('disabled', true);
+            SetAitForecast();
+            if (addedItems.length <= 0) {
+                alert("At least One Item should be added for save.");
+                $("#save").prop('disabled', false);
+            }
+            else {
+                ValidateSearchClick();
+                if (isValid == true) {
+                    if (confirm('Do you want to save')) {
+                        $.ajax({
+                            url: '@Url.Action("SaveAitForecast", "ForecastCalculator")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ aitForecast: aitForecast, addedItems: addedItems }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Failed To Saved.");
+                                    $("#save").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully Saved.");
+                                    $("#ID").val(datas.aitForecast.ID);
+                                    $("#save").prop('disabled', true);
+                                    $("#refresh").focus();
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        $("#save").prop('disabled', false);
+                    }
+                }
+                else {
+                    $("#save").prop('disabled', false);
+                }
+            }
+        });
+
+        //search code
+        $(document).on('click', '#searchId', function () {
+            RemoveError();
+                isSearch = true;
+                var id = { id: $("#ID").val() };
+            if ($("#ID").val() != "") {
+                $.ajax({
+                    url: '@Url.Action("GetAITForecastById", "ForecastCalculator")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+
+                        if (datas == 0) {
+                            alert("Your entered ID Doesn't exist");
+                            $("#search").prop('disabled', false);
+                            location.reload();
+                        }
+                        else {
+                            $("#save").hide();
+                            $("#ID").val(datas.forcastItem.ID);
+                            $("#AssesmentYear").val(datas.forcastItem.FinancialYear).change();
+                            $("#Location").val(datas.forcastItem.Location).change();
+                            $("#Corpuration").val(datas.forcastItem.Corporation).change();
+                            addedItems = [];
+                            $.each(datas.forcastLineItem, function (index, value) {
+                                var item = { EmployeeId: 0, EmployeeName: "", EmployeeDesignation: "", TaxPayable: 0, TaxPayWithoutInv: 0, MonthlyAitWithoutInv: 0, MonthlyAitWithInv: 0, WIth_Without: "", MonthlyAIT: "" }
+                                item.EmployeeId = value.EmployeeID;
+                                item.EmployeeName = "";
+                                item.EmployeeDesignation = value.EmployeeDesignation;
+                                item.MonthlyAIT = value.MonthlyAIT;
+                                item.WIth_Without = value.WIth_Without;
+                                addedItems.push(item);
+                            });
+                            ShowOnTable();
+                            $("#search").prop('disabled', true);
+
+                        }
+                    },
+                    error: function () {
+                        alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+                        $("#search").prop('disabled', false);
+                    }
+                });
+            }
+            else {
+                setError("ID", "ID is required To Get Data.");
+            }
+        });
+        
+        //data table fill up
+        function ShowOnTable() {
+            var row = 0;
+            table.clear().draw();
+            $.each(addedItems, function (index, value) {
+                row = row + 1;
+                if (isSearch == true) {
+                    $("#details").hide();
+                    table.row.add([row, value.EmployeeId, "Employee Name", value.EmployeeDesignation, value.WIth_Without, value.MonthlyAIT, "" /*'<a href="#"><i class="fa fa-caret-square-o-right" name="editRow" value="' +*/
+                        /*value.EmployeeId + '"></i></a>'*/]).draw();
+                    
+                }
+                else {
+                    table.row.add([row, value.EmployeeId, "Employee Name", value.EmployeeDesignation, '<input type="checkbox" id="select" name="select" value="' +
+                        value.EmployeeId + '"/>' + " " + '<label id="' + value.EmployeeId + '">Without Investment</label>', '<label id="' + row + '">' + parseFloat(value.MonthlyAitWithoutInv).toFixed(2) + '</label>',
+                        '<a href="#"><i class="fa fa-caret-square-o-right" name="editRow" value="' +
+                        value.EmployeeId + '"></i></a>']).draw();
+                }
+            });
+        }
+        
+        function ValidateSearchClick() {
+            isValid = true;
+            if ($("#AssesmentYear").val() == "") {
+                setError("AssesmentYear", "Assesment Year is required field");
+                isValid = false;
+            }
+
+            if ($("#Location").val() == "") {
+                setError("Location", "Location is required field");
+                isValid = false;
+            }
+
+            if ($("#Corpuration").val() == "") {
+                setError("Corpuration", "Corpuration is required field");
+                isValid = false;
+            }
+        }
+        
+        //get value from textbox
+        function SetAitForecast() {
+            aitForecast.ID = 0;
+            aitForecast.FinancialYear = $("#AssesmentYear").val();
+            aitForecast.StartDate = "";
+            aitForecast.EndDate = "";
+            aitForecast.Corporation = $("#Corpuration").val();
+            aitForecast.Location = $("#Location").val();
+        }
+        
+    </script>
+}
+

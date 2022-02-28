@@ -1,0 +1,437 @@
+﻿@model BEEERP.Models.ViewModel.Sales.Report.ReportVModel
+@using BEEERP.Models.CommonInformation
+
+@{
+    ViewBag.Title = "SalesReportView";
+    int i = 0;
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        /*padding: 15px 32px;*/
+        /*text-align: center;*/
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 8px;
+        min-width: 400px;
+        /*height: 12px;*/
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+        }
+</style>
+
+<h3 style="text-align:center">Sales Report</h3>
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "SalesReport", target = "_blank" }))
+{
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                <h4 class="box-title">Select Date Range and Parameters</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <br />
+                                    @Html.LabelFor(m => m.DepotId, "Depot", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DropDownListFor(m => m.DepotId, (IEnumerable<SelectListItem>)ViewBag.Depot, new { @class = "form-control  select2", })
+                                        @Html.ValidationMessageFor(m => m.DepotId, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.CustomerID, "Dealer", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DropDownListFor(m => m.CustomerID, (IEnumerable<SelectListItem>)ViewBag.Dealer, new { @class = "form-control  select2", })
+                                        @Html.ValidationMessageFor(m => m.CustomerID, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Group, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DropDownListFor(m => m.Group, (IEnumerable<SelectListItem>)ViewBag.Group, new { @class = "form-control  select2", })
+                                        @Html.ValidationMessageFor(m => m.Group, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Item, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DropDownListFor(m => m.Item, (IEnumerable<SelectListItem>)ViewBag.Item, new { @class = "form-control  select2", })
+                                        @Html.ValidationMessageFor(m => m.Item, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.From, "From Date", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6 date input-group" style="padding-left:15px;padding-right:15px;">
+                                        @Html.TextBoxFor(m => m.From, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        @Html.ValidationMessageFor(m => m.From)
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.To, "To Date", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6 date input-group" style="padding-left:15px;padding-right:15px;">
+                                        @Html.TextBoxFor(m => m.To, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        @Html.ValidationMessageFor(m => m.To)
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.AsOnDate, "As on Date", new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-6 date input-group" style="padding-left:15px;padding-right:15px;">
+                                        @Html.TextBoxFor(m => m.AsOnDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                        @Html.ValidationMessageFor(m => m.AsOnDate)
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                <h4 class="box-title">Sales Reports</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="showCustLedger" type="submit">@i. Show Dealer Ledger</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="DealerWiseSalesDetails" type="submit">@i. Dealer Wise Sales Details</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="DealerWiseSalesSummary" type="submit">@i. Dealer Wise Sales Summary</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="dealerwisedamangereport" type="submit">@i. Dealer Wise Damage Report</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="DepotAndDealerWiseIncentive" type="submit">@i. Depot and Dealer Wise Incentive Summary</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="DealerIncentiveLedger" type="submit">@i. Dealer Incentive Account Ledger</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="DepotWiseDue" type="submit">@i. Depot Wise Due Report</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="DealerWiseDue" type="submit">@i. Dealer Wise Due Report</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="SingleDepotDealerWiseDue" type="submit">@i. Single Depot Dealer Wise Due Report</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="ItemWiseSingleDeptSales" type="submit">@i. Item Wise Single Depot Sales</button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="ItemWiseSales" type="submit">@i. Item Wise All Depot Sales </button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="SingleItemDetails" type="submit">@i. Single Item Sales Detail </button>
+                                </div>
+                                <div class="form-group" style="text-align:center;">
+                                    @{
+                                        i = i + 1;
+                                    }
+                                    <button class="btn skin-blue" id="SingleItemSummary" type="submit">@i. Single Item Sales Summary </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="message" value="false" />
+    </div>
+}
+
+
+
+@section scripts{
+    <script src="~/Scripts/Search.js"></script>
+    <script src="~/Scripts/ReportSearch.js"></script>
+    @*<script src="~/Scripts/Common.js"></script>*@
+    <script>
+        $(document).ready(function () {
+            $(".select2").select2();
+            $('.date').datepicker({
+                autoclose: true,
+                format: "dd-mm-yyyy"
+
+            });
+            var isValid = true;
+
+                    $(document).on('change', "#DepotId", function () {
+               // ClearOnDepotChange();
+                var id = { id: $(this).val() };
+                if (id.id != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetDealerByDepot", "MDSI")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify(id),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            $("#CustomerID").empty();
+                            $("#CustomerID").prop("disabled", false);
+                            $.each(datas, function (index, value) {
+                                $("#CustomerID").append($('<option />', {
+                                    value: value.Value,
+                                    text: value.Text
+                                })).trigger('change');
+                            });
+
+                            if (dealerId!="")
+                            {
+                                $("#CustomerID").val(dealerId).change();
+                                storeId = "";
+                            }
+
+                        }
+                    });
+                }
+                else {
+                    $("#CustomerID").empty();
+                    $("#CustomerID").prop("disabled", true);
+                }
+
+            });
+                    $(document).on('change',"#Group", function () {
+
+            var id =  $(this).val();
+                if (id != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetItemByGroup", "SalesEntry")',
+                        contentType: "application/json;charset=utf-8",
+                        data: {group : id},
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            $("#Item").empty();
+                            $.each(datas, function (index, value) {
+                                $("#Item").append($('<option />', {
+                                    value: value.Value,
+                                    text: value.Text
+                                })).trigger('change');
+                            });
+
+                        }
+                    });
+                }
+                else {
+                    $("#ItemID").empty();
+                    $("#ItemID").append($('<option />', {
+                        value: "",
+                        text: "--- Select Item ---"
+                    })).trigger('change');
+                }
+        });
+            $(document).on('click', "#showCustLedger", function () {
+                event.preventDefault();
+
+                if ($("#DepotId").val() == "") {
+                    setError("DepotId", "Depot is required field");
+                    isValid = false;
+                } else if ($("#CustomerID").val() == "") {
+                    setError("CustomerID", "Dealer is required field");
+                    isValid = false;
+                }
+                else {
+                    $("#Depot").val($("#DepotId").val());
+                    $("#SalesReport").attr("action", "/LedgerReport/ShowLedgerReport")
+                    $("#SalesReport").submit();
+                }
+
+            });
+            // Dealer Wise Damange Report
+            $(document).on('click', "#dealerwisedamangereport", function (event) {
+                event.preventDefault();
+
+                //if ($("#message").val() != "true") {
+                $("#SalesReport").attr("action", "/SalesReport/DealerWiseDamageSummary")
+                $("#SalesReport").submit();
+                //}
+            });
+            $(document).on('click', "#DepotAndDealerWiseIncentive", function (event) {
+                event.preventDefault();
+
+                //if ($("#message").val() != "true") {
+                $("#SalesReport").attr("action", "/SalesReport/ShowDepotWiseDealerIncentiveSummary")
+                $("#SalesReport").submit();
+                //}
+            });
+            $(document).on('click', "#DealerIncentiveLedger", function (event) {
+                event.preventDefault();
+                validateLedger();
+                if (isValid == true) {
+                $("#SalesReport").attr("action", "/SalesReport/ShowDealerIncentiveLedger")
+                $("#SalesReport").submit();
+                }
+            });
+            $(document).on('click', "#DepotWiseDue", function (event) {
+                event.preventDefault();
+
+                if (isValid == true) {
+                    $("#SalesReport").attr("action", "/SalesReport/DepotWiseDue")
+                    $("#SalesReport").submit();
+                }
+            });
+            $(document).on('click', "#DealerWiseSalesDetails", function (event) {
+                event.preventDefault();
+                if ($("#DepotId").val() == "") {
+                    setError("DepotId", "Depot is required field");
+                    isValid = false;
+                } else {
+
+                    $("#SalesReport").attr("action", "/SalesReport/DealerWiseSalesDetails")
+                    $("#SalesReport").submit();
+                }
+            });
+            $(document).on('click', "#DealerWiseSalesSummary", function (event) {
+                event.preventDefault();
+                if ($("#DepotId").val() == "") {
+                    setError("DepotId", "Depot is required field");
+                    isValid = false;
+                } else {
+
+                    $("#SalesReport").attr("action", "/SalesReport/DealerWiseSalesSummary")
+                    $("#SalesReport").submit();
+                }
+            });
+            $(document).on('click', "#DealerWiseDue", function (event) {
+                event.preventDefault();
+
+                if (isValid == true) {
+                    $("#SalesReport").attr("action", "/SalesReport/DealerWiseDue")
+                    $("#SalesReport").submit();
+                }
+            });
+            $(document).on('click', "#ItemWiseSales", function (event) {
+                event.preventDefault();
+
+                if (isValid == true) {
+                    $("#SalesReport").attr("action", "/SalesReport/GetItemWiseSales")
+                    $("#SalesReport").submit();
+                }
+            });
+
+
+            $(document).on('click', "#ItemWiseSingleDeptSales", function (event) {
+                event.preventDefault();
+                if ($("#DepotId").val() == "") {
+                    setError("DepotId", "Depot is required field");
+                    isValid = false;
+                } else {
+
+                    $("#SalesReport").attr("action", "/SalesReport/GetItemWiseSingleDepotSale");
+                    $("#SalesReport").submit();
+                }
+            });
+            $(document).on('click', "#SingleDepotDealerWiseDue", function (event) {
+                event.preventDefault();
+                if ($("#DepotId").val() == "") {
+                    setError("DepotId", "Depot is required field");
+                    isValid = false;
+                } else {
+
+                    $("#SalesReport").attr("action", "/SalesReport/SingleDepotDealerWiseDue");
+                    $("#SalesReport").submit();
+                }
+            });
+            $(document).on('click', "#SingleItemDetails", function (event) {
+                event.preventDefault();
+                if ($("#DepotId").val() == "") {
+                    setError("DepotId", "Depot is required field");
+                    isValid = false;
+                } else if ($("#Item").val() == "") {
+                    setError("Item", "Item is required field");
+                    isValid = false;
+                }
+                else {
+
+                    $("#SalesReport").attr("action", "/SalesReport/GetSingleItemDetails");
+                    $("#SalesReport").submit();
+                }
+            });
+            $(document).on('click', "#SingleItemSummary", function (event) {
+                event.preventDefault();
+             if ($("#Item").val() == "") {
+                    setError("Item", "Item is required field");
+                    isValid = false;
+                }
+                else {
+
+                 $("#SalesReport").attr("action", "/SalesReport/GetSingleItemSummary");
+                    $("#SalesReport").submit();
+                }
+            });
+
+
+            function validateLedger() {
+                isValid = true;
+
+                if ($("#CustomerID").val() == "") {
+                    setError("CustomerID", "Dealer is required field");
+                    isValid = false;
+                }
+            }
+        });
+    </script>
+
+}

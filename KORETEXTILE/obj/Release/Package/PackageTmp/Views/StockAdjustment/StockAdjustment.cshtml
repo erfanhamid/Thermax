@@ -1,0 +1,862 @@
+﻿@model BEEERP.Models.ViewModel.StoreDepot.StockAdjustmentVModel
+@{
+    ViewBag.Title = "StockAdjustment";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<h3 style="text-align:center">Finish Goods Stock Adjustment (FGSA) Entry</h3>
+<form id="report" target="_blank">
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                    <h5 class="box-title">FGSA Details</h5>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.SANo,"FGSA No", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:2%; padding-right:2%;">
+                                                @Html.TextBoxFor(m => m.SANo, new { @class = "form-control", @Value = ViewBag.SANO })
+                                                <div class="input-group-btn">
+                                                    <input type="button" name="search" id="search" value="Search" class="btn btn-primary" style="min-width: 50px" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-8">
+                                                @Html.ValidationMessageFor(m => m.SANo, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Depot, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.Depot, (IEnumerable<SelectListItem>)ViewBag.Depot, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.Depot, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Store, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.Store, (IEnumerable<SelectListItem>)ViewBag.Store, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.Store, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.TransectionType, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.TransectionType, (IEnumerable<SelectListItem>)ViewBag.Type, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.TransectionType, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Date, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:2%; padding-right:2%">
+                                                @Html.TextBoxFor(m => m.Date, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-8">
+                                                @Html.ValidationMessageFor(m => m.Date, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.RefNo, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.RefNo, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.RefNo, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Description, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @rows = "3" })
+                                                @Html.ValidationMessageFor(m => m.Description, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div class="box-body" style="padding-right:5%;padding-left:0%">
+                                 
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.GroupId, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.GroupId, (IEnumerable<SelectListItem>)ViewBag.Group, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.GroupId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.ItemId, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.ItemId, (IEnumerable<SelectListItem>)ViewBag.Item, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.ItemId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.UOM,"UoM", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.UOM, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.UOM, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.PcsPerCtn, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.PcsPerCtn, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.PcsPerCtn, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.AvailableQtyCtn, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.AvailableQtyCtn, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.AvailableQtyCtn, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.AvailableQty, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.AvailableQty, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.AvailableQty, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.QtyCtn, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.QtyCtn, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.QtyCtn, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Qty, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.Qty, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Qty, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.BalanceQtyCtn, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.BalanceQtyCtn, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.BalanceQtyCtn, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.BalanceQty, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.BalanceQty, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.BalanceQty, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <div class="form-group" style="text-align:right;">
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-8">
+                                                <button type="button" id="addToGrid" name="addToGrid" style="height:300%; font-size:100%;" class="btn btn-primary">Add To Grid</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="box ">
+                                        <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                            <h5 class="box-title">FGSA Line Items</h5>
+                                        </div>
+                                        <div class="box-body">
+                                            <table class="table table-responsive" id="DSIAlist">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Item Name</th>
+                                                        <th>UoM</th>
+                                                        <th>Adjust Qty</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="box">
+                                    <div class="box-footer">
+                                        <div class="form-group" , style="text-align:center">
+                                            <input type="button" value="Save" id="save" class="btn btn-primary" />
+                                            <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                                            <input type="button" name="delete" id="delete" value="Delete" class="btn btn-primary" />
+                                            <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                            <input type="button" name="print" id="print" value="Print" class="btn btn-primary" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</form>
+
+@section scripts
+{
+    <script src="~/Scripts/StoreDepot/StockAdjustmentInputFocus.js"></script>
+    <script>
+
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+
+        var table = $('#DSIAlist').DataTable({
+            'paging': false,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+
+        $(document).ready(function () {
+            $("#update").hide();
+            $("#delete").hide();
+            $("#print").hide();
+            $("#Depot").focus();
+        });
+
+        EnterPress();
+        var isValid = true;
+        var addedItems = [];
+        var itemId = "";
+        var isSearch = false;
+        var storeId = 0;
+        var sa = { SANo: 0, Store: 0, Date: "", TransectionType: "", Description: "", RefNo:""};
+
+        $(document).on('click', "#refresh", function () {
+            window.location.reload(true);
+        });
+
+        $(".select2").select2();
+
+        $(document).on('change', "#Store", function () {
+            if (isSearch == false) {
+
+
+                if ($(this).val() != 0) {
+                    $("#GroupId").prop('disabled', false);
+                    $("#ItemID").prop('disabled', false);
+                    table.clear().draw();
+                    addedItems = [];
+                    $("#Date").prop("disabled", false);
+                }
+                else {
+                    $("#GroupId").prop('disabled', true);
+                    $("#ItemId").prop('disabled', true);
+                    table.clear().draw();
+                    addedItems = [];
+                    $("#Date").prop("disabled", false);
+
+                }
+            }
+
+        });
+
+        $(document).on("keyup", "#Qty", function () {
+          
+            if ($(this).val() == "") {
+                $(this).val(0);
+            }
+            var val = parseFloat($(this).val()) / parseFloat($("#PcsPerCtn").val());
+            if ($("#TransectionType").val() == "Increase") {
+                var Bal = parseFloat($("#AvailableQty").val()) + parseFloat($(this).val());
+                var balCtn = (Bal / parseFloat($("#PcsPerCtn").val())).toFixed(2);
+            } else {
+                var Bal = parseFloat($("#AvailableQty").val()) - parseFloat($(this).val());
+                var balCtn = (Bal / parseFloat($("#PcsPerCtn").val())).toFixed(2);
+            }
+           
+            $("#QtyCtn").val(val.toFixed(2));
+            $("#BalanceQty").val(Bal.toFixed(2));
+            $("#BalanceQtyCtn").val(balCtn);
+
+
+        });
+        $("#QtyCtn").on("keyup", function () {
+
+            if ($(this).val() == "") {
+                $(this).val(0);
+            }
+            var val = parseFloat($(this).val()) * parseFloat($("#PcsPerCtn").val());
+            $("#Qty").val(val.toFixed(2));
+            if ($("#TransectionType").val() == "Increase") {
+                var Bal = parseFloat($("#AvailableQty").val()) + parseFloat($("#Qty").val());
+                var balCtn = (Bal / parseFloat($("#PcsPerCtn").val())).toFixed(2);
+            } else {
+                var Bal = parseFloat($("#AvailableQty").val()) - parseFloat($("#Qty").val());
+                var balCtn = (Bal / parseFloat($("#PcsPerCtn").val())).toFixed(2);
+            }
+            $("#BalanceQty").val(Bal.toFixed(2));
+            $("#BalanceQtyCtn").val(balCtn);
+
+
+
+        });
+  
+        $(document).on('change', "#Depot", function () {
+           
+                var id = { id: $(this).val() };
+                if (id.id != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetStoreByDepotId", "DSIA")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify(id),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            $("#Store").empty();
+                            if (isSearch == false) {
+                                $("#Store").prop("disabled", false);
+                            }
+                            
+
+                   
+
+                            $.each(datas.Store, function (index, value) {
+                                $("#Store").append($('<option />', {
+                                    value: value.Value,
+                                    text: value.Text
+                                })).trigger('change');
+                            });
+                            if (storeId != "") {
+                                $("#Store").val(storeId).change();
+                                storeId = "";
+                            } else {
+                                $("#Store").val("").change();
+                            }
+                            
+                        }
+                    });
+                }
+                else {
+                    
+                    $("#Store").empty();
+                    $("#Store").prop("disabled", true);
+                }
+
+           });
+        //group change reaction
+        $(document).on('change', "#GroupId", function () {
+            if (addedItems.length > 0) {
+                $("#Date").prop("disabled", true);
+            } else {
+                $("#Date").prop("disabled", false);
+            }
+            var id = { groupId: $(this).val() };
+            if (id.groupId != "") {
+                $.ajax({
+                    url: '@Url.Action("GetItemByGroupId", "StockAdjustment")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+
+                        $("#ItemId").empty();
+                        $("#ItemId").prop("disabled", false);
+                        $.each(datas, function (index, value) {
+                            $("#ItemId").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                        $("#ItemId").focus();
+                        if (itemId != "") {
+                            $("#ItemId").val(itemId).change();
+                            itemId = "";
+                        }
+                    }
+                });
+            }
+            else {
+                $("#ItemId").val("").change();
+            }
+        });
+
+
+        //item change reaction
+        $(document).on('change', "#ItemId", function () {
+            RemoveError();
+            var id = { itemId: $(this).val(), storeId: $("#Store").val(), date: $("#Date").val() };
+            if (id.storeId != "") {
+                if (id.itemId != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetItemRemainQty", "StockAdjustment")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            $("#AvailableQty").val(datas.RemQty.toFixed(2));
+                            $("#UOM").val(datas.uom);
+                            $("#PcsPerCtn").val(datas.PCPerCtn.toFixed(2));
+                            $("#AvailableQtyCtn").val(datas.RemCtn.toFixed(2));
+                            $("#QtyCtn").val("");
+                            $("#Qty").val("");
+                            $("#BalanceQty").val("");
+                            
+
+                        }
+                    });
+                }
+                else {
+                    //setError("ItemId", "Item is required for get Available Qty.");
+                    $("#AvailableQty").val("");
+                    $("#UOM").val("");
+                    $("#PcsPerCtn").val("");
+                    $("#AvailableQtyCtn").val("");
+                }
+            }
+            else {
+                if (isSearch == false) {
+                    setError("Store", "Store is required for get Available Qty.");
+                }
+            }
+        });
+        $(document).on('change', "#Date", function () {
+            
+            RemoveError();
+            var id = { itemId: $("#ItemId").val(), storeId: $("#Store").val(), date: $("#Date").val() };
+            if (id.storeId != "") {
+           
+                if (id.itemId != "") {
+                 
+                    $.ajax({
+                        url: '@Url.Action("GetItemRemainQty", "StockAdjustment")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            // alert("Changed");
+                            $("#AvailableQty").val(datas.RemQty.toFixed(2));
+                            $("#UOM").val(datas.uom);
+                            $("#PcsPerCtn").val(datas.PCPerCtn.toFixed(2));
+                            $("#AvailableQtyCtn").val(datas.RemCtn.toFixed(2));
+                            $("#QtyCtn").val("");
+                            $("#Qty").val("");
+                            $("#BalanceQty").val("");
+                        }
+                    });
+                }
+                else {
+                    //setError("ItemId", "Item is required for get Available Qty.");
+                    $("#AvailableQty").val("");
+                    $("#UOM").val("");
+                    $("#PcsPerCtn").val("");
+                    $("#AvailableQtyCtn").val("");
+                }
+            }
+            else {
+                if (isSearch == false) {
+                    setError("Store", "Store is required for get Available Qty.");
+                }
+            }
+        });
+        $(document).on('change', "#TransectionType", function () {
+            table.clear().draw();
+            addedItems = [];
+            $("#Date").prop("disabled", false);
+        });
+
+        //add to grid
+         $(document).on('click', '#addToGrid', function () {
+             RemoveError();
+             ValidateAddToGrid();
+             if (isValid == true) {
+                 var item = { SANo: 0, ItemId: 0, ItemName: "", Qty: 0, GroupId: 0, UOM: "" };
+                 item.SANo = $("#SANo").val();
+                 item.ItemName = $("#ItemId :selected").text();
+                 item.ItemId = $("#ItemId").val();
+                 item.Qty = $("#Qty").val();
+                 item.GroupId = $("#GroupId").val();
+                 item.UOM = $("#UOM").val();
+                 addedItems.push(item);
+                 ClearOnSearch();
+                 ShowOnTable();
+             }
+        });
+
+        //delete Row
+        $(document).on('click', '[name="deleteRow"]', function () {
+            var item = $(this).attr("value");
+            var newItem = [];
+            if (confirm('Are you sure you want to delete this from Grid ?')) {
+                $.each(addedItems, function (index, value) {
+                    if (value.ItemId == item) {
+
+                    }
+                    else {
+                        newItem.push(value);
+                    }
+
+                });
+                addedItems = newItem;
+                ShowOnTable();
+            }
+        });
+
+
+        //edit Row
+        $(document).on('click', '[name="editRow"]', function () {
+            var item = $(this).attr("value");
+            var newItem = [];
+            $.each(addedItems, function (index, value) {
+                if (value.ItemId == item) {
+
+                    $("#GroupId").val(value.GroupId).change();
+                    itemId = value.ItemId;
+                    $("#Qty").val(value.Qty);
+                }
+                else {
+                    newItem.push(value);
+                }
+
+            });
+            addedItems = newItem;
+            ShowOnTable();
+        });
+
+        //save code
+        $(document).on('click', '#save', function () {
+            RemoveError();
+            $("#save").prop('disabled', true);
+            SetSA();
+            if (addedItems.length <= 0) {
+                alert("At least One Item should be added for save.");
+                $("#save").prop('disabled', false);
+            }
+            else {
+                ValidateSA();
+                if (isValid == true) {
+                    if (confirm('Do you want to save')) {
+                        $.ajax({
+                            url: '@Url.Action("SaveSA", "StockAdjustment")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ sa: sa, addedItems: addedItems }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Failed To Saved.");
+                                    $("#save").prop('disabled', false);
+                                }
+                                else if (datas == 3) {
+                                    alert("Please select a valid entry date");
+                                    $("#Date").focus();
+                                    $("#save").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully Saved.");
+                                    $("#SANo").val(datas.sa.SANo);
+                                    $("#print").show();
+                                    $("#save").prop('disabled', true);
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        $("#save").prop('disabled', false);
+                    }
+                }
+                else {
+                    $("#save").prop('disabled', false);
+                }
+            }
+        });
+
+        //search code
+        $(document).on('click', '#search', function () {
+            isSearch = true;
+            var id = { id: $("#SANo").val() };
+            ClearOnSearch();
+            if ($("#SANo").val() != "") {
+                $.ajax({
+                    url: '@Url.Action("GetSAById", "StockAdjustment")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+
+                        if (datas == 0) {
+                            alert("Your entered SA No. Doesn't exist.");
+                        }
+                        else {
+                            $("#save").hide();
+                            $("#delete").show();
+                            $("#update").show();
+
+                            //var sa = { SANo: 0, Store: 0, Date: "", TransectionType: "", Description: "" };
+                            $("#Date").val((moment(datas.saE.Date).format("DD-MM-YYYY")));
+                            $("#SANo").val(datas.saE.SANo);
+                            $("#Depot").val(datas.Depot).change();
+                            storeId = datas.saE.Store;
+                            $("#TransectionType").val(datas.saE.TransectionType).change();
+                            $("#Description").val(datas.saE.Description);
+                            $("#RefNo").val(datas.saE.RefNo);
+
+                            addedItems = [];
+                            $.each(datas.saLineE, function (index, value) {
+                                var item = { SANo: 0, ItemId: 0, ItemName: "", Qty: 0, GroupId: 0, UOM: "" };
+                                item.SANo = value.SANo;
+                                item.ItemName = value.ItemName;
+                                item.ItemId = value.ItemId;
+                                item.Qty = value.Qty;
+                                item.GroupId = value.GroupId;
+                                item.UOM = value.UOM;
+
+                                addedItems.push(item);
+                            });
+                            ShowOnTable();
+                            $("#print").show();
+                            $("#Depot").prop('disabled', true);
+                            $("#Store").prop('disabled', true);
+                            $("#TransectionType").prop('disabled', true);
+
+                           
+                        }
+                    },
+                    error: function () {
+                        alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services");
+                    }
+                });
+            }
+            else {
+                setError("SANo", "SANo is Required for get data.");
+            }
+        });
+
+        //update
+        $(document).on('click', '#update', function () {
+            RemoveError();
+            $("#update").prop('disabled', true);
+            SetSA();
+            if (addedItems.length <= 0) {
+                alert("At least One Item should be added for Update.");
+                $("#update").prop('disabled', false);
+            }
+            else {
+                ValidateSA();
+                if (confirm('Do you want to Update')) {
+                    if (isValid == true) {
+                    $.ajax({
+                        url: '@Url.Action("UpdateSA", "StockAdjustment")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ sa: sa, addedItems: addedItems }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Update.");
+                                $("#update").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Updated.");
+                                $("#update").prop('disabled', true);
+                            }
+                        }
+                    });
+                }
+                    else {
+                        $("#update").prop('disabled', false);
+                    }
+                }
+                else {
+                    $("#update").prop('disabled', false);
+                }
+            }
+        });
+
+        //delete code
+        $(document).on('click', '#delete', function () {
+           // $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var id = $("#SANo").val();
+            if ($("#SANo").val() != "") {
+                if (confirm('Are you sure you want to delete this from the database?')) {
+                    $.ajax({
+                        url: '@Url.Action("DeleteSAByid", "StockAdjustment")',
+                        contentType: "application/json;charset=utf-8",
+                        data: { id: id },
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Delete failed.");
+                                $("#delete").prop('disabled', false);
+                                $("#update").prop('disabled', false);
+                            }
+                            else {
+                                alert("Delete Successfull");
+                                window.location.reload(true);
+                            }
+                        }
+                    });
+                }
+                else {
+                   // $("#update").prop('disabled', false);
+                    $("#delete").prop('disabled', false);
+                }
+            }
+            else {
+                //$("#update").prop('disabled', false);
+                $("#delete").prop('disabled', false);
+            }
+        });
+
+        $(document).on('click', "#print", function (event) {
+            event.preventDefault();
+            if ($("#message").val() != "true") {
+                $("#report").attr("action", "/StockAdjustment/GetStockADjustmentPreview");
+                $("#report").submit();
+            }
+        });
+
+        //data table fill up
+        function ShowOnTable() {
+            table.clear().draw();
+            //var item = { SANo: 0, ItemId: 0, ItemName: "", Qty: 0, GroupId: 0, UOM: "" };
+            $.each(addedItems, function (index, value) {
+                table.row.add([value.ItemName, value.UOM, value.Qty,
+                '<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.ItemId + '"></i></a>']).draw();
+
+            });
+        }
+
+        function ValidateAddToGrid() {
+            //var item = { SANo: 0, ItemId: 0, ItemName: "", Qty: 0, GroupId: 0, UOM: "" };
+            isValid = true;
+            if ($("#TransectionType").val() == "") {
+                setError("TransectionType", "Transection Type is required field");
+                isValid = false;
+            }
+            if ($("#Qty").val() == "") {
+                setError("Qty", "Qty is required field");
+                isValid = false;
+            }
+            if ($("#Qty").val() <= 0) {
+                setError("Qty", "Qty must be grater than Zero");
+                isValid = false;
+            }
+            if ($("#GroupId").val() != "") {
+                if ($("#ItemId").val() == "") {
+                    setError("ItemId", "Item is required field");
+                    isValid = false;
+                }
+            }
+            if ($("#GroupId").val() == "") {
+                setError("GroupId", "Group is required field");
+                isValid = false;
+            }
+            if ($("#TransectionType").val() != "") {
+                if ($("#TransectionType").val() == "Decrease") {
+                    if (parseFloat($("#Qty").val()) > parseFloat($("#AvailableQty").val())) {
+                        setError("Qty", "QTY Can Not be Grater Than Available Qty");
+                        isValid = false;
+                    }
+                }
+            }
+
+            $.each(addedItems, function (index, value) {
+                if (value.ItemId == $("#ItemId").val()) {
+                    setError("ItemId", "This Item is Already Added.");
+                    isValid = false;
+                }
+            });
+        }
+
+        function ClearOnSearch() {
+            $("#ItemId").val("").change();
+            $("#Qty").val("");
+            $("#GroupId").val("").change();
+            $("#UOM").val("");
+            $("#AvailableQty").val("");
+            $("#QtyCtn").val("");
+            $("#BalanceQty").val("");
+            $("#BalanceQtyCtn").val("");
+        }
+
+        //get value from textbox
+        function SetSA() {
+            //var sa = { SANo: 0, Store: 0, Date: "", TransectionType: "", Description: "" };
+            sa.SANo = $("#SANo").val();
+            sa.Store = $("#Store").val();
+            sa.Date = $("#Date").val();
+            sa.TransectionType = $("#TransectionType").val();
+            sa.Description = $("#Description").val();
+            sa.RefNo = $("#RefNo").val();
+        }
+
+        function ValidateSA() {
+            isValid = true;
+            if (sa.Store == "") {
+                setError("Store", "Store is required field");
+                isValid = false;
+            }
+
+            if (sa.Date == "") {
+                setError("Date", "Date is required field");
+                isValid = false;
+            }
+
+            if (sa.TransectionType == "") {
+                setError("TransectionType", "TransectionType is required field");
+                isValid = false;
+            }
+        }
+
+    </script>
+}
+

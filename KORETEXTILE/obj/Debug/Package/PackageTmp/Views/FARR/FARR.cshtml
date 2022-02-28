@@ -1,0 +1,719 @@
+﻿@using BEEERP.Models.Authentication
+@using BEEERP.Models.CommonInformation
+@model BEEERP.Models.ViewModel.Sales.Retailer.FARRVModel
+@{
+    ViewBag.Title = "FARR";
+}
+
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<h3 style="text-align:center">Freezer Advance Rent Refund (FARR) Entry</h3>
+<form id="report" , target="_blank">
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                    <h4 class="box-title">FARR Details</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.FARRNo, "FARR No", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-7 input-group" style="padding-left:15px; padding-right:15px;">
+                                                @Html.TextBoxFor(m => m.FARRNo, new { @class = "form-control", @Value = ViewBag.Id })
+                                                @Html.ValidationMessageFor(m => m.FARRNo, "", new { @style = "color: red" })
+                                                <div class="input-group-btn">
+                                                    <input type="button" name="search" id="search" value="Search" class="btn btn-primary" style="min-width: 50px" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.DepotId, "Depot", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-7">
+                                                @Html.DropDownListFor(m => m.DepotId, (IEnumerable<SelectListItem>)ViewBag.Depot, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.DepotId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.CustomerID, "Dealer", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-7">
+                                                @Html.DropDownListFor(m => m.CustomerID, (IEnumerable<SelectListItem>)ViewBag.Dealer, new { @class = "form-control  select2", })
+                                                @Html.ValidationMessageFor(m => m.CustomerID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.SelectType, "Select Type", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-7">
+                                                @Html.DropDownListFor(m => m.SelectType, (IEnumerable<SelectListItem>)ViewBag.AccountType, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.SelectType, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Date, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-7 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.Date, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                @Html.ValidationMessageFor(m => m.Date, "", new { @style = "color: red" })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Area, "Area", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-7 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.Area, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.Area, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Zone, "Zone", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-7 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.Zone, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.Zone, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.DealerAcc, "Account", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-7">
+                                                @Html.DropDownListFor(m => m.DealerAcc, (IEnumerable<SelectListItem>)ViewBag.Account, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.DealerAcc, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div class="box-body">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.RetailerId, "Retailer", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-7">
+                                                @Html.DropDownListFor(m => m.RetailerId, (IEnumerable<SelectListItem>)ViewBag.Retailer, new { @class = "form-control  select2", })
+                                                @Html.ValidationMessageFor(m => m.RetailerId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.RType, "Type", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-7 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.RType, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.RType, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Amount, "Amount", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-7 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.Amount, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Amount, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.RefNo, "Reference No ", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-7 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.RefNo, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.RefNo, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Descriptions, "Description", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-7 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.Descriptions, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Descriptions, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box-footer">
+                                    <div class="form-group" , style="text-align:center">
+                                        <input type="button" name="addToGrid" id="addToGrid" value="Add To Grid" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                    <h4 class="box-title">FARR Amount</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Total, "Total", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.Total, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.Total, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="box ">
+                                        <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                            <h4 class="box-title">FARR Line Items</h4>
+                                        </div>
+                                        <div class="box-body">
+                                            <table class="table table-responsive" id="FARRDetails">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Retailer</th>
+                                                        <th>Reference</th>
+                                                        <th>Decription</th>
+                                                        <th>Amount</th>
+                                                        <th>Type</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                        <div class="box">
+                                            <div class="box-footer">
+                                                <div class="form-group" , style="text-align:center">
+                                                    <input type="button" name="save" id="save" value="Save" class="btn btn-primary" />
+                                                    <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                                                    <input type="button" name="delete" id="delete" value="Delete" class="btn btn-primary" />
+                                                    <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                                    <input type="button" name="print" id="print" value="Print" class="btn btn-primary" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<input type="hidden" id="hPacSize" />
+
+@section scripts
+    {
+    <script src="~/Scripts/Common.js"></script>
+    @*<script src="~/Scripts/Procurement/FreezerWorkOrderInputFocus.js"></script>*@
+
+    <script>
+        $("#update").hide();
+        $("#print").hide();
+        $("#delete").hide();
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+        $(".select2").select2();
+        $(document).on('click', "#refresh", function () {
+            location.reload();
+
+        });
+        var table = $('#FARRDetails').DataTable({
+            'paging': false,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+        $(document).ready(function () {
+            function getCheckboxStatus() {
+                var status = document.getElementById("processedCheckBox").checked;
+                if (status) {
+                    alert("Yes");
+                } else {
+                    alert("No");
+                }
+            }
+            $("#DepotId").focus();
+            $("#update").hide();
+            $("#delete").hide();
+            $("#print").hide();
+        });
+        var customer = 0;
+        var isValid = true;
+        var isSearch = false;
+        var addedItems = [];
+        var farr = { clmFARRNo: 0, clmDealerID: 0, clmDate: "", clmAccountID: 0, clmDepotID: 0, clmTotalAmount: 0, clmType:"" }
+
+        //Get all Dealer By Depot
+        $(document).on('change', "#DepotId", function () {
+            // ClearOnDepotChange();
+            var id = { id: $(this).val() };
+            if (id.id != "") {
+                $.ajax({
+                    url: '@Url.Action("GetDealerByDepot", "FARR")',
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify(id),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+                        //$("#CustomerID").empty();
+                        $("#CustomerID").prop("disabled", false);
+                        $("#CustomerID").focus();
+                        $.each(datas, function (index, value) {
+                            $("#CustomerID").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                        if (customer != 0) {
+                            $("#CustomerID").val(customer).change();
+                            //$("#CustomerID").val("");
+                        }
+                    }
+                });
+            }
+            else {
+                //$("#CustomerID").empty();
+                $("#DepotId").prop("disabled", true);
+            }
+        });
+
+        //Get all Retailer By Depot
+        $(document).on('change', "#CustomerID", function () {
+            // ClearOnDepotChange();
+            $("#DepotId").prop("disabled", true);
+            var id = { id: $(this).val() };
+            if (id.id != "") {
+                $.ajax({
+                    url: '@Url.Action("GetRetailerByDealer", "FARR")',
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify(id),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+                        $("#RetailerId").empty();
+                        $("#RetailerId").prop("disabled", false);
+                        $("#SelectType").focus();
+                        $.each(datas.retailer, function (index, value) {
+                            $("#RetailerId").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+
+                        $("#Zone").val(datas.Zone);
+                        $("#Area").val(datas.Area);
+
+                    }
+                });
+            }
+            else {
+                $("#RetailerId").empty();
+                //$("#CustomerID").prop("disabled", true);
+            }
+        });
+
+        //Retailer Change Event
+        $(document).on('change', "#RetailerId", function () {
+            //$("#CustomerID").prop('disabled', true);
+            var param = { retId: $("#RetailerId").val() };
+            //RemoveError();
+            if (param.retId != "") {
+                $.ajax({
+                url: '@Url.Action("GetRetailerById", "FARR")',
+                contentType: "application/json;charset=utf-8",
+                data: param,
+                type: 'GET',
+                dataType: 'json',
+                    success: function (datas) {
+                        $("#Amount").focus();
+                    if (datas != 0) {
+                        if (datas.RType == "No") {
+                            rType = "RFRR";
+                        }
+                        else {
+                            rType = "DFRR";
+                        }
+                        $("#RType").val(rType);
+                    }
+                }
+            });
+            }
+        });
+
+        //Get all account By Type
+        $(document).on('change', "#SelectType", function () {
+            // ClearOnDepotChange();
+            var id = { id: $(this).val() };
+            if (id.id != "") {
+                $.ajax({
+                    url: '@Url.Action("GetAccountByType", "FARR")',
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify(id),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+                        //$("#DealerAcc").empty();
+                        $("#DealerAcc").prop("disabled", false);
+                        $("#DealerAcc").focus()
+                        $.each(datas, function (index, value) {
+                            $("#DealerAcc").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                    }
+                });
+            }
+            else {
+                $("#DealerAcc").empty();
+                //$("#CustomerID").prop("disabled", true);
+            }
+        });
+
+        //focusout
+        $(document).on('focusout', "#Amount", function () {
+            $("#RefNo").focus();
+        });
+        $(document).on('focusout', "#RefNo", function () {
+            $("#Descriptions").focus();
+        });
+
+        //add to grid
+        $(document).on('click', "#addToGrid", function () {
+            RemoveError();
+            ValidateAddToGrid();
+            var item = { clmFARRNo: 0, clmRetailerID: 0, RetailerName: "", clmREfno: "", clmDescriptions: "", clmAmount: 0, clmDealerYN: ""}
+
+            if (isValid == true) {
+                item.clmRetailerID = $("#RetailerId").val();
+                item.RetailerName = $("#RetailerId :selected").text();
+                item.clmREfno = $("#RefNo").val();
+                item.clmDescriptions = $("#Descriptions").val();
+                item.clmAmount = $("#Amount").val();
+                item.clmDealerYN = $("#RType").val();
+                addedItems.push(item);
+                ClearOnSearch()
+                if (isSearch == false) {
+                    ShowOnTable();
+                } else {
+                    ShowOnTable();
+                }
+                $("#RetailerId").focus();
+                $("#addToGrid").hide();
+            }
+        });
+
+        //edit row
+        $(document).on('click', '[name="editRow"]', function () {
+            var item = parseInt($(this).attr("value"));
+            $("#addToGrid").show();
+            var newItem = [];
+            $.each(addedItems, function (index, value) {
+                if (value.clmRetailerID == item) {
+                    $("#RetailerId").val(value.clmRetailerID).change();
+                    $("#Amount").val(value.clmAmount);
+                    $("#RefNo").val(value.clmREfno);
+                    $("#Descriptions").val(value.clmDescriptions);
+
+                    //itemId = value.ItemID;
+                }
+                else {
+                    newItem.push(value);
+                }
+
+            });
+            addedItems = newItem;
+            ShowOnTable();
+            //if (isSearch == false) {
+            //    ShowOnTable();
+            //}
+            //else {
+            //    ShowOnTableforaddtogrid()
+            //}
+        });
+
+        //deleteRow
+        $(document).on('click', '[name="deleteRow"]', function () {
+            var item = $(this).attr("value");
+            if (confirm('Are you sure you want to delete this from grid ?')) {
+                var newItem = [];
+                $.each(addedItems, function (index, value) {
+                    if (value.clmRetailerID == item) {
+
+                    }
+                    else {
+                        newItem.push(value);
+                    }
+                });
+                addedItems = newItem;
+                ShowOnTable();
+            }
+        });
+
+        //Save Button click Event
+        $(document).on('click', "#save", function () {
+            ///RemoveError();
+            SetFARR();
+            if (addedItems.length <= 0) {
+                alert("At least One Item should be added for save.");
+            }
+            else {
+                //ValidateWorkOrder();
+                if (isValid == true) {
+                    if (confirm('Do you want to save')) {
+                        $.ajax({
+                            url: '@Url.Action("SaveFARR", "FARR")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ farr: farr, addedItems: addedItems }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Failed To Saved.");
+                                    $("#save").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully Saved.");
+                                    $("#FARRNo").val(datas.clmFARRNo);
+                                    $("#save").hide();
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        $("#save").show();
+                    }
+                }
+            }
+        });
+
+         //Update
+        $(document).on('click', '#update', function () {
+            RemoveError();
+            $("#update").prop('disabled', true);
+            SetFARR();
+            farr.clmFARRNo = $("#FARRNo").val();
+            //ValidateRMSales();
+
+            if (addedItems.length <= 0) {
+                alert("At least One Item should be added for Update.");
+                $("#update").prop('disabled', false);
+            }
+            else {
+                if (confirm('Do you want to Update')) {
+                    if (isValid == true) {
+                    $.ajax({
+                        url: '@Url.Action("UpdateFARR", "FARR")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ farr: farr, addedItems: addedItems }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("This FARR Is Already Received. Unable To Update.");
+                                $("#update").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Updated.");
+                                $("#update").prop('disabled', true);
+                            }
+                        }
+                    });
+                    }
+                    else {
+                        $("#update").prop('disabled', false);
+                    }
+                }
+            }
+
+        });
+         //delete
+        $(document).on('click', '#delete', function (){
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var id = $("#FARRNo").val();
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteFARR", "FARR")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("This FARR Is Already Received. Unable To Delete.");
+                            $("#delete").prop('disabled', false);
+                            $("#update").prop('disabled', false);
+                        }
+                        else {
+                            alert("Delete Successfull");
+                            location.reload();
+                        }
+                    }
+                });
+            }
+        });
+
+        //Search Button click
+        $(document).on('click', '#search', function () {
+            isSearch = true;
+            if ($("#FARRNo").val()!="") {
+                //$("#DepotId").prop('disabled', true);
+                //$("#CustomerID").prop('disabled', true);
+                //$("#DealerAcc").prop('disabled', true);
+                var id = { id: $("#FARRNo").val() };
+                //ClearOnSearch();
+                if (id.id != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetFARRById", "FARR")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            if (datas == 0) {
+                                alert("Your entered FARR No. Doesn't exist");
+                            }
+                            else {
+                                $("#save").hide();
+                                $("#update").show();
+                                $("#delete").show();
+                               // $("#DepotId").prop("disabled", true);
+                                //$("#CustomerID").prop("disabled", true);
+                                $("#FARRNo").val(datas.farr.clmFARRNo);
+                                $("#Date").val((moment(datas.farr.clmDate).format("DD-MM-YYYY")));
+                                customer = datas.farr.clmDealerID;
+                                $("#DepotId").val(datas.farr.clmDepotID).change();
+                                //$("#CustomerID").val(datas.farr.clmDealerID).change();
+                               
+                                $("#SelectType").val(datas.farr.clmType).change();
+                               $("#DealerAcc").val(datas.farr.clmAccountID).change();
+                                $("#Total").val(datas.farr.clmTotalAmount);
+
+
+                                addedItems = [];
+                                $.each(datas.farrLineItem, function (index, value) {
+                                    var item = { clmFARRNo: 0, clmRetailerID: 0, RetailerName: "", clmREfno: "", clmDescriptions: "", clmAmount: 0, clmDealerYN: "" }
+                                    item.clmRetailerID = value.clmRetailerID;
+                                    item.RetailerName = value.RetailerName;
+                                    item.clmREfno = value.clmREfno;
+                                    item.clmDescriptions = value.clmDescriptions;
+                                    item.clmAmount = value.clmAmount;
+                                    item.clmDealerYN = value.clmDealerYN;
+                                    addedItems.push(item);
+                                });
+                                ShowOnTable();
+                            }
+                    },
+                    error: function () {
+                        alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+                    }
+                });
+                }
+            }
+            else {
+                alert("Please Enter a work order No first");
+            }
+        });
+
+        function ShowOnTable() {
+            table.clear().draw();
+            var clmRetailerID = 0;
+            var clmREfno = "";
+            var clmDescriptions = "";
+            var clmAmount = 0.0;
+            var clmDealerYN = "";
+            var totAmount = 0;
+            $.each(addedItems, function (index, value) {
+                table.row.add([value.RetailerName, value.clmREfno, value.clmDescriptions, value.clmAmount, value.clmDealerYN,
+                    '<a href="#"><i class="fa fa-edit" name="editRow" value="' +
+                    value.clmRetailerID + '"></i></a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.clmRetailerID + '"></i></a>']).draw();
+                totAmount += parseFloat(value.clmAmount);
+            });
+            $("#Total").val(totAmount);
+           
+        }
+        function SetFARR() {
+            farr.clmFARRNo = 0;
+            farr.clmAccountID = $("#DealerAcc").val();
+            farr.clmDate = $("#Date").val();
+            farr.clmDealerID = $("#CustomerID").val();
+            //fri.clmAccountID = $("#DealerAcc").val();
+            farr.clmDepotID = $("#DepotId").val();
+            farr.clmType = $("#SelectType").val();
+            //fri.clmBankCharge = $("#BankCharge").val();
+            farr.clmTotalAmount = $("#Total").val();
+            farr.clmAmount = $('#Amount').val();
+            farr.clmRetailerID = $('#RetailerId').val();
+            farr.clmREfno = $('#RefNo').val();
+            farr.clmDescriptions = $('#Description').val();
+            farr.clmDealerYN = $('#RType').val();
+
+        }
+        function ClearOnSearch() {
+            $("#RetailerId").val("").change();
+            $("#Amount").val("");
+            $("#RefNo").val("");
+            $("#Descriptions").val("");
+            $("#RType").val("");
+            //itemId = "";
+        }
+
+        function ValidateAddToGrid() {
+            isValid = true;
+            if ($("#SelectType").val() == "") {
+                setError("SelectType", "Type is Required");
+                isValid = false;
+            }
+            if ($("#DealerAcc").val() == 0) {
+                setError("DealerAcc", "Account is Required");
+                isValid = false;
+            }
+            isValid = true;
+            if ($("#RType").val() == "") {
+                setError("RType", "First select a Retailer");
+                isValid = false;
+            }
+            if ($("#Amount").val() == 0) {
+                setError("Amount", "Amount Can not be Zero");
+                isValid = false;
+            }
+        }
+    </script>
+
+}
+

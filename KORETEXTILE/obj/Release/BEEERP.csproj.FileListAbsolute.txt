@@ -1,0 +1,2388 @@
+F:\BEEERP\BEEERP\bin\ApplicationInsights.config
+F:\BEEERP\BEEERP\bin\BEEERP.dll.config
+F:\BEEERP\BEEERP\bin\BEEERP.dll
+F:\BEEERP\BEEERP\bin\BEEERP.pdb
+F:\BEEERP\BEEERP\bin\roslyn\csc.exe
+F:\BEEERP\BEEERP\bin\roslyn\csc.exe.config
+F:\BEEERP\BEEERP\bin\roslyn\csc.rsp
+F:\BEEERP\BEEERP\bin\roslyn\csi.exe
+F:\BEEERP\BEEERP\bin\roslyn\csi.exe.config
+F:\BEEERP\BEEERP\bin\roslyn\csi.rsp
+F:\BEEERP\BEEERP\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+F:\BEEERP\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+F:\BEEERP\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+F:\BEEERP\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.dll
+F:\BEEERP\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+F:\BEEERP\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+F:\BEEERP\BEEERP\bin\roslyn\Microsoft.CSharp.Core.targets
+F:\BEEERP\BEEERP\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+F:\BEEERP\BEEERP\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+F:\BEEERP\BEEERP\bin\roslyn\Microsoft.VisualBasic.Core.targets
+F:\BEEERP\BEEERP\bin\roslyn\Microsoft.Win32.Primitives.dll
+F:\BEEERP\BEEERP\bin\roslyn\System.AppContext.dll
+F:\BEEERP\BEEERP\bin\roslyn\System.Collections.Immutable.dll
+F:\BEEERP\BEEERP\bin\roslyn\System.Console.dll
+F:\BEEERP\BEEERP\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+F:\BEEERP\BEEERP\bin\roslyn\System.Diagnostics.Process.dll
+F:\BEEERP\BEEERP\bin\roslyn\System.Diagnostics.StackTrace.dll
+F:\BEEERP\BEEERP\bin\roslyn\System.IO.Compression.dll
+F:\BEEERP\BEEERP\bin\roslyn\System.IO.FileSystem.dll
+F:\BEEERP\BEEERP\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
+F:\BEEERP\BEEERP\bin\roslyn\System.IO.FileSystem.Primitives.dll
+F:\BEEERP\BEEERP\bin\roslyn\System.IO.Pipes.dll
+F:\BEEERP\BEEERP\bin\roslyn\System.Reflection.Metadata.dll
+F:\BEEERP\BEEERP\bin\roslyn\System.Security.AccessControl.dll
+F:\BEEERP\BEEERP\bin\roslyn\System.Security.Claims.dll
+F:\BEEERP\BEEERP\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+F:\BEEERP\BEEERP\bin\roslyn\System.Security.Cryptography.Encoding.dll
+F:\BEEERP\BEEERP\bin\roslyn\System.Security.Cryptography.Primitives.dll
+F:\BEEERP\BEEERP\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+F:\BEEERP\BEEERP\bin\roslyn\System.Security.Principal.Windows.dll
+F:\BEEERP\BEEERP\bin\roslyn\System.Text.Encoding.CodePages.dll
+F:\BEEERP\BEEERP\bin\roslyn\System.Threading.Thread.dll
+F:\BEEERP\BEEERP\bin\roslyn\System.ValueTuple.dll
+F:\BEEERP\BEEERP\bin\roslyn\System.Xml.ReaderWriter.dll
+F:\BEEERP\BEEERP\bin\roslyn\System.Xml.XmlDocument.dll
+F:\BEEERP\BEEERP\bin\roslyn\System.Xml.XPath.dll
+F:\BEEERP\BEEERP\bin\roslyn\System.Xml.XPath.XDocument.dll
+F:\BEEERP\BEEERP\bin\roslyn\vbc.exe
+F:\BEEERP\BEEERP\bin\roslyn\vbc.exe.config
+F:\BEEERP\BEEERP\bin\roslyn\vbc.rsp
+F:\BEEERP\BEEERP\bin\roslyn\VBCSCompiler.exe
+F:\BEEERP\BEEERP\bin\roslyn\VBCSCompiler.exe.config
+F:\BEEERP\BEEERP\bin\Antlr3.Runtime.dll
+F:\BEEERP\BEEERP\bin\EntityFramework.dll
+F:\BEEERP\BEEERP\bin\EntityFramework.SqlServer.dll
+F:\BEEERP\BEEERP\bin\Microsoft.AI.Agent.Intercept.dll
+F:\BEEERP\BEEERP\bin\Microsoft.AI.DependencyCollector.dll
+F:\BEEERP\BEEERP\bin\Microsoft.AI.PerfCounterCollector.dll
+F:\BEEERP\BEEERP\bin\Microsoft.AI.ServerTelemetryChannel.dll
+F:\BEEERP\BEEERP\bin\Microsoft.AI.Web.dll
+F:\BEEERP\BEEERP\bin\Microsoft.AI.WindowsServer.dll
+F:\BEEERP\BEEERP\bin\Microsoft.ApplicationInsights.dll
+F:\BEEERP\BEEERP\bin\Microsoft.AspNet.Identity.Core.dll
+F:\BEEERP\BEEERP\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+F:\BEEERP\BEEERP\bin\Microsoft.AspNet.Identity.Owin.dll
+F:\BEEERP\BEEERP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+F:\BEEERP\BEEERP\bin\Microsoft.Owin.dll
+F:\BEEERP\BEEERP\bin\Microsoft.Owin.Host.SystemWeb.dll
+F:\BEEERP\BEEERP\bin\Microsoft.Owin.Security.Cookies.dll
+F:\BEEERP\BEEERP\bin\Microsoft.Owin.Security.dll
+F:\BEEERP\BEEERP\bin\Microsoft.Owin.Security.Facebook.dll
+F:\BEEERP\BEEERP\bin\Microsoft.Owin.Security.Google.dll
+F:\BEEERP\BEEERP\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+F:\BEEERP\BEEERP\bin\Microsoft.Owin.Security.OAuth.dll
+F:\BEEERP\BEEERP\bin\Microsoft.Owin.Security.Twitter.dll
+F:\BEEERP\BEEERP\bin\Microsoft.Web.Infrastructure.dll
+F:\BEEERP\BEEERP\bin\Newtonsoft.Json.dll
+F:\BEEERP\BEEERP\bin\Owin.dll
+F:\BEEERP\BEEERP\bin\System.Web.Helpers.dll
+F:\BEEERP\BEEERP\bin\System.Web.Mvc.dll
+F:\BEEERP\BEEERP\bin\System.Web.Optimization.dll
+F:\BEEERP\BEEERP\bin\System.Web.Razor.dll
+F:\BEEERP\BEEERP\bin\System.Web.WebPages.Deployment.dll
+F:\BEEERP\BEEERP\bin\System.Web.WebPages.dll
+F:\BEEERP\BEEERP\bin\System.Web.WebPages.Razor.dll
+F:\BEEERP\BEEERP\bin\WebGrease.dll
+F:\BEEERP\BEEERP\bin\EntityFramework.xml
+F:\BEEERP\BEEERP\bin\EntityFramework.SqlServer.xml
+F:\BEEERP\BEEERP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+F:\BEEERP\BEEERP\bin\System.Web.Helpers.xml
+F:\BEEERP\BEEERP\bin\System.Web.Mvc.xml
+F:\BEEERP\BEEERP\bin\System.Web.Optimization.xml
+F:\BEEERP\BEEERP\bin\System.Web.Razor.xml
+F:\BEEERP\BEEERP\bin\System.Web.WebPages.xml
+F:\BEEERP\BEEERP\bin\System.Web.WebPages.Deployment.xml
+F:\BEEERP\BEEERP\bin\System.Web.WebPages.Razor.xml
+F:\BEEERP\BEEERP\bin\Antlr3.Runtime.pdb
+F:\BEEERP\BEEERP\bin\Newtonsoft.Json.xml
+F:\BEEERP\BEEERP\bin\Microsoft.AspNet.Identity.Core.xml
+F:\BEEERP\BEEERP\bin\Microsoft.AspNet.Identity.Owin.xml
+F:\BEEERP\BEEERP\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+F:\BEEERP\BEEERP\bin\Microsoft.Owin.xml
+F:\BEEERP\BEEERP\bin\Microsoft.Owin.Host.SystemWeb.xml
+F:\BEEERP\BEEERP\bin\Microsoft.Owin.Security.xml
+F:\BEEERP\BEEERP\bin\Microsoft.Owin.Security.Facebook.xml
+F:\BEEERP\BEEERP\bin\Microsoft.Owin.Security.Cookies.xml
+F:\BEEERP\BEEERP\bin\Microsoft.Owin.Security.OAuth.xml
+F:\BEEERP\BEEERP\bin\Microsoft.Owin.Security.Google.xml
+F:\BEEERP\BEEERP\bin\Microsoft.Owin.Security.Twitter.xml
+F:\BEEERP\BEEERP\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+F:\BEEERP\BEEERP\bin\Microsoft.ApplicationInsights.xml
+F:\BEEERP\BEEERP\bin\Microsoft.AI.DependencyCollector.xml
+F:\BEEERP\BEEERP\bin\Microsoft.AI.ServerTelemetryChannel.xml
+F:\BEEERP\BEEERP\bin\Microsoft.AI.WindowsServer.xml
+F:\BEEERP\BEEERP\bin\Microsoft.AI.Web.xml
+F:\BEEERP\BEEERP\obj\Release\BEEERP.csprojResolveAssemblyReference.cache
+F:\BEEERP\BEEERP\obj\Release\BEEERP.Migrations.a.resources
+F:\BEEERP\BEEERP\obj\Release\BEEERP.csproj.GenerateResource.cache
+F:\BEEERP\BEEERP\obj\Release\BEEERP.csproj.CoreCompileInputs.cache
+F:\BEEERP\BEEERP\obj\Release\BEEERP.csproj.CopyComplete
+F:\BEEERP\BEEERP\obj\Release\BEEERP.dll
+F:\BEEERP\BEEERP\obj\Release\BEEERP.pdb
+F:\BEEERP\trunk\BEEERP\bin\ApplicationInsights.config
+F:\BEEERP\trunk\BEEERP\bin\CrystalReport\ReportRdlc\DealerLedger.cs
+F:\BEEERP\trunk\BEEERP\bin\CrystalReport\ReportRdlc\DealerLedger.rpt
+F:\BEEERP\trunk\BEEERP\bin\BEEERP.dll.config
+F:\BEEERP\trunk\BEEERP\bin\BEEERP.dll
+F:\BEEERP\trunk\BEEERP\bin\BEEERP.pdb
+F:\BEEERP\trunk\BEEERP\bin\roslyn\csc.exe
+F:\BEEERP\trunk\BEEERP\bin\roslyn\csc.exe.config
+F:\BEEERP\trunk\BEEERP\bin\roslyn\csc.rsp
+F:\BEEERP\trunk\BEEERP\bin\roslyn\csi.exe
+F:\BEEERP\trunk\BEEERP\bin\roslyn\csi.exe.config
+F:\BEEERP\trunk\BEEERP\bin\roslyn\csi.rsp
+F:\BEEERP\trunk\BEEERP\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\Microsoft.CSharp.Core.targets
+F:\BEEERP\trunk\BEEERP\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\Microsoft.VisualBasic.Core.targets
+F:\BEEERP\trunk\BEEERP\bin\roslyn\Microsoft.Win32.Primitives.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\System.AppContext.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\System.Console.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\System.Diagnostics.Process.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\System.Diagnostics.StackTrace.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\System.IO.Compression.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\System.IO.FileSystem.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\System.IO.FileSystem.Primitives.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\System.IO.Pipes.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\System.Reflection.Metadata.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\System.Security.AccessControl.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\System.Security.Claims.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\System.Security.Cryptography.Encoding.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\System.Security.Cryptography.Primitives.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\System.Security.Principal.Windows.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\System.Text.Encoding.CodePages.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\System.Threading.Thread.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\System.ValueTuple.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\System.Xml.ReaderWriter.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\System.Xml.XmlDocument.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\System.Xml.XPath.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\System.Xml.XPath.XDocument.dll
+F:\BEEERP\trunk\BEEERP\bin\roslyn\vbc.exe
+F:\BEEERP\trunk\BEEERP\bin\roslyn\vbc.exe.config
+F:\BEEERP\trunk\BEEERP\bin\roslyn\vbc.rsp
+F:\BEEERP\trunk\BEEERP\bin\roslyn\VBCSCompiler.exe
+F:\BEEERP\trunk\BEEERP\bin\roslyn\VBCSCompiler.exe.config
+F:\BEEERP\trunk\BEEERP\bin\Antlr3.Runtime.dll
+F:\BEEERP\trunk\BEEERP\bin\App.Others.dll
+F:\BEEERP\trunk\BEEERP\bin\CrystalDecisions.CrystalReports.Engine.dll
+F:\BEEERP\trunk\BEEERP\bin\CrystalDecisions.ReportSource.dll
+F:\BEEERP\trunk\BEEERP\bin\CrystalDecisions.Shared.dll
+F:\BEEERP\trunk\BEEERP\bin\CrystalDecisions.Web.dll
+F:\BEEERP\trunk\BEEERP\bin\EntityFramework.dll
+F:\BEEERP\trunk\BEEERP\bin\EntityFramework.SqlServer.dll
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.AI.Agent.Intercept.dll
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.AI.DependencyCollector.dll
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.AI.PerfCounterCollector.dll
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.AI.ServerTelemetryChannel.dll
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.AI.Web.dll
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.AI.WindowsServer.dll
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.ApplicationInsights.dll
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.AspNet.Identity.Core.dll
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.AspNet.Identity.Owin.dll
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.Owin.dll
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.Owin.Host.SystemWeb.dll
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Cookies.dll
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.Owin.Security.dll
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Facebook.dll
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Google.dll
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.Owin.Security.OAuth.dll
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Twitter.dll
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.Web.Infrastructure.dll
+F:\BEEERP\trunk\BEEERP\bin\Newtonsoft.Json.dll
+F:\BEEERP\trunk\BEEERP\bin\Owin.dll
+F:\BEEERP\trunk\BEEERP\bin\PagedList.dll
+F:\BEEERP\trunk\BEEERP\bin\PagedList.Mvc.dll
+F:\BEEERP\trunk\BEEERP\bin\Rotativa.dll
+F:\BEEERP\trunk\BEEERP\bin\System.Web.Helpers.dll
+F:\BEEERP\trunk\BEEERP\bin\System.Web.Mvc.dll
+F:\BEEERP\trunk\BEEERP\bin\System.Web.Optimization.dll
+F:\BEEERP\trunk\BEEERP\bin\System.Web.Razor.dll
+F:\BEEERP\trunk\BEEERP\bin\System.Web.WebPages.Deployment.dll
+F:\BEEERP\trunk\BEEERP\bin\System.Web.WebPages.dll
+F:\BEEERP\trunk\BEEERP\bin\System.Web.WebPages.Razor.dll
+F:\BEEERP\trunk\BEEERP\bin\WebGrease.dll
+F:\BEEERP\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.DataDefModel.dll
+F:\BEEERP\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.ClientDoc.dll
+F:\BEEERP\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+F:\BEEERP\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.Controllers.dll
+F:\BEEERP\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.CommLayer.dll
+F:\BEEERP\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+F:\BEEERP\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.Prompting.dll
+F:\BEEERP\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+F:\BEEERP\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+F:\BEEERP\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+F:\BEEERP\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+F:\BEEERP\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.CommonControls.dll
+F:\BEEERP\trunk\BEEERP\bin\stdole.dll
+F:\BEEERP\trunk\BEEERP\bin\App.Others.pdb
+F:\BEEERP\trunk\BEEERP\bin\EntityFramework.xml
+F:\BEEERP\trunk\BEEERP\bin\EntityFramework.SqlServer.xml
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+F:\BEEERP\trunk\BEEERP\bin\PagedList.xml
+F:\BEEERP\trunk\BEEERP\bin\PagedList.Mvc.xml
+F:\BEEERP\trunk\BEEERP\bin\System.Web.Helpers.xml
+F:\BEEERP\trunk\BEEERP\bin\System.Web.Mvc.xml
+F:\BEEERP\trunk\BEEERP\bin\System.Web.Optimization.xml
+F:\BEEERP\trunk\BEEERP\bin\System.Web.Razor.xml
+F:\BEEERP\trunk\BEEERP\bin\System.Web.WebPages.xml
+F:\BEEERP\trunk\BEEERP\bin\System.Web.WebPages.Deployment.xml
+F:\BEEERP\trunk\BEEERP\bin\System.Web.WebPages.Razor.xml
+F:\BEEERP\trunk\BEEERP\bin\Antlr3.Runtime.pdb
+F:\BEEERP\trunk\BEEERP\bin\Newtonsoft.Json.xml
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.AspNet.Identity.Core.xml
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.AspNet.Identity.Owin.xml
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.Owin.xml
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.Owin.Host.SystemWeb.xml
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.Owin.Security.xml
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Facebook.xml
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Cookies.xml
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.Owin.Security.OAuth.xml
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Google.xml
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Twitter.xml
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.ApplicationInsights.xml
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.AI.DependencyCollector.xml
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.AI.ServerTelemetryChannel.xml
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.AI.WindowsServer.xml
+F:\BEEERP\trunk\BEEERP\bin\Microsoft.AI.Web.xml
+F:\BEEERP\trunk\BEEERP\obj\Release\BEEERP.csprojAssemblyReference.cache
+F:\BEEERP\trunk\BEEERP\obj\Release\BEEERP.csproj.CoreCompileInputs.cache
+F:\BEEERP\trunk\BEEERP\obj\Release\BEEERP.csproj.CopyComplete
+F:\BEEERP\trunk\BEEERP\obj\Release\BEEERP.dll
+F:\BEEERP\trunk\BEEERP\obj\Release\BEEERP.pdb
+F:\BEEERP\trunk\BEEERP\bin\roslyn\System.Collections.Immutable.dll
+F:\BEEERP\trunk\BEEERP\obj\Release\BEEERP.Migrations.a.resources
+F:\BEEERP\trunk\BEEERP\obj\Release\BEEERP.csproj.GenerateResource.cache
+F:\BEEERP\trunk\BEEERP\bin\CrystalReport\ReportRdlc\IncomeStatementR.rpt
+F:\BEEERP\trunk\BEEERP\bin\CrystalReport\ReportRdlc\IncomeStatementR.cs
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\System.IO.Compression.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\VBCSCompiler.exe
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\ApplicationInsights.config
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\CrystalReport\ReportRdlc\IncomeStatementR.rpt
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\CrystalReport\ReportRdlc\DealerLedger.cs
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\CrystalReport\ReportRdlc\IncomeStatementR.cs
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\CrystalReport\ReportRdlc\DealerLedger.rpt
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\BEEERP.dll.config
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\BEEERP.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\BEEERP.pdb
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\csc.exe
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\csc.exe.config
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\csc.rsp
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\csi.exe
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\csi.exe.config
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\csi.rsp
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\Microsoft.CSharp.Core.targets
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\Microsoft.VisualBasic.Core.targets
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\Microsoft.Win32.Primitives.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\System.AppContext.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\System.Console.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\System.Diagnostics.Process.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\System.Diagnostics.StackTrace.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\System.IO.FileSystem.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\System.IO.FileSystem.Primitives.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\System.IO.Pipes.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\System.Reflection.Metadata.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\System.Security.AccessControl.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\System.Security.Claims.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\System.Security.Cryptography.Encoding.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\System.Security.Cryptography.Primitives.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\System.Security.Principal.Windows.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\System.Text.Encoding.CodePages.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\System.Threading.Thread.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\System.ValueTuple.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\System.Xml.ReaderWriter.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\System.Xml.XmlDocument.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\System.Xml.XPath.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\System.Xml.XPath.XDocument.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\vbc.exe
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\vbc.exe.config
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\vbc.rsp
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\VBCSCompiler.exe.config
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Antlr3.Runtime.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\App.Others.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\CrystalDecisions.CrystalReports.Engine.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\CrystalDecisions.ReportSource.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\CrystalDecisions.Shared.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\CrystalDecisions.Web.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\EntityFramework.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\EntityFramework.SqlServer.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.AI.Agent.Intercept.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.AI.DependencyCollector.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.AI.PerfCounterCollector.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.AI.ServerTelemetryChannel.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.AI.Web.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.AI.WindowsServer.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.ApplicationInsights.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.AspNet.Identity.Core.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.AspNet.Identity.Owin.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.Owin.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.Owin.Host.SystemWeb.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.Owin.Security.Cookies.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.Owin.Security.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.Owin.Security.Facebook.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.Owin.Security.Google.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.Owin.Security.OAuth.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.Owin.Security.Twitter.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.Web.Infrastructure.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Newtonsoft.Json.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Owin.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\PagedList.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\PagedList.Mvc.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Rotativa.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\System.Net.Http.Formatting.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\System.Web.Helpers.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\System.Web.Http.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\System.Web.Http.WebHost.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\System.Web.Mvc.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\System.Web.Optimization.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\System.Web.Razor.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\System.Web.WebPages.Deployment.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\System.Web.WebPages.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\System.Web.WebPages.Razor.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\WebGrease.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.DataDefModel.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.ClientDoc.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.Controllers.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.CommLayer.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.Prompting.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.CommonControls.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\stdole.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\App.Others.pdb
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\EntityFramework.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\EntityFramework.SqlServer.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.Owin.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\PagedList.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\PagedList.Mvc.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\System.Net.Http.Formatting.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\System.Web.Http.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\System.Web.Http.WebHost.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\System.Web.Helpers.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\System.Web.Mvc.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\System.Web.Optimization.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\System.Web.Razor.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\System.Web.WebPages.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\System.Web.WebPages.Deployment.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\System.Web.WebPages.Razor.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Antlr3.Runtime.pdb
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Newtonsoft.Json.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.AspNet.Identity.Core.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.AspNet.Identity.Owin.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.Owin.Host.SystemWeb.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.Owin.Security.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.Owin.Security.Facebook.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.Owin.Security.Cookies.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.Owin.Security.OAuth.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.Owin.Security.Google.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.Owin.Security.Twitter.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.ApplicationInsights.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.AI.DependencyCollector.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.AI.ServerTelemetryChannel.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.AI.WindowsServer.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\Microsoft.AI.Web.xml
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\obj\Release\BEEERP.csprojAssemblyReference.cache
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\obj\Release\BEEERP.Migrations.a.resources
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\obj\Release\BEEERP.csproj.GenerateResource.cache
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\obj\Release\BEEERP.csproj.CoreCompileInputs.cache
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\obj\Release\BEEERP.csproj.CopyComplete
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\obj\Release\BEEERP.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\obj\Release\BEEERP.pdb
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\roslyn\System.Collections.Immutable.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\bin\ZkFingerPrint.dll
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\obj\Release\BEEERP.Migrations.a1.resources
+F:\Asian Petroleum Ltd\Asian\trunk\BEEERP\obj\Release\BEEERP.Migrations.a2.resources
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\ApplicationInsights.config
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\CrystalReport\ReportRdlc\IncomeStatementR.rpt
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\CrystalReport\ReportRdlc\DealerLedger.cs
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\CrystalReport\ReportRdlc\IncomeStatementR.cs
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\CrystalReport\ReportRdlc\DealerLedger.rpt
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\BEEERP.dll.config
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\BEEERP.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\BEEERP.pdb
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\csc.exe
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\csc.exe.config
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\csc.rsp
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\csi.exe
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\csi.exe.config
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\csi.rsp
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\Microsoft.Win32.Primitives.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\System.AppContext.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\System.Collections.Immutable.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\System.Console.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\System.Diagnostics.Process.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\System.Diagnostics.StackTrace.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\System.IO.Compression.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\System.IO.FileSystem.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\System.IO.FileSystem.Primitives.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\System.IO.Pipes.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\System.Reflection.Metadata.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\System.Security.AccessControl.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\System.Security.Claims.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\System.Security.Cryptography.Encoding.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\System.Security.Cryptography.Primitives.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\System.Security.Principal.Windows.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\System.Text.Encoding.CodePages.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\System.Threading.Thread.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\System.ValueTuple.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\System.Xml.ReaderWriter.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\System.Xml.XmlDocument.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\System.Xml.XPath.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\System.Xml.XPath.XDocument.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\vbc.exe
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\vbc.exe.config
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\vbc.rsp
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\VBCSCompiler.exe
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\roslyn\VBCSCompiler.exe.config
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Antlr3.Runtime.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\CrystalDecisions.CrystalReports.Engine.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\CrystalDecisions.ReportSource.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\CrystalDecisions.Shared.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\CrystalDecisions.Web.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\EntityFramework.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\EntityFramework.SqlServer.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.AI.Agent.Intercept.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.AI.DependencyCollector.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.AI.PerfCounterCollector.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.AI.ServerTelemetryChannel.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.AI.Web.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.AI.WindowsServer.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.ApplicationInsights.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.AspNet.Identity.Core.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.AspNet.Identity.Owin.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.Owin.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.Owin.Host.SystemWeb.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.Owin.Security.Cookies.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.Owin.Security.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.Owin.Security.Facebook.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.Owin.Security.Google.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.Owin.Security.OAuth.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.Owin.Security.Twitter.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.Web.Infrastructure.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Newtonsoft.Json.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Owin.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\PagedList.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\PagedList.Mvc.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Rotativa.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\System.Net.Http.Formatting.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\System.Web.Helpers.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\System.Web.Http.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\System.Web.Http.WebHost.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\System.Web.Mvc.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\System.Web.Optimization.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\System.Web.Razor.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\System.Web.WebPages.Deployment.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\System.Web.WebPages.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\System.Web.WebPages.Razor.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\WebGrease.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.DataDefModel.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.ClientDoc.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.Controllers.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.CommLayer.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.Prompting.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.CommonControls.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\stdole.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\EntityFramework.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\EntityFramework.SqlServer.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.Owin.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\PagedList.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\PagedList.Mvc.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\System.Net.Http.Formatting.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\System.Web.Http.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\System.Web.Http.WebHost.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\System.Web.Helpers.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\System.Web.Mvc.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\System.Web.Optimization.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\System.Web.Razor.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\System.Web.WebPages.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\System.Web.WebPages.Deployment.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\System.Web.WebPages.Razor.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Antlr3.Runtime.pdb
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Newtonsoft.Json.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.AspNet.Identity.Core.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.AspNet.Identity.Owin.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.Owin.Host.SystemWeb.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.Owin.Security.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.Owin.Security.Facebook.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.Owin.Security.Cookies.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.Owin.Security.OAuth.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.Owin.Security.Google.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.Owin.Security.Twitter.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.ApplicationInsights.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.AI.DependencyCollector.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.AI.ServerTelemetryChannel.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.AI.WindowsServer.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\bin\Microsoft.AI.Web.xml
+E:\Projects\Lovelloerp\trunk\BEEERP\obj\Release\BEEERP.csprojResolveAssemblyReference.cache
+E:\Projects\Lovelloerp\trunk\BEEERP\obj\Release\BEEERP.Migrations.a.resources
+E:\Projects\Lovelloerp\trunk\BEEERP\obj\Release\BEEERP.Migrations.a1.resources
+E:\Projects\Lovelloerp\trunk\BEEERP\obj\Release\BEEERP.Migrations.a2.resources
+E:\Projects\Lovelloerp\trunk\BEEERP\obj\Release\BEEERP.Migrations.a3.resources
+E:\Projects\Lovelloerp\trunk\BEEERP\obj\Release\BEEERP.Migrations.a4.resources
+E:\Projects\Lovelloerp\trunk\BEEERP\obj\Release\BEEERP.csproj.GenerateResource.cache
+E:\Projects\Lovelloerp\trunk\BEEERP\obj\Release\BEEERP.csproj.CoreCompileInputs.cache
+E:\Projects\Lovelloerp\trunk\BEEERP\obj\Release\BEEERP.csproj.CopyComplete
+E:\Projects\Lovelloerp\trunk\BEEERP\obj\Release\BEEERP.dll
+E:\Projects\Lovelloerp\trunk\BEEERP\obj\Release\BEEERP.pdb
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\ApplicationInsights.config
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\CrystalReport\ReportRdlc\IncomeStatementR.rpt
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\CrystalReport\ReportRdlc\DealerLedger.cs
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\CrystalReport\ReportRdlc\IncomeStatementR.cs
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\CrystalReport\ReportRdlc\DealerLedger.rpt
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\BEEERP.dll.config
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\BEEERP.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\BEEERP.pdb
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\csc.exe
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\csc.exe.config
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\csc.rsp
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\csi.exe
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\csi.exe.config
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\csi.rsp
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.Win32.Primitives.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\System.AppContext.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\System.Collections.Immutable.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\System.Console.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\System.Diagnostics.Process.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\System.IO.Compression.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\System.IO.FileSystem.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\System.IO.Pipes.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\System.Reflection.Metadata.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\System.Security.AccessControl.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\System.Security.Claims.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\System.Security.Principal.Windows.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\System.Threading.Thread.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\System.ValueTuple.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\System.Xml.XmlDocument.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\System.Xml.XPath.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\vbc.exe
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\vbc.exe.config
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\vbc.rsp
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\VBCSCompiler.exe
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\roslyn\VBCSCompiler.exe.config
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Antlr3.Runtime.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\CrystalDecisions.CrystalReports.Engine.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\CrystalDecisions.ReportSource.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\CrystalDecisions.Shared.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\CrystalDecisions.Web.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\EntityFramework.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\EntityFramework.SqlServer.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.Agent.Intercept.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.DependencyCollector.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.PerfCounterCollector.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.ServerTelemetryChannel.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.Web.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.WindowsServer.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.ApplicationInsights.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.AspNet.Identity.Core.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.AspNet.Identity.Owin.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Cookies.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Facebook.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Google.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.OAuth.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Twitter.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.Web.Infrastructure.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Newtonsoft.Json.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Owin.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\PagedList.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\PagedList.Mvc.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Rotativa.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\System.Net.Http.Formatting.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\System.Web.Helpers.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\System.Web.Http.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\System.Web.Http.WebHost.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\System.Web.Mvc.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\System.Web.Optimization.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\System.Web.Razor.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\System.Web.WebPages.Deployment.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\System.Web.WebPages.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\System.Web.WebPages.Razor.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\WebGrease.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\stdole.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\EntityFramework.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\EntityFramework.SqlServer.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\PagedList.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\PagedList.Mvc.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\System.Net.Http.Formatting.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\System.Web.Http.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\System.Web.Http.WebHost.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\System.Web.Helpers.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\System.Web.Mvc.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\System.Web.Optimization.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\System.Web.Razor.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\System.Web.WebPages.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\System.Web.WebPages.Deployment.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\System.Web.WebPages.Razor.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Antlr3.Runtime.pdb
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Newtonsoft.Json.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.AspNet.Identity.Core.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.AspNet.Identity.Owin.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Facebook.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Cookies.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.OAuth.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Google.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Twitter.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.ApplicationInsights.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.DependencyCollector.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.ServerTelemetryChannel.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.WindowsServer.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.Web.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\obj\Release\BEEERP.csprojAssemblyReference.cache
+D:\Development Tools\LovelloERP\trunk\BEEERP\obj\Release\BEEERP.Migrations.a.resources
+D:\Development Tools\LovelloERP\trunk\BEEERP\obj\Release\BEEERP.csproj.GenerateResource.cache
+D:\Development Tools\LovelloERP\trunk\BEEERP\obj\Release\BEEERP.csproj.CoreCompileInputs.cache
+D:\Development Tools\LovelloERP\trunk\BEEERP\obj\Release\BEEERP.csproj.CopyComplete
+D:\Development Tools\LovelloERP\trunk\BEEERP\obj\Release\BEEERP.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\obj\Release\BEEERP.pdb
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\CrystalDecisions.CrystalReports.Design.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\CrystalDecisions.Data.AdoDotNetInterop.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\CrystalDecisions.VSDesigner.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\CrystalDecisions.Windows.Forms.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.VisualStudio.Shell.Interop.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.VisualStudio.OLE.Interop.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\CRVsPackageLib.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.VisualStudio.TemplateWizardInterface.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\EnvDTE.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\VSLangProj.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\VsWebSite.Interop.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\EnvDTE80.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\FlashControlV71.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.VisualStudio.Shell.Interop.8.0.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.VisualStudio.ProjectAggregator.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.VisualStudio.TextManager.Interop.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.VisualStudio.VSHelp.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\ShockwaveFlashObjects.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.VisualStudio.TextManager.Interop.8.0.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.MSXML.dll
+D:\Development Tools\LovelloERP\trunk\BEEERP\bin\Microsoft.VisualStudio.TemplateWizardInterface.xml
+D:\Development Tools\LovelloERP\trunk\BEEERP\obj\Release\BEEERP.Migrations.a1.resources
+D:\Development Tools\LovelloERP\trunk\BEEERP\obj\Release\BEEERP.Migrations.a2.resources
+D:\Development Tools\LovelloERP\trunk\BEEERP\obj\Release\BEEERP.Migrations.a3.resources
+D:\Development Tools\LovelloERP\trunk\BEEERP\obj\Release\BEEERP.Migrations.a4.resources
+D:\Development Tools\LovelloERP\trunk\BEEERP\obj\Release\BEEERP.Migrations.a5.resources
+D:\Development Tools\LovelloERP\trunk\BEEERP\obj\Release\BEEERP.Migrations.a6.resources
+D:\Development Tools\LovelloERP\trunk\BEEERP\obj\Release\BEEERP.Migrations.a7.resources
+D:\Development Tools\LovelloERP\trunk\BEEERP\obj\Release\BEEERP.Migrations.a8.resources
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\ApplicationInsights.config
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\CrystalReport\ReportRdlc\IncomeStatementR.rpt
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\CrystalReport\ReportRdlc\DealerLedger.cs
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\CrystalReport\ReportRdlc\IncomeStatementR.cs
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\CrystalReport\ReportRdlc\DealerLedger.rpt
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\BEEERP.dll.config
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\BEEERP.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\BEEERP.pdb
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\csc.exe
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\csc.exe.config
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\csc.rsp
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\csi.exe
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\csi.exe.config
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\csi.rsp
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.Win32.Primitives.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.AppContext.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Collections.Immutable.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Console.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Diagnostics.Process.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Diagnostics.StackTrace.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.IO.Compression.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.IO.FileSystem.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.IO.FileSystem.Primitives.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.IO.Pipes.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Reflection.Metadata.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Security.AccessControl.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Security.Claims.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Security.Cryptography.Encoding.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Security.Cryptography.Primitives.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Security.Principal.Windows.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Text.Encoding.CodePages.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Threading.Thread.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.ValueTuple.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Xml.ReaderWriter.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Xml.XmlDocument.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Xml.XPath.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Xml.XPath.XDocument.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\vbc.exe
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\vbc.exe.config
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\vbc.rsp
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\VBCSCompiler.exe
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\VBCSCompiler.exe.config
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Antlr3.Runtime.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\CrystalDecisions.CrystalReports.Design.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\CrystalDecisions.CrystalReports.Engine.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\CrystalDecisions.Data.AdoDotNetInterop.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\CrystalDecisions.ReportSource.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\CrystalDecisions.Shared.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\CrystalDecisions.VSDesigner.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\CrystalDecisions.Web.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\CrystalDecisions.Windows.Forms.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\EntityFramework.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\EntityFramework.SqlServer.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.Agent.Intercept.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.DependencyCollector.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.PerfCounterCollector.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.ServerTelemetryChannel.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.Web.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.WindowsServer.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.ApplicationInsights.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AspNet.Identity.Core.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AspNet.Identity.Owin.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Host.SystemWeb.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Cookies.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Facebook.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Google.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.OAuth.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Twitter.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Web.Infrastructure.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Newtonsoft.Json.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Owin.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\PagedList.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\PagedList.Mvc.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Rotativa.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Net.Http.Formatting.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.Helpers.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.Http.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.Http.WebHost.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.Mvc.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.Optimization.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.Razor.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.WebPages.Deployment.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.WebPages.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.WebPages.Razor.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\WebGrease.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.VisualStudio.Shell.Interop.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.VisualStudio.OLE.Interop.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\CRVsPackageLib.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.VisualStudio.TemplateWizardInterface.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\EnvDTE.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\VSLangProj.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\VsWebSite.Interop.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\EnvDTE80.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\FlashControlV71.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.VisualStudio.Shell.Interop.8.0.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.VisualStudio.ProjectAggregator.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.VisualStudio.TextManager.Interop.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.VisualStudio.VSHelp.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\stdole.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\ShockwaveFlashObjects.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.VisualStudio.TextManager.Interop.8.0.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.MSXML.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\EntityFramework.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\EntityFramework.SqlServer.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\PagedList.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\PagedList.Mvc.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Net.Http.Formatting.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.Http.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.Http.WebHost.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.Helpers.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.Mvc.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.Optimization.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.Razor.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.WebPages.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.WebPages.Deployment.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.WebPages.Razor.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Antlr3.Runtime.pdb
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Newtonsoft.Json.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AspNet.Identity.Core.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AspNet.Identity.Owin.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Host.SystemWeb.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Facebook.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Cookies.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.OAuth.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Google.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Twitter.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.ApplicationInsights.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.DependencyCollector.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.ServerTelemetryChannel.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.WindowsServer.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.Web.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.VisualStudio.TemplateWizardInterface.xml
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\obj\Release\BEEERP.csprojResolveAssemblyReference.cache
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\obj\Release\BEEERP.Migrations.a.resources
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\obj\Release\BEEERP.csproj.GenerateResource.cache
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\obj\Release\BEEERP.csproj.CoreCompileInputs.cache
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\obj\Release\BEEERP.csproj.CopyComplete
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\obj\Release\BEEERP.dll
+E:\Projects\Lovelloerp\UpdatedWork\LovelloERP\LovelloERP\trunk\BEEERP\obj\Release\BEEERP.pdb
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\ApplicationInsights.config
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\CrystalReport\ReportRdlc\IncomeStatementR.rpt
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\CrystalReport\ReportRdlc\DealerLedger.cs
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\CrystalReport\ReportRdlc\IncomeStatementR.cs
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\CrystalReport\ReportRdlc\DealerLedger.rpt
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\BEEERP.dll.config
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\BEEERP.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\BEEERP.pdb
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\csc.exe
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\csc.exe.config
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\csc.rsp
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\csi.exe
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\csi.exe.config
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\csi.rsp
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\Microsoft.Win32.Primitives.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.AppContext.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Collections.Immutable.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Console.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Diagnostics.Process.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.IO.Compression.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.IO.FileSystem.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.IO.Pipes.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Reflection.Metadata.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Security.AccessControl.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Security.Claims.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Security.Principal.Windows.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Threading.Thread.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.ValueTuple.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Xml.XmlDocument.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Xml.XPath.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\vbc.exe
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\vbc.exe.config
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\vbc.rsp
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\VBCSCompiler.exe
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\roslyn\VBCSCompiler.exe.config
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Antlr3.Runtime.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\CrystalDecisions.CrystalReports.Design.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\CrystalDecisions.CrystalReports.Engine.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\CrystalDecisions.Data.AdoDotNetInterop.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\CrystalDecisions.ReportSource.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\CrystalDecisions.Shared.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\CrystalDecisions.VSDesigner.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\CrystalDecisions.Web.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\CrystalDecisions.Windows.Forms.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\EntityFramework.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\EntityFramework.SqlServer.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.Agent.Intercept.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.DependencyCollector.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.PerfCounterCollector.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.ServerTelemetryChannel.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.Web.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.WindowsServer.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.ApplicationInsights.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AspNet.Identity.Core.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AspNet.Identity.Owin.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Cookies.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Facebook.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Google.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.OAuth.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Twitter.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Web.Infrastructure.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Newtonsoft.Json.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Owin.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\PagedList.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\PagedList.Mvc.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Rotativa.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Net.Http.Formatting.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.Helpers.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.Http.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.Http.WebHost.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.Mvc.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.Optimization.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.Razor.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.WebPages.Deployment.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.WebPages.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.WebPages.Razor.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\WebGrease.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.VisualStudio.Shell.Interop.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.VisualStudio.OLE.Interop.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\CRVsPackageLib.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.VisualStudio.TemplateWizardInterface.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\EnvDTE.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\VSLangProj.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\VsWebSite.Interop.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\EnvDTE80.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\FlashControlV71.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.VisualStudio.Shell.Interop.8.0.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.VisualStudio.ProjectAggregator.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.VisualStudio.TextManager.Interop.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.VisualStudio.VSHelp.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\stdole.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\ShockwaveFlashObjects.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.VisualStudio.TextManager.Interop.8.0.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.MSXML.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\EntityFramework.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\EntityFramework.SqlServer.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\PagedList.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\PagedList.Mvc.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Net.Http.Formatting.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.Http.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.Http.WebHost.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.Helpers.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.Mvc.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.Optimization.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.Razor.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.WebPages.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.WebPages.Deployment.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\System.Web.WebPages.Razor.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Antlr3.Runtime.pdb
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Newtonsoft.Json.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AspNet.Identity.Core.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AspNet.Identity.Owin.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Facebook.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Cookies.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.OAuth.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Google.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.Twitter.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.ApplicationInsights.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.DependencyCollector.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.ServerTelemetryChannel.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.WindowsServer.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.AI.Web.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\bin\Microsoft.VisualStudio.TemplateWizardInterface.xml
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\obj\Release\BEEERP.csprojAssemblyReference.cache
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\obj\Release\BEEERP.Migrations.a.resources
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\obj\Release\BEEERP.csproj.GenerateResource.cache
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\obj\Release\BEEERP.csproj.CoreCompileInputs.cache
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\obj\Release\BEEERP.csproj.CopyComplete
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\obj\Release\BEEERP.dll
+D:\Development Tools\LovelloERP_27_03_2019\LovelloERP\LovelloERP\trunk\BEEERP\obj\Release\BEEERP.pdb
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\ApplicationInsights.config
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\CrystalReport\ReportRdlc\IncomeStatementR.rpt
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\CrystalReport\ReportRdlc\DealerLedger.cs
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\CrystalReport\ReportRdlc\IncomeStatementR.cs
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\CrystalReport\ReportRdlc\DealerLedger.rpt
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\BEEERP.dll.config
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\BEEERP.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\BEEERP.pdb
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\csc.exe
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\csc.exe.config
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\csc.rsp
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\csi.exe
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\csi.exe.config
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\csi.rsp
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\Microsoft.Win32.Primitives.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\System.AppContext.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\System.Console.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\System.Diagnostics.Process.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\System.Diagnostics.StackTrace.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\System.IO.Compression.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\System.IO.FileSystem.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\System.IO.FileSystem.Primitives.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\System.IO.Pipes.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\System.Reflection.Metadata.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\System.Security.AccessControl.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\System.Security.Claims.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\System.Security.Cryptography.Encoding.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\System.Security.Cryptography.Primitives.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\System.Security.Principal.Windows.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\System.Text.Encoding.CodePages.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\System.Threading.Thread.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\System.ValueTuple.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\System.Xml.ReaderWriter.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\System.Xml.XmlDocument.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\System.Xml.XPath.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\System.Xml.XPath.XDocument.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\vbc.exe
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\vbc.exe.config
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\vbc.rsp
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\VBCSCompiler.exe
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\VBCSCompiler.exe.config
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Antlr3.Runtime.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\CrystalDecisions.CrystalReports.Design.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\CrystalDecisions.CrystalReports.Engine.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\CrystalDecisions.Data.AdoDotNetInterop.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\CrystalDecisions.ReportSource.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\CrystalDecisions.Shared.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\CrystalDecisions.VSDesigner.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\CrystalDecisions.Web.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\CrystalDecisions.Windows.Forms.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\EntityFramework.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\EntityFramework.SqlServer.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.AI.Agent.Intercept.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.AI.DependencyCollector.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.AI.PerfCounterCollector.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.AI.ServerTelemetryChannel.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.AI.Web.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.AI.WindowsServer.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.ApplicationInsights.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.AspNet.Identity.Core.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.AspNet.Identity.Owin.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.Owin.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.Owin.Host.SystemWeb.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.Owin.Security.Cookies.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.Owin.Security.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.Owin.Security.Facebook.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.Owin.Security.Google.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.Owin.Security.OAuth.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.Owin.Security.Twitter.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.Web.Infrastructure.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Newtonsoft.Json.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Owin.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\PagedList.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\PagedList.Mvc.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Rotativa.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Net.Http.Formatting.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Web.Helpers.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Web.Http.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Web.Http.WebHost.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Web.Mvc.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Web.Optimization.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Web.Razor.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Web.WebPages.Deployment.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Web.WebPages.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Web.WebPages.Razor.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\WebGrease.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.VisualStudio.Shell.Interop.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.VisualStudio.OLE.Interop.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\CRVsPackageLib.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.VisualStudio.TemplateWizardInterface.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\EnvDTE.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\VSLangProj.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\VsWebSite.Interop.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\EnvDTE80.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\FlashControlV71.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.VisualStudio.Shell.Interop.8.0.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.VisualStudio.ProjectAggregator.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.VisualStudio.TextManager.Interop.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.VisualStudio.VSHelp.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\stdole.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\ShockwaveFlashObjects.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.VisualStudio.TextManager.Interop.8.0.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.MSXML.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\EntityFramework.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\EntityFramework.SqlServer.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.Owin.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\PagedList.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\PagedList.Mvc.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Net.Http.Formatting.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Web.Http.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Web.Http.WebHost.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Web.Helpers.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Web.Mvc.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Web.Optimization.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Web.Razor.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Web.WebPages.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Web.WebPages.Deployment.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Web.WebPages.Razor.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Antlr3.Runtime.pdb
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Newtonsoft.Json.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.AspNet.Identity.Core.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.AspNet.Identity.Owin.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.Owin.Host.SystemWeb.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.Owin.Security.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.Owin.Security.Facebook.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.Owin.Security.Cookies.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.Owin.Security.OAuth.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.Owin.Security.Google.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.Owin.Security.Twitter.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.ApplicationInsights.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.AI.DependencyCollector.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.AI.ServerTelemetryChannel.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.AI.WindowsServer.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.AI.Web.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.VisualStudio.TemplateWizardInterface.xml
+E:\Projects\LovelloErpNew\trunk\BEEERP\obj\Release\BEEERP.csprojResolveAssemblyReference.cache
+E:\Projects\LovelloErpNew\trunk\BEEERP\obj\Release\BEEERP.Migrations.a.resources
+E:\Projects\LovelloErpNew\trunk\BEEERP\obj\Release\BEEERP.csproj.GenerateResource.cache
+E:\Projects\LovelloErpNew\trunk\BEEERP\obj\Release\BEEERP.csproj.CoreCompileInputs.cache
+E:\Projects\LovelloErpNew\trunk\BEEERP\obj\Release\BEEERP.csproj.CopyComplete
+E:\Projects\LovelloErpNew\trunk\BEEERP\obj\Release\BEEERP.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\obj\Release\BEEERP.pdb
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\roslyn\System.Collections.Immutable.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\Microsoft.Win32.Primitives.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\netstandard.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.AppContext.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Collections.Concurrent.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Collections.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Collections.NonGeneric.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Collections.Specialized.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.ComponentModel.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.ComponentModel.EventBasedAsync.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.ComponentModel.Primitives.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.ComponentModel.TypeConverter.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Console.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Data.Common.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Diagnostics.Contracts.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Diagnostics.Debug.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Diagnostics.FileVersionInfo.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Diagnostics.Process.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Diagnostics.StackTrace.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Diagnostics.TextWriterTraceListener.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Diagnostics.Tools.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Diagnostics.TraceSource.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Diagnostics.Tracing.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Drawing.Primitives.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Dynamic.Runtime.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Globalization.Calendars.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Globalization.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Globalization.Extensions.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.IO.Compression.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.IO.Compression.ZipFile.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.IO.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.IO.FileSystem.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.IO.FileSystem.DriveInfo.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.IO.FileSystem.Primitives.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.IO.FileSystem.Watcher.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.IO.IsolatedStorage.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.IO.MemoryMappedFiles.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.IO.Pipes.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.IO.UnmanagedMemoryStream.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Linq.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Linq.Expressions.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Linq.Parallel.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Linq.Queryable.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Net.Http.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Net.NameResolution.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Net.NetworkInformation.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Net.Ping.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Net.Primitives.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Net.Requests.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Net.Security.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Net.Sockets.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Net.WebHeaderCollection.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Net.WebSockets.Client.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Net.WebSockets.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.ObjectModel.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Reflection.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Reflection.Extensions.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Reflection.Primitives.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Resources.Reader.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Resources.ResourceManager.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Resources.Writer.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Runtime.CompilerServices.VisualC.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Runtime.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Runtime.Extensions.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Runtime.Handles.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Runtime.InteropServices.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Runtime.InteropServices.RuntimeInformation.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Runtime.Numerics.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Runtime.Serialization.Formatters.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Runtime.Serialization.Json.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Runtime.Serialization.Primitives.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Runtime.Serialization.Xml.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Security.Claims.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Security.Cryptography.Algorithms.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Security.Cryptography.Csp.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Security.Cryptography.Encoding.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Security.Cryptography.Primitives.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Security.Cryptography.X509Certificates.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Security.Principal.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Security.SecureString.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Text.Encoding.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Text.Encoding.Extensions.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Text.RegularExpressions.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Threading.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Threading.Overlapped.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Threading.Tasks.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Threading.Tasks.Parallel.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Threading.Thread.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Threading.ThreadPool.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Threading.Timer.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.ValueTuple.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Xml.ReaderWriter.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Xml.XDocument.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Xml.XmlDocument.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Xml.XmlSerializer.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Xml.XPath.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\System.Xml.XPath.XDocument.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\bin\SMSService.dll
+E:\Projects\LovelloErpNew\trunk\BEEERP\obj\Release\BEEERP.Migrations.a1.resources
+E:\Projects\LovelloErpNew\trunk\BEEERP\obj\Release\BEEERP.Migrations.a2.resources
+H:\19-09-2019\Lovello\BEEERP\bin\ApplicationInsights.config
+H:\19-09-2019\Lovello\BEEERP\bin\CrystalReport\ReportRdlc\IncomeStatementR.rpt
+H:\19-09-2019\Lovello\BEEERP\bin\CrystalReport\ReportRdlc\DealerLedger.cs
+H:\19-09-2019\Lovello\BEEERP\bin\CrystalReport\ReportRdlc\IncomeStatementR.cs
+H:\19-09-2019\Lovello\BEEERP\bin\CrystalReport\ReportRdlc\DealerLedger.rpt
+H:\19-09-2019\Lovello\BEEERP\bin\BEEERP.dll.config
+H:\19-09-2019\Lovello\BEEERP\bin\BEEERP.dll
+H:\19-09-2019\Lovello\BEEERP\bin\BEEERP.pdb
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\csc.exe
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\csc.exe.config
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\csc.rsp
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\csi.exe
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\csi.exe.config
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\csi.rsp
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\Microsoft.CSharp.Core.targets
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\Microsoft.VisualBasic.Core.targets
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\Microsoft.Win32.Primitives.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\System.AppContext.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\System.Collections.Immutable.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\System.Console.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\System.Diagnostics.Process.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\System.Diagnostics.StackTrace.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\System.IO.Compression.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\System.IO.FileSystem.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\System.IO.FileSystem.Primitives.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\System.IO.Pipes.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\System.Reflection.Metadata.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\System.Security.AccessControl.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\System.Security.Claims.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\System.Security.Cryptography.Encoding.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\System.Security.Cryptography.Primitives.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\System.Security.Principal.Windows.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\System.Text.Encoding.CodePages.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\System.Threading.Thread.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\System.ValueTuple.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\System.Xml.ReaderWriter.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\System.Xml.XmlDocument.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\System.Xml.XPath.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\System.Xml.XPath.XDocument.dll
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\vbc.exe
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\vbc.exe.config
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\vbc.rsp
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\VBCSCompiler.exe
+H:\19-09-2019\Lovello\BEEERP\bin\roslyn\VBCSCompiler.exe.config
+H:\19-09-2019\Lovello\BEEERP\bin\Antlr3.Runtime.dll
+H:\19-09-2019\Lovello\BEEERP\bin\CrystalDecisions.CrystalReports.Design.dll
+H:\19-09-2019\Lovello\BEEERP\bin\CrystalDecisions.CrystalReports.Engine.dll
+H:\19-09-2019\Lovello\BEEERP\bin\CrystalDecisions.Data.AdoDotNetInterop.dll
+H:\19-09-2019\Lovello\BEEERP\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+H:\19-09-2019\Lovello\BEEERP\bin\CrystalDecisions.ReportSource.dll
+H:\19-09-2019\Lovello\BEEERP\bin\CrystalDecisions.Shared.dll
+H:\19-09-2019\Lovello\BEEERP\bin\CrystalDecisions.VSDesigner.dll
+H:\19-09-2019\Lovello\BEEERP\bin\CrystalDecisions.Web.dll
+H:\19-09-2019\Lovello\BEEERP\bin\CrystalDecisions.Windows.Forms.dll
+H:\19-09-2019\Lovello\BEEERP\bin\EntityFramework.dll
+H:\19-09-2019\Lovello\BEEERP\bin\EntityFramework.SqlServer.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.AI.Agent.Intercept.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.AI.DependencyCollector.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.AI.PerfCounterCollector.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.AI.ServerTelemetryChannel.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.AI.Web.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.AI.WindowsServer.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.ApplicationInsights.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.AspNet.Identity.Core.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.AspNet.Identity.Owin.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.Owin.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.Owin.Host.SystemWeb.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.Owin.Security.Cookies.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.Owin.Security.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.Owin.Security.Facebook.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.Owin.Security.Google.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.Owin.Security.OAuth.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.Owin.Security.Twitter.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.Web.Infrastructure.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Newtonsoft.Json.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Owin.dll
+H:\19-09-2019\Lovello\BEEERP\bin\PagedList.dll
+H:\19-09-2019\Lovello\BEEERP\bin\PagedList.Mvc.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Rotativa.dll
+H:\19-09-2019\Lovello\BEEERP\bin\System.Net.Http.Formatting.dll
+H:\19-09-2019\Lovello\BEEERP\bin\System.Web.Helpers.dll
+H:\19-09-2019\Lovello\BEEERP\bin\System.Web.Http.dll
+H:\19-09-2019\Lovello\BEEERP\bin\System.Web.Http.WebHost.dll
+H:\19-09-2019\Lovello\BEEERP\bin\System.Web.Mvc.dll
+H:\19-09-2019\Lovello\BEEERP\bin\System.Web.Optimization.dll
+H:\19-09-2019\Lovello\BEEERP\bin\System.Web.Razor.dll
+H:\19-09-2019\Lovello\BEEERP\bin\System.Web.WebPages.Deployment.dll
+H:\19-09-2019\Lovello\BEEERP\bin\System.Web.WebPages.dll
+H:\19-09-2019\Lovello\BEEERP\bin\System.Web.WebPages.Razor.dll
+H:\19-09-2019\Lovello\BEEERP\bin\WebGrease.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.VisualStudio.Shell.Interop.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.VisualStudio.OLE.Interop.dll
+H:\19-09-2019\Lovello\BEEERP\bin\CRVsPackageLib.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.VisualStudio.TemplateWizardInterface.dll
+H:\19-09-2019\Lovello\BEEERP\bin\EnvDTE.dll
+H:\19-09-2019\Lovello\BEEERP\bin\VSLangProj.dll
+H:\19-09-2019\Lovello\BEEERP\bin\VsWebSite.Interop.dll
+H:\19-09-2019\Lovello\BEEERP\bin\EnvDTE80.dll
+H:\19-09-2019\Lovello\BEEERP\bin\FlashControlV71.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.VisualStudio.Shell.Interop.8.0.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.VisualStudio.ProjectAggregator.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.VisualStudio.TextManager.Interop.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.VisualStudio.VSHelp.dll
+H:\19-09-2019\Lovello\BEEERP\bin\stdole.dll
+H:\19-09-2019\Lovello\BEEERP\bin\ShockwaveFlashObjects.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.VisualStudio.TextManager.Interop.8.0.dll
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.MSXML.dll
+H:\19-09-2019\Lovello\BEEERP\bin\EntityFramework.xml
+H:\19-09-2019\Lovello\BEEERP\bin\EntityFramework.SqlServer.xml
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.Owin.xml
+H:\19-09-2019\Lovello\BEEERP\bin\PagedList.xml
+H:\19-09-2019\Lovello\BEEERP\bin\PagedList.Mvc.xml
+H:\19-09-2019\Lovello\BEEERP\bin\System.Net.Http.Formatting.xml
+H:\19-09-2019\Lovello\BEEERP\bin\System.Web.Http.xml
+H:\19-09-2019\Lovello\BEEERP\bin\System.Web.Http.WebHost.xml
+H:\19-09-2019\Lovello\BEEERP\bin\System.Web.Helpers.xml
+H:\19-09-2019\Lovello\BEEERP\bin\System.Web.Mvc.xml
+H:\19-09-2019\Lovello\BEEERP\bin\System.Web.Optimization.xml
+H:\19-09-2019\Lovello\BEEERP\bin\System.Web.Razor.xml
+H:\19-09-2019\Lovello\BEEERP\bin\System.Web.WebPages.xml
+H:\19-09-2019\Lovello\BEEERP\bin\System.Web.WebPages.Deployment.xml
+H:\19-09-2019\Lovello\BEEERP\bin\System.Web.WebPages.Razor.xml
+H:\19-09-2019\Lovello\BEEERP\bin\Antlr3.Runtime.pdb
+H:\19-09-2019\Lovello\BEEERP\bin\Newtonsoft.Json.xml
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.AspNet.Identity.Core.xml
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.AspNet.Identity.Owin.xml
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.Owin.Host.SystemWeb.xml
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.Owin.Security.xml
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.Owin.Security.Facebook.xml
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.Owin.Security.Cookies.xml
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.Owin.Security.OAuth.xml
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.Owin.Security.Google.xml
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.Owin.Security.Twitter.xml
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.ApplicationInsights.xml
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.AI.DependencyCollector.xml
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.AI.ServerTelemetryChannel.xml
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.AI.WindowsServer.xml
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.AI.Web.xml
+H:\19-09-2019\Lovello\BEEERP\bin\Microsoft.VisualStudio.TemplateWizardInterface.xml
+H:\19-09-2019\Lovello\BEEERP\obj\Release\BEEERP.csprojAssemblyReference.cache
+H:\19-09-2019\Lovello\BEEERP\obj\Release\BEEERP.Migrations.a.resources
+H:\19-09-2019\Lovello\BEEERP\obj\Release\BEEERP.Migrations.a1.resources
+H:\19-09-2019\Lovello\BEEERP\obj\Release\BEEERP.Migrations.a2.resources
+H:\19-09-2019\Lovello\BEEERP\obj\Release\BEEERP.csproj.GenerateResource.cache
+H:\19-09-2019\Lovello\BEEERP\obj\Release\BEEERP.csproj.CoreCompileInputs.cache
+H:\19-09-2019\Lovello\BEEERP\obj\Release\BEEERP.csproj.CopyComplete
+H:\19-09-2019\Lovello\BEEERP\obj\Release\BEEERP.dll
+H:\19-09-2019\Lovello\BEEERP\obj\Release\BEEERP.pdb
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\ApplicationInsights.config
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\CrystalReport\ReportRdlc\IncomeStatementR.rpt
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\CrystalReport\ReportRdlc\DealerLedger.cs
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\CrystalReport\ReportRdlc\IncomeStatementR.cs
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\CrystalReport\ReportRdlc\DealerLedger.rpt
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\BEEERP.dll.config
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\BEEERP.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\BEEERP.pdb
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\csc.exe
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\csc.exe.config
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\csc.rsp
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\csi.exe
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\csi.exe.config
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\csi.rsp
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\Microsoft.CSharp.Core.targets
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\Microsoft.VisualBasic.Core.targets
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\Microsoft.Win32.Primitives.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.AppContext.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Collections.Immutable.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Console.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Diagnostics.Process.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Diagnostics.StackTrace.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.IO.Compression.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.IO.FileSystem.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.IO.FileSystem.Primitives.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.IO.Pipes.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Reflection.Metadata.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Security.AccessControl.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Security.Claims.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Security.Cryptography.Encoding.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Security.Cryptography.Primitives.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Security.Principal.Windows.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Text.Encoding.CodePages.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Threading.Thread.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.ValueTuple.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Xml.ReaderWriter.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Xml.XmlDocument.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Xml.XPath.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Xml.XPath.XDocument.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\vbc.exe
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\vbc.exe.config
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\vbc.rsp
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\VBCSCompiler.exe
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\VBCSCompiler.exe.config
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Antlr3.Runtime.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\CrystalDecisions.CrystalReports.Design.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\CrystalDecisions.CrystalReports.Engine.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\CrystalDecisions.Data.AdoDotNetInterop.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\CrystalDecisions.ReportSource.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\CrystalDecisions.Shared.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\CrystalDecisions.VSDesigner.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\CrystalDecisions.Web.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\CrystalDecisions.Windows.Forms.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\EntityFramework.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\EntityFramework.SqlServer.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\log4net.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AI.Agent.Intercept.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AI.DependencyCollector.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AI.PerfCounterCollector.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AI.ServerTelemetryChannel.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AI.Web.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AI.WindowsServer.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.ApplicationInsights.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AspNet.Identity.Core.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AspNet.Identity.Owin.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Host.SystemWeb.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Security.Cookies.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Security.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Security.Facebook.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Security.Google.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Security.OAuth.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Security.Twitter.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Web.Infrastructure.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Newtonsoft.Json.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Owin.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\PagedList.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\PagedList.Mvc.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Rotativa.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Net.Http.Formatting.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.Helpers.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.Http.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.Http.WebHost.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.Mvc.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.Optimization.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.Razor.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.WebPages.Deployment.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.WebPages.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.WebPages.Razor.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\WebGrease.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.VisualStudio.Shell.Interop.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.VisualStudio.OLE.Interop.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\CRVsPackageLib.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.VisualStudio.TemplateWizardInterface.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\EnvDTE.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\VSLangProj.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\VsWebSite.Interop.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\EnvDTE80.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\FlashControlV71.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.VisualStudio.Shell.Interop.8.0.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.VisualStudio.ProjectAggregator.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.VisualStudio.TextManager.Interop.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.VisualStudio.VSHelp.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\stdole.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\ShockwaveFlashObjects.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.VisualStudio.TextManager.Interop.8.0.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.MSXML.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\EntityFramework.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\EntityFramework.SqlServer.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\log4net.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\PagedList.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\PagedList.Mvc.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Net.Http.Formatting.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.Http.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.Http.WebHost.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.Helpers.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.Mvc.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.Optimization.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.Razor.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.WebPages.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.WebPages.Deployment.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.WebPages.Razor.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Antlr3.Runtime.pdb
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Newtonsoft.Json.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AspNet.Identity.Core.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AspNet.Identity.Owin.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Host.SystemWeb.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Security.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Security.Facebook.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Security.Cookies.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Security.OAuth.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Security.Google.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Security.Twitter.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.ApplicationInsights.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AI.DependencyCollector.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AI.ServerTelemetryChannel.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AI.WindowsServer.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AI.Web.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.VisualStudio.TemplateWizardInterface.xml
+F:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.csprojAssemblyReference.cache
+F:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.csproj.GenerateResource.cache
+F:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.csproj.CoreCompileInputs.cache
+F:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.csproj.CopyComplete
+F:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.dll
+F:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.pdb
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\ApplicationInsights.config
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\CrystalReport\ReportRdlc\IncomeStatementR.rpt
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\CrystalReport\ReportRdlc\DealerLedger.cs
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\CrystalReport\ReportRdlc\IncomeStatementR.cs
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\CrystalReport\ReportRdlc\DealerLedger.rpt
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\BEEERP.dll.config
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\BEEERP.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\BEEERP.pdb
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\csc.exe
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\csc.exe.config
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\csc.rsp
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\csi.exe
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\csi.exe.config
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\csi.rsp
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\Microsoft.Win32.Primitives.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.AppContext.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Collections.Immutable.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Console.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Diagnostics.Process.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.IO.Compression.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.IO.Pipes.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Reflection.Metadata.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Security.AccessControl.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Security.Claims.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Security.Principal.Windows.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Threading.Thread.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.ValueTuple.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Xml.XmlDocument.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Xml.XPath.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\vbc.exe
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\vbc.exe.config
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\vbc.rsp
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\VBCSCompiler.exe
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\VBCSCompiler.exe.config
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Antlr3.Runtime.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\CrystalDecisions.CrystalReports.Design.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\CrystalDecisions.CrystalReports.Engine.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\CrystalDecisions.Data.AdoDotNetInterop.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\CrystalDecisions.ReportSource.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\CrystalDecisions.Shared.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\CrystalDecisions.VSDesigner.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\CrystalDecisions.Web.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\CrystalDecisions.Windows.Forms.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\EntityFramework.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\EntityFramework.SqlServer.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\log4net.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AI.Agent.Intercept.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AI.DependencyCollector.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AI.PerfCounterCollector.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AI.ServerTelemetryChannel.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AI.Web.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AI.WindowsServer.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.ApplicationInsights.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AspNet.Identity.Core.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AspNet.Identity.Owin.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Security.Cookies.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Security.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Security.Facebook.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Security.Google.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Security.OAuth.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Security.Twitter.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Web.Infrastructure.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Newtonsoft.Json.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Owin.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\PagedList.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\PagedList.Mvc.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Rotativa.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Net.Http.Formatting.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.Helpers.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.Http.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.Http.WebHost.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.Mvc.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.Optimization.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.Razor.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.WebPages.Deployment.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.WebPages.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.WebPages.Razor.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\WebGrease.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.VisualStudio.Shell.Interop.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.VisualStudio.OLE.Interop.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\CRVsPackageLib.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.VisualStudio.TemplateWizardInterface.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\EnvDTE.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\VSLangProj.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\VsWebSite.Interop.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\EnvDTE80.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\FlashControlV71.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.VisualStudio.Shell.Interop.8.0.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.VisualStudio.ProjectAggregator.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.VisualStudio.TextManager.Interop.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.VisualStudio.VSHelp.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\stdole.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\ShockwaveFlashObjects.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.VisualStudio.TextManager.Interop.8.0.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.MSXML.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\EntityFramework.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\EntityFramework.SqlServer.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\log4net.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\PagedList.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\PagedList.Mvc.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Net.Http.Formatting.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.Http.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.Http.WebHost.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.Helpers.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.Mvc.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.Optimization.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.Razor.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.WebPages.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.WebPages.Deployment.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\System.Web.WebPages.Razor.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Antlr3.Runtime.pdb
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Newtonsoft.Json.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AspNet.Identity.Core.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AspNet.Identity.Owin.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Security.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Security.Facebook.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Security.Cookies.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Security.OAuth.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Security.Google.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Security.Twitter.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.ApplicationInsights.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AI.DependencyCollector.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AI.ServerTelemetryChannel.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AI.WindowsServer.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.AI.Web.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\Microsoft.VisualStudio.TemplateWizardInterface.xml
+D:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.csprojAssemblyReference.cache
+D:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.csproj.GenerateResource.cache
+D:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.csproj.CoreCompileInputs.cache
+D:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.csproj.CopyComplete
+D:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.pdb
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.IO.FileSystem.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.Migrations.irm.resources
+D:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.Migrations.irm1.resources
+D:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.Migrations.irm2.resources
+D:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.Migrations.irm3.resources
+D:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.Migrations.wo001.resources
+G:\PaanKori\Lovello\BEEERP\bin\ApplicationInsights.config
+G:\PaanKori\Lovello\BEEERP\bin\CrystalReport\ReportRdlc\IncomeStatementR.rpt
+G:\PaanKori\Lovello\BEEERP\bin\CrystalReport\ReportRdlc\DealerLedger.cs
+G:\PaanKori\Lovello\BEEERP\bin\CrystalReport\ReportRdlc\IncomeStatementR.cs
+G:\PaanKori\Lovello\BEEERP\bin\CrystalReport\ReportRdlc\DealerLedger.rpt
+G:\PaanKori\Lovello\BEEERP\bin\BEEERP.dll.config
+G:\PaanKori\Lovello\BEEERP\bin\BEEERP.dll
+G:\PaanKori\Lovello\BEEERP\bin\BEEERP.pdb
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\csc.exe
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\csc.exe.config
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\csc.rsp
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\csi.exe
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\csi.exe.config
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\csi.rsp
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\Microsoft.CSharp.Core.targets
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\Microsoft.VisualBasic.Core.targets
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\Microsoft.Win32.Primitives.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\System.AppContext.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\System.Collections.Immutable.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\System.Console.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\System.Diagnostics.Process.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\System.Diagnostics.StackTrace.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\System.IO.Compression.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\System.IO.FileSystem.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\System.IO.FileSystem.Primitives.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\System.IO.Pipes.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\System.Reflection.Metadata.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\System.Security.AccessControl.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\System.Security.Claims.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\System.Security.Cryptography.Encoding.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\System.Security.Cryptography.Primitives.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\System.Security.Principal.Windows.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\System.Text.Encoding.CodePages.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\System.Threading.Thread.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\System.ValueTuple.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\System.Xml.ReaderWriter.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\System.Xml.XmlDocument.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\System.Xml.XPath.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\System.Xml.XPath.XDocument.dll
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\vbc.exe
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\vbc.exe.config
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\vbc.rsp
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\VBCSCompiler.exe
+G:\PaanKori\Lovello\BEEERP\bin\roslyn\VBCSCompiler.exe.config
+G:\PaanKori\Lovello\BEEERP\bin\Antlr3.Runtime.dll
+G:\PaanKori\Lovello\BEEERP\bin\CrystalDecisions.CrystalReports.Design.dll
+G:\PaanKori\Lovello\BEEERP\bin\CrystalDecisions.CrystalReports.Engine.dll
+G:\PaanKori\Lovello\BEEERP\bin\CrystalDecisions.Data.AdoDotNetInterop.dll
+G:\PaanKori\Lovello\BEEERP\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+G:\PaanKori\Lovello\BEEERP\bin\CrystalDecisions.ReportSource.dll
+G:\PaanKori\Lovello\BEEERP\bin\CrystalDecisions.Shared.dll
+G:\PaanKori\Lovello\BEEERP\bin\CrystalDecisions.VSDesigner.dll
+G:\PaanKori\Lovello\BEEERP\bin\CrystalDecisions.Web.dll
+G:\PaanKori\Lovello\BEEERP\bin\CrystalDecisions.Windows.Forms.dll
+G:\PaanKori\Lovello\BEEERP\bin\EntityFramework.dll
+G:\PaanKori\Lovello\BEEERP\bin\EntityFramework.SqlServer.dll
+G:\PaanKori\Lovello\BEEERP\bin\log4net.dll
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.AI.Agent.Intercept.dll
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.AI.DependencyCollector.dll
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.AI.PerfCounterCollector.dll
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.AI.ServerTelemetryChannel.dll
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.AI.Web.dll
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.AI.WindowsServer.dll
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.ApplicationInsights.dll
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.AspNet.Identity.Core.dll
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.AspNet.Identity.Owin.dll
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.Owin.dll
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.Owin.Host.SystemWeb.dll
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.Owin.Security.Cookies.dll
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.Owin.Security.dll
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.Owin.Security.Facebook.dll
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.Owin.Security.Google.dll
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.Owin.Security.OAuth.dll
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.Owin.Security.Twitter.dll
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.Web.Infrastructure.dll
+G:\PaanKori\Lovello\BEEERP\bin\Newtonsoft.Json.dll
+G:\PaanKori\Lovello\BEEERP\bin\Owin.dll
+G:\PaanKori\Lovello\BEEERP\bin\PagedList.dll
+G:\PaanKori\Lovello\BEEERP\bin\PagedList.Mvc.dll
+G:\PaanKori\Lovello\BEEERP\bin\Rotativa.dll
+G:\PaanKori\Lovello\BEEERP\bin\System.Net.Http.Formatting.dll
+G:\PaanKori\Lovello\BEEERP\bin\System.Web.Helpers.dll
+G:\PaanKori\Lovello\BEEERP\bin\System.Web.Http.dll
+G:\PaanKori\Lovello\BEEERP\bin\System.Web.Http.WebHost.dll
+G:\PaanKori\Lovello\BEEERP\bin\System.Web.Mvc.dll
+G:\PaanKori\Lovello\BEEERP\bin\System.Web.Optimization.dll
+G:\PaanKori\Lovello\BEEERP\bin\System.Web.Razor.dll
+G:\PaanKori\Lovello\BEEERP\bin\System.Web.WebPages.Deployment.dll
+G:\PaanKori\Lovello\BEEERP\bin\System.Web.WebPages.dll
+G:\PaanKori\Lovello\BEEERP\bin\System.Web.WebPages.Razor.dll
+G:\PaanKori\Lovello\BEEERP\bin\WebGrease.dll
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.VisualStudio.Shell.Interop.dll
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.VisualStudio.OLE.Interop.dll
+G:\PaanKori\Lovello\BEEERP\bin\CRVsPackageLib.dll
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.VisualStudio.TemplateWizardInterface.dll
+G:\PaanKori\Lovello\BEEERP\bin\EnvDTE.dll
+G:\PaanKori\Lovello\BEEERP\bin\VSLangProj.dll
+G:\PaanKori\Lovello\BEEERP\bin\VsWebSite.Interop.dll
+G:\PaanKori\Lovello\BEEERP\bin\EnvDTE80.dll
+G:\PaanKori\Lovello\BEEERP\bin\FlashControlV71.dll
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.VisualStudio.TextManager.Interop.dll
+G:\PaanKori\Lovello\BEEERP\bin\stdole.dll
+G:\PaanKori\Lovello\BEEERP\bin\ShockwaveFlashObjects.dll
+G:\PaanKori\Lovello\BEEERP\bin\EntityFramework.xml
+G:\PaanKori\Lovello\BEEERP\bin\EntityFramework.SqlServer.xml
+G:\PaanKori\Lovello\BEEERP\bin\log4net.xml
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.Owin.xml
+G:\PaanKori\Lovello\BEEERP\bin\PagedList.xml
+G:\PaanKori\Lovello\BEEERP\bin\PagedList.Mvc.xml
+G:\PaanKori\Lovello\BEEERP\bin\System.Net.Http.Formatting.xml
+G:\PaanKori\Lovello\BEEERP\bin\System.Web.Http.xml
+G:\PaanKori\Lovello\BEEERP\bin\System.Web.Http.WebHost.xml
+G:\PaanKori\Lovello\BEEERP\bin\System.Web.Helpers.xml
+G:\PaanKori\Lovello\BEEERP\bin\System.Web.Mvc.xml
+G:\PaanKori\Lovello\BEEERP\bin\System.Web.Optimization.xml
+G:\PaanKori\Lovello\BEEERP\bin\System.Web.Razor.xml
+G:\PaanKori\Lovello\BEEERP\bin\System.Web.WebPages.xml
+G:\PaanKori\Lovello\BEEERP\bin\System.Web.WebPages.Deployment.xml
+G:\PaanKori\Lovello\BEEERP\bin\System.Web.WebPages.Razor.xml
+G:\PaanKori\Lovello\BEEERP\bin\Antlr3.Runtime.pdb
+G:\PaanKori\Lovello\BEEERP\bin\Newtonsoft.Json.xml
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.AspNet.Identity.Core.xml
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.AspNet.Identity.Owin.xml
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.Owin.Host.SystemWeb.xml
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.Owin.Security.xml
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.Owin.Security.Facebook.xml
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.Owin.Security.Cookies.xml
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.Owin.Security.OAuth.xml
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.Owin.Security.Google.xml
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.Owin.Security.Twitter.xml
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.ApplicationInsights.xml
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.AI.DependencyCollector.xml
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.AI.ServerTelemetryChannel.xml
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.AI.WindowsServer.xml
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.AI.Web.xml
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.VisualStudio.TemplateWizardInterface.xml
+G:\PaanKori\Lovello\BEEERP\obj\Release\BEEERP.csprojAssemblyReference.cache
+G:\PaanKori\Lovello\BEEERP\obj\Release\BEEERP.csproj.GenerateResource.cache
+G:\PaanKori\Lovello\BEEERP\obj\Release\BEEERP.csproj.CoreCompileInputs.cache
+G:\PaanKori\Lovello\BEEERP\obj\Release\BEEERP.csproj.CopyComplete
+G:\PaanKori\Lovello\BEEERP\obj\Release\BEEERP.dll
+G:\PaanKori\Lovello\BEEERP\obj\Release\BEEERP.pdb
+G:\PaanKori\Lovello\BEEERP\obj\Release\BEEERP.Migrations.scr001.resources
+F:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.Migrations.Script005.resources
+F:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.Migrations.Script002.resources
+F:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.Migrations.Script0003.resources
+F:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.Migrations.addEITBtable.resources
+F:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.Migrations.addEITbalence001.resources
+F:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.Migrations.a.resources
+F:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.Migrations.a1.resources
+F:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.Migrations.a2.resources
+F:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.Migrations.Script0001.resources
+F:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.Migrations.Script0002.resources
+F:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.Migrations.scr0001.resources
+F:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.Migrations.leftemployee.resources
+F:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.Migrations.scr001.resources
+F:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.Migrations.scr002.resources
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.VisualStudio.Shell.Interop.8.0.dll
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.VisualStudio.ProjectAggregator.dll
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.VisualStudio.VSHelp.dll
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.VisualStudio.TextManager.Interop.8.0.dll
+G:\PaanKori\Lovello\BEEERP\bin\Microsoft.MSXML.dll
+G:\PaanKori\Lovello\BEEERP\obj\Release\BEEERP.Migrations.Script005.resources
+G:\PaanKori\Lovello\BEEERP\obj\Release\BEEERP.Migrations.Script002.resources
+G:\PaanKori\Lovello\BEEERP\obj\Release\BEEERP.Migrations.Script0003.resources
+G:\PaanKori\Lovello\BEEERP\obj\Release\BEEERP.Migrations.addEITBtable.resources
+G:\PaanKori\Lovello\BEEERP\obj\Release\BEEERP.Migrations.addEITbalence001.resources
+G:\PaanKori\Lovello\BEEERP\obj\Release\BEEERP.Migrations.a.resources
+G:\PaanKori\Lovello\BEEERP\obj\Release\BEEERP.Migrations.a1.resources
+G:\PaanKori\Lovello\BEEERP\obj\Release\BEEERP.Migrations.a2.resources
+G:\PaanKori\Lovello\BEEERP\obj\Release\BEEERP.Migrations.Script0001.resources
+G:\PaanKori\Lovello\BEEERP\obj\Release\BEEERP.Migrations.Script0002.resources
+G:\PaanKori\Lovello\BEEERP\obj\Release\BEEERP.Migrations.scr0001.resources
+G:\PaanKori\Lovello\BEEERP\obj\Release\BEEERP.Migrations.leftemployee.resources
+G:\PaanKori\Lovello\BEEERP\obj\Release\BEEERP.Migrations.scr002.resources
+G:\PaanKori\Lovello\BEEERP\obj\Release\BEEERP.Migrations.scr003.resources
+G:\PaanKori\Lovello\BEEERP\obj\Release\BEEERP.Migrations.scr004.resources
+G:\PaanKori\Lovello\BEEERP\obj\Release\BEEERP.Migrations.sdcr005.resources
+G:\PaanKori\Lovello\BEEERP\obj\Release\BEEERP.Migrations.Script12345.resources
+F:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.Migrations.scr003.resources
+F:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.Migrations.scr004.resources
+F:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.Migrations.sdcr005.resources
+F:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.Migrations.Script12345.resources
+F:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.Migrations.RMCustomerTable.resources
+F:\WEB APPLICATIONS\Lovello\BEEERP\obj\Release\BEEERP.Migrations.sc0007777.resources
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\ApplicationInsights.config
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\CrystalReport\ReportRdlc\IncomeStatementR.rpt
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\CrystalReport\ReportRdlc\DealerLedger.cs
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\CrystalReport\ReportRdlc\IncomeStatementR.cs
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\CrystalReport\ReportRdlc\DealerLedger.rpt
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\BEEERP.dll.config
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\BEEERP.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\BEEERP.pdb
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\csc.exe
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\csc.exe.config
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\csc.rsp
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\csi.exe
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\csi.exe.config
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\csi.rsp
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\Microsoft.CSharp.Core.targets
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\Microsoft.VisualBasic.Core.targets
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\Microsoft.Win32.Primitives.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\System.AppContext.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\System.Collections.Immutable.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\System.Console.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\System.Diagnostics.Process.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\System.Diagnostics.StackTrace.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\System.IO.Compression.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\System.IO.FileSystem.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\System.IO.FileSystem.Primitives.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\System.IO.Pipes.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\System.Reflection.Metadata.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\System.Security.AccessControl.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\System.Security.Claims.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\System.Security.Cryptography.Encoding.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\System.Security.Cryptography.Primitives.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\System.Security.Principal.Windows.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\System.Text.Encoding.CodePages.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\System.Threading.Thread.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\System.ValueTuple.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\System.Xml.ReaderWriter.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\System.Xml.XmlDocument.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\System.Xml.XPath.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\System.Xml.XPath.XDocument.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\vbc.exe
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\vbc.exe.config
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\vbc.rsp
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\VBCSCompiler.exe
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\roslyn\VBCSCompiler.exe.config
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Antlr3.Runtime.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\CrystalDecisions.CrystalReports.Design.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\CrystalDecisions.CrystalReports.Engine.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\CrystalDecisions.Data.AdoDotNetInterop.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\CrystalDecisions.ReportSource.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\CrystalDecisions.Shared.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\CrystalDecisions.VSDesigner.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\CrystalDecisions.Web.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\CrystalDecisions.Windows.Forms.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\EntityFramework.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\EntityFramework.SqlServer.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\log4net.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.AI.Agent.Intercept.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.AI.DependencyCollector.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.AI.PerfCounterCollector.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.AI.ServerTelemetryChannel.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.AI.Web.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.AI.WindowsServer.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.ApplicationInsights.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.AspNet.Identity.Core.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.AspNet.Identity.Owin.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.Owin.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.Owin.Host.SystemWeb.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.Owin.Security.Cookies.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.Owin.Security.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.Owin.Security.Facebook.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.Owin.Security.Google.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.Owin.Security.OAuth.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.Owin.Security.Twitter.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.Web.Infrastructure.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Newtonsoft.Json.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Owin.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\PagedList.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\PagedList.Mvc.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Rotativa.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\System.Net.Http.Formatting.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\System.Web.Helpers.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\System.Web.Http.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\System.Web.Http.WebHost.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\System.Web.Mvc.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\System.Web.Optimization.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\System.Web.Razor.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\System.Web.WebPages.Deployment.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\System.Web.WebPages.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\System.Web.WebPages.Razor.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\WebGrease.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.VisualStudio.Shell.Interop.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.VisualStudio.OLE.Interop.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\CRVsPackageLib.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.VisualStudio.TemplateWizardInterface.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\EnvDTE.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\VSLangProj.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\VsWebSite.Interop.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\EnvDTE80.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\FlashControlV71.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.VisualStudio.Shell.Interop.8.0.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.VisualStudio.ProjectAggregator.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.VisualStudio.TextManager.Interop.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.VisualStudio.VSHelp.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\stdole.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\ShockwaveFlashObjects.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.VisualStudio.TextManager.Interop.8.0.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.MSXML.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\EntityFramework.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\EntityFramework.SqlServer.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\log4net.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.Owin.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\PagedList.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\PagedList.Mvc.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\System.Net.Http.Formatting.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\System.Web.Http.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\System.Web.Http.WebHost.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\System.Web.Helpers.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\System.Web.Mvc.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\System.Web.Optimization.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\System.Web.Razor.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\System.Web.WebPages.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\System.Web.WebPages.Deployment.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\System.Web.WebPages.Razor.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Antlr3.Runtime.pdb
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Newtonsoft.Json.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.AspNet.Identity.Core.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.AspNet.Identity.Owin.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.Owin.Host.SystemWeb.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.Owin.Security.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.Owin.Security.Facebook.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.Owin.Security.Cookies.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.Owin.Security.OAuth.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.Owin.Security.Google.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.Owin.Security.Twitter.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.ApplicationInsights.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.AI.DependencyCollector.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.AI.ServerTelemetryChannel.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.AI.WindowsServer.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.AI.Web.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\bin\Microsoft.VisualStudio.TemplateWizardInterface.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\obj\Release\BEEERP.csprojAssemblyReference.cache
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\obj\Release\BEEERP.csproj.GenerateResource.cache
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\obj\Release\BEEERP.csproj.CoreCompileInputs.cache
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\obj\Release\BEEERP.csproj.CopyComplete
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\obj\Release\BEEERP.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\obj\Release\BEEERP.pdb
+F:\WEB APPLICATIONS\LOVELLO WEB\BEEERP\obj\Release\BEEERP.Migrations._0123.resources
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\ApplicationInsights.config
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\CrystalReport\ReportRdlc\IncomeStatementR.rpt
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\CrystalReport\ReportRdlc\DealerLedger.cs
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\CrystalReport\ReportRdlc\IncomeStatementR.cs
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\CrystalReport\ReportRdlc\DealerLedger.rpt
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\BEEERP.dll.config
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\BEEERP.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\BEEERP.pdb
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\csc.exe
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\csc.exe.config
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\csc.rsp
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\csi.exe
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\csi.exe.config
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\csi.rsp
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\Microsoft.CSharp.Core.targets
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\Microsoft.VisualBasic.Core.targets
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\Microsoft.Win32.Primitives.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\System.AppContext.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\System.Collections.Immutable.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\System.Console.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\System.Diagnostics.Process.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\System.Diagnostics.StackTrace.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\System.IO.Compression.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\System.IO.FileSystem.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\System.IO.FileSystem.Primitives.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\System.IO.Pipes.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\System.Reflection.Metadata.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\System.Security.AccessControl.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\System.Security.Claims.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\System.Security.Cryptography.Encoding.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\System.Security.Cryptography.Primitives.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\System.Security.Principal.Windows.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\System.Text.Encoding.CodePages.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\System.Threading.Thread.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\System.ValueTuple.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\System.Xml.ReaderWriter.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\System.Xml.XmlDocument.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\System.Xml.XPath.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\System.Xml.XPath.XDocument.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\vbc.exe
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\vbc.exe.config
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\vbc.rsp
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\VBCSCompiler.exe
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\roslyn\VBCSCompiler.exe.config
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Antlr3.Runtime.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\CrystalDecisions.CrystalReports.Design.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\CrystalDecisions.CrystalReports.Engine.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\CrystalDecisions.Data.AdoDotNetInterop.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\CrystalDecisions.ReportSource.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\CrystalDecisions.Shared.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\CrystalDecisions.VSDesigner.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\CrystalDecisions.Web.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\CrystalDecisions.Windows.Forms.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\EntityFramework.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\EntityFramework.SqlServer.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\log4net.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.AI.Agent.Intercept.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.AI.DependencyCollector.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.AI.PerfCounterCollector.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.AI.ServerTelemetryChannel.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.AI.Web.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.AI.WindowsServer.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.ApplicationInsights.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.AspNet.Identity.Core.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.AspNet.Identity.Owin.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.Owin.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.Owin.Host.SystemWeb.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.Owin.Security.Cookies.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.Owin.Security.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.Owin.Security.Facebook.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.Owin.Security.Google.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.Owin.Security.OAuth.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.Owin.Security.Twitter.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.Web.Infrastructure.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Newtonsoft.Json.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Owin.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\PagedList.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\PagedList.Mvc.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Rotativa.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\System.Net.Http.Formatting.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\System.Web.Helpers.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\System.Web.Http.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\System.Web.Http.WebHost.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\System.Web.Mvc.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\System.Web.Optimization.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\System.Web.Razor.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\System.Web.WebPages.Deployment.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\System.Web.WebPages.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\System.Web.WebPages.Razor.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\WebGrease.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.VisualStudio.Shell.Interop.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.VisualStudio.OLE.Interop.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\CRVsPackageLib.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.VisualStudio.TemplateWizardInterface.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\EnvDTE.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\VSLangProj.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\VsWebSite.Interop.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\EnvDTE80.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\FlashControlV71.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.VisualStudio.Shell.Interop.8.0.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.VisualStudio.ProjectAggregator.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.VisualStudio.TextManager.Interop.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.VisualStudio.VSHelp.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\stdole.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\ShockwaveFlashObjects.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.VisualStudio.TextManager.Interop.8.0.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.MSXML.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\EntityFramework.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\EntityFramework.SqlServer.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\log4net.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.Owin.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\PagedList.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\PagedList.Mvc.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\System.Net.Http.Formatting.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\System.Web.Http.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\System.Web.Http.WebHost.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\System.Web.Helpers.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\System.Web.Mvc.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\System.Web.Optimization.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\System.Web.Razor.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\System.Web.WebPages.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\System.Web.WebPages.Deployment.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\System.Web.WebPages.Razor.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Antlr3.Runtime.pdb
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Newtonsoft.Json.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.AspNet.Identity.Core.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.AspNet.Identity.Owin.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.Owin.Host.SystemWeb.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.Owin.Security.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.Owin.Security.Facebook.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.Owin.Security.Cookies.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.Owin.Security.OAuth.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.Owin.Security.Google.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.Owin.Security.Twitter.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.ApplicationInsights.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.AI.DependencyCollector.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.AI.ServerTelemetryChannel.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.AI.WindowsServer.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.AI.Web.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\bin\Microsoft.VisualStudio.TemplateWizardInterface.xml
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\obj\Release\BEEERP.csprojAssemblyReference.cache
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\obj\Release\BEEERP.csproj.CoreCompileInputs.cache
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\obj\Release\BEEERP.csproj.CopyComplete
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\obj\Release\BEEERP.dll
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\obj\Release\BEEERP.pdb
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\obj\Release\BEEERP.csproj.GenerateResource.cache
+F:\WEB APPLICATIONS\LOVELLO WEB\LOVELLO WEB CODE\BEEERP\obj\Release\BEEERP.Migrations.scrpt.resources

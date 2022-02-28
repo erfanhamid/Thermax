@@ -1,0 +1,411 @@
+﻿@model BEEERP.Models.ViewModel.Account.SubLedgerConfigurationVModel
+
+@{
+    ViewBag.Title = "SubLedgerEntry";
+}
+
+<form id="report" target="_blank">
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="text-align:center;">
+                                    <h3 class="box-title">Sub Ledger Configuration</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.GLSearch, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:2%; padding-right:2%;">
+                                                @Html.TextBoxFor(m => m.GLSearch, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.GLSearch, "", new { @style = "color: red" })
+                                                <div class="input-group-btn">
+                                                    <input type="button" name="search" id="search" value="Search" class="btn btn-primary" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.GLID, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.GLID, (IEnumerable<SelectListItem>)ViewBag.GL, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.GLID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.SubLedgerID, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.SubLedgerID, (IEnumerable<SelectListItem>)ViewBag.SubLedger, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.SubLedgerID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Type, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.Type, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Type, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="form-group" style="padding-top:1%;padding-left:50%;">
+                                                <button type="button" id="addToGrid" name="addToGrid" style="height:300%; font-size:100%;" class="btn btn-primary">Add To Grid</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+
+                                        <div class="col-md-12" style="color:lightseagreen;">
+                                            <div class="box-body">
+                                                <table class="table table-responsive" id="subLedgerList">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>GL A/C</th>
+                                                            <th>Sub Ledger</th>
+                                                            <th>Type</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="col-md-2"></div>
+                                                <div class="col-md-8" style="text-align:center;">
+                                                    <input type="button" value="Save" id="save" class="btn btn-primary" style="padding-left:20px;" />
+                                                    <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                                                    <input type="button" name="delete" id="delete" value="Delete" class="btn btn-primary" />
+                                                    <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@section scripts
+{
+    <script src="~/Scripts/AccountModule/PaymentVoucherInputFocus.js"></script>
+    <script>
+        $(".select2").select2();
+        var table = $('#subLedgerList').DataTable({
+            'paging': false,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+        var addedItems = [];
+        var isUpdate = false;
+        $(document).ready(function () {
+
+            $("#update").hide();
+            $("#delete").hide();
+            var isValid = true;
+        });
+
+        $(document).on('click', "#refresh", function () {
+            window.location.reload(true);
+        });
+
+        $(document).on('click', "#addToGrid", function () {
+            //$("#subLedger").hide();
+            //$("#DebitAccID").prop("disabled", false);
+            RemoveError();
+            var item = { SubLedgerID: 0, SubLdgerName: "", GLID: 0,GLName:"", Type: "" }
+            ValidateAddToGrid();
+            if (isValid == true) {
+                var GLID = $("#GLID").val();
+                
+                var SubLedgerID = $("#SubLedgerID").val();
+                 $.ajax({
+                            url: '@Url.Action("SubLedgerValidity", "SubLedgerConfiguration")',
+                     contentType: "application/json;charset=utf-8",
+                     data: JSON.stringify({ GLID: GLID, isUpdate : isUpdate, SubLedgerID: SubLedgerID }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Already Exist on that GL A/C.");
+                                   
+                                }
+                                else {
+                                    
+                                    item.SubLedgerID = $("#SubLedgerID").val();
+                                    item.SubLdgerName = $("#SubLedgerID :selected").text();
+                                    item.GLName = $("#GLID :selected").text();
+                                    item.GLID = $("#GLID").val();
+                                    item.Type = $("#Type").val();
+                                    addedItems.push(item);
+                                    ClearOnSearch();
+                                    ShowOnTable();
+                                }
+                            }
+                        });
+               
+                $("#GLID").prop("Disabled", true);
+            }
+
+        });
+
+        function ClearOnSearch() {
+            $("#SubLedgerID").val("").change();
+            $("#Type").val("");
+        }
+        function ValidateAddToGrid() {
+            isValid = true;
+            if ($("#SubLedgerID").val() == "") {
+                setError("SubLedgerID", "Please Select a Sub Ledger");
+                isValid = false;
+            }
+            if ($("#GLID").val() == "") {
+                setError("GLID", "Please Select a GL");
+                isValid = false;
+            }
+            if ($("#Type").val() == "") {
+                setError("Type", "Please Enter a Type");
+                isValid = false;
+            }
+            $.each(addedItems, function (index, value) {
+                if (value.SubLedgerID == $("#SubLedgerID").val()) {
+                    setError("SubLedgerID", "Sub Ledger Account is Already Added.");
+                    isValid = false;
+                }
+            });
+        }
+        function ShowOnTable() {
+            table.clear().draw();
+            //var totAmount = 0;
+            $.each(addedItems, function (index, value) {
+                table.row.add([value.GLName, value.SubLdgerName, value.Type,
+                    '<a href="#"><i class="fa fa-edit" name="editRow" value="' +
+                    value.SubLedgerID + '"></i></a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.SubLedgerID + '"></i></a>']).draw();
+
+               // totAmount += parseFloat(value.RVAmount);
+            });
+           // $("#TotalAmount").val(totAmount);
+        }
+
+        //delete Row
+        $(document).on('click', '[name="deleteRow"]', function () {
+            var item = $(this).attr("value");
+            var newItem = [];
+            if (confirm('Are you sure you want to delete this from Grid ?')) {
+                $.each(addedItems, function (index, value) {
+                    if (value.SubLedgerID == item) {
+
+                    }
+                    else {
+                        newItem.push(value);
+                    }
+
+                });
+                addedItems = newItem;
+                ShowOnTable();
+            }
+        });
+
+        //edit Row
+        $(document).on('click', '[name="editRow"]', function () {
+            var item = $(this).attr("value");
+            var newItem = [];
+
+                $.each(addedItems, function (index, value) {
+                    if (value.SubLedgerID == item) {
+                        $("#GLID").val(value.GLID).change();
+                        $("#SubLedgerID").val(value.SubLedgerID).change();
+                        $("#Type").val(value.Type);
+                    }else {
+                            newItem.push(value);
+                        }
+                    });
+           
+                    //$("#SubLedgerTotal").val(value.RVAmount);
+
+            addedItems = newItem;
+            ShowOnTable();
+        });
+          $(document).on('click', "#save", function () {
+            RemoveError();
+            $("#save").prop('disabled', true);
+       
+            if (addedItems.length <= 0) {
+                alert("At least One Item should be added for save.");
+                $("#save").prop('disabled', false);
+            }
+            else {
+              
+                    if (confirm('Do you want to save')) {
+                        $.ajax({
+                            url: '@Url.Action("SaveSubLedger", "SubLedgerConfiguration")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ addedItems: addedItems }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Failed To Saved.");
+                                    $("#save").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully Saved.");
+                                    $("#GLID").val(datas.GLID.PVNo);
+                                    $("#save").prop('disabled', true);
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        $("#save").prop('disabled', false);
+                    }
+               
+            }
+        });
+          $(document).on('click', '#search', function () {
+            RemoveError();
+            //$("#search").prop('disabled', true);
+            //isSearch = true;
+              var id = { id: $("#GLSearch").val() };
+            ClearOnSearch();
+              if ($("#GLSearch").val() != "") {
+                $.ajax({
+                    url: '@Url.Action("GetSubLedgerById", "SubLedgerConfiguration")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+
+                        if (datas == 2) {
+                            alert("Your entered GL Doesn't exist");
+                            //$("#search").prop('disabled', false);
+                        }
+                        else {
+                            $("#save").hide();
+                            $("#update").show();
+                            $("#delete").show();
+                            addedItems = [];
+                            isUpdate = true;
+                            $.each(datas.sub, function (index, value) {
+                                var item = { SubLedgerID: 0, SubLdgerName: "", GLID: 0, GLName: "", Type: "" }
+
+                                item.SubLedgerID = value.SubLedgerID;
+                                item.SubLdgerName = value.SubLdgerName;
+                                item.GLID = value.GLID;
+                                item.GLName = value.GLName;
+                                item.Type = value.Type;
+                             
+                                addedItems.push(item)
+                            });
+                            ShowOnTable();
+                            $("#GLID").val(datas.GL).change();
+                            $("#GLID").prop("disabled", true);
+
+                        }
+                    },
+                    error: function () {
+                        alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+                        //$("#search").prop('disabled', false);
+                    }
+                });
+            }
+            else {
+                alert("GL No is Required for get data.");
+                //$("#search").prop('disabled', false);
+            }
+
+        });
+         $(document).on('click', "#update", function () {
+            RemoveError();
+            $("#update").prop('disabled', true);
+       
+            if (addedItems.length <= 0) {
+                alert("At least One Item should be added for save.");
+                $("#update").prop('disabled', false);
+            }
+            else {
+                var GLSearch = $("#GLSearch").val();
+                if (GLSearch != "") {
+                    if (confirm('Do you want to Update')) {
+                        $.ajax({
+                            url: '@Url.Action("UpdateSubLedger", "SubLedgerConfiguration")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ addedItems: addedItems, GLSearch: GLSearch }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Failed To Update.");
+                                    $("#save").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully Updated.");
+                                    $("#GLID").val(datas.GLID.GLID);
+                                    $("#update").prop('disabled', true);
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        $("#update").prop('disabled', false);
+                    }
+                } else {
+
+                }
+                   
+               
+            }
+        });
+
+           $(document).on('click', '#delete', function () {
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+               var id = $("#GLSearch").val();
+               if ($("#GLSearch").val() != "") {
+                if (confirm('Are you sure you want to delete this from the database?')) {
+                    $.ajax({
+                        url: '@Url.Action("DeleteById", "SubLedgerConfiguration")',
+                        contentType: "application/json;charset=utf-8",
+                        data: { id: id },
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Delete failed.");
+                                $("#delete").prop('disabled', false);
+                                $("#update").prop('disabled', false);
+                            }
+                            else {
+                                alert("Delete Successfull");
+                                window.location.reload(true);
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#update").prop('disabled', false);
+                    $("#delete").prop('disabled', false);
+                }
+            }
+            else {
+                setError("IRTFNo", "IRTF No is required field for Delete.");
+            }
+
+        });
+</script>
+    }

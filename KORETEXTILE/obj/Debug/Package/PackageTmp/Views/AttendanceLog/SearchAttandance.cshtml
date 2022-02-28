@@ -1,0 +1,181 @@
+﻿@model BEEERP.Models.ViewModel.Payroll.AttandanceLogVModel
+
+@{
+    ViewBag.Title = "SearchAttandance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="panel">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title">Search Employees Attendance Logs According to Date :</div>
+        </div>
+        <div class="panel-body">
+            <div class="container">
+                <div class="row">
+                    @using (Html.BeginForm())
+        {
+
+            @*<div class="col-md-4">
+        @Html.Label("From : ")
+        @Html.EditorFor(model => model.FromDate, new { htmlAttributes = new { @class = "fromdatepicker", @id = "fromdatepicker" } })
+        @Html.ValidationMessageFor(m => m.FromDate, "", new { @style = "color: red" })
+        <div class="input-group-addon">
+            <i class="fa fa-calendar"></i>
+        </div>
+    </div*@
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.FromDate, "Date From ", new { @class = "col-md-4 control-label" })
+                    <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                        @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control fromdatepicker", @Value = DateTime.Now.ToString("dd-MM-yyyy"), @id = "fromdatepicker" })
+                        @Html.ValidationMessageFor(m => m.FromDate, "", new { @style = "color: red" })
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ToDate, "Date To ", new { @class = "col-md-4 control-label" })
+                    <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                        @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control todatepicker", @Value = DateTime.Now.ToString("dd-MM-yyyy"), @id = "todatepicker" })
+                        @Html.ValidationMessageFor(m => m.ToDate, "", new { @style = "color: red" })
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+}
+                    <div class="col-md-2">
+                        <input class="btn btn-success" type="submit" value="Search" id="Search" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            @Html.ValidationMessageFor(m => m.TimeCheck, "", new { @style = "color: red" })
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="box ">
+            <div class="box-header with-border box-head-back">
+                <h3 class="box-title">Attendance Logs</h3>
+            </div>
+            <div class="box-body">
+                <table class="table table-responsive" id="myTable">
+                    <thead>
+                        <tr>
+                            <td>Id</td>
+                            <td>Name</td>
+                            <td>Check In</td>
+                            <td>Check Out</td>
+                            <td>Late</td>
+                            <td>Overtime</td>
+                            <td>EarlyLeave</td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+@section scripts{
+    @*<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>*@
+    @*<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>*@
+    @*<script src="~/Scripts/Common.js"></script>*@
+    <script>
+        var table = $('#myTable').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+        $(document).ready(function () {
+
+            $(".fromdatepicker").datepicker({
+                autoclose: true,
+                format: 'dd-mm-yyyy',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-20:+0",
+                maxDate: "+0M +0D",
+                minDate: "-10Y",
+                onSelect: function () {
+                    setError("TimeCheck", "");
+                }
+            });
+            $(".todatepicker").datepicker({
+                autoclose: true,
+                format: 'dd-mm-yyyy',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-20:+0",
+                maxDate: "+0M +0D"
+            });
+        });
+        $(document).on('click', "#Search", function () {
+            setError("TimeCheck", "");
+            var fromdate = $(".fromdatepicker").val();
+            var todate = $(".todatepicker").val();
+            if (fromdate == "") {
+                setError("FromDate", "From Date is required field");
+            }
+            if (todate == "") {
+                setError("ToDate", "TO Date is required field");
+            }
+            var to = todate.split("-")
+            var t = new Date(to[2], to[1] - 1, to[0])
+            var from = fromdate.split("-")
+            var f = new Date(from[2], from[1] - 1, from[0])
+            var days = (t - f) / 1000 / 60 / 60 / 24;
+            if (days <=0 && todate != "" && fromdate != "") {
+                setError("TimeCheck", "Difference Bewteen From and To Date is not Valid, To Date must be greater than From Date");
+            }
+            table = $("#myTable").DataTable();
+            if (fromdate != null && todate != null) {
+                getResult(fromdate, todate);
+            }
+        });
+        function getResult(fromdate, todate) {
+            var params = { fromdate: fromdate, todate: todate };
+            $.ajax({
+                type: "POST",
+                //url: "/AttendanceLog/GetSearchResult",
+                url: '@Url.Action("GetSearchResult", "AttendanceLog")',
+                contentType: "application/Json;charset=utf-8",
+                data: JSON.stringify(params),
+                success: function (rData) {
+                    if (rData != null || rData.length != 0) {
+                        table.clear().draw();
+                        var list = rData;
+                        $.each(list, function (index, value) {
+                            table.row.add([value.EmployeeId, value.EmployeeName, value.CheckIn, value.CheckOut, value.Late, value.OverTime, value.EarlyLeave]).draw();;
+                        });
+                    }
+                },
+                error: function () {
+                    alert("Please check your internet connection first. If this doesn't sole your problem, then Contact With Paankouri Software & Services");
+                }
+            });
+        }
+        
+    </script>
+}

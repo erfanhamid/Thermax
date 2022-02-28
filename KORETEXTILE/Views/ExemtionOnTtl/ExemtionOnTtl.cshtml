@@ -1,0 +1,286 @@
+﻿@model BEEERP.Models.TaxCalculator.ExemtionOnTtl
+@{
+    ViewBag.Title = "ExemtionOnTtl";
+}
+
+
+<style>
+    tbody tr:hover {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    .btn:hover {
+        color: blue !important;
+    }
+
+    .btn:focus {
+        background-color: aqua !important;
+    }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Exemption On Total Income</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Id, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.Id, new { @class = "form-control", @readonly = "readonly", @Value = ViewBag.ExemtionId })
+                                        @Html.ValidationMessageFor(m => m.Id, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Gender, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.DropDownListFor(m => m.Gender, (IEnumerable<SelectListItem>)ViewBag.Gender, new { @class = "form-control select2"})
+                                        @Html.ValidationMessageFor(m => m.Gender, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Limit, new { @class = "col-md-4 control-label" })
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.Limit, new { @class = "form-control", @type = "number" })
+                                        @Html.ValidationMessageFor(m => m.Limit, "", new { @style = "color: red" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-8">
+                                        <input type="button" name="Save" id="save" value="Save" class="btn skin-blue" />
+                                        <input type="button" name="Upate" id="update" value="Update" class="btn skin-blue" />
+                                        <input type="button" name="Delete" id="delete" value="Delete" class="btn skin-blue" />
+                                        <input type="button" name="Refresh" id="refresh" value="Refresh" class="btn skin-blue" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Exemption On Total Income</h3>
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-responsive" id="ExemtionList">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Gender</th>
+                                            <th>Limit</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.Exemtion)
+                                            {
+                                                <tr class='clickable-row' value="@item.Id">
+                                                    <td>@item.Id</td>
+                                                    <td>@item.Gender</td>
+                                                    <td>@item.Limit</td>
+                                                </tr>
+                                            }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/Scripts/TaxCalculator/ExemtionOnTtlInputFocus.js"></script>
+    <script>
+        $('#ExemtionList').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        })
+        $(".select2").select2();
+
+        $(document).on('click', '#refresh', function () {
+            location.reload();
+        });
+
+        var exemtion = { Id: 0, Gender: "", Limit: 0 }
+        var isValid = true;
+        EnterPress();
+
+        $(document).ready(function () {
+            $("#update").hide();
+            $("#save").hide();
+            $("#delete").hide();
+            $("#Percentage").focus();
+        });
+
+        $(".clickable-row").on('click', function (e) {
+             var id = $(this).attr("value");
+             $.ajax({
+                url: '@Url.Action("GetExemtionById", "ExemtionOnTtl")',
+                contentType: "application/json;charset=utf-8",
+                data: { id: id },
+                type: 'GET',
+                dataType: 'json',
+                success: function (datas) {
+                    if(datas==0)
+                    {
+                        alert("This Exemtion no doesn't exist.");
+                    }
+                    else {
+                        $("#save").hide();
+                        $("#update").show();
+                        //$("#delete").show();
+                        $("#Id").val(datas.Id);
+                        $("#Gender").val(datas.Gender).change();
+                        $("#Limit").val(datas.Limit);
+                    }
+                }
+            });
+        });
+
+        $(document).on('click', '#save', function () {
+            ValidateOnSaveClick();
+            $("#save").prop('disabled', true);
+            if (isValid == true)
+            {
+                SetExemtion();
+                if (confirm("Do you want to save?")) {
+                    $.ajax({
+                        url: '@Url.Action("SaveExemtion", "ExemtionOnTtl")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ exemtion: exemtion }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas != 0) {
+                                alert("Save Sucessfull.");
+                                location.reload();
+                            }
+                            else {
+                                setError("Gender", "Gender Is Already Exists.");
+                                $("#save").prop('disabled', false);
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#save").prop('disabled', false);
+                }
+            }
+            else {
+                $("#save").prop('disabled', false);
+            }
+        });
+
+        $(document).on('click', '#update', function () {
+            ValidateOnSaveClick();
+            $("#update").prop('disabled', true);
+            if (isValid == true)
+            {
+                SetExemtion();
+                if (confirm("Do you want to Update?")) {
+                    $.ajax({
+                        url: '@Url.Action("UpdateExemtion", "ExemtionOnTtl")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ exemtion: exemtion }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Update Failed");
+                                $("#update").prop('disabled', false);
+                            }
+                            else {
+                                alert("Update Sucessfull.");
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#update").prop('disabled', false);
+                }
+            }
+            else {
+                $("#update").prop('disabled', false);
+            }
+
+        });
+
+        $(document).on('click', '#delete', function () {
+
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var id = $("#Id").val();
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteExemtionByid", "ExemtionOnTtl")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Delete failed.");
+                            $("#update").prop('disabled', true);
+                            $("#delete").prop('disabled', true);
+                        }
+                        else {
+                            alert("Delete Successfull");
+                            location.reload();
+                        }
+                    }
+                });
+            }
+            else {
+                $("#update").prop('disabled', false);
+                $("#delete").prop('disabled', false);
+            }
+        });
+
+        function SetExemtion() {
+            exemtion.Id = $("#Id").val();
+            exemtion.Gender = $("#Gender").val();
+            exemtion.Limit = $("#Limit").val();
+        }
+
+        function ValidateOnSaveClick() {
+            isValid = true;
+
+            if ($("#Gender").val() == "") {
+                setError("Gender", "Gender is required field");
+                isValid = false;
+            }
+            if ($("#Limit").val() <= 0) {
+                setError("Limit", "Limit must be grater than zero.");
+                isValid = false;
+            }
+            if ($("#Limit").val() == "") {
+                setError("Limit", "Limit is required field");
+                isValid = false;
+            }
+        }
+
+    </script>
+}
+
+

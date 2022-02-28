@@ -1,0 +1,550 @@
+﻿@model BEEERP.Models.ViewModel.Account.MDSIVModel
+@{
+    ViewBag.Title = "MDSIEntry";
+}
+
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<h3 style="text-align:center">Monthly Dealer Sales Incentive (MDSI) Entry</h3>
+
+<form id="report" , target="_blank">
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h5 class="box-title">MDSI Details</h5>
+                            </div>
+
+                            <div class="box-body">
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.MDSINO, new { @class = "col-md-4 control-label " })
+                                            <div class="input-group input-group-sm" style="padding-right:15px;padding-left:14px;">
+                                                @Html.TextBoxFor(m => m.MDSINO, new { @class = "form-control enterTab " })
+                                                @Html.ValidationMessageFor(m => m.MDSINO)
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-primary" id="search" style="min-width: 50px">Search</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.MDSIDate, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 date input-group" style="padding-left:2%; padding-right:2%">
+                                                @Html.TextBoxFor(m => m.MDSIDate, new { @class = "enterTab form-control date ", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.DepotID, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.DepotID, (IEnumerable<SelectListItem>)ViewBag.Depot, new { @class = "form-control  select2", })
+                                                @Html.ValidationMessageFor(m => m.DepotID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.AccountID, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.AccountID, (IEnumerable<SelectListItem>)ViewBag.Account, new { @class = "form-control  select2", })
+                                                @Html.ValidationMessageFor(m => m.AccountID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.RefNo, "Reference No", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.RefNo, new { @class = "form-control enterTab" })
+                                                @Html.ValidationMessageFor(m => m.RefNo)
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Description, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextAreaFor(m => m.Description, new { @class = "form-control enterTab" })
+                                                @Html.ValidationMessageFor(m => m.Description)
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.TotalAmount, new { @class = "col-md-4 control-label" })
+                                            <div class=" col-md-8">
+                                                @Html.TextBoxFor(m => m.TotalAmount, new { @class = "form-control enterTab", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.TotalAmount)
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="box">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h5 class="box-title">Dealer Information</h5>
+                            </div>
+                            <div class="box-body">
+                                <div class="loader" id="loader"></div>
+                                <div class="col-md-12">
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.DealerID, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.DealerID, (IEnumerable<SelectListItem>)ViewBag.Dealer, new { @class = "form-control  select2", })
+                                                @Html.ValidationMessageFor(m => m.DealerID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Amount, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.Amount, new { @class = "form-control enterTab", @type = "number" })
+                                                @Html.ValidationMessageFor(m => m.Amount, "", new { @style = "color: red" })
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 col-md-offset-5">
+                                    <div class="form-group" style=" padding-left:10px">
+                                        <button type="button" name="AddToGrid" id="AddToGrid" style="height:33px; font-size:13px; text-align:center;" class="btn btn-primary">Add To Grid</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h5 class="box-title">Dealer List</h5>
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-responsive" id="items">
+                                    <thead>
+                                        <tr>
+                                            <th>Dealer ID</th>
+                                            <th>Dealer Name</th>
+                                            <th>Amount</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div style="background-color:white; ">
+                            <div class="form-group">
+                                <div class="col-md-12" style="text-align:center;">
+                                    <input type="button" value="Save" id="save" class="btn btn-primary" style="padding-left:20px;" />
+                                    <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                    <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                                    <input type="button" name="delete" id="delete" value="Delete" class="btn btn-primary" />
+                                    <input type="button" value="Print" id="print" class="btn btn-primary" style="min-width:100px" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@section scripts{
+    <script src="~/Scripts/AccountModule/MDSIInputFocus.js"></script>
+    <script>
+        $(document).ready(function (){
+            $("#update").hide();
+            $("#delete").hide();
+            $("#print").hide();
+            EnterPress();
+        });
+        var MDSI = { MDSINO: 0, MDSIDate: "", DepotID: 0, RefNo: "", Description: "", AccountID: 0, TotalAmount:0}
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+        var dealerId = 0;
+        var isValid = true;
+        var addedItems = [];
+        $(".select2").select2();
+
+        var table = $('#items').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': false,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        })
+        $(document).on('click', '#refresh', function () {
+            window.location.reload(true);
+
+        });
+        $(document).on('change', "#DepotID", function () {
+               // ClearOnDepotChange();
+                var id = { id: $(this).val() };
+                if (id.id != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetDealerByDepot", "MDSI")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify(id),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            $("#DealerID").empty();
+                            $("#DealerID").prop("disabled", false);
+                            $.each(datas, function (index, value) {
+                                $("#DealerID").append($('<option />', {
+                                    value: value.Value,
+                                    text: value.Text
+                                })).trigger('change');
+                            });
+
+                            if (dealerId!="")
+                            {
+                                $("#DealerID").val(dealerId).change();
+                                storeId = "";
+                            }
+
+                        }
+                    });
+                }
+                else {
+                    $("#DealerID").empty();
+                    $("#DealerID").prop("disabled", true);
+                }
+
+        });
+
+        $(document).on('click', '#AddToGrid', function () {
+            var item = { DealerID: 0, DealerName: "", Amount: 0 };
+            var itemId = $("#Item").val();
+
+            $("#DepotID").prop("disabled", true);
+            RemoveError();
+            ValidateOnAddBtnClick();
+            if (isValid == true) {
+                $("#Batch").prop("disabled", true);
+                item.ProductionQtyCtn = $("#ProductionQtyCtn").val();
+                item.DealerID = $("#DealerID").val();
+                //item.GroupName = $('#GroupId').select2('data')[0].text;
+                item.DealerName = $('#DealerID').select2('data')[0].text;
+                item.Amount = $("#Amount").val();
+
+                addedItems.push(item);
+                ClearOnSearch();
+                ShowOnTable();
+            }
+
+        });
+        $(document).on('click', '[name="deleteRow"]', function () {
+            var item = $(this).attr("value");
+            var newItem = [];
+            if (confirm('Are you sure you want to delete this from Grid?')) {
+                $.each(addedItems, function (index, value) {
+                    if (value.DealerID == item) {
+
+                    }
+                    else {
+                        newItem.push(value);
+                    }
+
+                });
+                addedItems = newItem;
+                ShowOnTable();
+            }
+
+        });
+        //$(document).on('click', '[name="editRow"]', function (e) {
+        //    var item = $(this).attr("value");
+        //    var newItem = [];
+        //    $.each(addedItems, function (index, value) {
+        //        if (value.DealerID == item) {
+        //            $("#DealerID").val(value.DealerID).change();
+        //            $("#Amount").val(value.Amount)
+        //        }
+        //        else {
+        //            newItem.push(value);
+        //        }
+
+        //    });
+        //    addedItems = newItem;
+        //    ShowOnTable();
+        //});
+
+        function ShowOnTable() {
+            table.clear().draw();
+            var totalAmount = 0;
+
+            $.each(addedItems, function (index, value) {
+
+                totalAmount += parseFloat(value.Amount);
+                table.row.add([value.DealerID, value.DealerName, value.Amount,
+                '</a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.DealerID + '"></i></a>']).draw();
+            });
+
+            $("#TotalAmount").val(totalAmount);
+        }
+
+        function ValidateOnAddBtnClick() {
+            isValid = true;
+
+            if ($("#DealerID").val() == "") {
+                setError("DealerID", "Dealer is required field");
+                isValid = false;
+            }
+            if ($("#Amount").val() == "") {
+                setError("Amount", "Amount is required field");
+                    isValid = false;
+            }
+            $.each(addedItems, function (index, value) {
+                if (value.DealerID == $("#DealerID").val()) {
+                    setError("DealerID", "This Dealer Already Added.");
+                    isValid = false;
+                }
+            });
+        }
+        function ClearOnSearch() {
+            $("#DealerID").val("").change();
+            $("#Amount").val("");
+
+        }
+
+        function SetMDSI() {
+            MDSI.MDSINO = $("#MDSINO").val();
+            MDSI.MDSIDate = $("#MDSIDate").val();
+            MDSI.DepotID = $("#DepotID").val();
+            MDSI.AccountID = $("#AccountID").val();
+            MDSI.RefNo = $("#RefNo").val();
+            MDSI.TotalAmount = $("#TotalAmount").val();
+            MDSI.Description = $("#Description").val();
+        }
+
+              $(document).on('click', '#save', function () {
+
+                //$("#save").prop("disabled", true);
+                if (addedItems.length <= 0) {
+                    alert("At least One Item should be added for save.");
+                    $("#save").prop("disabled", false);
+                }
+                else {
+                    ValidateSaveUpdate();
+                    if (isValid == true) {
+                        SetMDSI();
+
+                        if (confirm("Do you want to Save?")) {
+
+                       $.ajax({
+                        url: '@Url.Action("SaveMDSI", "MDSI")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ addedItems: addedItems, MDSI: MDSI }),
+                        type: "POST",
+                        dataType: "json",
+                        success: function (datas) {
+                            if (datas.Message == 1) {
+                                alert(datas.mdsi);
+                                $("#MDSINO").val(datas.mdsi);
+                                alert("Save Successfully");
+
+                            } else if (datas == 3) {
+                                alert("Please select a valid entry date");
+                                $("#MDSIDate").focus();
+                                $("#save").prop('disabled', false);
+                            }
+                            else if (datas.Message == 2) {
+                                alert("Please recheck data if it is not solve the problem.\n Then Contact with Avalanche Technology Ltd.");
+                                $("#save").prop("disabled", false);
+                            }
+
+                        },
+                        error: function () {
+                            alert("Please check Internet connection. If doesn't solve problem. Contact with Avalanche Technology Ltd.");
+                            $("#save").prop("disabled", false);
+                        }
+                    });
+                        }
+
+                }
+                }
+
+        });
+
+
+            $(document).on('click', "#search", function () {
+                var id = { MDSINO: $("#MDSINO").val() };
+               // document.getElementById("loader").style.display = "block";
+               // ClearOnSearch();
+                $.ajax({
+
+                        url: '@Url.Action("GetMDSIByMDSINo", "MDSI")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            //document.getElementById("loader").style.display = "none";
+                            if (datas == 0) {
+                                alert("Your entered MDSI No. Doesn't exist");
+                            }
+                            else if (datas.Message == 2) {
+                                alert("Fatal Error! Please Recheck you data");
+                            }
+                            else {
+                                $("#save").hide();
+                                $("#update").show();
+                                $("#print").show();
+                                $("#delete").show();
+                                //storeId = datas.production.StoreID;
+                                $("#AccountID").val(datas.MDSI.AccountID).change();
+                                $("#DepotID").val(datas.MDSI.DepotID).change();
+                                $("#Description").val(datas.MDSI.Description);
+                                $("#RefNo").val(datas.MDSI.RefNo);
+                                $("#MDSIDate").val((moment(datas.MDSI.MDSIDate).format("DD-MM-YYYY"))).change();
+                                $("#TotalAmount").val(datas.MDSI.TotalAmount);
+
+                                addedItems = [];
+                                $.each(datas.lineItem, function (index, value) {
+                                    var item = { DealerID: 0, DealerName: "", Amount: 0 };
+                                    item.DealerID = value.DealerID;
+                                    item.DealerName = value.DealerName;
+                                    item.Amount = value.Amount;
+                                    addedItems.push(item);
+                                });
+                                ShowOnTable();
+                            }
+                    },
+                    error: function () {
+                        alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+
+                    }
+                    });
+
+            });
+            $(document).on('click', '#update', function () {
+                $("#update").prop("disabled", true);
+                if (addedItems.length <= 0) {
+                    alert("At least One Item should be added for save.");
+                    $("#save").prop("disabled", false);
+                }
+                else {
+                    ValidateSaveUpdate();
+                    if (isValid == true) {
+                        SetMDSI();
+
+                        if (confirm("Do you want to Update?")) {
+
+                       $.ajax({
+                        url: '@Url.Action("UpdateMDSI", "MDSI")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ addedItems: addedItems, MDSI: MDSI }),
+                        type: "POST",
+                        dataType: "json",
+                        success: function (datas) {
+                            if (datas.Message == 1) {
+                                alert("Updated Successfully");
+                                $("#MDSINO").val(datas.MDSI);
+                            }
+                            else if (datas.Message == 2) {
+                                alert("Please recheck data if it is not solve the problem.\n Then Contact with Avalanche Technology Ltd.");
+                                $("#update").prop("disabled", false);
+                            }
+
+                        },
+                        error: function () {
+                            alert("Please check Internet connection. If doesn't solve problem. Contact with Avalanche Technology Ltd.");
+                            $("#update").prop("disabled", false);
+                        }
+                    });
+                        }
+
+                }
+                }
+
+        });
+           $(document).on('click', '#delete', function () {
+
+           $("#delete").prop("disabled", true);
+
+
+                        SetMDSI();
+
+                  if (confirm("Do you want to Delete?")) {
+
+                       $.ajax({
+                        url: '@Url.Action("DeleteMDSI", "MDSI")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ MDSI: MDSI }),
+                        type: "POST",
+                        dataType: "json",
+                        success: function (datas) {
+                            if (datas == 1) {
+                                alert("Deleted Successfully");
+                                window.location.reload(true);
+                            }
+                            else if (datas == 0) {
+                                alert("Please recheck data if it is not solve the problem.\n Then Contact with Avalanche Technology Ltd.");
+                                $("#delete").prop("disabled", false);
+                            }
+
+                        },
+                        error: function () {
+                            alert("Please check Internet connection. If doesn't solve problem. Contact with Avalanche Technology Ltd.");
+                            $("#delete").prop("disabled", false);
+                        }
+                    });
+                  }
+
+
+
+
+        });
+
+
+        function ValidateSaveUpdate() {
+
+            if ($("#AccountID").val() == "") {
+                setError("AccountID", "Please Select a Bank account");
+                isValid = false;
+            }
+
+        }
+        $(document).on('click', "#print", function (event) {
+            event.preventDefault();
+            if ($("#message").val() != "true") {
+                $("#report").attr("action", "/MDSI/GetPreviewMDSI")
+                $("#report").submit();
+            }
+        });
+    </script>
+
+}

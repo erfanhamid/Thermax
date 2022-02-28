@@ -1,0 +1,781 @@
+﻿@using BEEERP.Models.Authentication
+@using BEEERP.Models.CommonInformation
+@model BEEERP.Models.ViewModel.Payroll.MonthlyAttendanceVModel
+
+@{
+    ViewBag.Title = "MonthlyAttendance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+
+    #loader {
+        display: none;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        z-index: 1;
+        width: 150px;
+        height: 150px;
+        margin: -75px 0 0 -75px;
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        border-bottom: 16px solid #3498db;
+        width: 120px;
+        height: 120px;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+    }
+
+    @@-webkit-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @@keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+<h3 style="text-align:center">Monthly Attendance Record</h3>
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h4 class="box-title">Attendance Section </h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.MAR_ID, "MAR NO", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:16px">
+                                                @Html.TextBoxFor(m => m.MAR_ID, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.MAR_ID, "", new { @style = "color: red" })
+                                                <div class="input-group-btn">
+                                                    <input type="button" name="search" id="search" value="Search" class="btn skin-blue" style="min-width: 50px"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Year, "Year", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.DropDownListFor(m => m.Year, (IEnumerable<SelectListItem>)ViewBag.year, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.Year, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Month, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.Month, (IEnumerable<SelectListItem>)ViewBag.Month, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.Month, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Date, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.Date, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                @Html.ValidationMessageFor(m => m.Date, "", new { @style = "color: red" })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Date, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.Date, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                @Html.ValidationMessageFor(m => m.Date, "", new { @style = "color: red" })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        <div class="box ">
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.employee, "Select Employee", new { @class = "col-md-6 control-label" })
+                                            <div class="col-sm-5">
+                                                @Html.DropDownListFor(m => m.employee, (IEnumerable<SelectListItem>)ViewBag.Employee, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.employee, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Absent, "Absent Days", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-5 input-group" style="padding-left:15px; padding-right:16px">
+                                                @Html.TextBoxFor(m => m.Absent, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Absent, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.PDays, "Present Days", new { @class = "col-md-6 control-label" })
+                                            <div class="col-sm-5 input-group" style="padding-left:15px; padding-right:16px">
+                                                @Html.TextBoxFor(m => m.PDays, new { @class = "form-control", @ReadOnly = "ReadOnly" })
+                                                @Html.ValidationMessageFor(m => m.PDays, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.WDays, "Working Days", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-5 input-group" style="padding-left:15px; padding-right:16px">
+                                                @Html.TextBoxFor(m => m.WDays, new { @class = "form-control", @ReadOnly = "ReadOnly" })
+                                                @Html.ValidationMessageFor(m => m.WDays, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <div class="form-group" , style="text-align:center">
+                                    <input type="button" name="addToGrid" id="addToGrid" value="Add To Grid" class="btn skin-blue" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h5 class="box-title">Employees Monthly Attendance Information</h5>
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-responsive" id="monthlyattendance">
+                                    <thead>
+                                        <tr>
+                                            <td>Employee</td>
+                                            <td>Absent days</td>
+                                            <td>Present days</td>
+                                            <td>Working days</td>
+                                            <td>Action</td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <div class="loader" id="loader"></div>
+                            </div>
+                            <div class="box-footer">
+                                <div class="form-group" , style="text-align:center">
+                                    <input type="button" name="Save" id="save" value="Save" class="btn skin-blue" />
+                                    <input type="button" name="update" id="update" value="Update" class="btn skin-blue" />
+                                    <input type="button" name="delete" id="delete" value="Delete" class="btn skin-blue" />
+                                    <input type="button" name="refresh" id="refresh" value="Refresh" class="btn skin-blue" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+
+@section scripts{
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/Payroll/MonthlyAttendance.js"></script>
+    <script>
+
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+        $(".select2").select2();
+        $(document).on('click', "#refresh", function () {
+            location.reload();
+        });
+        var table = $('#monthlyattendance').DataTable({
+            'paging': false,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+        $(document).ready(function () {
+            $("#update").hide();
+            $("#delete").hide();
+            //table = $("#monthlyattendanceTable").DataTable();
+            EnterPress();
+            $("#addToGrid").prop('disabled', false);
+            // getResult();
+            Reset();
+            RemoveError();
+            $("#Year").focus();
+            $("#Absent").val(parseFloat(0));
+        });
+        var isvalidgrid = false;
+        var isSearch = false;
+        var isValid = true;
+        var addedItems = [];
+        var month = 0;
+        var editemp = 0;
+        
+        var monthlyattendance = { MARId: 0, MARDate: "", Month: "", Year:0 };
+        $(document).on('click', "#Reset", function () {
+            RemoveError();
+            Reset();
+            //$("#Save").prop('disabled', true);
+        });
+
+        $(document).on('change', "#employee", function () {
+            getWorkDays();
+        });
+        $(document).on('change', "#Year", function () {
+            getWorkDays();
+        });
+        $(document).on('change', "#Month", function () {
+            getWorkDays();
+        });
+
+
+
+        function getWorkDays() {
+            var syear = $("#Year").val();
+            var smonth = $("#Month").val();
+            var id = { emp: $("#employee").val() };
+            if (id.emp != "" && syear != "" && smonth != "") {
+                $.ajax({
+                    url: '@Url.Action("GetWorkingDays", "MonthlyAttendance")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas.year != null) {
+                            getMonth();
+                            var selectyear = parseInt($("#Year").val());
+                            var selectmonth = month;
+                            if (datas.year == selectyear && datas.month == selectmonth) {
+                                //getMonth();
+                                var getDaysInMonth = new Date(selectyear, selectmonth, 0).getDate();
+                                $("#WDays").val(getDaysInMonth - parseInt(datas.day)+1);
+                            }
+                            else {
+                                var getDaysInMonth = new Date(selectyear, selectmonth, 0).getDate();
+                                $("#WDays").val(getDaysInMonth);
+                            }
+
+                        }
+                    }
+                });
+            }
+        }
+
+
+        //Save Button click Event
+        $(document).on('click', '#save', function () {
+            RemoveError();
+            SetMonthlyAttendance();
+            ValidateSave();
+            if (addedItems.length <= 0) {
+                alert("At least One Item should be added.");
+            }
+            else {
+                if (isValid == true) {
+                    if (confirm('Do you want to save')) {
+                        $.ajax({
+                            url: '@Url.Action("SaveMonthlyAttendance", "MonthlyAttendance")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ monthlyattendance: monthlyattendance, addedItems: addedItems }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Failed To Update.");
+                                    $("#save").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully Saved.");
+                                    $("#MAR_ID").val(datas.Id);
+                                    $("#Absent").val(datas.Absent);
+                                    $("#Present").val(datas.Present);
+                                    $("#update").hide();
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        $("#update").show();
+                    }
+                }
+            }
+        });
+
+        //Search Button click
+        $(document).on('click', '#search', function () {
+            isSearch = true;
+            if ($("#MAR_ID").val() != 0) {
+                var id = { id: parseInt($("#MAR_ID").val() )};
+                //ClearOnSearch();
+                $.ajax({
+                        url: '@Url.Action("GetMonthlyAttendanceById", "MonthlyAttendance")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            if (datas == 0) {
+                                alert("Your entered Monthly Attendance No. Doesn't exist");
+                            }
+                            else {
+                                ClearOnSearch();
+                                $("#save").hide();
+                                $("#update").show();
+                                $("#delete").show();
+                                $("#MARDate").val((moment(datas.monthlyAttendance.MARDate).format("DD-MM-YYYY")));
+                                $("#Year").val(datas.monthlyAttendance.Year).change();
+                                $("#Month").val(datas.monthlyAttendance.Month).change();
+                                $.each(datas.monthlyAttendanceLineItem, function (index, value) {
+                                    var item = { Employee: "", PDays: 0, Absent: 0, EmpID: 0, WDays: 0 }
+                                    item.EmpID = value.EmpID;
+                                    item.Employee = value.EmployeeName;
+                                    item.Absent = value.Absent;
+                                    item.PDays = value.WDays-value.Absent;
+                                    item.WDays = value.WDays;
+                                    addedItems.push(item);
+                                });
+                                //ShowOnTableforsearch();
+                                ShowOnTable();
+                            }
+                    },
+                    error: function () {
+                        alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+
+                    }
+                });
+            }
+            else {
+                alert("Please enter MAR No");
+            }
+        });
+
+        //update
+        $(document).on('click', '#update', function () {
+           RemoveError();
+            SetMonthlyAttendance();
+            if (addedItems.length <= 0) {
+                alert("At least One Item should be added.");
+            }
+            else {
+                if (isValid == true) {
+                    if (confirm('Do you want to update')) {
+                        $.ajax({
+                            url: '@Url.Action("UpdateMonthlyAttendance", "MonthlyAttendance")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ monthlyattendance: monthlyattendance, addedItems: addedItems }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Failed To Update.");
+                                    $("#save").prop('disabled', false);
+                                }
+                                else {
+                                    alert("Sucessfully Updated.");
+                                    $("#Id").val(datas.Id);
+                                    $("#Absent").val(datas.Absent);
+                                    $("#Present").val(datas.Present);
+                                    $("#update").hide();
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        $("#update").show();
+                    }
+                }
+            }
+        });
+        $(document).on('click', '#delete', function () {
+            RemoveError();
+            if ( $("#MAR_ID").val() != 0) {
+                var id = parseInt( $("#MAR_ID").val());
+                if (confirm('Do you want to delete')) {
+
+                    $.ajax({
+                        url: '@Url.Action("DeleteMonthlyAttendance", "MonthlyAttendance")',
+                        contentType: "application/json;charset=utf-8",
+                        data: { id:id },
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas.message == 0) {
+                                alert("Sucessfully deleted.");
+                                location.reload();
+                            }
+                            else {
+                                alert("Failed to delete.");
+
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#update").show();
+                }
+            }
+        });
+        //delete row Click
+        $(document).on('click', '[name="deleteRow"]', function () {
+            var item = $(this).attr("value");
+            var newItem = [];
+            if (confirm('Are you sure you want to delete this from Grid ?')) {
+                $.each(addedItems, function (index, value) {
+                    if (value.EmpID == item) {
+                        editemp = value.EmpID;
+                    }
+                    else {
+                        newItem.push(value);
+                    }
+
+                });
+                addedItems = newItem;
+                if (isSearch == false) {
+                    ShowOnTable();
+                }
+                else {
+                    ShowOnTableforaddtogrid()
+                }
+            }
+        });
+        //edit Row
+        $(document).on('click', '[name="editRow"]', function () {
+            var item = $(this).attr("value");
+            var newItem = [];
+            $.each(addedItems, function (index, value) {
+                if (value.EmpID == item) {
+                    $("#employee").val(value.EmpID).change();                 //problem
+                    $("#Absent").val(value.Absent).change();
+                    $("#PDays").val(value.PDays);
+                    $("#WDays").val(value.WDays);
+                    itemId = value.ItemID;
+                    editemp = value.EmpID;
+                }
+                else {
+                    newItem.push(value);
+                }
+            });
+            addedItems = newItem;
+            if (isSearch == false) {
+                ShowOnTable();
+            }
+            else {
+                ShowOnTable();
+               //ShowOnTableforaddtogrid()
+            }
+        });
+        $('#monthlyattendanceTable tbody').on('click', 'tr', function () {
+            var tabledata = table.row(this).data();
+            $("#Employee").val(tabledata[0]);
+            $("#Month").val(tabledata[1]);
+            $("#Year").val(tabledata[2]);
+            $("#Absent").val(tabledata[3]);
+            $("#PDays").val(tabledata[4]);
+            $("#WDays").val(tabledata[5]);
+            $("#addToGrid").prop('disabled', false);
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        });
+        $(document).on('click', "#addToGrid", function () {
+            RemoveError();
+            ValidateAddToGrid();
+            check();
+
+        });
+        //function addgide() {
+        //    var item = { Id: 0,MARID:0, Employee: "", PDays: 0, Absent: 0, EmpID: 0,WDays:0 }
+        //    if (isValid == true) {
+        //        if ($("#MAR_ID").val() == "") {
+        //            item.MARID = 0;
+        //        } else {
+        //            item.MARId = $("#MAR_ID").val();
+        //        }
+        //        item.Id = $("#employee").val();
+        //        item.EmpID = parseInt( $("#employee").val());
+        //        item.Employee = $("#employee :selected").text();
+        //        item.Absent = parseInt($("#Absent").val());
+        //        item.Pdays = parseInt($("#PDays").val());
+        //        item.WDays = parseInt( $("#WDays").val());
+        //        addedItems.push(item);
+        //        ClearOnSearch();
+        //        if (isSearch == false) {
+        //            ShowOnTable();
+        //        }
+        //        else {
+        //            ShowOnTable();
+        //            //ShowOnTableforaddtogrid();
+        //        }
+        //    }
+        //}
+        function addgide() {
+            var item = { Employee: "",PDays: 0, Absent: 0, EmpID: 0,WDays:0 }
+            if (isValid == true) {
+
+                item.EmpID = parseInt($("#employee").val());
+                item.Employee = $("#employee :selected").text();
+                item.Absent = parseInt($("#Absent").val());
+                item.PDays = parseInt($("#PDays").val());
+                item.WDays = parseInt( $("#WDays").val());
+                addedItems.push(item);
+                ClearOnSearch();
+                if (isSearch == false) {
+                    ShowOnTable();
+                }
+                else {
+                    ShowOnTable();
+                    //ShowOnTableforaddtogrid();
+                }
+            }
+        }
+        function SetMonthlyAttendance() {
+            if ($("#MAR_ID").val()=="") {
+                monthlyattendance.MARId = 0;
+            } else {
+                monthlyattendance.MARId = $("#MAR_ID").val();
+            }
+            monthlyattendance.MARDate = $("#Date").val();
+            monthlyattendance.Month = $("#Month").val();
+            monthlyattendance.Year = parseInt( $("#Year").val());
+        }
+
+        function ClearOnSearch() {
+            $("#employee").val("").change();
+            $("#Absent").val("");
+            $("#PDays").val("");
+            $("#WDays").val("");
+        }
+        //function ShowOnTable() {
+        //    table.clear().draw();
+        //    var employee = "";
+        //    var Absent = "";
+        //    var Present = "";
+        //    $.each(addedItems, function (index, value) {
+        //        table.row.add([value.Employee, value.Absent, value.Pdays, value.WDays,
+        //            '<a href="#"><i class="fa fa-edit" name="editRow" value="' +
+        //            value.EmpID + '"></i></a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.EmpID + '"></i></a>']).draw();
+        //    });
+        //}
+        function ShowOnTable() {
+            table.clear().draw();
+            var employee = "";
+            var Absent = "";
+            var Present = "";
+            $.each(addedItems, function (index, value) {
+                table.row.add([value.Employee, value.Absent, value.PDays, value.WDays,
+                    '<a href="#"><i class="fa fa-edit" name="editRow" value="' +
+                    value.EmpID + '"></i></a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.EmpID + '"></i></a>']).draw();
+            });
+        }
+        function ValidateAddToGrid() {
+            isValid = true;
+            if ($("#employee").val() == "") {
+                setError("employee", "Employee is required filed");
+                isValid = false;
+            }
+            if ($("#Absent").val() == "") {
+                setError("Absent", "Absent is required field");
+                isValid = false;
+            }
+            $.each(addedItems, function (index, value) {
+                if (value.EmpID == $("#employee").val()) {
+                    setError("employee", "This Employee Already Added.");
+                    isValid = false;
+                }
+            });
+        }
+        function ValidateSave() {
+            isValid = true;
+            if ($("#Year").val() == "") {
+                setError("Year", "Year is required filed");
+                isValid = false;
+            }
+            if ($("#Month").val() == "") {
+                setError("Month", "Month is required field");
+                isValid = false;
+            }
+        }
+        $("#Absent").keyup(function () {
+            if ($("#Absent").val() == "") {
+                $("#Absent").val(parseInt(0));
+            } else {
+                $("#Absent").val(parseInt($("#Absent").val()));
+            }
+            getMonth();
+            var year = parseInt( $("#Year").val());
+            var getDaysInMonth = new Date(year, month, 0).getDate();
+            $("#PDays").val(parseInt($("#WDays").val()) - parseInt($("#Absent").val()));
+            //getDaysInMonth(month, 2012);
+        });
+        function ShowOnTableforaddtogrid() {
+            table.clear().draw();
+            var employee = "";
+            var Absent = "";
+            var Present = "";
+            $.each(addedItems, function (index, value) {
+                table.row.add([value.employee, value.Absent, value.Present,
+                '<a href="#"><i class="fa fa-edit" name="editRow" value="' +
+                value.Id + '"></i></a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.Id + '"></i></a>']).draw();
+            });
+        }
+        function getMonth() {
+            if ($("#Month").val() == "January") {
+                month=1;
+            }
+            else if ($("#Month").val() == "February") {
+                month = 2;
+            }
+            else if ($("#Month").val() == "March") {
+                month = 3;
+            }
+            else if ($("#Month").val() == "April") {
+                month = 4;
+            }
+            else if ($("#Month").val() == "May") {
+                month = 5;
+            }
+            else if ($("#Month").val() == "June") {
+                month = 6;
+            }
+            else if ($("#Month").val() == "July") {
+                month = 7;
+            }
+            else if ($("#Month").val() == "August") {
+                month = 8;
+            }
+            else if ($("#Month").val() == "September") {
+                month = 9;
+            }
+            else if ($("#Month").val() == "October") {
+                month = 10;
+            }
+            else if ($("#Month").val() == "November") {
+                month = 11;
+            }
+            else if ($("#Month").val() == "December") {
+                month = 12;
+            }
+        }
+        function getResult() {
+
+            $.ajax({
+                type: "GET",
+                //url: "/AttendanceLog/GetSearchResult",
+                url: '@Url.Action("GetAllEmployeeInfo", "MonthlyAttendance")',
+                contentType: "application/Json;charset=utf-8",
+                data: JSON.stringify(),
+                success: function (rData) {
+                    if (rData != null || rData.length != 0) {
+                        table.clear().draw();
+                        var list = rData;
+                        $.each(list, function (index, value) {
+                            table.row.add([value.EmployeeId, value.EmployeeName, value.Month, value.Year, value.Absent, value.PresentDays]).draw();;
+                        });
+                        document.getElementById("loader").style.display = "none";
+                    }
+                },
+                error: function () {
+                    alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services");
+                }
+            });
+        }
+        function Reset() {
+            $("#employee").val("");
+            $("#Absent").val("");
+            $("#Present").val("");
+        }
+        function check() {
+
+            var id = { month: $("#Month").val(), year: parseInt($("#Year").val()), employeeId: parseInt($("#employee").val()) };
+            $.ajax({
+                url: '@Url.Action("CheckAttendance", "MonthlyAttendance")',
+                contentType: "application/json;charset=utf-8",
+                data: id,
+                type: 'GET',
+                dataType: 'json',
+                success: function (datas) {
+                    if (datas.Message != 0) {
+                        if (editemp == datas.employeeId) {
+                            addgide();
+                        } else {
+                            isValid = false;
+                            alert("This employee allready saved. MRID is "+datas.MARID);
+                        }
+
+                    }
+                    else {
+                        addgide();
+                    }
+                }
+            });
+        }
+    </script>
+}

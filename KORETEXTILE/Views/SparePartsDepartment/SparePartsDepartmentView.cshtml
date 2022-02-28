@@ -1,0 +1,290 @@
+﻿@model BEEERP.Models.DataAdmin.SPSettings.SPDepartment
+
+@{
+    ViewBag.Title = "SparePartsDepartmentView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+
+
+@*@using (Html.BeginForm("SaveSPDepartment", "SparePartsDepartment", FormMethod.Post))
+{*@
+    <div class="row">
+        <div>
+            <div class="col-md-6">
+                <h3 style="text-align:center">Create Spare Parts Department</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div>
+                        <h4 style="color:red">@ViewBag.messege</h4>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                    <h5 class="box-title">SP Department Details</h5>
+                                </div>
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.SPDID,"SPD ID", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.SPDID, new { @class = "form-control", @readonly = "readonly", @Value = ViewBag.DepartmentId })
+                                            @Html.ValidationMessageFor(m => m.SPDID)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.SPDName,"SPD Name", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.SPDName, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.SPDName, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="background-color:white; ">
+                                <div class="form-group">
+                                    <div class="col-sm-4"></div>
+                                    <div class="col-sm-8">
+                                        <input type="submit" name="Save" id="save" value="Save" class="btn btn-primary" />
+                                        <input type="submit" name="Upate" id="update" value="Update" class="btn btn-primary" />
+                                        <input type="submit" name="delete" id="delete" value="Delete" class="btn btn-primary" />
+                                        <input type="button" name="Refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                    <h4 class="box-title">SP Department List</h4>
+                                </div>
+                                <div class="box-body">
+                                    <table class="table table-responsive" id="DepartmentList">
+                                        <thead>
+                                            <tr>
+                                                <th>SPD ID</th>
+                                                <th>SP Department Name</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ViewBag.Department)
+                                            {
+                                                <tr value="@item.SPDID" class="clickable-row">
+                                                    <td>@item.SPDID</td>
+                                                    <td>@item.SPDName</td>
+                                                    @*<td> <a href="#" style="padding-right:40px;"><i class="fa fa-edit" value="@item.DeptmentID" id="edit"></i> </a></td>*@
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+@*}*@
+
+
+@section scripts{
+    <script>
+        $(function () {
+            $('#DepartmentList').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+
+        $(document).ready(function () {
+
+            $("#update").hide();
+            $("#delete").hide();
+
+            //$(document).on('click', '#edit', function () {
+            //    var id = $(this).attr("value");
+            //});
+
+            $(document).on('click', '#refresh', function () {
+                window.location.reload(true);
+            });
+
+
+            $(document).on('click', '#save', function () {
+            ValidateOnSaveClick()
+            //$("#save").prop('disabled', true);
+            if (isValid == true)
+            {
+                var spd = { SPDID: 0, SPDName: "" };
+                spd.SPDID = $("#SPDID").val();
+                spd.SPDName = $("#SPDName").val();
+                if (confirm('Do you want to Save?')) {
+                    $.ajax({
+                        url: '@Url.Action("SaveSPDepartment", "SparePartsDepartment")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ spd: spd }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas.Message == 0) {
+                                alert("SP Department Name already exists");
+                                $("#save").prop('disabled', false);
+                            }
+                            else {
+                                alert("Saved Successfully");
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#save").prop('disabled', false);
+                }
+            }
+            else {
+                //alert(message);
+                $("#save").prop('disabled', false);
+            }
+            });
+           // $(".clickable-row").on('click', function (e) {
+            $(document).on('click', ".clickable-row", function () {
+                var id = $(this).attr("value");
+
+                 $.ajax({
+                    url: '@Url.Action("GetSPDepartment", "SparePartsDepartment")',
+                    contentType: "application/json;charset=utf-8",
+                     data: JSON.stringify({ id: id }),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas.Message==0)
+                        {
+                            alert("This SP Department  doesn't exist.");
+                        }
+                        else {
+                            $("#save").hide();
+                            $("#update").show();
+                            //$("#delete").show();
+                            $("#SPDID").val(datas.info.SPDID);
+                            $("#SPDName").val(datas.info.SPDName);
+
+                        }
+                    }
+                });
+            });
+            $(document).on('click', '#update', function () {
+            ValidateOnSaveClick()
+            $("#update").prop('disabled', true);
+            if (isValid == true)
+            {
+                var spd = { SPDID: 0, SPDName: "" };
+                spd.SPDID = $("#SPDID").val();
+                spd.SPDName = $("#SPDName").val();
+                if (confirm('Do you want to update?')) {
+                    $.ajax({
+                        url: '@Url.Action("UpdateSPDepartment", "SparePartsDepartment")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ spd: spd }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 1) {
+                                alert("Name already existed");
+                                $("#update").prop('disabled', false);
+                            }
+                            else {
+                                alert("Updated Successfully");
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#update").prop('disabled', false);
+                }
+            }
+            else {
+                //alert(message);
+                $("#update").prop('disabled', false);
+            }
+            });
+
+            $(document).on('click', '#delete', function () {
+                $("#update").prop('disabled', true);
+                $("#delete").prop('disabled', true);
+                var id = $("#DeptmentID").val();
+                if (confirm('Are you sure you want to delete this from the database?')) {
+                    $.ajax({
+                        url: '@Url.Action("DeleteDepartmentByid", "Department")',
+                        contentType: "application/json;charset=utf-8",
+                        data: { id: id },
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Delete failed.");
+                            }
+                            else {
+                                alert("Delete Successfull");
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            });
+
+            function ValidateOnSaveClick() {
+                isValid = true;
+                if ($("#SPDName").val() == "") {
+                    setError("SPDName", "Please enter SP Department Name");
+                    isValid = false;
+                }
+            }
+
+        });
+
+    </script>
+}

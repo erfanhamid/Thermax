@@ -1,0 +1,583 @@
+﻿@model BEEERP.Models.ViewModel.Production.RmcVmodel
+@{
+    ViewBag.Title = "RMProduction";
+}
+<style>
+    .btn:hover {
+        color: blue !important;
+    }
+
+    .btn:focus {
+        background-color: aqua !important;
+    }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="col-md-10">
+                    <div class="box ">
+                        <div class="box-header with-border box-head-back" align="center">
+                            <h3 class="box-title">Raw Material Consumption (RMC) Entry</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.RMCNo, new { @class = "col-md-4 control-label " })
+                                            <div class="input-group input-group-sm" style="padding-right:15px;padding-left:14px;">
+                                                @Html.TextBoxFor(m => m.RMCNo, new { @class = "form-control enterTab digit" })
+                                                @Html.ValidationMessageFor(m => m.RMCNo)
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-primary" id="RMCNoSearch">Search</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.RMCDate, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 date input-group">
+                                                @Html.TextBoxFor(m => m.RMCDate, new { @class = "enterTab form-control date ", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.BatchID, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.BatchID, (IEnumerable<SelectListItem>)ViewBag.LoadBatch, new { @class = "form-control select2", })
+                                                @Html.ValidationMessageFor(m => m.BatchID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.StoreId, new { @class = "col-md-4 control-label" })
+                                            <div class="col-md-8 input-group">
+                                                @Html.DropDownListFor(m => m.StoreId, (IEnumerable<SelectListItem>)ViewBag.Store, new { @class = "form-control select2", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.StoreId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.RefNo, new { @class = "col-md-4 control-label" })
+                                            <div class="input-group col-md-8">
+                                                @Html.TextBoxFor(m => m.RefNo, new { @class = "form-control enterTab" })
+                                                @Html.ValidationMessageFor(m => m.RefNo)
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Descriptions, new { @class = "col-md-4 control-label" })
+                                            <div class="input-group col-md-8">
+                                                @Html.TextAreaFor(m => m.Descriptions, new { @class = "form-control enterTab", style = "max-width:242px;margin-left: 17px;margin-right: 17px;" })
+                                                @Html.ValidationMessageFor(m => m.Descriptions)
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="box">
+                        <div class="box-body">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+
+                                        @Html.LabelFor(m => m.ItemID, new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8 input-group">
+                                            @Html.DropDownListFor(m => m.ItemID, (IEnumerable<SelectListItem>)ViewBag.Item, new { @class = "form-control select2", @disabled = "disabled" })
+                                            @Html.ValidationMessageFor(m => m.ItemID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.AvailableQTY, new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8 input-group">
+                                            @Html.TextBoxFor(m => m.AvailableQTY, new { @class = "form-control", @disabled = "disabled" })
+                                            @Html.ValidationMessageFor(m => m.AvailableQTY, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ItemQty, new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8 input-group">
+                                            @Html.TextBoxFor(m => m.ItemQty, new { @class = "form-control digit", })
+                                            @Html.ValidationMessageFor(m => m.ItemQty, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.BalanceQty, new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8 input-group">
+                                            @Html.TextBoxFor(m => m.BalanceQty, new { @class = "form-control ", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.BalanceQty, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.UOM, new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8 input-group">
+                                            @Html.TextBoxFor(m => m.UOM, new { @class = "form-control ", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.UOM, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <input type="hidden" id="Id" />
+                            <div class="form-group">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8" align="center">
+                                    <input type="button" name="add" id="add" value="Add" class="btn btn-primary" />
+                                    <input type="button" value="Save" id="save" class="btn btn-primary" style="padding-left:20px;" />
+                                    <input type="button" name="clear" id="clear" value="Clear" class="btn btn-primary" />
+                                    <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box">
+                            <div class="box-header with-border box-head-back" align="center">
+                                <h3 class="box-title">Item List</h3>
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-responsive" id="items">
+                                    <thead>
+                                        <tr>
+                                            <th>Item Name</th>
+                                            <th>Pack Size</th>
+                                            <th>Consumption Quantity</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="hPacSize" />
+
+@section scripts{
+    <script src="~/Scripts/ProductionModule/RawMaterialConsumptionInputFocus.js"></script>
+    <script src="~/Scripts/Validate.js"></script>
+    <script src="~/Scripts/Common.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".select2").select2();
+            EnterPressForRawMaterialConsumption();
+            $('#RMCDate').datepicker({
+                autoclose: true,
+                format: 'dd-mm-yyyy',
+            });
+            $(".digit").keypress(function (e) {
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    $("#errormsg").html("Digits Only").show().fadeOut("slow");
+                    return false;
+                }
+            });
+            $("#ItemQty").keyup(function (e) {
+                var issuQTY;
+                if ($("#ItemQty").val() == "") {
+                    issuQTY = 0;
+                } else {
+                    issuQTY= parseInt($("#ItemQty").val());
+                }
+                $("#BalanceQty").val(parseInt($("#AvailableQTY").val()) - issuQTY );
+            });
+            $(document).on('change', "#ItemID", function () {
+                var id = { itemId: $(this).val(), storeId: $("#StoreId").val() };
+
+                if (id.itemId != "" && id.storeId != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetItemRemainQty", "RawMaterialConsumption")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            $("#AvailableQTY").val(datas.RemQty);
+                            $("#hPacSize").val(datas.Item.PacSize);
+                            //$("#UOM").val(datas.Item.Uom);
+                        }
+                    });
+                }
+            });
+            var balance = 0;
+
+            var isItFromEdit = false;
+            var isValid = false;
+            var storeId = "";
+            var itemId = 0;
+            $("#update").hide();
+            
+            var addedItems = [];
+            var table = $('#items').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+            $(document).on('change', "#ItemID", function () {
+                var id = { id: $(this).val() };
+                if (id.id != "") {
+                    $.ajax({
+                        url: '@Url.Action("UOMOnItemChange", "RawMaterialConsumption")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'Get',
+                        dataType: 'json',
+                        success: function (datas) {
+                            $("#UOM").val(datas.Uom);
+                        }
+                    });
+                }
+                else {
+
+                }
+            });
+            @*$(document).on('change', "#BatchID", function () {
+                var id = { batchNo: $(this).select2('data')[0].text };
+                if (id.batchNo != "") {
+                        $.ajax({
+                            url: '@Url.Action("GetGroupByBatch", "RawMaterialConsumption")',
+                            contentType: "application/json;charset=utf-8",
+                            data: id,
+                            type: 'Get',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas.Message == "0") {
+                                    alert("We didn't find this item");
+                                }
+                                else {
+                                    $("#GroupID").empty();
+                                    $("#GroupID").prop("disabled", false);
+                                    $.each(datas, function (index, value) {
+                                        $("#GroupID").append($('<option />', {
+                                            value: value.Value,
+                                            text: value.Text
+                                        })).trigger('change');
+                                    });
+                                }
+                            }
+                        });
+                    }
+            });*@
+            $(document).on('click', "#RMCNoSearch", function () {
+                var id = { rmcNo: parseInt($("#RMCNo").val()) };
+                ClearOnSearch();
+                $.ajax({
+                        url: '@Url.Action("GetRMPByRMCNo", "RawMaterialConsumption")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            if (datas == 0) {
+                                alert("Your entered RMC OB No. Doesn't exist");
+                            }
+                            else if (datas == 2) {
+                                alert("Fatal Error! Please Recheck you data");
+                            }
+                            else {
+                                $("#save").hide();
+                                $("#update").show();
+
+                                StoreId = datas.rmcEntry.StoreID;
+                                $("#RMCNo").val(datas.rmcEntry.RMCNo).change();
+                                $("#RMCDate").val((moment(datas.rmcEntry.RMCDate).format("DD-MM-YYYY"))).change();
+                                $("#BatchID").val(datas.rmcEntry.BatchID).change();
+                                $("#Descriptions").val(datas.rmcEntry.Descriptions).change();
+                                $("#RefNo").val(datas.rmcEntry.RefNo).change();
+                                addedItems = [];
+                                $.each(datas.rmcLineItem, function (index, value) {
+                                    var item = { itemName: "", ItemQty: 0, RMCNo: 0, itemId: 0 };
+                                    item.RMCNo = value.RMCNo;
+                                    item.itemId = value.ItemID;
+                                    item.ItemQty = value.ItemQty;
+                                    item.itemName = value.ItemName;
+                                    addedItems.push(item);
+                                });
+                                ShowOnTable();
+                            }
+                    },
+                    error: function () {
+                        alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+
+                    }
+               });
+            });
+            $(document).on('change', "#BatchID", function () {
+                var batchName = { batchName: $("#BatchID :selected").text()};
+                if (isItFromEdit == false) {
+                    if (batchName != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetItemByBatchID", "RawMaterialConsumption")',
+                        contentType: "application/json;charset=utf-8",
+                        data: batchName,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+
+                            $("#ItemID").empty();
+                            $("#ItemID").prop("disabled", false);
+                            $.each(datas, function (index, value) {
+                                $("#ItemID").append($('<option />', {
+                                    value: value.Value,
+                                    text: value.Text
+                                })).trigger('change');
+                            });
+
+                            if (itemId !=0) {
+                                $("#ItemID").val(ItemID).change();
+                                itemId = 0;
+                            }
+                        }
+                    });
+                }
+                else {
+                        $("#ItemID").val("").change();
+                        $("#ItemID").prop("disabled", true);
+                }
+                }
+                isItFromEdit = false;
+            });
+            $(document).on('click', '[name="deleteRow"]', function () {
+                var item = $(this).attr("value");
+                if (confirm('Are you sure you want to delete this from grid ?')) {
+                    var newItem = [];
+                    $.each(addedItems, function (index, value) {
+                        if (value.itemId == item) {
+                            addedItems.pop(value.itemId)
+                        }
+                        else {
+                            newItem.push(value);
+                        }
+                    });
+                    addedItems = newItem;
+                    ShowOnTable();
+                }
+            });
+            $(document).on('click', '[name="editRow"]', function (e) {
+                var item = $(this).attr("value");
+                var newItem = [];
+                $.each(addedItems, function (index, value) {
+                    if (value.itemId == item) {
+                        $("#ItemID").val(value.itemId).change();
+                        $("#ItemQty").val(value.ItemQty);
+                        itemId = value.ItemID;
+                    }
+                    else {
+                        newItem.push(value);
+                    }
+                });
+                addedItems = newItem;
+                ShowOnTable();
+            });
+            $(document).on('click', '#save', function () {
+                var rmcConsumption = { RMCNo: 0, RMCDate: "", BatchID: 0, StoreId: 0, RefNo: "", Descriptions: "", RMCTotalQty: 0 };
+                $("#save").prop("disabled", true);
+                $("#update").show();
+                if (addedItems.length <= 0) {
+                    alert("At least One Item should be added for save.");
+                    $("#save").prop("disabled", false);
+                }
+                else
+                {
+                    if (isValid == true) {
+                        rmcConsumption.RMCNo = $("#RMCNo").val();
+                        rmcConsumption.RMCDate = $("#RMCDate").val();
+                        rmcConsumption.BatchID = $("#BatchID").val();
+                        rmcConsumption.StoreId = $("#StoreId").val();
+                        rmcConsumption.RefNo = $("#RefNo").val();
+                        rmcConsumption.Descriptions = $("#Descriptions").val();
+                        if (confirm("Do you want to Save?"))
+                        {
+                            $.ajax(
+                            {
+                                url: '@Url.Action("SaveRMC", "RawMaterialConsumption")',
+                                contentType: "application/json;charset=utf-8",
+                                    data: JSON.stringify({ rmcLineItems: addedItems, rmcEntry: rmcConsumption }),
+                                type: "POST",
+                                dataType: "json",
+                                success: function (datas)
+                                {
+                                    if (datas.Message == 1) {
+                                        alert("Save Successfully");
+                                        $("#FGPNo").val(datas.FGNo);
+
+                                    }
+                                    else if (datas.Message == 2)
+                                    {
+                                        alert("Please recheck data if it is not solve the problem.\n Then Contact with Avalanche Technology Ltd.");
+                                        $("#save").prop("disabled", false);
+                                    }
+                                },
+                                error: function ()
+                                {
+                                    alert("Please check Internet connection. If doesn't solve problem. Contact with Avalanche Technology Ltd.");
+                                    $("#save").prop("disabled", false);
+                                }
+                            });
+                        }
+
+                    }
+                }
+            });
+            $(document).on('click', '#clear', function () {
+                location.reload();
+            });
+            $(document).on('click', '#update', function () {
+                var rmcConsumption = { RMCNo: 0, RMCDate: "", BatchID: 0, StoreId: 0, RefNo: "", Descriptions: "", RMCTotalQty: 0 };
+                if (addedItems.length <= 0) {
+                    alert("At least One Item should be added for save.");
+                }
+                else {
+                    if (isValid == true) {
+                        rmcConsumption.RMCNo =$("#RMCNo").val();
+                        rmcConsumption.RMCDate = $("#RMCDate").val();
+                        rmcConsumption.BatchID = $("#BatchID").val();
+                        rmcConsumption.StoreId = $("#StoreId").val();
+                        rmcConsumption.RefNo = $("#RefNo").val();
+                        rmcConsumption.Descriptions = $("#Descriptions").val();
+                        if (confirm("Do you want to update?")) {
+                            $.ajax({
+                                url: '@Url.Action("UpdateRMCProduction", "RawMaterialConsumption")',
+                                contentType: "application/json;charset=utf-8",
+                                data: JSON.stringify({ rmcConsumption: rmcConsumption, addedItems: addedItems }),
+                                type: "POST",
+                                dataType: "json",
+                                success: function (datas) {
+
+                                    if (datas == 2) {
+                                        alert("Can't save. Please try again.");
+                                    }
+                                    else if (datas == 0) {
+                                        alert("Please recheck data if it is not solve the problem.\n Then Contact with Avalanche Technology Ltd.")
+                                    }
+                                    else {
+                                        alert("Updated Successfully.");
+                                        $("#RMCNo").val(datas);
+                                    }
+
+                                },
+                                error: function () {
+                                    alert("Please check Internet connection. If doesn't solve problem. Contact with Avalanche Technology Ltd.");
+                                }
+                            });
+                        }
+
+                    }
+                }
+            });
+            $(document).on('click', '#add', function () {
+                RemoveError();
+                ValidateOnAddBtnClick();
+                if (isValid == true) {
+                    if (parseFloat($('#AvailableQTY').val()) < parseFloat($('#ItemQty').val())) {
+                        alert("Issue Quantity can not be greater than Available Quantity ");
+                    }
+                    else {
+                        var item = { itemName: "", ItemQty: 0, RMCNo: 0, itemId: 0,itemCost:0,totalItemCost:0, PackSize : "" };
+                        $("#ItemID").prop("disabled", false);
+                        item.PackSize = $("#hPacSize").val();
+                        item.itemName = $("#ItemID :selected").text();
+                        item.ItemQty = $("#ItemQty").val();
+                        item.itemId = $("#ItemID :selected").val();
+                        item.RMCNo = $("#RMCNo").val();
+                        addedItems.push(item);
+                        ClearOnAdd();
+                        ShowOnTable();
+                    }
+                }
+            });
+            function ValidateOnAddBtnClick()
+            {
+                isValid = true;
+                //if ($("#StoreId").val() == 0) {
+                //    setError("StoreId", "Store is required field");
+                //    isValid = false;
+                //}
+                //if ($("#GroupID").val() == 0) {
+                //    setError("GroupID", "Group is required field");
+                //    isValid = false;
+                //}
+                if ($("#ItemID").val() == 0) {
+                    setError("ItemID", "Item is required field");
+                    isValid = false;
+                }
+                if ($("#BatchID").val() == 0) {
+                    setError("BatchID", "Batch is required field");
+                    isValid = false;
+                }
+                if ($("#ItemQty").val() == "") {
+                    setError("ItemQty", "Quantity is required field");
+                    isValid = false;
+                }
+                if ($("#ItemQty").val() == 0) {
+                    setError("ItemQty", "Quantity can not be Zero");
+                    isValid = false;
+                }
+                $.each(addedItems, function (index, value) {
+                    if (value.itemId == $("#ItemID").val()) {
+                        setError("ItemID", "This Item Already Added.");
+                        isValid = false;
+                    }
+                });
+            }
+            function ShowOnTable() {
+                table.clear().draw();
+                $.each(addedItems, function (index, value) {
+                    table.row.add([value.itemName, value.PackSize, value.ItemQty,
+                    '<a href="#"><i class="fa fa-edit" name="editRow" value="' +
+                    value.itemId + '"></i></a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.itemId + '"></i></a>']).draw();
+                });
+            }
+            function ClearOnSearch() {
+                $("#GroupID").val("").change();
+                $("#ItemID").val("").change();
+                $("#ItemQty").val("");
+                $("#UOM").val("");
+                itemId = "";
+                storeId = "";
+            }
+            function ClearOnAdd() {
+                $("#ItemID").val("").change();
+                $("#AvailableQTY").val("");
+                $("#ItemQty").val(""); 
+                $("#BalanceQty").val("");
+                $("#UOM").val("");
+            }
+        });
+    </script>
+}

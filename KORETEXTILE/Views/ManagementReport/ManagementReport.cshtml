@@ -1,0 +1,291 @@
+﻿
+@model BEEERP.Models.ViewModel.Sales.Report.ReportVModel
+@{
+    ViewBag.Title = "ManagementReport";
+    int i = 0;
+    int j = 0;
+}
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        /*padding: 15px 32px;*/
+        /*text-align: center;*/
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 8px;
+        min-width: 450px;
+        /*height: 12px;*/
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+        }
+</style>
+
+<h3 style="text-align:center">Management Report</h3>
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "ManagementReport", target = "_blank" }))
+{
+
+    <div class="content" style="margin-top:10px;">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <div class="col-md-5">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                    <h4 class="box-title">Select Date Ranges and Parameters</h4>
+                                </div>
+                                <div class="box-body" style="padding-bottom:110px;">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Depot, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.Depot, (IEnumerable<SelectListItem>)ViewBag.Depot, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.Depot)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.VehicleType, "Vehicle Type", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.VehicleType, (IEnumerable<SelectListItem>)ViewBag.VehcType, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.VehicleType)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.SubLedgerID, "Sub Ledger", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.SubLedgerID, (IEnumerable<SelectListItem>)ViewBag.SubLedger, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.SubLedgerID)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.From, "From Date", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 date input-group" style="padding-left:15px;padding-right:15px;">
+                                            @Html.TextBoxFor(m => m.From, new { @class = "form-control AsOnDate", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            @Html.ValidationMessageFor(m => m.From)
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.To, "To Date", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 date input-group" style="padding-left:15px;padding-right:15px;">
+                                            @Html.TextBoxFor(m => m.To, new { @class = "form-control AsOnDate", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            @Html.ValidationMessageFor(m => m.To)
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-7">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                    <h4 class="box-title">Operating Expense Report</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="form-group" style="text-align:center;">
+                                        @{
+                                            i = i + 1;
+                                        }
+                                        <button class="btn skin-blue" id="MonthlyExpenseReport" type="submit">@i. Month Wise Operating Expense Summary</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                    <h4 class="box-title">Vehicle Expense Report</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="form-group" style="text-align:center;">
+                                        @{
+                                            j = j + 1;
+                                        }
+                                        <button class="btn skin-blue" id="ItemWiseVehicleExpenseReport" type="submit">@j. Depot and Ledger Item wise Vehicle Expense Summary</button>
+                                    </div>
+                                    <div class="form-group" style="text-align:center;">
+                                        @{
+                                            j = j + 1;
+                                        }
+                                        <button class="btn skin-blue" type="submit" id="LedgerItemWiseVehicleExpenseReport">@j. Ledger Item wise Vehicle Expense Summary</button>
+                                    </div>
+                                    <div class="form-group" style="text-align:center;">
+                                        @{
+                                            j = j + 1;
+                                        }
+                                        <button class="btn skin-blue" type="submit" id="DepotWiseVehicleExpenseReport">@j. Depot wise Vehicle Expense Summary</button>
+                                    </div>
+                                    <div class="form-group" style="text-align:center;">
+                                        @{
+                                            j = j + 1;
+                                        }
+                                        <button class="btn skin-blue" type="submit" id="VehicleExpenseDetailsReport">@j.  Vehicle Expense Details</button>
+                                    </div>
+                                    <div class="form-group" style="text-align:center;">
+                                        @{
+                                            j = j + 1;
+                                        }
+                                        <button class="btn skin-blue" type="submit" id="DepotWiseVehicleExpenseDetails">@j. Depot Wise Vehicle Expense Details</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<input type="hidden" id="message" value="false" />
+
+@section scripts{
+    <script src="~/Scripts/Search.js"></script>
+    <script src="~/Scripts/ReportSearch.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $(".select2").select2();
+            $('.date').datepicker({
+                autoclose: true,
+                format: "dd-mm-yyyy"
+            });
+
+        });
+
+        $(document).on('change', "#VehicleType", function () {
+
+            $("#SubLedgerID").prop('disabled', false);
+            var tp = { vType: $(this).val() };
+            if (tp.vType != "") {
+                $.ajax({
+                    url: '@Url.Action("GetSubledgerByType", "ManagementReport")',
+                    contentType: "application/json;charset=utf-8",
+                    data: tp,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        $("#SubLedgerID").empty();
+                        $("#SubLedgerID").prop("disabled", false);
+                        $.each(datas, function (index, value) {
+                            $("#SubLedgerID").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                        $("#SubLedgerID").focus();
+                        if (supplierId != "") {
+                            $("#SubLedgerID").val(supplierId).change();
+                            $("#SubLedgerID").prop('disabled', true);
+                            supplierId = "";
+                        }
+                    }
+                });
+            }
+            else {
+                $("#SubLedgerID").val("").change();
+                $("#SubLedgerID").prop("disabled", true);
+            }
+        });
+
+        $(document).on('click', "#ItemWiseVehicleExpenseReport", function (event) {
+            $("#ManagementReport").attr("action", "/VehicleExpenseReport/ItemWiseVehicleExpense");
+            $("#ManagementReport").submit();
+        });
+        $(document).on('click', "#LedgerItemWiseVehicleExpenseReport", function (event) {
+            $("#ManagementReport").attr("action", "/VehicleExpenseReport/LedgerItemWiseVehicleExpense");
+            $("#ManagementReport").submit();
+        });
+        $(document).on('click', "#DepotWiseVehicleExpenseReport", function (event) {
+
+            ValidateReportSearchParam(["Depot"]);
+            event.preventDefault();
+            if ($("#message").val() != "true") {
+                $("#ManagementReport").attr("action", "/VehicleExpenseReport/VehicleExpenseSummary");
+                $("#ManagementReport").submit();
+                }
+
+        });
+        $(document).on('click', "#VehicleExpenseDetailsReport", function () {
+
+            //ValidateReportSearchParam(["SubLedgerID"]);
+            event.preventDefault();
+
+            if ($("#SubLedgerID").val() == "") {
+                setError("SubLedgerID", "Please select a sub ledger");
+                isValid = false;
+            }
+            else {
+
+                $("#ManagementReport").attr("action", "/ManagementReport/VehicleExpenseDetails");
+                $("#ManagementReport").submit();
+            }
+        });
+
+
+        $(document).on('click', "#DepotWiseVehicleExpenseDetails", function (event) {
+
+            ValidateReportSearchParam(["Depot"]);
+            event.preventDefault();
+            if ($("#message").val() != "true") {
+                $("#ManagementReport").attr("action", "/VehicleExpenseReport/DepotWiseVehicleExpenseDetails");
+                $("#ManagementReport").submit();
+            }
+
+        });
+        $(document).on('click', "#MonthlyExpenseReport", function (event) {
+
+            event.preventDefault();
+            if ($("#message").val() != "true") {
+                $("#ManagementReport").attr("action", "/ManagementReport/MonthlyExpenseReport");
+                $("#ManagementReport").submit();
+            }
+
+        });
+        //$(document).on('click', "#SingleDepotCostSummary", function (event) {
+        //    //ValidateReportSearchParam(["Depot"]);
+        //    ValidateOnClick();
+        //    event.preventDefault();
+        //    if ($("#message").val() != "true") {
+        //        $("#ManagementReport").attr("action", "/ManagementReport/SingleDepotCostSummary");
+        //        $("#ManagementReport").submit();
+        //    }
+
+        //});
+
+        $(document).on('click', "#SingleDepotCostSummary", function (event) {
+            event.preventDefault();
+            ValidateReportSearchParam(["From", "To"]);
+            if ($("#Depot").val() == "") {
+                setError("Depot", "Please select a Depot or Sales Center");
+                isValid = false;
+            }
+            else {
+
+                $("#ManagementReport").attr("action", "/ManagementReport/SingleDepotCostSummary");
+                $("#ManagementReport").submit();
+            }
+        });
+            //function ValidateOnClick() {
+            //    RemoveError();
+            //    message = "";
+            //    if ($("#Depot").val() == "") {
+            //        setError("Depot", "Please select a depot or sales center");
+            //        message = "Please select a depot or sales center"
+            //    }
+            //}
+
+    </script>
+
+}

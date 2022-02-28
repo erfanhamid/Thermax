@@ -1,0 +1,564 @@
+﻿@model BEEERP.Models.ViewModel.Sales.Report.InventoryReportVModel
+@{
+    ViewBag.Title = "SupplierReport";
+    int i = 0;
+}
+<style>
+
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+    /*h3 {
+        background: #F5B041;
+        border-radius: 8px;
+    }*/
+    box-title {
+        background: #82E0AA;
+        border-radius: 8px;
+    }
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        /*padding: 15px 32px;*/
+        /*text-align: center;*/
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 8px;
+        min-width: 400px;
+        /*height: 12px;*/
+    }
+        .btn:hover {
+            background-color: #82E0AA;
+        }
+
+
+</style>
+<h3 style="text-align:center"> Supplier Report</h3>
+
+
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "supplierreport", target = "_blank" }))
+{
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                    <h4 class="box-title">Select Parameters and Date Ranges</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.SupplierGroup, "Supplier Group", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(m => m.SupplierGroup, (IEnumerable<SelectListItem>)ViewBag.SupplierGroup, new { @class = "form-control select2" })
+                                                    @Html.ValidationMessageFor(m => m.SupplierGroup, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.SupplierID,  new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(m => m.SupplierID, (IEnumerable<SelectListItem>)ViewBag.Supplier, new { @class = "form-control select2" })
+                                                    @Html.ValidationMessageFor(m => m.SupplierID, "", new { @style = "color: red" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.FromDate, "From Date", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8 date input-group" , style="padding-left:15px;padding-right:15px;">
+                                                    @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                    @Html.ValidationMessageFor(m => m.FromDate)
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.ToDate, "To Date", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8 date input-group" , style="padding-left:15px;padding-right:15px;">
+                                                    @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                    @Html.ValidationMessageFor(m => m.ToDate)
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                </div>
+                                                <div style="padding-left:280px;">
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.AsOnDate, "As On Date", new { @class = "col-md-4 control-label" })
+                                                <div class="col-sm-8 date input-group" , style="padding-left:15px;padding-right:15px;">
+                                                    @Html.TextBoxFor(m => m.AsOnDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                    @Html.ValidationMessageFor(m => m.AsOnDate)
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                </div>
+                                                <div style="padding-left:280px;">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                    <h4 class="box-title">Supplier Report</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group" style="text-align:center;">
+                                                @{
+                                                    i = i + 1;
+                                                }
+                                                <button class="btn skin-blue" id="SupplierContactsummary" type="submit">@i. Group Wise Supplier Contact Summary</button>
+                                            </div>
+                                            <div class="form-group" style="text-align:center;">
+                                                @{
+                                                    i = i + 1;
+                                                }
+                                                <button class="btn skin-blue" id="showSupplierLedger" type="submit">@i. Supplier Account Ledger</button>
+                                            </div>
+                                            <div class="form-group" style="text-align:center;">
+                                                @{
+                                                    i = i + 1;
+                                                }
+                                                <button class="btn skin-blue" id="showSupBalance" type="submit">@i. Supplier Balance Details</button>
+                                            </div>
+                                            <div class="form-group" style="text-align:center;">
+                                                @{
+                                                    i = i + 1;
+                                                }
+                                                <button class="btn skin-blue" id="showSupBalanceSummary" type="submit">@i. Group Supplier Balance Summary</button>
+                                            </div>
+                                            @*<div class="form-group" style="text-align:center;">
+                                                @{
+                                                    i = i + 1;
+                                                }
+                                                <button class="btn skin-blue" id="SingleGroupSupplierAging" type="submit">@i. Single Group Supplier Aging Summary</button>
+                                            </div>*@
+                                            @*<div class="form-group" style="text-align:center;">
+                                                @{
+                                                    i = i + 1;
+                                                }
+                                                <button class="btn skin-blue" id="singlesupplierbillaging" type="submit">@i. Single Supplier Bill Aging Summary</button>
+                                            </div>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                    <h4 class="box-title">Supplier Payment Voucher (SPV) Report</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group" style="text-align:center;">
+                                                @{
+                                                    i = i + 1;
+                                                }
+                                                <button class="btn skin-blue" id="datewisespvsummary" type="submit">@i. Date Wise SPV Summary</button>
+                                            </div>
+                                            <div class="form-group" style="text-align:center;">
+                                                @{
+                                                    i = i + 1;
+                                                }
+                                                <button class="btn skin-blue" id="billwisespvdetail" type="submit">@i. Supplier and Bill Wise SPV Summary</button>
+                                            </div>
+                                            <div class="form-group" style="text-align:center;">
+                                                @{
+                                                    i = i + 1;
+                                                }
+                                                <button class="btn skin-blue" id="unadjustedsupplieradvance" type="submit">@i. Unadjusted Supplier Advance</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                    <h4 class="box-title">Supplier Advance Adjustment (SADA) Report</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group" style="text-align:center;">
+                                                @{
+                                                    i = i + 1;
+                                                }
+                                                <button class="btn skin-blue" id="datewisesadasummary" type="submit">@i. Date Wise SADA Summary</button>
+                                            </div>
+                                            <div class="form-group" style="text-align:center;">
+                                                @{
+                                                    i = i + 1;
+                                                }
+                                                <button class="btn skin-blue" id="billwisesadasummary" type="submit">@i. Supplier and Bill Wise SADA Summary</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA">
+                                    <h4 class="box-title">Supplier Bill Aging Report</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group" style="text-align:center;">
+                                                @{
+                                                    i = i + 1;
+                                                }
+                                                <button class="btn skin-blue" id="singlesupplierbillagingnew" type="submit">@i. Single Supplier Bill Aging Summary</button>
+                                            </div>
+                                            <div class="form-group" style="text-align:center;">
+                                                @{
+                                                    i = i + 1;
+                                                }
+                                                <button class="btn skin-blue" id="singleSupplierBillAging" type="submit">@i. Single Group Supplier Bill Aging Summary</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@section scripts{
+    <script src="~/Scripts/Search.js"></script>
+    <script src="~/Scripts/ReportSearch.js"></script>
+    <script>
+        $(".select2").select2();
+        var isValid = "";
+        $('.date').datepicker({
+            autoclose: true,
+            format: "dd-mm-yyyy"
+        });
+
+        var supplierId = "";
+        //$(document).on('click', "#showBatchWiseProduction", function (event) {
+        //    event.preventDefault();
+        //    validateOnBatchWiseProduction();
+        //    if (isValid == "") {
+        //        if ($("#message").val() != "true") {
+        //            $("#Depot").val($("#DepotId").val());
+        //            $("#report").attr("action", "/ProductionReport/GetBatchWiseProduction")
+        //            $("#report").submit();
+        //        }
+        //    }
+        //});
+        $(document).on('change', "#SupplierGroup", function () {
+
+            $("#SupplierID").prop('disabled', false);
+            var id = { sGroupId: $(this).val() };
+            if (id.sGroupId != "") {
+                $.ajax({
+                    url: '@Url.Action("GetSupplierByGroupId", "SupplierReport")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        $("#SupplierID").empty();
+                        $("#SupplierID").prop("disabled", false);
+                        $.each(datas, function (index, value) {
+                            $("#SupplierID").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                        $("#SupplierID").focus();
+                        if (supplierId != "") {
+                            $("#SupplierID").val(supplierId).change();
+                            $("#SupplierID").prop('disabled', true);
+                            supplierId = "";
+                        }
+                    }
+                });
+            }
+            else {
+                $("#SupplierID").val("").change();
+                $("#SupplierID").prop("disabled", true);
+            }
+        });
+
+        // to show supplier contact summary
+
+        $(document).on('click', "#SupplierContactsummary", function (event) {
+            event.preventDefault();
+            $("#supplierreport").attr("action", "/SupplierReport/GetSupplierContactsummary")
+            $("#supplierreport").submit();
+
+
+        });
+
+
+        // to show the supplier account ledger
+        $(document).on('click', "#showSupplierLedger", function () {
+
+            var isValid = true;
+            if ($("#From").val() == "") {
+                setError("From", "From Date is Required.");
+                isValid = false;
+            }
+            if ($("#To").val() == "") {
+                setError("To", "To Date is Required.");
+                isValid = false;
+            }
+            if ($("#SupplierID").val() == "") {
+                setError("SupplierID", "Please select a supplier from the list");
+                isValid = false;
+            }
+
+
+            //ValidateReportSearchParam(["From", "To", "SupplierID"]);
+            event.preventDefault();
+            if (isValid == true) {
+                $("#supplierreport").attr("action", "/SupplierReport/ShowSupplierLedger");
+                $("#supplierreport").submit();
+            }
+        }); 
+
+        // Supplier Balance Summary
+        $(document).on('click', "#showSupBalance", function (event) {
+            event.preventDefault();
+            if ($("#SupplierGroup").val() == "") {
+                setError("SupplierGroup", "Supplier Group Required Field");
+                isValid = "required";
+            } else {
+                $("#supplierreport").attr("action", "/SupplierReport/GetSupplierBalanceDetails")
+                $("#supplierreport").submit();
+            }
+
+
+        });
+        //  supplier group balance summary
+        $(document).on('click', "#showSupBalanceSummary", function (event) {
+            event.preventDefault();
+            if ($("#SupplierGroup").val() == "") {
+                setError("SupplierGroup", "Supplier Group Required Field");
+                isValid = "required";
+            } else {
+                $("#supplierreport").attr("action", "/SupplierReport/GetSupplierBalanceSummary")
+                $("#supplierreport").submit();
+            }
+
+
+        });
+
+        // Single Group Supplier Aging Summary
+        $(document).on('click', "#SingleGroupSupplierAging", function (event) {
+            event.preventDefault();
+            if ($("#SupplierGroup").val() == "") {
+                setError("SupplierGroup", "Please select a supplier group");
+                isValid = "required";
+            } else {
+                $("#supplierreport").attr("action", "/SupplierReport/SingleGroupSupplierAging")
+                $("#supplierreport").submit();
+            }
+
+
+        });
+
+
+        // Single Single Supplier Bill Aging Summary
+        $(document).on('click', "#singlesupplierbillaging", function (event) {
+            event.preventDefault();
+            if ($("#SupplierID").val() == "") {
+                setError("SupplierID", "Please select a supplier");
+                isValid = "required";
+            } else {
+                $("#supplierreport").attr("action", "/SupplierReport/SingleSupplierBillAging")
+                $("#supplierreport").submit();
+            }
+
+
+        });
+
+        // Date Wise SPV Summary
+        $(document).on('click', "#datewisespvsummary", function () {
+
+            var isValid = true;
+            if ($("#From").val() == "") {
+                setError("From", "From Date is Required.");
+                isValid = false;
+            }
+            if ($("#To").val() == "") {
+                setError("To", "To Date is Required.");
+                isValid = false;
+            }
+
+
+            //ValidateReportSearchParam(["From", "To", "SupplierID"]);
+            event.preventDefault();
+            if (isValid == true) {
+                $("#supplierreport").attr("action", "/SupplierReport/DateWiseSPVSummary");
+                $("#supplierreport").submit();
+            }
+        }); 
+
+        //  Bill Wise SPV Detail
+        $(document).on('click', "#billwisespvdetail", function () {
+
+            var isValid = true;
+            if ($("#From").val() == "") {
+                setError("From", "From Date is Required.");
+                isValid = false;
+            }
+            if ($("#To").val() == "") {
+                setError("To", "To Date is Required.");
+                isValid = false;
+            }
+
+
+            //ValidateReportSearchParam(["From", "To", "SupplierID"]);
+            event.preventDefault();
+            if (isValid == true) {
+                $("#supplierreport").attr("action", "/SupplierReport/BillWiseSPVDetail");
+                $("#supplierreport").submit();
+            }
+        }); 
+
+
+        //  Unadjusted Supplier Advance 
+        $(document).on('click', "#unadjustedsupplieradvance", function () {
+
+            var isValid = true;
+            if ($("#From").val() == "") {
+                setError("From", "From Date is Required.");
+                isValid = false;
+            }
+            if ($("#To").val() == "") {
+                setError("To", "To Date is Required.");
+                isValid = false;
+            }
+
+
+            //ValidateReportSearchParam(["From", "To", "SupplierID"]);
+            event.preventDefault();
+            if (isValid == true) {
+                $("#supplierreport").attr("action", "/SupplierReport/UnadjustedSupplierAdvance");
+                $("#supplierreport").submit();
+            }
+        }); 
+
+        // Date Wise SADA Summary
+        $(document).on('click', "#datewisesadasummary", function () {
+
+            var isValid = true;
+            if ($("#From").val() == "") {
+                setError("From", "From Date is Required.");
+                isValid = false;
+            }
+            if ($("#To").val() == "") {
+                setError("To", "To Date is Required.");
+                isValid = false;
+            }
+
+
+            //ValidateReportSearchParam(["From", "To", "SupplierID"]);
+            event.preventDefault();
+            if (isValid == true) {
+                $("#supplierreport").attr("action", "/SupplierReport/DateWisSADASummaryNew");
+                $("#supplierreport").submit();
+            }
+        }); 
+
+        // Bill Wise SADA Summary
+        $(document).on('click', "#billwisesadasummary", function () {
+
+            var isValid = true;
+            if ($("#From").val() == "") {
+                setError("From", "From Date is Required.");
+                isValid = false;
+            }
+            if ($("#To").val() == "") {
+                setError("To", "To Date is Required.");
+                isValid = false;
+            }
+
+
+            //ValidateReportSearchParam(["From", "To", "SupplierID"]);
+            event.preventDefault();
+            if (isValid == true) {
+                $("#supplierreport").attr("action", "/SupplierReport/BillWisSADASummary");
+                $("#supplierreport").submit();
+            }
+        }); 
+
+        // Single Single Supplier Bill Aging Summary
+        $(document).on('click', "#singlesupplierbillagingnew", function (event) {
+            event.preventDefault();
+            if ($("#SupplierID").val() == "") {
+                setError("SupplierID", "Please select a Supplier");
+                isValid = "required";
+            } else {
+                $("#supplierreport").attr("action", "/SupplierReport/SingleSupplierBillAgingNew")
+                $("#supplierreport").submit();
+            }
+
+
+        });
+
+        //  Single Group Supplier Bill Aging
+
+        $(document).on('click', "#singleSupplierBillAging", function (event) {
+            event.preventDefault();
+            if ($("#SupplierGroup").val() == "") {
+                setError("SupplierGroup", "Please select a Supplier Group");
+                isValid = "required";
+            } else {
+                $("#supplierreport").attr("action", "/SupplierReport/SingleGroupSupplierBillAging")
+                $("#supplierreport").submit();
+            }
+
+
+        });
+
+
+        //function validateOnBatchWiseProduction() {
+        //    isValid = "";
+        //    RemoveError();
+        //    if ($("#BatchId").val() == "") {
+        //        setError("BatchId", "Batch No is Required Field");
+        //        isValid = "required";
+        //    }
+        //}
+        //function validateOnStorehWiseItem() {
+        //    isValid = "";
+        //    RemoveError();
+        //    if ($("#StoreId").val() == "") {
+        //        setError("StoreId", "Store is Required Field");
+        //        isValid = "required";
+        //    }
+        //    if ($("#RootAccountType").val() == "") {
+        //        setError("RootAccountType", "Inventory Type is Required Field");
+        //        isValid = "required";
+        //    }
+        //}
+
+
+    </script>
+}
+
+
+

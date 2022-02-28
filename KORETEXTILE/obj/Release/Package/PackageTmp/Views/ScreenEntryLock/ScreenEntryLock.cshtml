@@ -1,0 +1,210 @@
+﻿@model BEEERP.Models.ViewModel.DataAdmin.ScreenEntryLockVModel
+@{
+    ViewBag.Title = "ScreenEntryLock";
+}
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<form id="report" , target="_blank">
+
+    <div class="content">
+        @*<div id="loadingDiv">
+            <img id="bg-image" src="~/Image/tenor.gif" />
+        </div>*@
+        <div class="row">
+            <div>
+                <div class="col-md-6">
+                    <h3 style="text-align:center">Screen Lock Entry</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="col-md-6">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h5 class="box-title">Screen Details</h5>
+                            </div>
+
+                            <div class="box-body">
+                                <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.ModuleID, new { @class = "col-md-2 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.ModuleID, (IEnumerable<SelectListItem>)ViewBag.Module, new { @class = "form-control select2", })
+                                                @Html.ValidationMessageFor(m => m.ModuleID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.ScreenID, new { @class = "col-md-2 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.ScreenID, (IEnumerable<SelectListItem>)ViewBag.Screen, new { @class = "form-control select2", })
+                                                @Html.ValidationMessageFor(m => m.ScreenID, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.SELDate, new { @class = "col-md-2 control-label" })
+                                            <div class="col-sm-8 date input-group" style="padding-left:15px; padding-right:15px;">
+                                                @Html.TextBoxFor(m => m.SELDate, new { @class = " form-control date ", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div style="background-color:white; ">
+                            <div class="form-group" style="padding:3px;">
+                                <div class="col-md-12" style="text-align:center;">
+                                    <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                                    <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section scripts{
+    <script>
+        $(".date").datepicker({
+            autoclose: true,
+            format:"dd-mm-yyyy"
+        });
+        var isValid = true;
+        $(".select2").select2();
+        $("#refresh").on('click', function () {
+            window.location.reload(true);
+        });
+        $("#ModuleID").on('change', function () {
+            var id = $(this).val();
+            if (id != "") {
+                $.ajax({
+                    url: '@Url.Action("GetScreenByModule", "ScreenEntryLock")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'get',
+                    dataType: 'json',
+                    success: function (datas) {
+
+                        if (datas != 0) {
+                            $("#ScreenID").empty();
+                            $.each(datas, function (index, value) {
+                                $("#ScreenID").append($('<Option/>', {
+                                    value: value.Value,
+                                    text: value.Text
+                                }));
+                            });
+                        }
+                    }
+                });
+            } else {
+                $("#ScreenID").empty();
+                $("#ScreenID").append($('<Option/>', {
+                    value: "",
+                    text: "--Select Screen --"
+                }));
+            }
+        });
+        function ValiditeScreen() {
+            if ($("#ScreenID").val() == "") {
+                isValid = false;
+                setError("ScreenID", "Screen is required field");
+            }
+        }
+        $("#update").on('click', function () {
+            ValiditeScreen();
+            var ScreenData = { ID: 0, ScreenID: 0, SELDate: "" }
+            ScreenData.ScreenID = $("#ScreenID").val();
+            ScreenData.SELDate = $("#SELDate").val();
+            if (isValid == true) {
+                
+            
+            if (confirm("Do you want to update ?")) {
+
+                
+            $.ajax({
+                url: '@Url.Action("SaveScreenLock","ScreenEntryLock")',
+                contentType: "application/json;charset=utf-8",
+                data:JSON.stringify({ ScreenData: ScreenData}),
+                type: "POST",
+                dataType: "json",
+                success: function (datas) {
+                    if (datas != 0) {
+                        alert("Updated Successfully");
+                    } else {
+                        alert("Update failed");
+                    }
+                }
+                
+                });
+                @*$.ajax(
+                    {
+                        url: '@Url.Action("SaveScreenLock", "ScreenEntryLock")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ ScreenData: ScreenData }),
+                        type: "POST",
+                        dataType: "json",
+                        success: function (datas) {
+                            if (datas != 0) {
+                                alert("Updated Successfully");
+                            } else {
+                                alert("Update failed");
+                            }
+                        }
+                    });*@
+                }
+            }
+        });
+        $("#ScreenID").on('change', function () {
+            var screenid = $(this).val();
+            if (screenid != "") {
+                $.ajax({
+                    url: '@Url.Action("GetLockDateByScreen", "ScreenEntryLock")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { screenid: screenid },
+                    type: 'get',
+                    dataType: "json",
+                    success: function (data) {
+                        if (data != "") {
+                            $("#SELDate").val((moment(data).format("DD-MM-YYYY")));
+                        }
+                    }
+
+                });
+            }
+
+        });
+    </script>
+    
+    
+    }

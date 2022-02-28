@@ -1,0 +1,512 @@
+﻿@model BEEERP.Models.ViewModel.CommercialVM.ImportLCPaymentViewModel
+
+@{
+    ViewBag.Title = "ImportLCPayment";
+}
+<style>
+    .my-tooltip {
+        position: relative;
+        display: inline-block;
+    }
+
+        .my-tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            /* Position the tooltip */
+            position: absolute;
+            z-index: 1;
+            top: -5px;
+            left: 105%;
+            opacity: 0;
+            transition: opacity 0.5s linear;
+        }
+
+        .my-tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+    .btn:hover {
+        color: blue !important;
+    }
+
+    .btn:focus {
+        background-color: aqua !important;
+    }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+@using (Html.BeginForm("","", FormMethod.Post, new { id="report", target="_blank"}))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="box ">
+        <div class="box-header with-border box-head-back" style="text-align:center;">
+            <h3 class="box-title">Import LC Payment Entry</h3>
+        </div>
+        <div class="box-body">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="form-group my-tooltip">
+                            @Html.LabelFor(m => m.ILCPNo, "ILCP No", new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8 input-group">
+                                @Html.TextBoxFor(m => m.ILCPNo, new { @class = "form-control", @type = "number" })
+                                @Html.ValidationMessageFor(m => m.ILCPNo, "", new { @style = "color: red" })
+                                <span class="tooltiptext">Import Letter Of Credit Payment(D) No</span>
+                                <div class="input-group-btn">
+                                    <input type="button" name="search" id="search" value="Search" class="btn skin-blue" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group my-tooltip">
+                            @Html.LabelFor(m => m.ILCID, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8 input-group">
+                                @Html.TextBoxFor(m => m.ILCID, new { @class = "form-control", @type = "number" })
+                                @Html.ValidationMessageFor(m => m.ILCID, "", new { @style = "color: red" })
+                                <span class="tooltiptext">Import Letter Of Credit ID</span>
+                                <div class="input-group-btn">
+                                    <input type="button" name="go" id="go" value="Go!!" class="btn skin-blue" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="form-group my-tooltip">
+                            @Html.LabelFor(m => m.ILCNo, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(m => m.ILCNo, new { @class = "form-control", @disabled = "disabled" })
+                                @Html.ValidationMessageFor(m => m.ILCNo, "", new { @style = "color: red" })
+
+                            </div>
+                            <span class="tooltiptext">Import Letter Of Credit No</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.AltILCNo, "ALT LC No", new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(m => m.AltILCNo, new { @class = "form-control", @disabled = "disabled" })
+                                @Html.ValidationMessageFor(m => m.AltILCNo, "", new { @style = "color: red" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group ">
+                        @Html.LabelFor(m => m.Date, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8 input-group">
+                            @Html.TextBoxFor(m => m.Date, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                            @Html.ValidationMessageFor(m => m.Date, "", new { @style = "color: red" })
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box">
+        <div class="box-body">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="row" style="display:none;">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.DebitAccID, new { @class = "control-label col-md-4" })
+                        <div class="col-md-6">
+                            @Html.DropDownListFor(m => m.DebitAccID, (IEnumerable<SelectListItem>)ViewBag.Debit, new { @class = "form-control select2" })
+                            @Html.ValidationMessageFor(m => m.DebitAccID, "", new { @style = "color: red" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.CreditAccID, new { @class = "control-label col-md-4" })
+                        <div class="col-md-6">
+                            @Html.DropDownListFor(m => m.CreditAccID, (IEnumerable<SelectListItem>)ViewBag.Credit, new { @class = "form-control select2" })
+                            @Html.ValidationMessageFor(m => m.CreditAccID, "", new { @style = "color: red" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Amount, new { @class = "control-label col-md-4" })
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(m => m.Amount, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Amount, "", new { @style = "color: red" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.RefNo, new { @class = "control-label col-md-4" })
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(m => m.RefNo, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.RefNo, "", new { @style = "color: red" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Description, new { @class = "control-label col-md-4" })
+                        <div class="col-md-6">
+                            @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Description, "", new { @style = "color: red" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-2">
+                        <div class="form-group">
+                            <div class="col-md-12" style="text-align:center;padding-top:3.5%">
+                                <input type="button" value="Save" id="save" class="btn skin-blue" />
+                                <input type="button" name="update" id="update" value="Update" class="btn skin-blue" />
+                                <input type="button" name="delete" id="delete" value="Delete" class="btn skin-blue" />
+                                <input type="button" name="clear" id="clear" value="Clear" class="btn skin-blue" />
+                                <input type="button" name="refresh" id="refresh" value="Refresh" class="btn skin-blue" />
+                                <input type="button" name="print" id="print" value="Print" class="btn skin-blue" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+@section scripts
+{
+
+    <script src="~/Scripts/CommercialModule/ImportLCPaymentD.js"></script>
+    <script>
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+
+        $(".select2").select2();
+        EnterPress();
+        var isValid = true;
+        var ilcp = { ILCPNo: 0, ILCID: 0, AltILCNo: 0, Date: "", DebitAccID: 0, CreditAccID: 0, Amount: 0.0, RefNo: "", Description:"" }
+
+        $(document).ready(function () {
+            $("#update").hide();
+            $("#delete").hide();
+            $("#clear").hide();
+            $("#print").hide();
+            $("#ILCID").focus();
+            $("#DebitAccID").val(4216).change();
+        });
+
+        $(document).on('click', "#print", function (event) {
+            event.preventDefault();
+            if ($("#message").val() != "true") {
+                $("#report").attr("action", "/ImportLCPayment/GetImportLCPaymentPreview")
+                $("#report").submit();
+            }
+        });
+
+        $(document).on('click', "#go", function () {
+            RemoveError();
+            var id = { liId: $("#ILCID").val() };
+            if (id.liId != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetLcInfo", "ImportLCPayment")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas != "") {
+                                $("#ILCNo").val(datas.ILCNo);
+                                $("#AltILCNo").val(datas.AltILCNo);
+                            }
+                            else {
+                                alert("Your Entered Lc Does Not exist.");
+                            }
+                        },
+                        error: function () {
+                            alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+
+                        }
+                    });
+            }
+            else {
+                alert("ILC Can Not be empty.");
+            }
+        });
+        $(document).on('click', "#refresh", function () {
+            location.reload();
+        });
+        $(document).on('click', "#search", function () {
+            RemoveError();
+            var id = { id: $("#ILCPNo").val() };
+            if (id.liId != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetILCPaymentInfo", "ImportLCPayment")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas.found == 1) {
+                                $("#ILCNo").val(datas.ILCNo);
+                                $("#AltILCNo").val(datas.AltILCNo);
+                                $("#ILCID").val(datas.ILCID);
+                                $("#Amount").val(datas.Amount);
+                                $("#RefNo").val(datas.RefNo);
+                                $("#Description").val(datas.Description);
+                                $("#Date").val(moment(datas.Date).format("DD-MM-YYYY")).change();
+                                $("#DebitAccID").val(datas.debit).change();
+                                $("#CreditAccID").val(datas.credit).change();
+                                $("#save").hide();
+                                $("#update").show();
+                                $("#delete").show();
+                                $("#print").show();
+                            }
+                            if (datas.found <= 0) {
+                                alert("Your Entered ILCP Does Not exist.");
+                            }
+                        },
+                        error: function () {
+                            alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+
+                        }
+
+                    });
+            }
+            else {
+                alert("ILCPNo Can Not be empty.");
+            }
+        });
+        $(document).on('click', "#update", function () {
+            Validation();
+            if (isValid) {
+                Clear();
+                if(confirm("Do you want to update ?"))
+                {
+                    if ($("#Date").val() == null || $("#Date").val() == "") {
+                        alert("no Date");
+                    }
+                    ilcp.ILCPNo = $("#ILCPNo").val();
+                    SetLCPayment();
+                    
+                    $.ajax({
+                        url: '@Url.Action("SaveILCPaymentInfo", "ImportLCPayment")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify ({ importLCPayment : ilcp }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas.id > 0) {
+                                alert("Successfully saved");
+                                RemoveError();
+                                $("#ILCPNo").val(datas.ilcpd);
+                                $("#save").hide();
+                                $("#update").hide();
+                                $("#delete").hide();
+                            }
+                            if (datas.id <= 0) {
+                                alert("Failed to save");
+                                RemoveError();
+                            }
+                        },
+                        error: function () {
+                            alert("Please check your internet connection first. If this doesn't solved your problem, then Contact With Paankouri Software & Services")
+
+                        }
+
+                    });
+                }
+            }
+            else {
+                alert("Invalid Information");
+            }
+        });
+        $(document).on('click', "#delete", function () {
+            RemoveError();
+            var id = { id: $("#ILCPNo").val() };
+            if ($("#ILCPNo").val()>0) {
+                if(confirm("Do you want to delete ?"))
+                {
+                    $.ajax({
+                        url: '@Url.Action("DeleteFromILCPD", "ImportLCPayment")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas.id == 1) {
+                                alert("Successfully Removed");
+                                location.reload();
+                                $("#save").hide();
+                                $("#update").hide();
+                                $("#delete").hide();
+                            }
+                            if (datas.id <= 0) {
+                                alert("Failed to remove");
+                            }
+                        },
+                        error: function () {
+                            alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+
+                        }
+
+                    });
+                }
+            }
+            else {
+                alert("ILCPNo Can Not be empty.");
+            }
+        });
+        $(document).on('click', "#save", function () {
+            Validation();
+            if (isValid) {
+                Clear();
+                if(confirm("Do you want to save ?"))
+                {
+                    SetLCPayment();
+                    $.ajax({
+                        url: '@Url.Action("SaveILCPaymentInfo", "ImportLCPayment")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify(ilcp),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas.id > 0) {
+                                alert("Successfully saved");
+                                RemoveError();
+                                $("#ILCPNo").val(datas.ilcpd);
+                                $("#save").hide();
+                                $("#update").hide();
+                                $("#delete").hide();
+                            }
+                            if (datas.id <= 0) {
+                                alert("Failed to save");
+                                RemoveError();
+                            }
+                        },
+                        error: function () {
+                            alert("Please check your internet connection first. If this doesn't solved your problem, then Contact With Paankouri Software & Services")
+
+                        }
+
+                    });
+                }
+            }
+            else {
+                alert("Invalid Information");
+            }
+        });
+        $("#DebitAccID").on('change', function () {
+            if ($("#CreditAccID").val() > 0) {
+
+                if ($("#DebitAccID").val() === $("#CreditAccID").val()) {
+                    setError("DebitAccID", "DebitAccID and CreditAccID can not be same");
+                    $('#save').prop('disabled', true);
+                    $('#update').prop('disabled', true);
+                }
+                else {
+                    setError("DebitAccID", "");
+                    setError("CreditAccID", "");
+                    $('#save').prop('disabled', false);
+                    $('#update').prop('disabled', false);
+                }
+            }
+        });
+        $("#CreditAccID").on('change', function () {
+            if ($("#DebitAccID").val() > 0) {
+                if ($("#DebitAccID").val() === $("#CreditAccID").val()) {
+                    setError("CreditAccID", "DebitAccID and CreditAccID can not be same");
+                    $('#save').prop('disabled', true);
+                    $('#update').prop('disabled', true);
+                }
+                else {
+                    setError("DebitAccID", "");
+                    setError("CreditAccID", "");
+                    $('#save').prop('disabled', false);
+                    $('#update').prop('disabled', false);
+                }
+            }
+        });
+        $("#Amount").on('keyup', function () {
+            if ($("#Amount").val().length > 0) {
+               
+                if (/^[0-9]+$/.test($("#Amount").val()))
+                {
+                    setError("Amount", "");
+                    $('#save').prop('disabled', false);
+                    $('#update').prop('disabled', false);
+                }
+                else {
+                    setError("Amount", "Invalid Amount");
+
+                    $('#save').prop('disabled', true);
+                    $('#update').prop('disabled', true);
+                }
+            }
+            else {
+                setError("Amount", "");
+            }
+
+        });
+
+        function Validation() {
+            if ($("#ILCID").val() > 0 && $("#Amount").val() > 0 && $("#Date").val() != "" && $("#DebitAccID").val() > 0 && $("#CreditAccID").val() > 0 && ($("#DebitAccID").val() != $("#CreditAccID").val())) {
+                isValid = true
+            }
+            else {
+                isValid = false;
+                if ($("#ILCID").val() <= 0) {
+                    setError("ILCID", "ILCID is required field");
+                }
+                if ($("#Amount").val() <= 0) {
+                    setError("Amount", "Amount is required field");
+                }
+                if ($("#Date").val() == "" || $("#Date").val()==null) {
+                    setError("Date", "Date is required field");
+                }
+                if ($("#DebitAccID").val() <=0) {
+                    setError("DebitAccID", "DebitAccID is required field");
+                }
+                if ($("#CreditAccID").val() <= 0) {
+                    setError("CreditAccID", "CreditAccID is required field");
+                }
+            }
+        }
+        function SetLCPayment() {
+            ilcp.AltILCNo=$("#AltILCNo").val();
+            ilcp.ILCID=$("#ILCID").val();
+            ilcp.Amount=$("#Amount").val();
+            ilcp.RefNo=$("#RefNo").val();
+            ilcp.Description = $("#Description").val();
+            ilcp.Date =$("#Date").val();
+            ilcp.DebitAccID = $("#DebitAccID").val();
+            ilcp.CreditAccID = $("#CreditAccID").val();
+        }
+        function Clear() {
+            ilcp.ILCPNo = 0;
+            ilcp.AltILCNo =0;
+            ilcp.ILCID = 0;
+            ilcp.Amount = 0;
+            ilcp.RefNo = "";
+            ilcp.Description = "";
+            ilcp.Date ="";
+            ilcp.DebitAccID =0;
+            ilcp.CreditAccID = 0;
+        }
+    </script>
+}

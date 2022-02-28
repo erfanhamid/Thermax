@@ -1,0 +1,578 @@
+﻿@model BEEERP.Models.Payroll.SalaryIncrement
+
+@{
+    ViewBag.Title = "SalaryIncrement";
+}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    tbody tr:hover {
+        background-color: dodgerblue;
+        color: white;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        color: blue !important;
+    }
+</style>
+
+<h3 style="text-align:center; font-weight:300">Employee Salary Increment</h3>
+<h5 style="text-align:center;color:black">Click on table to select employee</h5>
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Employee Salary Increment</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 col-xs-4">
+                        <div class="box" id="box">
+                            <div class="box-group">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 class="box-title">Current Info</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-2 col-xs-2">
+                                            <div class="form-horizontal">
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.EmployeeId, "EmployeeID", htmlAttributes: new { @class = "control-label col-md-4 col-sm-4" })
+                                                            <div class="col-md-8 col-sm-8 col-xs-8" style="min-width:180px;">
+                                                                @Html.EditorFor(model => model.EmployeeId, new { htmlAttributes = new { @class = "form-control", @Readonly = "readonly" } })
+                                                                @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.EmployeeName, htmlAttributes: new { @class = "control-label col-md-4 col-sm-4" })
+                                                            <div class="col-md-8 col-sm-8 col-xs-8" style="min-width:180px">
+                                                                @Html.EditorFor(model => model.EmployeeName, new { htmlAttributes = new { @class = "form-control", @Readonly = "readonly" } })
+                                                                @Html.ValidationMessageFor(model => model.EmployeeName, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.CompanyName, htmlAttributes: new { @class = "control-label col-md-4 col-sm-4" })
+                                                            <div class="col-md-8 col-sm-8 col-xs-8" style="min-width:180px">
+                                                                @Html.EditorFor(model => model.CompanyName, new { htmlAttributes = new { @class = "form-control", @Readonly = "readonly" } })
+                                                                @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.WorkStation, "WorkStation", htmlAttributes: new { @class = "control-label col-md-4 col-sm-4" })
+                                                            <div class="col-md-8 col-sm-8 col-xs-8" style="min-width:180px">
+                                                                @Html.EditorFor(model => model.WorkStation, new { htmlAttributes = new { @class = "form-control", @Readonly = "readonly" } })
+                                                                @Html.ValidationMessageFor(model => model.WorkStation, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.DepartmentName, "Department", htmlAttributes: new { @class = "control-label col-md-4 col-sm-4" })
+                                                            <div class="col-md-8 col-sm-8 col-xs-8" style="min-width:180px">
+                                                                @Html.EditorFor(model => model.DepartmentName, new { htmlAttributes = new { @class = "form-control", @Readonly = "readonly" } })
+                                                                @Html.ValidationMessageFor(model => model.DepartmentName, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.DesignationName, "Designation", htmlAttributes: new { @class = "control-label col-md-4 col-sm-4" })
+                                                            <div class="col-md-8 col-sm-8 col-xs-8" style="min-width:180px">
+                                                                @Html.EditorFor(model => model.DesignationName, new { htmlAttributes = new { @class = "form-control", @Readonly = "readonly" } })
+                                                                @Html.ValidationMessageFor(model => model.DesignationName, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.FuncDesignationName, "FuncDesignation", htmlAttributes: new { @class = "control-label col-md-4 col-sm-4" })
+                                                            <div class="col-md-8 col-sm-8 col-xs-8" style="min-width:180px">
+                                                                @Html.EditorFor(model => model.FuncDesignationName, new { htmlAttributes = new { @class = "form-control", @Readonly = "readonly" } })
+                                                                @Html.ValidationMessageFor(model => model.FuncDesignationName, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.SectionName, htmlAttributes: new { @class = "control-label col-md-4 col-sm-4" })
+                                                            <div class="col-md-8 col-sm-8 col-xs-8" style="min-width:180px">
+                                                                @Html.EditorFor(model => model.SectionName, new { htmlAttributes = new { @class = "form-control", @Readonly = "readonly" } })
+                                                                @Html.ValidationMessageFor(model => model.SectionName, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.PreviousGross, "GrossSalary", htmlAttributes: new { @class = "control-label col-md-4 col-sm-4" })
+                                                            <div class="col-md-8 col-sm-8 col-xs-8" style="min-width:180px">
+                                                                @Html.EditorFor(model => model.PreviousGross, new { htmlAttributes = new { @class = "form-control", @Readonly = "readonly" } })
+                                                                @Html.ValidationMessageFor(model => model.PreviousGross, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-4">
+                        <div class="box" id="box">
+                            <div class="box-group">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 class="box-title">New Info</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-2 col-xs-2">
+                                            <div class="form-horizontal">
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.UpdateEmployeeId, "EmployeeID", htmlAttributes: new { @class = "control-label col-md-4 col-sm-4" })
+                                                            <div class="col-md-8 col-sm-8 col-xs-8" style="min-width:180px;">
+                                                                @Html.EditorFor(model => model.UpdateEmployeeId, new { htmlAttributes = new { @class = "form-control", @Readonly = "readonly" } })
+                                                                @Html.ValidationMessageFor(model => model.UpdateEmployeeId, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.UpdateEmployeeName, "EmployeeName", htmlAttributes: new { @class = "control-label col-md-4 col-sm-4" })
+                                                            <div class="col-md-8 col-sm-8 col-xs-8" style="min-width:180px">
+                                                                @Html.EditorFor(model => model.UpdateEmployeeName, new { htmlAttributes = new { @class = "form-control", @Readonly = "readonly" } })
+                                                                @Html.ValidationMessageFor(model => model.UpdateEmployeeName, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.CompanyId, "NewCompany", htmlAttributes: new { @class = "control-label col-md-4 col-sm-4" })
+                                                            <div class="col-md-8 col-sm-8 col-xs-8" style="min-width:180px">
+                                                                @Html.DropDownListFor(m => m.CompanyId, (IEnumerable<SelectListItem>)TempData["Company"], new { @class = "form-control select2" })
+                                                                @Html.ValidationMessageFor(model => model.CompanyId, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.BranchId, "NewWorkStation", htmlAttributes: new { @class = "control-label col-md-4 col-sm-4" })
+                                                            <div class="col-md-8 col-sm-8 col-xs-8" style="min-width:180px">
+                                                                @Html.DropDownListFor(m => m.BranchId, (IEnumerable<SelectListItem>)TempData["Branch"], new { @class = "form-control select2" })
+                                                                @Html.ValidationMessageFor(model => model.BranchId, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.DepartmentId, "NewDepartment", htmlAttributes: new { @class = "control-label col-md-4 col-sm-4" })
+                                                            <div class="col-md-8 col-sm-8 col-xs-8" style="min-width:180px">
+                                                                @Html.DropDownListFor(m => m.DepartmentId, (IEnumerable<SelectListItem>)TempData["Department"], new { @class = "form-control select2" })
+                                                                @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.DesignationId, "NewDesignation", htmlAttributes: new { @class = "control-label col-md-4 col-sm-4" })
+                                                            <div class="col-md-8 col-sm-8 col-xs-8" style="min-width:180px">
+                                                                @Html.DropDownListFor(m => m.DesignationId, (IEnumerable<SelectListItem>)TempData["Designation"], new { @class = "form-control select2" })
+                                                                @Html.ValidationMessageFor(model => model.DesignationId, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.FuncDesignationId, "NewFuncDesignation", htmlAttributes: new { @class = "control-label col-md-4 col-sm-4" })
+                                                            <div class="col-md-8 col-sm-8 col-xs-8" style="min-width:180px">
+                                                                @Html.DropDownListFor(m => m.FuncDesignationId, (IEnumerable<SelectListItem>)TempData["FuncDesignation"], new { @class = "form-control select2" })
+                                                                @Html.ValidationMessageFor(model => model.FuncDesignationId, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.SectionId, "NewFuncDesignation", htmlAttributes: new { @class = "control-label col-md-4 col-sm-4" })
+                                                            <div class="col-md-8 col-sm-8 col-xs-8" style="min-width:180px">
+                                                                @Html.DropDownListFor(m => m.SectionId, (IEnumerable<SelectListItem>)TempData["Section"], new { @class = "form-control select2" })
+                                                                @Html.ValidationMessageFor(model => model.SectionId, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.IncrementAmount, "IncrementAmount", htmlAttributes: new { @class = "control-label col-md-4 col-sm-4" })
+
+                                                            <div class="col-md-8 col-sm-8 col-xs-8" style="min-width:180px">
+                                                                @Html.EditorFor(model => model.IncrementAmount, new { htmlAttributes = new { @class = "form-control" } })
+                                                                @Html.ValidationMessageFor(model => model.IncrementAmount, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-4">
+                        <div class="box" id="box">
+                            <div class="box-group">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 class="box-title">Process Section</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-2 col-xs-2">
+                                            <div class="form-horizontal">
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.ApplicableDate, "Applicable Date", htmlAttributes: new { @class = "control-label col-md-4 col-sm-4" })
+                                                            <div class="col-md-8 col-sm-8 col-xs-8 input-group" style="padding-left:15px; padding-right:15px ;min-width:180px">
+                                                                @Html.TextBoxFor(m => m.ApplicableDate, new { @class = "form-control processdate", @Value = DateTime.Now.ToString("dd-MM-yyyy"), @Title = "Select an applicable date" })
+                                                                @Html.ValidationMessageFor(m => m.ApplicableDate, "", new { @style = "color: red" })
+                                                                <div class="input-group-addon">
+                                                                    <i class="fa fa-calendar"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.RefNo, htmlAttributes: new { @class = "control-label col-md-4 col-sm-4" })
+                                                            <div class="col-md-8 col-sm-8 col-xs-8" style="min-width:180px">
+                                                                @Html.EditorFor(model => model.RefNo, new { htmlAttributes = new { @class = "form-control" } })
+                                                                @Html.ValidationMessageFor(model => model.RefNo, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Description, "Description", htmlAttributes: new { @class = "control-label col-md-4 col-sm-4" })
+                                                            <div class="col-md-6 col-sm-6 col-xs-6" style="min-width:180px">
+                                                                @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Gross, "Gross After Increment", htmlAttributes: new { @class = "control-label col-md-4 col-sm-4", @Title = "New Gross After Increment" })
+                                                            <div class="col-md-8 col-sm-8 col-xs-8" style="min-width:180px">
+                                                                @Html.EditorFor(model => model.Gross, new { htmlAttributes = new { @class = "form-control", @Title = "New Gross After Increment", @Readonly = "readonly" } })
+                                                                @Html.ValidationMessageFor(model => model.Gross, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="closebtn" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="btnsubmit" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" style="padding-left:2%;padding-right:2%">
+    <div class="form-horizontal">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box ">
+                        <div class="box-header with-border box-head-back">
+                            <h3 class="box-title">Employees Information</h3>
+                        </div>
+                        <div class="box-body">
+                            <table class="table table-responsive" id="incrementTable">
+                                <thead>
+                                    <tr>
+                                        <td>Employee Id</td>
+                                        <td>Name</td>
+                                        <td>Company Name</td>
+                                        <td>Work Station</td>
+                                        <td>Department Name</td>
+                                        <td>Designation</td>
+                                        <td>FuncDesignation</td>
+                                        <td>Section</td>
+                                        <td>Gross Salary</td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script src="~/Scripts/Common.js"></script>
+    <script>
+        var previousgross = 0;
+        $('.select2').select2();
+        var increment = EmployeeId, ApplicableDate, Description, IncrementAmount, RefNo, BranchId, DesignationId, DepartmentId, SectionId, CompanyId, FuncDesignation;
+        var table = $('#incrementTable').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false,
+            'scrollX': true
+        });
+        $(document).ready(function () {
+            RemoveError();
+            $(".processdate").datepicker({
+                autoclose: true,
+                format: 'dd-mm-yyyy',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-20:+0",
+                maxDate: "+0M +0D",
+                minDate: "-10Y",
+            });
+            getResult();
+            $("#EmployeeId").prop('disabled', false);
+            $("#Save").prop('disabled', true);
+            $("#BranchId").prop('disabled', true);
+            $("#DesignationId").prop('disabled', true);
+            $("#ApplicableDate").prop('disabled', true);
+            $("#IncrementAmount").prop('disabled', true);
+            $("#Description").prop('disabled', true);
+            $("#RefNo").prop('disabled', true);
+            $("#DepartmentId").prop('disabled', true);
+            $("#FuncDesignationId").prop('disabled', true);
+            $("#SectionId").prop('disabled', true);
+            $("#CompanyId").prop('disabled', true);
+        });
+        $('#incrementTable tbody').on('click', 'tr', function () {
+            var tabledata = table.row(this).data();
+            $("#EmployeeId").val(tabledata[0]);
+            $("#EmployeeId").attr('title', tabledata[0]);
+            $("#EmployeeName").val(tabledata[1]);
+            $("#EmployeeName").attr('title', tabledata[1]);
+            $("#UpdateEmployeeId").val(tabledata[0]);
+            $("#UpdateEmployeeId").attr('title', tabledata[0]);
+            $("#UpdateEmployeeName").val(tabledata[1]);
+            $("#UpdateEmployeeName").attr('title', tabledata[1]);
+            $("#WorkStation").val(tabledata[3]);
+            $("#WorkStation").attr('title', tabledata[3]);
+            $("#CompanyName").val(tabledata[2]);
+            $("#CompanyName").attr('title', tabledata[2]);
+            $("#DesignationName").val(tabledata[5]);
+            $("#DesignationName").attr('title', tabledata[5]);
+            $("#PreviousGross").val(tabledata[8]);
+            $("#PreviousGross").attr('title', tabledata[8]);
+            $("#Gross").val(tabledata[8]);
+            $("#SectionName").val(tabledata[7]);
+            $("#SectionName").attr('title', tabledata[7]);
+            $("#DepartmentName").val(tabledata[4]);
+            $("#DepartmentName").attr('title', tabledata[4]);
+            $("#FuncDesignationName").val(tabledata[6]);
+            $("#FuncDesignationName").attr('title', tabledata[6]);
+            $("#Save").prop('disabled', false);
+            $("#BranchId").prop('disabled', false);
+            $("#DesignationId").prop('disabled', false);
+            $("#ApplicableDate").prop('disabled', false);
+            $("#IncrementAmount").prop('disabled', false);
+            $("#Description").prop('disabled', false);
+            $("#RefNo").prop('disabled', false);
+            $("#DepartmentId").prop('disabled', false);
+            $("#FuncDesignationId").prop('disabled', false);
+            $("#SectionId").prop('disabled', false);
+            $("#CompanyId").prop('disabled', false);
+            $("#IncrementAmount").css('border-color', 'lime');
+            $("#ApplicableDate").css('border-color', 'lime');
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+            $("#myModal").modal("show");
+        });
+        $(document).on('click', "#closebtn", function () {
+            RemoveError();
+            $("#IncrementAmount").val(0);
+            $("#Gross").val(0);
+        });
+        $(document).on('click', "#btnsubmit", function () {
+            if ($("#ApplicableDate").val() == "") {
+                setError("ApplicableDate", "Applicable Date is required field");
+            }
+            if ($("#IncrementAmount").val() == "" || $("#IncrementAmount").val() <0) {
+                setError("IncrementAmount", "Increment Amount is required field, if no increment then put 0(zero)");
+            }
+            if ($("#EmployeeId").val() == "") {
+                setError("EmployeeId", "Invalid EmployeeId");
+            }
+            if ($("#ApplicableDate").val() != "") {
+                setError("ApplicableDate", "");
+            }
+            if ($("#IncrementAmount").val() != "") {
+                setError("IncrementAmount", "");
+            }
+            if ($("#EmployeeId").val() != "") {
+                setError("EmployeeId", "");
+            }
+            if ($("#ApplicableDate").val() != "" && $("#IncrementAmount").val() != "" && $("#IncrementAmount").val() >= 0 && $("#EmployeeId").val() != "") {
+                increment.EmployeeId = $("#EmployeeId").val();
+                increment.ApplicableDate = $("#ApplicableDate").val();
+                increment.Description = $("#Description").val();
+                increment.IncrementAmount = $("#IncrementAmount").val();
+                increment.RefNo = $("#RefNo").val();
+                increment.BranchId = $("#BranchId").val();
+                increment.DesignationId = $("#DesignationId").val();
+                increment.FuncDesignation = $("#FuncDesignationId").val();
+                increment.SectionId = $("#SectionId").val();
+                increment.CompanyId = $("#CompanyId").val();
+                increment.DepartmentId = $("#DepartmentId").val();
+                increment.Gross = $("#Gross").val();
+                var params = { increment: increment, update:0 }
+                confirm("Do you want to save ?")
+                {
+                    RemoveError();
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("SalaryIncrement", "SalaryIncrement")',
+                        contentType: "application/Json;charset=utf-8",
+                        data: JSON.stringify(params),
+                        success: function (rData) {
+                            if (rData != null || rData.length != 0) {
+                                if (rData.id > 1) {
+                                    $("#myModal").modal("hide");
+                                    alert("Successfully added");
+                                    location.reload();
+                                }
+                                if (rData.id == 1) {
+                                    if(confirm(rData.message))
+                                    {
+                                        var params = { increment: increment, update:1 }
+                                        $.ajax({
+                                            type: "POST",
+                                            url: '@Url.Action("SalaryIncrement", "SalaryIncrement")',
+                                            contentType: "application/Json;charset=utf-8",
+                                            data: JSON.stringify(params),
+                                            success: function (rData) {
+                                                if (rData != null || rData.length != 0) {
+                                                    if (rData.id > 1) {
+                                                        $("#myModal").modal("hide");
+                                                        alert("Successfully Updated");
+                                                        location.reload();
+                                                    }
+                                                }
+                                                if (rData.id == 0) {
+                                                    $("#myModal").modal("hide");
+                                                    alert("Failed to add");
+                                                }
+                                            }
+                                        });
+                                    }
+                                }
+                                if (rData.id == 0) {
+                                    $("#myModal").modal("hide");
+                                    alert("Failed to add");
+                                }
+                            }
+                        },
+                        error: function () {
+                            alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services");
+                            $("#myModal").modal("hide");
+                            $("#IncrementAmount").val(0);
+                            $("#Gross").val(0);
+                        }
+                    });
+                }
+            }
+
+        });
+        $(document).on('keyup', "#IncrementAmount", function () {
+            if ($("#IncrementAmount").val() == null || $("#IncrementAmount").val() == 0) {
+                $("#Gross").val($("#PreviousGross").val());
+            }
+            if ($("#IncrementAmount").val() != null && $("#IncrementAmount").val() > 0) {
+                $("#Gross").val(parseInt($("#IncrementAmount").val()) + parseInt($("#PreviousGross").val()));
+            }
+        });
+        function getResult() {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetEmployeeInformation", "SalaryIncrement")',
+                contentType: "application/Json;charset=utf-8",
+                data: JSON.stringify(),
+                success: function (rData) {
+                    if (rData != null || rData.length != 0) {
+                        table.clear().draw();
+                        var list = rData;
+                        $.each(list, function (index, value) {
+                            table.row.add([value.EmployeeId, value.Name, value.CompanyName, value.WorkStation, value.DepartmentName, value.Designation, value.FuncDesignation, value.Section,value.Gross]).draw();
+                        });
+                    }
+                },
+                error: function () {
+                    alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services");
+                    $("#myModal").modal("hide");
+                    $("#IncrementAmount").val(0);
+                    $("#Gross").val(0);
+                }
+            });
+        }
+    </script>
+}

@@ -1,0 +1,390 @@
+﻿@model BEEERP.Models.ViewModel.DataAdmin.MoneyRequisitionOBVModel
+@{
+    ViewBag.Title = "MROB";
+}
+
+<style>
+    .btn:hover {
+        color: blue !important;
+    }
+
+    .btn:focus {
+        background-color: aqua !important;
+    }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="text-align:center;">
+                                <h3 class="box-title">Money Requisition Opening Balance (MROB)</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.EmployeeId, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:3%; padding-right:3%;">
+                                                @Html.TextBoxFor(m => m.EmployeeId, new { @class = "form-control", @Value = ViewBag.Id })
+                                                <div class="input-group-btn">
+                                                    <input type="button" name="go" id="go" value="Go" class="btn skin-blue" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-8">
+                                                @Html.ValidationMessageFor(m => m.EmployeeId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.MROBDate, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:3%; padding-right:3%">
+                                                @Html.TextBoxFor(m => m.MROBDate, new { @class = "form-control", @Value = ViewBag.Date, @readonly = "readonly" })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-8">
+                                                @Html.ValidationMessageFor(m => m.MROBDate, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                                <div class="col-md-12" style="padding-top:1%;">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Name, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.Name, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.FD, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.FD, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.FD, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Designation, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.Designation, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.Designation, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.WorkStation, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.WorkStation, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.WorkStation, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.JoinDate, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.JoinDate, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.JoinDate, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Department, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.Department, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.Department, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box">
+                            <div class="box-body" style="padding-right:10%;padding-left:0%">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Amount, new { @class = "col-md-5 control-label" })
+                                        <div class="col-sm-7">
+                                            @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", @type = "number" })
+                                            @Html.ValidationMessageFor(m => m.Amount, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.RefNo, new { @class = "col-md-5 control-label" })
+                                        <div class="col-sm-7">
+                                            @Html.TextBoxFor(m => m.RefNo, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.RefNo, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Description, new { @class = "col-md-5 control-label" })
+                                        <div class="col-sm-7">
+                                            @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Description, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8" style="text-align:center;">
+                                        <input type="button" value="Save" id="save" class="btn skin-blue" style="padding-left:20px;" />
+                                        <input type="button" name="update" id="update" value="Update" class="btn skin-blue" />
+                                        <input type="button" name="delete" id="delete" value="Delete" class="btn skin-blue" />
+                                        <input type="button" name="refresh" id="refresh" value="Refresh" class="btn skin-blue" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+
+    <script src="~/Scripts/DataAdminModule/MROBInputFocus.js"></script>
+
+    <script>
+
+        //$('.date').datepicker({
+        //    autoclose: true,
+        //    format: 'dd-mm-yyyy',
+        //});
+        
+        $(document).ready(function () {
+            $("#update").hide();
+            $("#delete").hide();
+            $("#EmployeeId").focus();
+        });
+
+        EnterPress();
+        var isValid = true;
+        var mrob = { EmployeeId: 0, MROBDate: "", Amount: 0, RefNo: "", Description: ""};
+
+        $(document).on('click', "#refresh", function () {
+            location.reload();
+        });
+
+
+        //item change reaction
+        $(document).on('click', "#go", function () {
+            RemoveError();
+            ClearOnSearch()
+            var id = { empId: $("#EmployeeId").val() };
+
+            if (id.empId != "") {
+                $.ajax({
+                    url: '@Url.Action("GetEmployeeDetails", "MROB")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas != 0) {
+                            $("#Name").val(datas.Name);
+                            $("#FD").val(datas.FunctDesignation);
+                            $("#Designation").val(datas.Designation);
+                            $("#WorkStation").val(datas.WorkStation);
+                            $("#JoinDate").val(datas.JoinDate);
+                            $("#Department").val(datas.Department);
+
+                            $("#Amount").val(datas.Amount);
+                            $("#RefNo").val(datas.RefNo);
+                            $("#Description").val(datas.Description);
+                            //$("#MROBDate").val(datas.MROBDate);
+                            if (datas.Amount != "") {
+                                $("#save").hide();
+                                $("#update").show();
+                                $("#delete").show();
+                            }
+                        }
+                        else {
+                            alert("Employee Doesn't Exist.");
+                        }
+                    }
+                });
+            }
+            else {
+                setError("EmployeeId", "EmployeeId is required for get data.");
+            }
+        });
+
+        //save code
+        $(document).on('click', '#save', function () {
+            RemoveError();
+            $("#save").prop('disabled', true);
+            SetMROB();
+            ValidateMROB();
+            if (isValid == true) {
+                if (confirm('Do you want to save?')) {
+                    $.ajax({
+                        url: '@Url.Action("SaveMROB", "MROB")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ mrob: mrob }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Saved.");
+                                $("#save").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Saved.");
+                                $("#save").prop('disabled', true);
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#save").prop('disabled', false);
+                }
+            }
+            else {
+                $("#save").prop('disabled', false);
+            }
+        });
+
+        //update
+        $(document).on('click', '#update', function () {
+            RemoveError();
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            SetMROB();
+            ValidateMROB();
+            if (confirm('Do you want to Update?')) {
+                if (isValid == true) {
+                    $.ajax({
+                        url: '@Url.Action("UpdateMROB", "MROB")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ mrob: mrob }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Update.");
+                                $("#update").prop('disabled', false);
+                                $("#delete").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Updated.");
+                                //$("#update").prop('disabled', true);
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#update").prop('disabled', false);
+                    $("#delete").prop('disabled', false);
+                }
+            }
+            else {
+                $("#update").prop('disabled', false);
+                $("#delete").prop('disabled', false);
+            }
+
+        });
+
+        //delete code
+        $(document).on('click', '#delete', function () {
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var id = $("#EmployeeId").val();
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteMROB", "MROB")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Delete failed.");
+                            $("#delete").prop('disabled', false);
+                            $("#update").prop('disabled', false);
+                        }
+                        else {
+                            alert("Delete Successfull");
+                            location.reload();
+                        }
+                    }
+                });
+            }
+            else {
+                $("#update").prop('disabled', false);
+                $("#delete").prop('disabled', false);
+            }
+        });
+
+        function ClearOnSearch() {
+            $("#Name").val("");
+            $("#FD").val("");
+            $("#Designation").val("");
+            $("#WorkStation").val("");
+            $("#JoinDate").val("");
+            $("#Department").val("");
+
+            $("#Amount").val("");
+            $("#RefNo").val("");
+            $("#Description").val("");
+            //$("#MROBDate").val("");
+        }
+
+        //get value from textbox
+        function SetMROB() {
+            mrob.EmployeeId = $("#EmployeeId").val();
+            mrob.MROBDate = $("#MROBDate").val();
+            mrob.Amount = $("#Amount").val();
+            mrob.RefNo = $("#RefNo").val();
+            mrob.Description = $("#Description").val();
+        }
+
+        function ValidateMROB() {
+            isValid = true;
+            if (mrob.EmployeeId == "") {
+                setError("EmployeeId", "Employee ID is required field.");
+                isValid = false;
+            }
+            if (mrob.MROBDate == "") {
+                setError("MROBDate", "Date is required field.");
+                isValid = false;
+            }
+            if (mrob.Amount == "") {
+                setError("Amount", "Amount is required field.");
+                isValid = false;
+            }
+            if (mrob.Amount == 0) {
+                setError("Amount", "Amount can not be Zero.");
+                isValid = false;
+            }
+
+        }
+
+    </script>
+}
+
+

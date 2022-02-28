@@ -1,0 +1,338 @@
+﻿
+@{
+    ViewBag.Title = "FGRPEntry";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+</style>
+
+<h3 style="text-align:center">Finished Goods Receive from Production (FGRP) Entry</h3>
+<form id="report" target="_blank" >
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h4 class="box-title">FGRP Details</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="fgrpNo" class="col-md-4 control-label">FGRP No</label>
+                                                <div class="input-group input-group-sm">
+                                                    <input type="number" id="fgrpNo" class="form-control enterTab" name="fgrpNo" />
+                                                    <span class="input-group-btn">
+                                                        <button type="button" class="btn btn-primary" id="FGRPNoSearch" style="min-width: 50px">Search</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="ifgsNo" class="col-md-4 control-label">IFGS No</label>
+                                                <div class="input-group input-group-sm">
+                                                    <input type="text" id="ifgsNo" class="form-control enterTab" disabled />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="isfgsDate" class="col-md-4 control-label">IFGs Date</label>
+                                            <div class="col-sm-8 date input-group">
+                                                <input type="text" id="isfgsDate" class="form-control date " @*value=@DateTime.Now.ToString("dd-MM-yyyy")*@ disabled />
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="rcvDate" class="col-md-4 control-label">Date</label>
+                                            <div class="col-sm-8 date input-group">
+                                                <input type="text" id="rcvDate" class="form-control date " value=@DateTime.Now.ToString("dd-MM-yyyy") />
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="box">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h5 class="box-title">IFGS No List</h5>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-md-2">
+                                    <table class="table table-responsive" id="ifgsNoList">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>IFGS No</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ViewBag.FGRPNo)
+                                        {
+                                            <tr>
+                                                <td><input type="radio" value="@item" class="fgrp" name="item" /></td>
+                                                <td>@item</td>
+                                            </tr>
+                                    }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-10">
+                                    <table class="table table-responsive" id="ifgsItemList">
+                                        <thead>
+                                            <tr>
+                                                <th>Group</th>
+                                                <th>Item Name</th>
+                                                <th>Pack Size</th>
+                                                <th>Receive Qty</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="box">
+                            <br />
+                            <div class="box-body">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-8" style="text-align:center;">
+
+                                            <input type="button" value="Receive" id="save" class="btn btn-primary" style="padding-left:20px;" />
+                                            <input type="button" name="clear" id="clear" value="Refresh" class="btn btn-primary" />
+                                            <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                                            <input type="button" name="delete" id="delete" value="Delete" class="btn btn-primary" />
+                                            <input type="button" name="print" id="print" value="Print" class="btn btn-primary" />
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+<input type="hidden" id="message" value="false" />
+
+@section scripts
+    {
+    <script>
+        $(document).ready(function () {
+            $('.date').datepicker({
+                autoclose: true,
+                format: 'dd-mm-yyyy',
+            });
+            $("#delete").hide();
+            $("#update").hide();
+            var table1 = $('#ifgsNoList').DataTable({
+                'paging': false,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            });
+            var table = $('#ifgsItemList').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+            var item = [];
+            $(document).on("keydown", "#fgrpNo", function (e) {
+                if (e.keyCode == 13 || e.keyCode == 9) {
+                    $("#FGRPNoSearch").click();
+                }
+            });
+
+            $(document).on('click', "#print", function (event) {
+                event.preventDefault();
+                if ($("#message").val() != "true") {
+                    $("#report").attr("action", "/FGRP/GetFGRPPreview")
+                    $("#report").submit();
+                }
+            });
+
+            $(document).on('click', '.fgrp', function () {
+                table.clear().draw();
+                if ($(this).is(":checked")) {
+                    var no = { ifgsNo: $(this).attr("value") };
+                     $.ajax({
+                    type: 'post',
+                    dataType: 'json',
+                    url: '@Url.Action("GetItemByIFGSNo", "FGRP")',
+                    contentType: "application/json;charset=utf-8",
+                         data: JSON.stringify(no),
+                         success: function (data) {
+                             $("#ifgsNo").val(no.ifgsNo);
+                             $("#isfgsDate").val((moment(data.Item[0].IfgsDate).format("DD-MM-YYYY")));
+                        item = [];
+                        item = data.Item;
+                        ShowOnTable();
+                    },
+                    error: function () {
+                        alert("Please Check your internet connection. \nIf you don't have problem with internet, then Contact With Paankouri Software & Services");
+                    }
+                });
+                }
+
+            });
+            $(document).on('click', '#save', function () {
+                //table.clear().draw();
+                var selected = $("[name='item']:checked");
+                if (selected.length > 0) {
+                    var no = { ifgsNo: selected.val(), date: $("#rcvDate").val() };
+                    if (confirm("Do you want to Receive?")) {
+                       $.ajax({
+                    type: 'post',
+                    dataType: 'json',
+                    url: '@Url.Action("ReceiveIFGS", "FGRP")',
+                    contentType: "application/json;charset=utf-8",
+                         data: JSON.stringify(no),
+                         success: function (data) {
+                            
+                             if (data.Message == "2") {
+                                 alert("Critical Error!.Please try again.\n If retry doesn't solve your problem \n then contact with Avalanche Technologies Limited.")
+                             }
+                             else if (data.Message == "1") {
+                                 $("#fgrpNo").val(data.id);
+                                 alert("Received Successfully.");
+                             }
+                             else if (datas == 3) {
+                                 alert("Please select a valid entry date");
+                                 $("#rcvDate").focus();
+                                 $("#save").prop('disabled', false);
+                             }
+                             else if (data.Message == "0") {
+                                 alert("Your selected IFGS No Already Received.");
+                             }
+                    },
+                    error: function () {
+                        alert("Please Check your internet connection. \nIf you don't have problem with internet, then Contact With Paankouri Software & Services");
+                    }
+                });
+                    } 
+                }
+           
+            });
+            $(document).on('click', '#update', function () {
+                $("#update").prop('disabled', true);
+                //table.clear().draw();
+                var selected = $("[name='item']:checked");
+                if (selected.length > 0) {
+                    var no = { ifgsNo: $("#ifgsNo").val(), date: $("#rcvDate").val(), fgrpNo: $("#fgrpNo").val()};
+                    if (confirm("Do you want to Update?")) {
+                       $.ajax({
+                    type: 'post',
+                    dataType: 'json',
+                    url: '@Url.Action("UpdateIFGS", "FGRP")',
+                    contentType: "application/json;charset=utf-8",
+                         data: JSON.stringify(no),
+                         success: function (data) {
+                            
+                             if (data.Message == "2") {
+                                 alert("Critical Error!.Please try again.\n If retry doesn't solve your problem \n then contact with Avalanche Technologies Limited.")
+                             }
+                             else if (data.Message == "1") {
+                                 $("#fgrpNo").val(data.id);
+                                 alert("Updated Successfully.");
+                             }
+                             else if (data.Message == "0") {
+                                 alert("Your selected IFGS No Already Received.");
+                             }
+                    },
+                    error: function () {
+                        alert("Please Check your internet connection. \nIf you don't have problem with internet, then Contact With Paankouri Software & Services");
+                    }
+                });
+                    } 
+                }
+           
+            });
+            $(document).on('click', '#FGRPNoSearch', function () {
+
+                $("#save").hide();
+               
+                var no = { fgrpNo: $("#fgrpNo").val() };
+                     $.ajax({
+                    type: 'get',
+                    dataType: 'json',
+                    url: '@Url.Action("GetPreviousFGRP", "FGRP")',
+                         contentType: "application/json;charset=utf-8",
+                         data: no,
+                         success: function (data) {
+                            
+                             if (data.Message == "1") {
+                                 $("#rcvDate").val((moment(data.fgrp.FGRPDate).format("DD-MM-YYYY")));
+                                 $("#ifgsNo").val(data.fgrp.IFGFNo);
+                                 $("#isfgsDate").val((moment(data.fgrp.IFGSDate).format("DD-MM-YYYY")));
+                                 item = [];
+                                 item = data.fgrpLineItem;
+                                 table1.clear().draw();
+                                 table1.row.add(['<input type="radio" name="item" checked/>', data.fgrp.IFGFNo]).draw();
+                                 ShowOnTable();
+                                 $("#update").show();
+
+                             }
+                             else if (data.Message == "0") {
+                                 alert("Your selected FGRP No Does not exist.");
+                             }
+                             else {
+                                 alert("Critical Error!.Please try again.\n If retry doesn't solve your problem, then Contact With Paankouri Software & Services")
+                             }
+                    },
+                    error: function () {
+                        alert("Please Check your internet connection. \nIf you don't have problem with internet, then Contact With Paankouri Software & Services");
+                    }
+                });
+            });
+            function ShowOnTable() {
+                table.clear().draw();
+                $.each(item, function (index, value) {
+                    table.row.add([value.GroupName, value.ItemName, value.PackSize, value.Qty]).draw();
+                });
+
+            }
+        });
+    </script>
+
+}

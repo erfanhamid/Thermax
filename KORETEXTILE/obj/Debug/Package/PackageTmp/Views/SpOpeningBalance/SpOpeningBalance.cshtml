@@ -1,0 +1,544 @@
+﻿@model BEEERP.Models.DataAdmin.SPSettings.SpOpeningBalance
+
+@{
+    ViewBag.Title = "SpOpeningBalance";
+}
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+<h3 style="text-align:center">Spare Parts Opening Balance</h3>
+
+<div class="content">
+    <div class="row">
+        <h4 style="text-align:center"></h4>
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="box">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h6 class="box-title">Spare Parts Opening Balance</h6>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ID, "ID", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-4 input-group" style="padding-left:0.8%;padding-right:0.8%;padding-top:0%">
+                                            @Html.TextBoxFor(m => m.ID, new { @class = "form-control", @readonly = "readonly", @Value = ViewBag.Id })
+                                        </div>
+                                        <div class="col-sm-4">
+                                            @Html.ValidationMessageFor(x => x.ID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.GroupId, "Group", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-4">
+                                            @Html.DropDownListFor(m => m.GroupId, (IEnumerable<SelectListItem>)ViewBag.GroupId, new { @class = "enterTab form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.GroupId, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ItemId, "Item", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-4">
+                                            @Html.DropDownListFor(m => m.ItemId, (IEnumerable<SelectListItem>)ViewBag.ItemId, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.ItemId, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.SpDate, "Date", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-4 input-group" style="padding-left:15px; padding-right:15px">
+                                            @Html.TextBoxFor(m => m.SpDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            @Html.ValidationMessageFor(m => m.SpDate, "", new { @style = "color: red" })
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Quantity, "Quantity", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-4">
+                                            @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control", @type = "number" })
+                                            @Html.ValidationMessageFor(m => m.Quantity, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Rate, "Rate", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-4">
+                                            @Html.TextBoxFor(m => m.Rate, new { @class = "form-control", @type = "number" })
+                                            @Html.ValidationMessageFor(m => m.Rate, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Value, "Value", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-4">
+                                            @Html.TextBoxFor(m => m.Value, new { @class = "form-control", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.Value, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.TypeId, "Type", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-4">
+                                            @Html.DropDownListFor(m => m.TypeId, (IEnumerable<SelectListItem>)ViewBag.TypeId, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.TypeId, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.StoreId, "Location(Area)", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-4">
+                                            @Html.DropDownListFor(m => m.StoreId, (IEnumerable<SelectListItem>)ViewBag.StoreId, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.StoreId, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.BoxID, "Location(Box)", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-4">
+                                            @Html.DropDownListFor(m => m.BoxID, (IEnumerable<SelectListItem>)ViewBag.BoxID, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.BoxID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.PageNo, "Page No", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-4">
+                                            @Html.TextBoxFor(m => m.PageNo, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.PageNo, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.CompanyID, "Company Name", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-4">
+                                            @Html.DropDownListFor(m => m.CompanyID, (IEnumerable<SelectListItem>)ViewBag.CompanyID, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.CompanyID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class=" col-md-12">
+                        <div class="box" style="border:none">
+                            <div class="box-footer">
+                                <div class="form-group" style="text-align:center;margin-top:10px">
+                                    <button type="button" id="save" style="height:500%; font-size:100%;" class="btn btn-primary">Save</button>
+                                    <button type="button" id="update" style="height:500%; font-size:100%;" class="btn btn-primary">Update</button>
+                                    <button type="button" id="delete" style="height:500%; font-size:100%;" class="btn btn-primary">Delete</button>
+                                    <button type="button" id="refresh" style="height:500%; font-size:100%;" class="btn btn-primary">Refresh</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                    <h5 class="box-title">Spare Parts Opening Balance</h5>
+                                </div>
+                                <div class="box-body">
+                                    <table class="table table-responsive" id="SpOpeningBalance">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Group Name</th>
+                                                <th>Item Name</th>
+                                                <th>Date</th>
+                                                <th>Quantity</th>
+                                                <th>Rate</th>
+                                                <th>Value</th>
+                                                <th>Type Name</th>
+                                                <th>Location(Area)</th>
+                                                <th>Location(Box)</th>
+                                                <th>Company Name</th>
+                                                <th>Page No</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ViewBag.SpareId)
+                                            {
+                                            <tr class='clickable-row' value="@item.ID">
+                                                <td>@item.ID</td>
+                                                <td>@item.GroupName</td>
+                                                <td>@item.ItemName</td>
+                                                <td>@item.SpDate</td>
+                                                <td>@item.Quantity</td>
+                                                <td>@item.Rate</td>
+                                                <td>@item.Value</td>
+                                                <td>@item.TypeName</td>
+                                                <td>@item.StoreName</td>
+                                                <td>@item.BoxNo</td>
+                                                <td>@item.CompanyName</td>
+                                                <td>@item.PageNo</td>
+                                            </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script src="~/Scripts/CommercialModule/LTRInputFocus.js"></script>
+    <script>
+        $("#ItemId").prop('disabled', true);
+        $("#BoxID").prop('disabled', true);
+
+        $(function () {
+            $('#SpOpeningBalance').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+
+        var isValid = true;
+        var spob = {ID:0, GroupId: 0, ItemId: 0, SpDate: "", Quantity: 0, Rate: 0, Value: 0, TypeId: 0, StoreId: 0, BoxID: 0, CompanyID: 0, PageNo:""}
+
+        $("#preview").prop("disabled", true);
+
+        $(document).ready(function () {
+
+            $('.date').datepicker({
+                autoclose: true,
+                format: 'dd-mm-yyyy',
+            });
+            $(".select2").select2();
+            $("#update").hide();
+            $("#delete").hide();
+          /*  EnterPress();*/
+        });
+
+
+        $(document).on('click', "#refresh", function () {
+            location.reload();
+        });
+
+        $(document).on('change', "#Quantity", function () {
+            calculateOpeningBalance();
+        });
+        $(document).on('change', "#Rate", function () {
+            calculateOpeningBalance();
+        });
+
+        function calculateOpeningBalance() {
+            var qty = $("#Quantity").val() == "" ? 0 : parseFloat($("#Quantity").val());
+            var rate = $("#Rate").val() == "" ? 0 : parseFloat($("#Rate").val());
+
+            $("#Value").val(qty * rate);
+        }
+
+        var itemTypeId;
+        var boxID;
+        var spTypeID;
+
+
+        //ItemTYpe change reaction
+        $(document).on('change', "#GroupId", function () {
+            $("#ItemId").prop('disabled', false);
+            var id = { id: parseInt( $(this).val()) };
+            if (id.id != "") {
+                $.ajax({
+                    url: '@Url.Action("GetItemByBatchID", "SpOpeningBalance")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+
+                        $("#ItemId").empty();
+                        $("#ItemId").prop("disabled", false);
+                        $.each(datas, function (index, value) {
+                            $("#ItemId").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                        $("#ItemId").focus();
+                        if (itemTypeId != "") {
+                            $("#ItemId").val(itemTypeId).change();
+                            //itemTypeId = "";
+                        }
+                    }
+                });
+            }
+            else {
+                $("#ItemId").val("").change();
+                $("#ItemId").prop("disabled", true);
+            }
+        });
+
+         //Box change reaction
+    $(document).on('change', "#StoreId", function () {
+        $("#BoxID").prop('disabled', false);
+            var id = { id: parseInt( $(this).val()) };
+            if (id.id != "") {
+                $.ajax({
+                    url: '@Url.Action("GetBoxByBatchID", "SpOpeningBalance")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+
+                        $("#BoxID").empty();
+                        $("#BoxID").prop("disabled", false);
+                        $.each(datas, function (index, value) {
+                            $("#BoxID").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                        $("#BoxID").focus();
+                        if (boxID != "") {
+                            $("#BoxID").val(boxID).change();
+                            boxID = "";
+                        }
+                    }
+                });
+            }
+                    else {
+                            $("#BoxID").val("").change();
+                            $("#BoxID").prop("disabled", true);
+                         }
+    });
+
+
+        // TextBox FillUp
+
+        $(document).on('click', '.clickable-row', function () {
+            var id = $(this).attr("value");
+            $.ajax({
+                url: '@Url.Action("GetOpeningBalanceByid", "SpOpeningBalance")',
+                contentType: "application/json;charset = utf-8",
+                data: { id: id },
+                type: 'GET',
+                dataType: 'json',
+                success: function (datas) {
+                    if (datas == 0) {
+                        alert("This Opening Balance Details Deoesn't Exist");
+                    }
+                    else {
+                        $("#save").prop('disabled', true);
+                        $("#update").show();
+                        $("#delete").show();
+                        $("#ID").val(datas.item.ID);
+                        $("#GroupId").val(datas.item.GroupId).change();
+                        $("#ItemId").val(datas.item.ItemId).change();
+                        spTypeID = datas.item.SPTypeID;
+                        itemTypeId = datas.item.ItemId;
+                        boxID = datas.item.BoxID;
+                        $("#Quantity").val(datas.item.Quantity);
+                        $("#Rate").val(datas.item.Rate);
+                        $("#Value").val(datas.item.Value);
+                        $("#PageNo").val(datas.item.PageNo);
+                        $("#TypeId").val(datas.item.TypeId).change();
+                        $("#StoreId").val(datas.item.StoreId).change();
+                        $("#BoxID").val(datas.item.BoxID).change();
+                        $("#CompanyID").val(datas.item.CompanyID).change();
+                        $("#SpDate").datepicker("update", moment(datas.item.SpDate).format("DD-MM-YYYY"));
+
+
+                    }
+                }
+            });
+        });
+
+        //Save
+         $(document).on('click', '#save', function (e) {
+            $("#save").prop('disabled', true);
+            RemoveError();
+             Validatespob();
+            //$("#save").prop('disabled', true);
+            if (isValid == true) {
+                if (confirm('Do you want to save?')) {
+                    setspobData();
+                   $.ajax({
+                    url: '@Url.Action("SaveSpOpeningBalance", "SpOpeningBalance")',
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({ spob: spob }),
+                    type: 'POST',
+                    dataType: 'json',
+                       success: function (datas) {
+                           if (datas == 1) {
+                               alert("Saved Successfully");
+                               $("#save").prop('disabled', true);
+                               location.reload();
+                           }
+
+                           else {
+                               alert("OB for this Item is already added, please check");
+                           }
+                       }
+                   });
+                }
+                else {
+                    $("#save").prop('disabled', false);
+
+                }
+            }
+            else {
+                $("#save").prop('disabled', false);
+            }
+        });
+
+         //UPDATE
+        $(document).on('click', '#update', function () {
+            $("#update").prop('disabled', true);
+            $("#ID").prop('disabled', true);
+            setspobData();
+            spob.ID = $("#ID").val();
+            Validatespob();
+
+                if (confirm('Do you want to Update')) {
+                    $.ajax({
+                        url: '@Url.Action("UpdateSpOpeningBalance", "SpOpeningBalance")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ spob: spob }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Update.");
+                                $("#update").prop('disabled', false);
+                                $("#ID").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Updated.");
+                                $("#update").prop('disabled', true);
+                                $("#ID").prop('disabled', true);
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#update").prop('disabled', false);
+                    $("#ID").prop('disabled', false);
+                }
+        });
+
+         //Delete
+        $(document).on('click', '#delete', function () {
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var id = $("#ID").val();
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteSpOpeningBalanceByid", "SpOpeningBalance")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Delete Failed.")
+                        }
+                        else {
+                            alert("Delete Successfull");
+                            $("#delete").prop('disabled', true);
+                            location.reload();
+
+                        }
+                    }
+                });
+            }
+            else {
+                $("#delete").prop('disabled', false);
+                $("#update").prop('disabled', false);
+            }
+        });
+
+        function setspobData() {
+
+            spob.ID = $("#ID").val();
+            spob.GroupId = $("#GroupId").val();
+            spob.ItemId = $("#ItemId").val();
+            spob.SpDate = $("#SpDate").val();
+            spob.Quantity = $("#Quantity").val();
+            spob.Rate = $("#Rate").val();
+            spob.Value = $("#Value").val();
+            spob.TypeId = $("#TypeId").val();
+            spob.StoreId = $("#StoreId").val();
+            spob.BoxID = $("#BoxID").val();
+            spob.CompanyID = $("#CompanyID").val();
+            spob.PageNo = $("#PageNo").val();
+
+        }
+
+        function Validatespob() {
+            isValid = true;
+
+            if ($("#ItemId").val() == "") {
+                setError("ItemId", "Please select an from the list");
+                isValid = false;
+            }
+
+            if ($("#Quantity").val() == "") {
+                setError("Quantity", "Please enter quantity");
+                isValid = false;
+            }
+            if ($("#Rate").val() == "") {
+                setError("Rate", "Please enter Rate");
+                isValid = false;
+            }
+            if ($("#TypeId").val() == "") {
+                setError("TypeId", "Please select Type");
+                isValid = false;
+            }
+            if ($("#StoreId").val() == "") {
+                setError("StoreId", "Please select a store");
+                isValid = false;
+            }
+            if ($("#BoxID").val() == "") {
+                setError("BoxID", "Please select a company");
+                isValid = false;
+            }
+            if ($("#CompanyID").val() == "") {
+                setError("CompanyID", "Please select a company");
+                isValid = false;
+            }
+
+
+        }
+
+    </script>
+
+}
+

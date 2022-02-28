@@ -1,0 +1,260 @@
+﻿@model BEEERP.Models.ViewModel.Location.LocationVModel
+@{
+    ViewBag.Title = "DealerTravelMap";
+}
+<style>
+    #map {
+        height: 100%;
+    }
+
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA38xqvJD5wwlNNqXbXdFy51jr1cxqrMd0&callback=initMap">
+</script>
+<form id="report" target="_blank" method="post" action="/LocationTrack/Map">
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6">
+                                <div class="box">
+                                    <div class="box-header with-border box-head-back" style="text-align:center">
+                                        <h3 class="box-title">See User Location</h3>
+                                    </div>
+                                    <div class="box-body" style="padding-left:0%">
+                                        <div></div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.UserId, "Employee", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.UserId, (IEnumerable<SelectListItem>)ViewBag.Emp, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(x => x.UserId, "", new { @style = "color: red" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.FromDate, "From Date", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:2%; padding-right:2%">
+                                                @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                @Html.ValidationMessageFor(m => m.FromDate, "", new { @style = "color: red" })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.ToDate, "To Date", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:2%; padding-right:2%">
+                                                @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                                @Html.ValidationMessageFor(m => m.ToDate, "", new { @style = "color: red" })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12" style="padding-right:0%;padding-left:0%;">
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-8" style="padding-right:0%;padding-left:1%;"><input type="button" value="Search" id="search" class="btn skin-blue" style="text-align:center;width:100%;font-weight:bold;" /></div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+<div class="col-md-12">
+    <div class="col-md-2"></div>
+    <div class="col-md-10" style="height:700px;padding-top:30px;">
+        <div id="map"></div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+@section scripts{
+
+    <script>
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+        $(".select2").select2();
+
+        $(document).ready(function (e) {
+           
+            var map;
+            var allMap = [];
+            var faisalabad = { lat: 23.78315189, lng: 90.41605051, label: "Avalanche Technologies Ltd", img: "orange_MarkerL.png" };
+            allMap.push(faisalabad);
+            var faisalabad1 = { lat: 23.78124783, lng: 90.41651905, label: "Robi Exita Ltd.", img: "blue_MarkerT.png" };
+            allMap.push(faisalabad1);
+            var faisalabad2 = { lat: 23.78241951, lng: 90.41616311, label: "Jica Bangladesh Office", img: "blue_MarkerT.png" };
+            allMap.push(faisalabad2);
+            var faisalabad2 = { lat: 23.78195317, lng: 90.41664591, label: "The Farmers Bank Ltd.", img: "blue_MarkerT.png" };
+            allMap.push(faisalabad2);
+            var faisalabad2 = { lat: 23.7827975, lng: 90.41609337, label: "Athena", img: "blue_MarkerT.png" };
+            allMap.push(faisalabad2);
+            var path = [];
+            var polyline = new google.maps.Polyline({
+                // set desired options for color, opacity, width, etc.
+                strokeColor: "#0000FF",  // blue (RRGGBB, R=red, G=green, B=blue)
+                strokeOpacity: 0.4      // opacity of line
+            });
+            function addYourLocationButton(map, marker) {
+                var controlDiv = document.createElement('div');
+
+                var firstChild = document.createElement('button');
+                firstChild.style.backgroundColor = '#fff';
+                firstChild.style.border = 'none';
+                firstChild.style.outline = 'none';
+                firstChild.style.width = '28px';
+                firstChild.style.height = '28px';
+                firstChild.style.borderRadius = '2px';
+                firstChild.style.boxShadow = '0 1px 4px rgba(0,0,0,0.3)';
+                firstChild.style.cursor = 'pointer';
+                firstChild.style.marginRight = '10px';
+                firstChild.style.padding = '0px';
+                firstChild.title = 'Your Location';
+                controlDiv.appendChild(firstChild);
+
+                var secondChild = document.createElement('div');
+                secondChild.style.margin = '5px';
+                secondChild.style.width = '18px';
+                secondChild.style.height = '18px';
+                secondChild.style.backgroundImage = 'url(https://maps.gstatic.com/tactile/mylocation/mylocation-sprite-1x.png)';
+                secondChild.style.backgroundSize = '180px 18px';
+                secondChild.style.backgroundPosition = '0px 0px';
+                secondChild.style.backgroundRepeat = 'no-repeat';
+                secondChild.id = 'you_location_img';
+                firstChild.appendChild(secondChild);
+
+                google.maps.event.addListener(map, 'dragend', function () {
+                    $('#you_location_img').css('background-position', '0px 0px');
+                });
+
+                firstChild.addEventListener('click', function () {
+                    var imgX = '0';
+                    var animationInterval = setInterval(function () {
+                        if (imgX == '-18') imgX = '0';
+                        else imgX = '-18';
+                        $('#you_location_img').css('background-position', imgX + 'px 0px');
+                    }, 500);
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(function (position) {
+                            var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                            marker.setPosition(latlng);
+                            map.setCenter(latlng);
+                            clearInterval(animationInterval);
+                            $('#you_location_img').css('background-position', '-144px 0px');
+                        });
+                    }
+                    else {
+                        clearInterval(animationInterval);
+                        $('#you_location_img').css('background-position', '0px 0px');
+                    }
+                });
+
+                controlDiv.index = 1;
+                map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(controlDiv);
+            }
+            var infowindow = new google.maps.InfoWindow();
+            function initMap() {
+                map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 18,
+                    center: allMap[0]
+                });
+                $.each(allMap, function (index, value) {
+
+                    var myMarker = new google.maps.Marker({
+                        map: map,
+                        animation: google.maps.Animation.DROP,
+                        position: value,
+                        icon: "/Google Maps Markers/" + value.img,
+                        label: {
+                            color: 'blue',
+                            fontWeight: 'bold',
+                            text: value.label,
+                        },
+                    });
+                    path.push(myMarker.getPosition());
+                    //if (path.length >= 2) {
+
+                    //    polyline.setMap(map);
+                    //    polyline.setPath(path);
+                    //}
+                    addYourLocationButton(map, myMarker);
+                });
+
+            }
+            $(document).on('click', '#search', function () {
+
+                var userId = $("#UserId").val();
+                var fromDate = $("#FromDate").val();
+                var toDate = $("#ToDate").val();
+            $.ajax({
+                url: '@Url.Action("Map", "LocationTrack")',
+                contentType: "application/json;charset=utf-8",
+                //data: { userId: "e108", fromDate: "2018-07-11", toDate: "2018-07-16" },
+                data: { userId: userId, fromDate: fromDate, toDate: toDate },
+                type: 'get',
+                dataType: 'json',
+                success: function (datas) {
+                    // allMap = datas;
+                    allMap = [];
+                    $.each(datas, function (index, value) {
+                        allMap.push({ lat: parseFloat(value.lat), lng: parseFloat(value.lng), label: value.label, img: value.img });
+                    });
+                   // var faisalabad = { lat: 23.78315189, lng: 90.41605051, label: "Avalanche Technologies Ltd", img: "orange_MarkerL.png" };
+                    allMap.push(faisalabad);
+                    initMap();
+                }
+            });
+            });
+        });
+    </script>
+    @*<script type="text/javascript">
+        var locations = [
+          ['Bondi Beach', -33.890542, 151.274856, 4],
+          ['Coogee Beach', -33.923036, 151.259052, 5],
+          ['Cronulla Beach', -34.028249, 151.157507, 3],
+          ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
+          ['Maroubra Beach', -33.950198, 151.259302, 1]
+        ];
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          center: new google.maps.LatLng(-33.92, 151.25),
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+
+        var infowindow = new google.maps.InfoWindow();
+
+        var marker, i;
+
+        for (i = 0; i < locations.length; i++) {
+          marker = new google.maps.Marker({
+            position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+            map: map
+          });
+
+          google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            return function() {
+              infowindow.setContent(locations[i][0]);
+              infowindow.open(map, marker);
+            }
+          })(marker, i));
+        }
+        </script>*@
+}
+

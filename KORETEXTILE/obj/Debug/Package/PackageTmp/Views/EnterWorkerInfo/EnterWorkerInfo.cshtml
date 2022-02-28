@@ -1,0 +1,493 @@
+﻿@model BEEERP.Models.ViewModel.Payroll.EnterWorkerInfoVModel
+
+@{
+    ViewBag.Title = "EnterWorkerInfo";
+}
+
+<h2 style="text-align:center">Enter Worker Information</h2>
+<style>
+    .btn:hover {
+        color: blue !important;
+    }
+
+    .btn:focus {
+        background-color: aqua !important;
+    }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Basic Info</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.WorkerID, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6 input-group" style="padding-left:15px; padding-right:15px;">
+                                            @Html.TextBoxFor(m => m.WorkerID, new { @class = "form-control", @type = "number", @Value = ViewBag.gbeCountNumPlausOne })
+                                            @Html.ValidationMessageFor(m => m.WorkerID, "", new { @style = "color: red" })
+                                            <div class="input-group-btn">
+                                                <input type="button" name="search" id="search" value="Search" class="btn skin-blue" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.WorkerName, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.WorkerName, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.WorkerName, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.DesignationID, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.DropDownListFor(m => m.DesignationID, (IEnumerable<SelectListItem>)ViewBag.Designation, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.DesignationID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.WorkerTypeID, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.DropDownListFor(m => m.WorkerTypeID, (IEnumerable<SelectListItem>)ViewBag.Type, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.WorkerTypeID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.CardNo, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.TextBoxFor(m => m.CardNo, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.CardNo, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Personal Details</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.FatherName, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.FatherName, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.FatherName, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.MotherName, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.MotherName, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.MotherName, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.GenderID, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.DropDownListFor(m => m.GenderID, (IEnumerable<SelectListItem>)ViewBag.Gender, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.GenderID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ReligionID, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.DropDownListFor(m => m.ReligionID, (IEnumerable<SelectListItem>)ViewBag.Religion, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.ReligionID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.DateOfBirth, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-4 input-group">
+                                            @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                        <div style="padding-left:180px">
+                                            @Html.ValidationMessageFor(m => m.DateOfBirth, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="padding-right:48px">
+                                        @Html.LabelFor(m => m.NationalID, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-7">
+                                            @Html.TextBoxFor(m => m.NationalID, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.NationalID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Contact Details</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.PresentAddress, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-7">
+                                            @Html.TextBoxFor(m => m.PresentAddress, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.PresentAddress, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.PermanentAddress, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-7">
+                                            @Html.TextBoxFor(m => m.PermanentAddress, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.PermanentAddress, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-md-offset-1">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.MobileNo, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.MobileNo, new { @class = "form-control", @type = "Number" })
+                                            @Html.ValidationMessageFor(m => m.MobileNo, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.AltNo, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.AltNo, new { @class = "form-control", @type = "Number" })
+                                            @Html.ValidationMessageFor(m => m.AltNo, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back">
+                                <h3 class="box-title">Official Details</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.WorkStationID, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.DropDownListFor(m => m.WorkStationID, (IEnumerable<SelectListItem>)ViewBag.WorkStation, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.WorkStationID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.SectionID, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-6">
+                                            @Html.DropDownListFor(m => m.SectionID, (IEnumerable<SelectListItem>)ViewBag.Section, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.SectionID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.JoiningDate, new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-4 input-group">
+                                            @Html.TextBoxFor(m => m.JoiningDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                        <div style="padding-left:180px">
+                                            @Html.ValidationMessageFor(m => m.JoiningDate, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" align="center">
+                            <input type="button" id="save" value="Save" class="btn skin-blue" />
+                            <input type="button" name="update" id="update" value="Update" class="btn skin-blue" />
+                            <input type="button" name="delete" id="delete" value="Delete" class="btn skin-blue" />
+                            <input type="button" name="refresh" id="refresh" value="Refresh" class="btn skin-blue" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/PayRollModule/EWIinputFocus.js"></script>
+    <script>
+        $(document).ready(function () {
+            EWIFieldEnterPress(); 
+            $('#update').hide();
+            $('#delete').hide();
+            $(document).on('click', '#refresh', function () {
+                location.reload();
+            });
+            $('.select2').select2();
+            $('.date').datepicker({
+                autoclose: true,
+                format: 'dd-mm-yyyy',
+            });
+        });
+
+        var EWI = {
+            WorkerID: 0, WorkerName: "", DesignationID: 0, WorkerTypeID: 0, CardNo: 0, FatherName: "",
+            MotherName: "", NationalID: "", GenderID: 0, DateOfBirth: "", ReligionID: 0, PresentAddress: "", PermanentAddress: "",
+            MobileNo: "", AltNo: "", WorkStationID: 0, SectionID: "", JoiningDate:""
+        };
+        function SetEWI() {
+            EWI.WorkerID = $("#WorkerID").val();
+            EWI.WorkerName = $("#WorkerName").val();
+            EWI.DesignationID = $("#DesignationID").val();
+            EWI.WorkerTypeID = $("#WorkerTypeID").val();
+            EWI.CardNo = $("#CardNo").val();
+            EWI.FatherName = $("#FatherName").val();
+            EWI.MotherName = $("#MotherName").val();
+            EWI.NationalID = $("#NationalID").val();
+            EWI.GenderID = $("#GenderID").val();
+            EWI.DateOfBirth = $("#DateOfBirth").val();
+            EWI.ReligionID = $("#ReligionID").val();
+            EWI.PresentAddress = $("#PresentAddress").val();
+            EWI.PermanentAddress = $("#PermanentAddress").val();
+            EWI.MobileNo = $("#MobileNo").val();
+            EWI.AltNo = $("#AltNo").val();
+            EWI.WorkStationID = $("#WorkStationID").val();
+            EWI.SectionID = $("#SectionID").val();
+            EWI.JoiningDate = $("#JoiningDate").val();
+        }
+
+        //Save
+        $(document).on('click', '#save', function (event) {
+            RemoveError();
+            ValidateOnSaveClick();
+            $("#save").prop("disabled", true);
+            if (message == "") {
+                SetEWI();
+                if (confirm("Do you want to Save?")) {
+                    $.ajax({
+                        url: '@Url.Action("SaveEWI", "EnterWorkerInfo")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ ewi: EWI }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Saved.");
+                                $("#save").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Saved.");
+                                $("#WorkerID").val(datas.WorkerID);
+                                $("#save").hide();
+                            }
+                        }
+                    });
+                }
+            }
+            else {
+                $("#save").prop("disabled", false)
+            }
+        });
+
+        //Search
+        $(document).on('click', '#search', function () {
+            $("#update").prop("disabled", false);
+            if ($("#WorkerID").val() == "") {
+                alert("Please enter a Worker ID first.");
+            }
+            else {
+                var id = { workerid: $("#WorkerID").val()};
+                ClearOnSearch();
+                $.ajax(
+                {
+                        url: '@Url.Action("GetEWIById", "EnterWorkerInfo")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Your Worker ID doesn't exist.");
+                            }
+                            else
+                            {
+                                $("#save").hide();
+                                $("#update").show();
+                                $("#delete").show();
+                                $("#WorkerName").val(datas.WorkerName);
+                                $("#DesignationID").val(datas.DesignationID).change();
+                                $("#WorkerTypeID").val(datas.WorkerTypeID).change();
+                                $("#CardNo").val(datas.CardNo);
+                                $("#FatherName").val(datas.FatherName);
+                                $("#MotherName").val(datas.MotherName);
+                                $("#NationalID").val(datas.NationalID);
+                                $("#GenderID").val(datas.GenderID).change();
+                                $("#DateOfBirth").val((moment(datas.DateOfBirth).format("DD-MM-YYYY"))).change();
+                                $("#ReligionID").val(datas.ReligionID).change();
+                                $("#PresentAddress").val(datas.PresentAddress);
+                                $("#PermanentAddress").val(datas.PermanentAddress);
+                                $("#MobileNo").val(datas.MobileNo);
+                                $("#AltNo").val(datas.AltNo);
+                                $("#WorkStationID").val(datas.WorkStationID).change();
+                                $("#SectionID").val(datas.SectionID).change();
+                                $("#JoiningDate").val((moment(datas.JoiningDate).format("DD-MM-YYYY"))).change();
+                            }
+                        },
+                        error: function ()
+                        {
+                            alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services");
+                        }
+                });
+            }
+        });
+
+        //Update
+        $(document).on('click', '#update', function () {
+            RemoveError();
+            ValidateOnSaveClick();
+            $("#update").prop("disabled", true);
+            if (message == "") {
+                SetEWI();
+                if (confirm("Do you want to Update?"))
+                {
+                    $.ajax(
+                    {
+                        url: '@Url.Action("UpdateEWI", "EnterWorkerInfo")',
+                        contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ ewi: EWI}),
+                            type: "POST",
+                            dataType: "json",
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Update Failed");
+                                    $("#update").prop('disabled', false);
+                                }
+                                else{
+                                    alert("Update Successfully");
+                                    $("#update").hide();
+                                }
+                            },
+                            error: function () {
+                                alert("Please check Internet connection. If doesn't solve problem. Contact with Avalanche Technology Ltd.");
+                                $("#update").prop("disabled", false);
+                            }
+                    });
+                }
+            }
+        });
+
+        //Delete
+        $(document).on('click', '#delete', function () {
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var wid = $("#WorkerID").val();
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteEWIById", "EnterWorkerInfo")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { wid: wid },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Delete failed.");
+                            $("#delete").prop('disabled', false);
+                            $("#update").prop('disabled', false);
+                        }
+                        else {
+                            alert("Delete Successfull");
+                            location.reload();
+                        }
+                    }
+                });
+            }
+            else {
+                $("#update").prop('disabled', false);
+                $("#delete").prop('disabled', false);
+            }
+        });
+
+        //Validation for EWI
+        function ValidateOnSaveClick() {
+            message = "";
+            if ($("#WorkerName").val() == "") {
+                setError("WorkerName", "Please enter a valid Name");
+                message = "Please enter a valid name."
+            }
+            if ($("#DesignationID").val() == "") {
+                setError("DesignationID", "Select a Designation from the list");
+                message = "DesignationID is Required Field."
+            }
+            if ($("#WorkerTypeID").val() == "") {
+                setError("WorkerTypeID", "Select a Type from the list");
+                message = "WorkerTypeID is Required Field."
+            }
+            if ($("#CardNo").val() == "") {
+                setError("CardNo", "Please enter a Card No");
+                message = "CardNo is Required Field."
+            }
+            if ($("#GenderID").val() == "") {
+                setError("GenderID", "Select a Gender from the list");
+                message = "GenderID is Required Field."
+            }
+            if ($("#DateOfBirth").val() == "") {
+                setError("DateOfBirth", "Select a valid Date");
+                message = "DateOfBirth is Required Field."
+            }
+            if ($("#PresentAddress").val() == "") {
+                setError("PresentAddress", "Please enter present address");
+                message = "PresentAddress is Required Field."
+            }
+            if ($("#MobileNo").val() == "") {
+                setError("MobileNo", "Please enter a valid Mobile No");
+                message = "MobileNo is Required Field."
+            }
+            if ($("#WorkStationID").val() == "") {
+                setError("WorkStationID", "Select a Work Station from the list");
+                message = "WorkStationID is Required Field."
+            }
+            if ($("#SectionID").val() == "") {
+                setError("SectionID", "Select a Section from the list");
+                message = "SectionID is Required Field."
+            }
+            if ($("#JoiningDate").val() == "") {
+                setError("JoiningDate", "Select a valid Date");
+                message = "JoiningDate is Required Field."
+            }
+        }
+
+        function ClearOnSearch() {
+            $("#WorkerName").val("");
+            $("#DesignationID").val("").change();
+            $("#WorkerTypeID").val("").change();
+            $("#CardNo").val("");
+            $("#FatherName").val("");
+            $("#MotherName").val("");
+            $("#GenderID").val("").change();
+            $("#ReligionID").val("").change();
+            $("#DateOfBirth").val((moment("").format("DD-MM-YYYY"))).change();
+            $("#NationalID").val("");
+            $("#PresentAddress").val("");
+            $("#PermanentAddress").val("");
+            $("#MobileNo").val("");
+            $("#AltNo").val("");
+            $("#WorkStationID").val("").change();
+            $("#SectionID").val("").change();
+            $("#JoiningDate").val((moment("").format("DD-MM-YYYY"))).change();
+        }
+
+    </script>
+}

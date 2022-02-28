@@ -1,0 +1,424 @@
+﻿@model BEEERP.Models.ViewModel.Sales.LCBPVModel
+@using BEEERP.Models.SystemSetting;
+@using BEEERP.Models.CommonInformation
+@{
+    ViewBag.Title = "LCBPEntry";
+}
+
+<form id="report" target="_blank">
+    <div class="content">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="col-md-10">
+                    @*<h4 style="text-align:left">LC Bill Receive Payment</h4>*@
+                    <div class="box-body">
+                        <div class="col-md-12">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back">
+                                    <h6 class="box-title">LC Bill Receive Payment</h6>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.LCBPNo, new { @class = "col-md-4 control-label" })
+                                            <div class="input-group input-group-sm col-md-8" style="padding-right:19px;padding-left:14px;">
+                                                @Html.TextBoxFor(m => m.LCBPNo, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.LCBPNo)
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn skin-blue btn-flat" id="search">Search</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.LCID, new { @class = "col-md-4 control-label" })
+                                            <div class="input-group input-group-sm col-md-8" style="padding-right:19px;padding-left:14px;">
+                                                @Html.TextBoxFor(m => m.LCID, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.LCID)
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn skin-blue btn-flat" id="go">Go</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.LCNo, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.LCNo, new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(m => m.LCNo)
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" id="Radio">
+                                            <div class="col-sm-4"></div>
+                                            <div class="col-sm-8 ">
+                                                <br />
+                                                <label for="advance">Advance</label>&ensp;&ensp;
+                                                <input type="radio" id="advance" name="paymentType" value="advance" checked />&ensp;&ensp;&ensp;&ensp;&ensp;
+                                                <label for="sales">Sales</label>&ensp;&ensp;
+                                                <input type="radio" id="sales" name="paymentType" value="sales" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.SupplierId, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.SupplierId, (IEnumerable<SelectListItem>)ViewBag.SupplierId, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.SupplierId)
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Date, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                                @Html.TextBoxFor(m => m.Date, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy"), @disabled = "disabled" })
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                @*@Html.ValidationMessageFor(m => m.TDate)*@
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="box ">
+                                <div class="box-header with-border box-head-back">
+                                    <h3 class="box-title">Receivable Amount</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-12 ">
+                                        <table class="table table-responsive" id="ILCBGrid">
+                                            <thead>
+                                                <tr>
+                                                    <th><input type="checkbox" id="select_all" name="select_all" /></th>
+                                                    <th>Invoice No</th>
+                                                    <th>Amount</th>
+                                                    <th>Adjusted Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="box ">
+                                <div class="box-body">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.AccountID, "Select A/C", new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.AccountID, (IEnumerable<SelectListItem>)ViewBag.Account, new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(m => m.AccountID)
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.RefNo, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.RefNo, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.RefNo)
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Amount, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", @type = "number" })
+                                                @Html.ValidationMessageFor(m => m.Amount)
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Description, new { @class = "col-md-4 control-label" })
+                                            <div class="col-sm-8">
+                                                @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Description)
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group form-horizontal" style="text-align:center;">
+                                <button type="button" id="save" style="height:33px; font-size:13px;" class="btn">Save</button>
+                                @if (UserAccessAction.HavePerOnSave)
+                                {
+
+                                }
+
+                                <button type="button" id="cancel" style="height:33px; font-size:13px;" class="btn">Cancel</button>
+                                <button type="button" id="refresh" style="height:33px; font-size:13px;" class="btn">Refresh</button>
+                                <input type="button" name="print" id="print" value="Print" class="btn skin-blue" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@section scripts{
+    <script src="~/Scripts/Search.js"></script>
+    <script>
+        $('.date').datepicker({
+            autoclose: true,
+            format: "dd-mm-yyyy"
+        });
+        $(".select2").select2();
+        $("#Radio").hide();
+        var invoiceList = [];
+        var selectedInvoice = [];
+        var rows_selected = [];
+        var table = $('#ILCBGrid').DataTable({
+
+            'columnDefs': [{
+                'targets': 0,
+                'searchable': false,
+                'width': '1%',
+                'className': 'dt-body-center',
+                "paging": false,
+                'render': function (data, type, full, meta) {
+                    return '<input type="checkbox">';
+                },
+            }],
+            'order': [[1, 'asc']],
+            'rowCallback': function (row, data, dataIndex) {
+                // Get row ID
+                var rowId = data[0];
+
+                // If row ID is in the list of selected row IDs
+                if ($.inArray(rowId, rows_selected) !== -1) {
+                    $(row).find('input[type="checkbox"]').prop('checked', true);
+                    $(row).addClass('selected');
+                }
+            }
+        });
+        $('#ILCBGrid').on('click', 'tbody td, thead th:first-child', function (e) {
+            $(this).parent().find('input[type="checkbox"]').trigger('click');
+        });
+
+
+        $('thead input[name="select_all"]', table.table().container()).on('click', function (e) {
+            if (this.checked) {
+                $('#ILCBGrid tbody input[type="checkbox"]:not(:checked)').trigger('click');
+            } else {
+                $('#ILCBGrid tbody input[type="checkbox"]:checked').trigger('click');
+            }
+
+            // Prevent click event from propagating to parent
+            e.stopPropagation();
+        });
+
+
+        table.on('draw', function () {
+            // Update state of "Select all" control
+            updateDataTableSelectAllCtrl(table);
+        });
+        $('#ILCBGrid tbody').on('click', 'input[type="checkbox"]', function (e) {
+            var $row = $(this).closest('tr');
+            var data = table.row($row).data();
+            var rowId = data[0];
+            var index = $.inArray(rowId, rows_selected);
+
+            if (this.checked && index === -1) {
+                rows_selected.push(rowId);
+
+
+            } else if (!this.checked && index !== -1) {
+                rows_selected.splice(index, 1);
+            }
+            var selectedItem = { InvoiceNo: 0, DueAmount: 0, AdjustedAmount: 0, DocType: "" };
+            if (this.checked) {
+                $row.addClass('selected');
+                $('input[name="' + data[0] + '"]').val(data[2]);
+                selectedItem.InvoiceNo = data[0];
+                selectedItem.DueAmount = data[2];
+                selectedItem.AdjustedAmount = data[2];
+                selectedInvoice.push(selectedItem);
+                TotalSumOfCheckedInvoice();
+            } else {
+                $row.removeClass('selected');
+                $('input[name="' + data[0] + '"]').val("");
+                var modifiedItem = [];
+                $.each(selectedInvoice, function (index, value) {
+                    if (value.InvoiceNo != data[0]) {
+                        modifiedItem.push(value);
+                    }
+                });
+                selectedInvoice = modifiedItem;
+                TotalSumOfCheckedInvoice();
+            }
+
+
+            updateDataTableSelectAllCtrl(table);
+
+
+            e.stopPropagation();
+        });
+        function TotalSumOfCheckedInvoice() {
+            var totalAmount = 0.0;
+            $.each(selectedInvoice, function (index, value) {
+                totalAmount = totalAmount + value.DueAmount;
+
+            });
+            $("#Amount").val(totalAmount.toFixed(2)).focusout();
+        }
+        function updateDataTableSelectAllCtrl(table) {
+            var $table = table.table().node();
+            var $chkbox_all = $('tbody input[type="checkbox"]', $table);
+            var $chkbox_checked = $('tbody input[type="checkbox"]:checked', $table);
+            var chkbox_select_all = $('thead input[name="select_all"]', $table).get(0);
+
+            // If none of the checkboxes are checked
+            if ($chkbox_checked.length === 0) {
+                chkbox_select_all.checked = false;
+                if ('indeterminate' in chkbox_select_all) {
+                    chkbox_select_all.indeterminate = false;
+                }
+
+                // If all of the checkboxes are checked
+            } else if ($chkbox_checked.length === $chkbox_all.length) {
+                chkbox_select_all.checked = true;
+                if ('indeterminate' in chkbox_select_all) {
+                    chkbox_select_all.indeterminate = false;
+                }
+
+                // If some of the checkboxes are checked
+            } else {
+                chkbox_select_all.checked = true;
+                if ('indeterminate' in chkbox_select_all) {
+                    chkbox_select_all.indeterminate = true;
+                }
+            }
+        }
+        function ShowOnTable() {
+                table.clear().draw();
+                var sl = 0;
+                var items = [];
+                var invoiceAmount = 0.0;
+                $.each(invoiceList, function (index, value) {
+                    sl = sl + 1;
+                    value.Sl = sl;
+                    invoiceAmount += parseFloat(value.DueAmount);
+                    items.push(value);
+                    @*if(@Setting.IsPayVouAdjManually.ToString().ToLower()==false)
+                    {
+                        table.row.add([value.invoiceNumber, value.invoiceNumber, value.DueAmount, '<input type="number" disabled="disabled" value="' + value.DueAmount + '" name="' + value.invoiceNumber + '"/>']).draw();
+                    }*@
+                    //else{
+                    //table.row.add([value.invoiceNumber, value.invoiceNumber, value.DueAmount, '<input type="number" value="' + value.adjustedAmount + '" name="' + value.invoiceNumber + '"/>']).draw();
+                    table.row.add([value.invoiceNumber, value.invoiceNumber, value.DueAmount, '<input type="number" disabled="disabled" value="' + value.adjustedAmount + '" name="' + value.invoiceNumber + '"/>']).draw();
+                    //}
+
+                });
+        }
+
+        $(document).on('click', '#go', function () {
+
+                $.ajax({
+                    url: '@Url.Action("getSupplierByLC", "LCBP")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: $("#LCID").val() },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        
+                        if (datas != 0) {
+                           
+                            $("#LCNo").val(datas.data);
+                            $("#SupplierId").empty();
+                            $.each(datas.supplier, function (index, value) {
+                                $("#SupplierId").append($('<option />', {
+                                    value: value.Value,
+                                    text: value.Text
+                                })).trigger('change');
+                            });
+                        } 
+                        
+                    }
+                });
+        });
+
+        $(document).on('change', '#SupplierId', function () {
+         
+
+                $.ajax({
+                    url: '@Url.Action("DueAmount", "LCBP")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: $("#SupplierId").val() },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        
+                        if (datas != 0) {
+                            selectedInvoice = [];
+                            invoiceList = [];
+                            $.each(datas.data, function (index, value) {
+                                var item = { invoiceNumber: 0, DueAmount: 0.0, adjustedAmount: 0.0};
+
+                                //if (value.DocType == "OB") {
+                                //    item.DocType = "OB";
+                                //    item.invoiceNumber = "OB";
+
+                                //}
+                                //else {
+                                //    item.DocType = "Sales";
+                                //    item.invoiceNumber = value.InvoiceNo;
+                                //}
+                                item.invoiceNumber = value.ILCBNo;
+                                item.DueAmount = value.DueAmount;
+                                item.adjustedAmount = 0;
+                                //selectedInvoice.push(item);
+                                invoiceList.push(item);
+                            });
+                            ShowOnTable();
+                        } 
+                        
+                    }
+                });
+        });
+
+
+        $(document).on('click', '#save', function () {
+
+            if (selectedInvoice != "") {
+                var account = $("#AccountID").val();
+                if (confirm("Do you want to save?")) {
+                $.ajax({
+                    url: '@Url.Action("SaveLCBP", "LCBP")',
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({ selectedInvoice: selectedInvoice, account: account }),
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (datas) {
+                        
+                        if (datas != 0) {
+                            alert("Successfully Saved");
+                        } 
+                        
+                    }
+                });
+
+                }
+                
+            }
+            
+
+        });
+
+    </script>
+
+    }

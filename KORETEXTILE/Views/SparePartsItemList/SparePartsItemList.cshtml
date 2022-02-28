@@ -1,0 +1,382 @@
+﻿@model BEEERP.Models.DataAdmin.SPSettings.SparePartsItemList
+
+
+@{
+    ViewBag.Title = "SparePartsItemList";
+}
+
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+
+<h3 style="text-align:center">Spare Parts Item List</h3>
+
+<div class="content">
+    <div class="row">
+        <h4 style="text-align:center"></h4>
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="box">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h6 class="box-title">Spare Parts Item List</h6>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.SPItemID, "SPItem ID", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-4 input-group" style="padding-left:0.8%;padding-right:0.8%;padding-top:0%">
+                                            @Html.TextBoxFor(m => m.SPItemID, new { @class = "form-control", @Readonly = "Readonly", @Value = ViewBag.Id })
+
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-primary" id="custSearch" style="min-width: 50px">Search</button>
+                                            </span>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            @Html.ValidationMessageFor(x => x.SPItemID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.SPItemPartNo, "Item Part No", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-4">
+                                            @Html.TextBoxFor(m => m.SPItemPartNo, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.SPItemPartNo, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.DepartmentID, "Department", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-4">
+                                            @Html.DropDownListFor(m => m.DepartmentID, (IEnumerable<SelectListItem>)ViewBag.DepartmentID, new { @class = "enterTab form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.DepartmentID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.SPTypeID, "SP Type", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-4">
+                                            @Html.DropDownListFor(m => m.SPTypeID, (IEnumerable<SelectListItem>)ViewBag.SPTypeID, new { @class = "enterTab form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.SPTypeID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.UoMID, "UoM", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-4">
+                                            @Html.DropDownListFor(m => m.UoMID, (IEnumerable<SelectListItem>)ViewBag.UoMID, new { @class = "enterTab form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.UoMID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class=" col-md-12">
+                        <div class="box" style="border:none">
+                            <div class="box-footer">
+                                <div class="form-group" style="text-align:center;margin-top:10px">
+                                    <button type="button" id="save" style="height:500%; font-size:100%;" class="btn btn-primary">Save</button>
+                                    <button type="button" id="update" style="height:500%; font-size:100%;" class="btn btn-primary">Update</button>
+                                    <button type="button" id="delete" style="height:500%; font-size:100%;" class="btn btn-primary">Delete</button>
+                                    <button type="button" id="refresh" style="height:500%; font-size:100%;" class="btn btn-primary">Refresh</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box">
+                                <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                    <h5 class="box-title">Spare Parts Details</h5>
+                                </div>
+                                <div class="box-body">
+                                    <table class="table table-responsive" id="MachineDetails">
+                                        <thead>
+                                            <tr>
+                                                <th>SP Item ID</th>
+                                                <th>SP Item Part No</th>
+                                                <th>SP Type</th>
+                                                <th>Uom</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ViewBag.SpareId)
+                                            {
+                                                <tr class='clickable-row' value="@item.SPItemID">
+                                                    <td>@item.SPItemID</td>
+                                                    <td>@item.SPItemPartNo</td>
+                                                    <td>@item.SPItemType</td>
+                                                    <td>@item.UomName</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+
+    <script src="~/Scripts/CommercialModule/LTRInputFocus.js"></script>
+    <script>
+    $("#SPTypeID").prop("disabled", true);
+
+        $(function () {
+            $('#MachineDetails').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+
+        var isValid = true;
+    var sp = { SPItemID: 0, SPItemPartNo: "", SPTypeID: 0, SPDepartmentID: 0, UoMID: 0 }
+    var itemTypeId = "";
+        $(document).ready(function () {
+
+            $('.date').datepicker({
+                autoclose: true,
+                format: 'dd-mm-yyyy',
+            });
+            $(".select2").select2();
+            $("#update").hide();
+            $("#delete").hide();
+        });
+
+        $(document).on('click', "#refresh", function () {
+            location.reload();
+        });
+
+        $(document).on('click', '.clickable-row', function () {
+            var id = $(this).attr("value");
+            $.ajax({
+                url: '@Url.Action("GetSparePartsById", "SparePartsItemList")',
+                contentType: "application/json;charset = utf-8",
+                data: { id: id },
+                type: 'GET',
+                dataType: 'json',
+                success: function (datas) {
+                    if (datas == 0) {
+                        alert("This Spare Parts Item doesn't exist");
+                    }
+                    else {
+                        $("#save").prop('disabled', true);
+                        $("#update").show();
+                        $("#delete").show();
+                        $("#SPItemID").val(datas.item.SPItemID);
+                        $("#SPItemPartNo").val(datas.item.SPItemPartNo);
+                        $("#DepartmentID").val(datas.item.DepartmentID).change();
+                        $("#SPTypeID").val(datas.item.SPTypeID).change();
+                        itemTypeId = datas.item.SPTypeID;
+                        $("#UoMID").val(datas.item.UoMID).change();
+                    }
+                }
+            })
+        });
+
+
+    //Department change reaction
+    $(document).on('change', "#DepartmentID", function () {
+        $("#SPTypeID").prop('disabled', false);
+            var id = { id: parseInt( $(this).val()) };
+            if (id.id != "") {
+                $.ajax({
+                    url: '@Url.Action("GetSPTypeByBatchID", "SparePartsItemList")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+
+                        $("#SPTypeID").empty();
+                        $("#SPTypeID").prop("disabled", false);
+                        $.each(datas, function (index, value) {
+                            $("#SPTypeID").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                        $("#SPTypeID").focus();
+                        if (itemTypeId != "") {
+                            $("#SPTypeID").val(itemTypeId).change();
+                            itemTypeId = "";
+                        }
+                    }
+                });
+            }
+                    else {
+                            $("#SPTypeID").val("").change();
+                            $("#SPTypeID").prop("disabled", true);
+                         }
+            });
+
+
+         $(document).on('click', '#save', function (e) {
+            $("#save").prop('disabled', true);
+            RemoveError();
+             Validatesp();
+            if (isValid == true) {
+                if (confirm('Do you want to save?')) {
+                    setspData();
+                   $.ajax({
+                    url: '@Url.Action("SaveSpareParts", "SparePartsItemList")',
+                    contentType: "application/json;charset=utf-8",
+                       data: JSON.stringify({ sp: sp }),
+                    type: 'POST',
+                    dataType: 'json',
+                       success: function (datas) {
+                           if (datas == 1) {
+                               alert("Saved Successfully");
+                               $("#save").prop('disabled', true);
+                               location.reload();
+                           }
+
+                           else {
+                               alert("Item Part No. Already Exist");
+                           }
+                       }
+                   });
+                }
+                else {
+                    $("#save").prop('disabled', false);
+
+                }
+            }
+            else {
+                $("#save").prop('disabled', false);
+            }
+         });
+
+        //UPDATE
+        $(document).on('click', '#update', function () {
+            $("#update").prop('disabled', true);
+            $("#SPItemID").prop('disabled', true);
+            setspData();
+            sp.ItemTypeID = $("#SPItemID").val();
+            Validatesp();
+
+                if (confirm('Do you want to Update')) {
+                    $.ajax({
+                        url: '@Url.Action("UpdateSpareParts", "SparePartsItemList")',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({ sp: sp }),
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (datas) {
+                            if (datas == 0) {
+                                alert("Failed To Update.");
+                                $("#update").prop('disabled', false);
+                                $("#SPItemID").prop('disabled', false);
+                            }
+                            else {
+                                alert("Sucessfully Updated.");
+                                $("#update").prop('disabled', true);
+                                $("#SPItemID").prop('disabled', true);
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#update").prop('disabled', false);
+                    $("#SPItemID").prop('disabled', false);
+                }
+        });
+
+
+          //Delete
+        $(document).on('click', '#delete', function () {
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var id = $("#SPItemID").val();
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteSparePartsByid", "SparePartsItemList")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Delete Failed.")
+                        }
+                        else {
+                            alert("Delete Successfull");
+                            $("#delete").prop('disabled', true);
+
+                        }
+                    }
+                });
+            }
+            else {
+                $("#delete").prop('disabled', false);
+                $("#update").prop('disabled', false);
+            }
+        });
+
+        function setspData() {
+
+            sp.SPItemID = $("#SPItemID").val();
+            sp.SPItemPartNo = $("#SPItemPartNo").val();
+            sp.SPTypeID = $("#SPTypeID").val();
+            sp.SPDepartmentID = $("#SPDepartmentID").val();
+            sp.UoMID = $("#UoMID").val();
+
+        }
+
+        function Validatesp() {
+            isValid = true;
+
+
+            if ($("#SPItemPartNo").val() == "") {
+                setError("SPItemPartNo", "Item Part No is required field");
+                isValid = false;
+            }
+            if ($("#SPTypeID").val() == "") {
+                setError("SPTypeID", "SPType ID is required field");
+                isValid = false;
+            }
+            if ($("#UoMID").val() == "") {
+                setError("UoMID", "Uom ID is required field");
+                isValid = false;
+            }
+
+        }
+
+    </script>
+
+}

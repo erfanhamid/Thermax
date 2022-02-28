@@ -1,0 +1,970 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
+
+
+<style>
+    .content {
+        background: #95cfe5;
+    }
+
+    .content-wrapper {
+        background: #95cfe5;
+        /*background: url('../../Image/');*/
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        /*background: lightblue no-repeat center;*/
+        z-index: 1;
+    }
+</style>
+<body>
+    <img src="~/Logo/koreerplogo2.png" style="display: block; margin-left: auto; margin-right: auto;text-align: center;margin-top: 125px;height:40px; width: 180px" />
+    <h2 style="text-align:center;padding-top:15px; font-size: 20px">
+        Thermax Melange Spinning Mills Limited
+    </h2>
+
+    <p style="text-align: center; font-size: 20px;">&</p>
+
+    <h2 style="text-align:center; font-size: 20px">Thermax Colour Cotton Limited</h2>
+</body>
+
+
+@{
+    @*if (HttpContext.Current.User.IsInRole("Admin"))
+        {
+
+            <link href="~/App_Themes/Theme/plugins/jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" />
+
+            <style>
+                .box {
+                    border-color: #378eed !important;
+                }
+
+                .circle {
+                    width: 100%;
+                    height: 0;
+                    padding-bottom: 50%;
+                    -moz-border-radius: 50%;
+                    -webkit-border-radius: 50%;
+                    border-radius: 3%;
+                    background: #eceff2;
+                    /*border: 1px solid #202396;*/
+                    box-shadow: 0px 0px 8px #888888;
+                }
+
+                table.agenda {
+                    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                    border-collapse: collapse;
+                    width: 100%;
+                }
+
+                    table.agenda td,
+                    table.agenda th {
+                        border: 1px solid #fff;
+                        padding: 8px;
+                        text-align: center;
+                    }
+
+                    table.agenda td {
+                        padding-top: 12px;
+                        padding-bottom: 12px;
+                        background-color: #D4E4F7;
+                        color: black;
+                    }
+
+                th:nth-child(1) {
+                    background: #236AB9;
+                    color: white;
+                }
+
+                th:nth-child(2) {
+                    background: #236AB9;
+                    color: white;
+                }
+
+                th:nth-child(3) {
+                    background: #236AB9;
+                    color: white;
+                }
+
+                th:nth-child(4) {
+                    background: #236AB9;
+                    color: white;
+                }
+
+                th:nth-child(5) {
+                    background: #236AB9;
+                    color: white;
+                }
+
+                th:nth-child(6) {
+                    background: #236AB9;
+                    color: white;
+                }
+
+                th:nth-child(7) {
+                    background: #236AB9;
+                    color: white;
+                }
+
+                th:nth-child(8) {
+                    background: #236AB9;
+                    color: white;
+                }
+
+                th:nth-child(9) {
+                    background: #236AB9;
+                    color: white;
+                }
+
+                table.agenda tr:nth-child(1) td:first-child {
+                    background: #236AB9;
+                    color: white;
+                }
+
+                table.agenda tr:nth-child(2) td:first-child {
+                    background: #236AB9;
+                    color: white;
+                }
+
+                table.agenda tr:nth-child(3) td:first-child {
+                    background: #236AB9;
+                    color: white;
+                }
+            </style>
+
+
+            <div class="box-body" style="padding-top:0px">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box box-danger">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Last Two Years Month Wise Sales Comparison</h3><br /><br />
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                </div>
+                                <canvas id="myChart" width="400" height="230"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="box box-danger">
+                            <div class="box-header with-border">
+                                <h3 class="box-title"> Month Wise Sales VS Collection</h3><br /><br />
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                </div>
+                                <canvas id="SalesVsCollection" width="400" height="230"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="box box-danger">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Sales and Collection Total by Current Year & Month</h3>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+
+                            <div class="box-body" style="height:auto">
+                                <div class="row">
+                                    <div class="col-md-6" align="center">
+                                        <div class="circle">
+                                            @if (@ViewBag.thisYearTotalSales != null)
+                                            {
+                                                <h6 style="padding-top:15%;font-size:20px;font-weight:900;color:#19339a" align="center">@ViewBag.thisYearTotalSales</h6>
+                                            }
+                                            <h6 style="padding-bottom:75px;font-size:15px;font-weight:900;color:#19339a" align="center">This Year Total Sales</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" align="center">
+                                        <div class="circle">
+                                            @if (@ViewBag.thisMonthTotalSales != null)
+                                            {
+                                                <h6 style="padding-top:15%;font-size:20px;font-weight:900;color:#19339a" align="center">@ViewBag.thisMonthTotalSales</h6>
+                                            }
+                                            <h6 style="font-size:75px;font-size:15px;font-weight:900;color:#19339a" align="center">This Month Total Sales</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" align="center">
+                                        <div class="circle">
+                                            @if (@ViewBag.TotalCollection != null)
+                                            {
+                                                <h6 style="padding-top:15%;font-size:20px;font-weight:900;color:#19339a" align="center">@ViewBag.TotalCollection</h6>
+                                            }
+                                            <h6 style="padding-bottom:75px;font-size:15px;font-weight:900;color:#19339a" align="center">This Year Total Collection</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" align="center">
+                                        <div class="circle">
+                                            @if (@ViewBag.ThisMonthCollection != null)
+                                            {
+                                                <h6 style="padding-top:15%;font-size:20px;font-weight:900;color:#19339a" align="center">@ViewBag.ThisMonthCollection</h6>
+                                            }
+                                            <h6 style="font-size:75px;font-size:15px;font-weight:900;color:#19339a" align="center">This Month Total Collection</h6>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- /.box-body -->
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="box box-danger">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Cash Bank & Inventory</h3>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+
+                            <div class="box-body" style="height:auto">
+                                <div class="row">
+                                    <div class="col-md-6" align="center">
+                                        <div class="circle">
+                                            @if (@ViewBag.Cash != null)
+                                            {
+                                                <h6 style="padding-top:15%;font-size:20px;font-weight:900;color:#19339a" align="center">@ViewBag.Cash</h6>
+                                            }
+                                            <h6 style="padding-bottom:75px;font-size:15px;font-weight:900;color:#19339a" align="center">Total Cash</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" align="center">
+                                        <div class="circle">
+                                            @if (@ViewBag.Bank != null)
+                                            {
+                                                <h6 style="padding-top:15%;font-size:20px;font-weight:900;color:#19339a" align="center">@ViewBag.Bank</h6>
+                                            }
+                                            <h6 style="font-size:75px;font-size:15px;font-weight:900;color:#19339a" align="center">Total Bank</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" align="center">
+                                        <div class="circle">
+                                            @if (@ViewBag.FgInventory != null)
+                                            {
+                                                <h6 style="padding-top:15%;font-size:20px;font-weight:900;color:#19339a" align="center">@ViewBag.FgInventory</h6>
+                                            }
+                                            <h6 style="padding-bottom:75px;font-size:15px;font-weight:900;color:#19339a" align="center">FG Inventory Balance</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" align="center">
+                                        <div class="circle">
+                                            @if (@ViewBag.RmInventory != null)
+                                            {
+                                                <h6 style="padding-top:15%;font-size:20px;font-weight:900;color:#19339a" align="center">@ViewBag.RmInventory</h6>
+                                            }
+                                            <h6 style="font-size:75px;font-size:15px;font-weight:900;color:#19339a" align="center">RM Inventory Balance</h6>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- /.box-body -->
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="box box-danger">
+                            <div class="box-header with-border">
+                                <h3 class="box-title"> Receiveable VS Payable</h3>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <canvas id="pieChartAcComp" style="height:auto"></canvas>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="box box-danger">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Sales year to date</h3>
+                                &nbsp;&nbsp;<label>From&nbsp; </label><input type="text" class="date" id="lineFromDate" value="01-01-@DateTime.Now.Year" />
+                                &nbsp;&nbsp;<label>To&nbsp; </label><input type="text" class="date" id="lineToDate" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+                            <div class="box-body" id="lincPlate">
+                                <canvas id="lineChart" style="height:auto"></canvas>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="box box-danger">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">This Year Depot Wise Total Sales</h3>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <canvas id="pieChartAriaWiseSales" style="height:auto"></canvas>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="box box-danger">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">This Year Depot Wise Total Expense</h3>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <canvas id="DepotWiseExpense" style="height:auto"></canvas>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @section scripts{
+
+                <script type="text/javascript" src="https://cdnjs.com/libraries/Chart.js"></script>
+                <script src="~/App_Themes/Theme/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+                <!-- jvectormap  -->
+                <script src="~/App_Themes/Theme/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+                <script src="~/App_Themes/Theme/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+                <!-- SlimScroll -->
+                <script src="~/App_Themes/Theme/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+                <!-- ChartJS -->
+                @* <script src="bower_components/chart.js/Chart.js"></script>*@
+    @*<script src="~/App_Themes/Theme/bower_components/chart.js/Chart.min.js"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    @*<script src="~/App_Themes/Theme/dist/js/pages/dashboard2.js"></script>*@
+
+
+
+
+    @*<script>
+        $(document).ready(function () {
+            $('.date').datepicker({
+                autoclose: true,
+                format: 'dd-mm-yyyy',
+            });
+
+            $(function () {
+                dateWiseSales(); //this calls it on load
+                $("#lineFromDate").change(dateWiseSales);
+            });
+        });
+        $(document).on("change", "#lineToDate", function () {
+            if ($("#lineFromDate").val() != null && $("#lineToDate").val() != null) {
+                var lineDates = { FromDate: $("#lineFromDate").val(), ToDate: $("#lineToDate").val() };
+                $.ajax({
+                    url: '@Url.Action("GetLineCurveDataByDates", "Home")',
+                    contentType: "application/json;charset=utf-8",
+                    type: 'POST',
+                    dataType: 'json',
+                    data: JSON.stringify({ dates: lineDates}),
+                    success: function (Linedata) {
+
+
+
+                        var linectx = document.getElementById('lineChart').getContext('2d');
+                        var purple_orange_gradient = linectx.createLinearGradient(0, 0, 0, 600);
+                        purple_orange_gradient.addColorStop(0, '#1e63e0');
+                        purple_orange_gradient.addColorStop(0.5, 'white');
+
+                        var xAxisVal = [];
+                        var yAxixVal = [];
+                        $.each(Linedata.salesMonthYearAmount, function (key, val) {
+                            xAxisVal.push(val.ChartMontYear);
+                            yAxixVal.push(val.Amount);
+                        });
+                        $('#lineChart').remove();
+                        $('#lincPlate').append('  <canvas id="lineChart" style="max-height:380px"></canvas>');
+                        var linechartOfToDate= new Chart(document.getElementById("lineChart"), {
+                            type: 'line',
+                            data: {
+                                labels: xAxisVal,
+                                datasets:
+                                    [
+                                        {
+                                        data: yAxixVal,
+                                        label: "Sales",
+                                        borderColor: "#40739e",
+                                        fill: true,
+                                        backgroundColor: purple_orange_gradient,
+                                        hoverBackgroundColor: purple_orange_gradient,
+                                        }
+                                    ]
+                            },
+                            options: {
+                                title: {
+                                    display: true,
+                                    text: 'Sales year to date'
+                                }
+                            }
+                        });
+
+                    }
+               });
+            }
+
+        });*@
+
+    //function dateWiseSales() {
+    //    if ($("#lineFromDate").val() != null && $("#lineToDate").val() != null) {
+    //        var lineDates = { FromDate: $("#lineFromDate").val(), ToDate: $("#lineToDate").val() };
+    //        $.ajax({
+    //            url: '@Url.Action("GetLineCurveDataByDates", "Home")',
+    //            contentType: "application/json;charset=utf-8",
+    //            type: 'POST',
+    //            dataType: 'json',
+    //            data: JSON.stringify({ dates: lineDates }),
+    //            success: function (Linedata) {
+
+
+    //                var linectx = document.getElementById('lineChart').getContext('2d');
+    //                var purple_orange_gradient = linectx.createLinearGradient(0, 0, 0, 600);
+    //                purple_orange_gradient.addColorStop(0, '#1e63e0');
+    //                purple_orange_gradient.addColorStop(0.5, 'white');
+
+    //                var xAxisVal = [];
+    //                var yAxixVal = [];
+    //                $.each(Linedata.salesMonthYearAmount, function (key, val) {
+    //                    xAxisVal.push(val.ChartMontYear);
+    //                    yAxixVal.push(val.Amount);
+    //                });
+    //                $('#lineChart').remove();
+    //                $('#lincPlate').append('  <canvas id="lineChart" style="max-height:380px"></canvas>');
+    //                var linechartOfFromDate = new Chart(document.getElementById("lineChart"), {
+    //                    type: 'line',
+    //                    data: {
+    //                        labels: xAxisVal,
+    //                        datasets:
+    //                            [
+    //                                {
+    //                                    data: yAxixVal,
+    //                                    label: "Sales",
+    //                                    borderColor: "#40739e",
+    //                                    fill: true,
+    //                                    backgroundColor: purple_orange_gradient,
+    //                                    hoverBackgroundColor: purple_orange_gradient,
+    //                                }
+    //                            ]
+    //                    },
+    //                    options: {
+    //                        title: {
+    //                            display: true,
+    //                            text: 'Sales year to date'
+    //                        }
+    //                    }
+
+    //                });
+
+    //            }
+    //        });
+    //    }
+    //}
+
+
+    //$(document).on("change", "#barToDate", function () {
+    //    if ($("#barFromDate").val() != null && $("#barToDate").val() != null) {
+    //        var barDates = { FromDate: $("#barFromDate").val(), ToDate: $("#barToDate").val() };
+    //        $.ajax({
+    //            url: '@Url.Action("GetBarChartDataByDates", "Home")',
+    //            contentType: "application/json;charset=utf-8",
+    //            type: 'POST',
+    //            dataType: 'json',
+    //            data: JSON.stringify({ dates: barDates}),
+    //            success: function (bardata) {
+
+
+
+    //                var linectx = document.getElementById('barChartSalesTargetVsAtual').getContext('2d');
+    //                var purple_orange_gradient = linectx.createLinearGradient(0, 0, 0, 600);
+    //                purple_orange_gradient.addColorStop(0, '#FFC312');
+    //                purple_orange_gradient.addColorStop(1, 'white');
+    //                var purple_orange_gradientBar = linectx.createLinearGradient(0, 0, 0, 600);
+    //                purple_orange_gradientBar.addColorStop(0, '#1b9cfc');
+    //                purple_orange_gradientBar.addColorStop(1, 'white');
+
+    //                var salesTargetxAxisVal = [];
+    //                var salesTargetyAxixVal = [];
+    //                $.each(bardata.targetsalesMonthYearAmount, function (key, val) {
+    //                    salesTargetxAxisVal.push(val.ChartMontYear);
+    //                    salesTargetyAxixVal.push(val.Amount);
+    //                });
+    //                var salesxAxisVal = [];
+    //                var salesyAxixVal = [];
+    //                $.each(bardata.salesMonthYearAmount, function (key, val) {
+    //                    salesxAxisVal.push(val.ChartMontYear);
+    //                    salesyAxixVal.push(val.Amount);
+    //                });
+    //                $('#barChartSalesTargetVsAtual').remove();
+    //                $('#barPlate').append('  <canvas id="barChartSalesTargetVsAtual" style="max-height:380px"></canvas>');
+    //                var barchartOfToDate = new Chart(document.getElementById("barChartSalesTargetVsAtual"), {
+    //                    type: 'bar',
+    //                    data: {
+    //                        labels: salesxAxisVal,
+    //                        datasets: [{
+    //                            data: salesTargetyAxixVal,
+    //                            label: "Sales target",
+    //                            fill: true,
+    //                            backgroundColor: purple_orange_gradientBar,
+    //                            hoverBackgroundColor: purple_orange_gradientBar,
+    //                        },
+
+    //                        {
+    //                            data: salesyAxixVal,
+    //                            label: "Actual Sales",
+    //                            fill: true,
+    //                            backgroundColor: purple_orange_gradient,
+    //                            hoverBackgroundColor: purple_orange_gradient,
+    //                        }
+    //                        ]
+    //                    },
+    //                    options: {
+    //                        title: {
+    //                            display: true,
+    //                            text: 'Target Sales VS Actual sales year to date'
+    //                        },
+    //                        scales: {
+    //                            yAxes: [{
+    //                                ticks: {
+    //                                    beginAtZero: true
+
+    //                                }
+    //                            }]
+    //                        }
+    //                    }
+    //                });
+
+    //            }
+    //       });
+    //    }
+
+    //});
+
+    //        $(document).on("change", "#barFromDate", function () {
+    //                if ($("#barFromDate").val() != null && $("#barToDate").val() != null) {
+    //                    var barDates = { FromDate: $("#barFromDate").val(), ToDate: $("#barToDate").val() };
+    //                $.ajax({
+    //                url: '@Url.Action("GetBarChartDataByDates", "Home")',
+    //                    contentType: "application/json;charset=utf-8",
+    //                    type: 'POST',
+    //                    dataType: 'json',
+    //                    data: JSON.stringify({ dates: barDates}),
+    //                    success: function (bardata) {
+
+
+    //                        var linectx = document.getElementById('barChartSalesTargetVsAtual').getContext('2d');
+    //                        var purple_orange_gradient = linectx.createLinearGradient(0, 0, 0, 600);
+    //                        purple_orange_gradient.addColorStop(0, '#FFC312');
+    //                        purple_orange_gradient.addColorStop(1, 'white');
+    //                        var purple_orange_gradientBar = linectx.createLinearGradient(0, 0, 0, 600);
+    //                        purple_orange_gradientBar.addColorStop(0, '#1b9cfc');
+    //                        purple_orange_gradientBar.addColorStop(1, 'white');
+
+    //                        var salesTargetxAxisVal = [];
+    //                        var salesTargetyAxixVal = [];
+    //                        $.each(bardata.targetsalesMonthYearAmount, function (key, val) {
+    //                            salesTargetxAxisVal.push(val.ChartMontYear);
+    //                            salesTargetyAxixVal.push(val.Amount);
+    //                        });
+    //                        var salesxAxisVal = [];
+    //                        var salesyAxixVal = [];
+    //                        $.each(bardata.salesMonthYearAmount, function (key, val) {
+    //                            salesxAxisVal.push(val.ChartMontYear);
+    //                            salesyAxixVal.push(val.Amount);
+    //                        });
+    //                        $('#barChartSalesTargetVsAtual').remove();
+    //                        $('#barPlate').append('  <canvas id="barChartSalesTargetVsAtual" style="max-height:380px"></canvas>');
+    //                        var barchartOfFromDate = new Chart(document.getElementById("barChartSalesTargetVsAtual"), {
+    //                            type: 'bar',
+    //                            data: {
+    //                        labels: salesxAxisVal,
+    //                                datasets: [{
+    //                            data: salesTargetyAxixVal,
+    //                                    label: "Sales target",
+    //                                    fill: true,
+    //                                    backgroundColor: purple_orange_gradientBar,
+    //                                    hoverBackgroundColor: purple_orange_gradientBar,
+    //                                },
+
+    //                                {
+    //                            data: salesyAxixVal,
+    //                                    label: "Actual Sales",
+    //                                    fill: true,
+    //                                    backgroundColor: purple_orange_gradient,
+    //                                    hoverBackgroundColor: purple_orange_gradient,
+    //                                }
+    //                                ]
+    //                            },
+    //                            options: {
+    //                        title: {
+    //                            display: true,
+    //                                    text: 'Target Sales VS Actual sales year to date'
+    //                                },
+    //                                scales: {
+    //                            yAxes: [{
+    //                                ticks: {
+    //                                    beginAtZero: true
+
+    //                                        }
+    //                                }]
+    //                                }
+    //                        }
+    //                    });
+
+    //                }
+    //            });
+    //        }
+
+    //    });
+    //        //var a = 0;
+    //        $(document).on("change", "#hbarToDate", function () {
+    //        if ($("#hbarFromDate").val() != null && $("#hbarToDate").val()) {
+    //            var hbarDates = { FromDate: $("#hbarFromDate").val(), ToDate: $("#hbarToDate").val() };
+    //                $.ajax({
+    //        url: '@Url.Action("GetHorizontalBarChartDataByDates", "Home")',
+    //                    contentType: "application/json;charset=utf-8",
+    //                    type: 'POST',
+    //                    dataType: 'json',
+    //                    data: JSON.stringify({ dates: hbarDates }),
+    //                    success: function (hbardata) {
+    //                var ctxhoribar = document.getElementById('horizontalbarChartCollectionTargetVsAtual').getContext('2d');
+    //                var g1Color = ctxhoribar.createLinearGradient(600, 0, 0, 0);
+    //                g1Color.addColorStop(0, '#ffc04d');
+    //                g1Color.addColorStop(1, '#ffdb99');
+    //                var g2Color = ctxhoribar.createLinearGradient(600, 0, 0, 0);
+    //                g2Color.addColorStop(0, '#1E90FF');
+    //                g2Color.addColorStop(1, '#a5d2ff');
+    //                var TargetCollectionxAxisVal = [];
+    //                var TargetCollectionyAxixVal = [];
+    //                        $.each(hbardata.targetCollectionMonthYearAmount, function (key, val) {
+    //                    TargetCollectionxAxisVal.push(val.ChartMontYear);
+    //                    TargetCollectionyAxixVal.push(val.Amount);
+    //                });
+    //                var collectionxAxisVal = [];
+    //                var collectionyAxixVal = [];
+    //                        $.each(hbardata.CollectionMonthYearAmount, function (key, val) {
+    //                    collectionxAxisVal.push(val.ChartMontYear);
+    //                    collectionyAxixVal.push(val.Amount);
+    //                });
+    //                        $('#horizontalbarChartCollectionTargetVsAtual').remove();
+    //                        $('#horizontalBarPlate').append('  <canvas id="horizontalbarChartCollectionTargetVsAtual" style="max-height:380px"></canvas>');
+    //                var horizontarbarchart = new Chart(document.getElementById("horizontalbarChartCollectionTargetVsAtual"), {
+    //                            type: 'horizontalBar',
+    //                            data: {
+    //                labels: collectionxAxisVal,
+    //                                datasets: [{
+    //                    data: TargetCollectionyAxixVal,
+    //                                    label: "Collection target",
+    //                                    borderColor: g1Color,
+    //                                    backgroundColor: g1Color,
+    //                                    fill: true,
+    //                                    legend: { display: false },
+    //                                },
+
+    //                                {
+    //                    data: collectionyAxixVal,
+    //                                    label: "Actual Collection",
+    //                                    borderColor: g2Color,
+    //                                    backgroundColor: g2Color,
+    //                                    fill: true
+    //                                }
+    //                                ]
+    //                            },
+    //                            options: {
+    //                title: {
+    //                    display: true,
+    //                                    text: 'Target collection VS Actual Collection year to date'
+    //                                },
+    //                                scales: {
+    //                    xAxes: [{
+    //                        ticks: {
+    //                            beginAtZero: true
+
+    //                                        }
+    //                        }]
+    //                                }
+    //                }
+    //            });
+    //        }
+    //    });
+    //            }
+    //        });
+
+    //        $(document).on("change", "#hbarFromDate", function () {
+    //    if ($("#hbarFromDate").val() != null && $("#hbarToDate").val()) {
+    //        var hbarDates = { FromDate: $("#hbarFromDate").val(), ToDate: $("#hbarToDate").val() };
+    //                $.ajax({
+    //    url: '@Url.Action("GetHorizontalBarChartDataByDates", "Home")',
+    //                    contentType: "application/json;charset=utf-8",
+    //                    type: 'POST',
+    //                    dataType: 'json',
+    //                    data: JSON.stringify({ dates: hbarDates }),
+    //                    success: function (hbardata) {
+    //            var ctxhoribar = document.getElementById('horizontalbarChartCollectionTargetVsAtual').getContext('2d');
+    //            var g1Color = ctxhoribar.createLinearGradient(600, 0, 0, 0);
+    //            g1Color.addColorStop(0, '#ffc04d');
+    //            g1Color.addColorStop(1, '#ffdb99');
+    //            var g2Color = ctxhoribar.createLinearGradient(600, 0, 0, 0);
+    //            g2Color.addColorStop(0, '#1E90FF');
+    //            g2Color.addColorStop(1, '#a5d2ff');
+    //            var TargetCollectionxAxisVal = [];
+    //            var TargetCollectionyAxixVal = [];
+    //                        $.each(hbardata.targetCollectionMonthYearAmount, function (key, val) {
+    //                TargetCollectionxAxisVal.push(val.ChartMontYear);
+    //                TargetCollectionyAxixVal.push(val.Amount);
+    //            });
+    //            var collectionxAxisVal = [];
+    //            var collectionyAxixVal = [];
+    //                        $.each(hbardata.CollectionMonthYearAmount, function (key, val) {
+    //                collectionxAxisVal.push(val.ChartMontYear);
+    //                collectionyAxixVal.push(val.Amount);
+    //            });
+    //                        $('#horizontalbarChartCollectionTargetVsAtual').remove();
+    //                        $('#horizontalBarPlate').append('  <canvas id="horizontalbarChartCollectionTargetVsAtual" style="max-height:380px"></canvas>');
+    //            var horizontarbarchart = new Chart(document.getElementById("horizontalbarChartCollectionTargetVsAtual"), {
+    //                            type: 'horizontalBar',
+    //                            data: {
+    //            labels: collectionxAxisVal,
+    //                                datasets: [{
+    //                data: TargetCollectionyAxixVal,
+    //                                    label: "Collection target",
+    //                                    borderColor: g1Color,
+    //                                    backgroundColor: g1Color,
+    //                                    fill: true,
+    //                                    legend: { display: false },
+    //                                },
+
+    //                                {
+    //                data: collectionyAxixVal,
+    //                                    label: "Actual Collection",
+    //                                    borderColor: g2Color,
+    //                                    backgroundColor: g2Color,
+    //                                    fill: true
+    //                                }
+    //                                ]
+    //                            },
+    //                            options: {
+    //            title: {
+    //                display: true,
+    //                                    text: 'Target collection VS Actual Collection year to date'
+    //                                },
+    //                                scales: {
+    //                xAxes: [{
+    //                    ticks: {
+    //                        beginAtZero: true
+
+    //                                        }
+    //                    }]
+    //                                }
+
+    //            }
+    //        });
+    //    }
+    //});
+    //            }
+
+    //        });
+
+    //            window.onload = function () {
+    //        $.ajax({
+    //                url: '@Url.Action("GetMonthWiseSales", "Home")',
+    //            contentType: "application/json;charset=utf-8",
+    //            type: 'GET',
+    //            dataType: 'json',
+    //            success: function (data) {
+    //                        var ctx = document.getElementById('myChart').getContext('2d');
+    //                        var myChart = new Chart(ctx, {
+    //                    type: 'bar',
+    //                    data: {
+    //                        labels: data.monthName,
+    //                        datasets: [{
+    //                            label: data.plabel,
+    //                            data: data.PtotalSales,
+    //                            backgroundColor: "rgb(100, 100, 100)",
+    //                            borderColor: "rgb(100, 100, 100)",
+    //                            borderWidth: 1
+    //                        },
+    //                            {
+    //                            label: data.label,
+    //                                data: data.totalSales,
+    //                                backgroundColor: "rgb(153, 214, 255)",
+    //                                borderColor: "rgb(153, 214, 255)",
+    //                                borderWidth: 1
+    //                            }
+    //                        ]
+    //                    },
+    //                    options: {
+    //                        scales: {
+    //                            yAxes: [{
+    //                                ticks: {
+    //                                    beginAtZero: true
+    //                                                }
+    //                                }]
+    //                        }
+    //                        }
+    //                    });
+    //                }
+    //            });
+
+
+
+
+    //        $.ajax({
+    //            url: '@Url.Action("GetMonthWiseSalesAndColletion", "Home")',
+    //            contentType: "application/json;charset=utf-8",
+    //            type: 'GET',
+    //            dataType: 'json',
+    //            success: function (data) {
+    //                    var x = document.getElementById('SalesVsCollection').getContext('2d');
+    //                    var myChart = new Chart(x, {
+    //                    type: 'bar',
+    //                    data: {
+    //                    labels: data.SalesMonth,
+    //                        datasets: [{
+    //                        label: ['Sales Amount'],
+    //                            data: data.totalSales,
+    //                            backgroundColor: "rgb(61, 228, 247)",
+    //                            borderColor: "rgb(61, 228, 247)",
+    //                            borderWidth: 1
+
+    //                        },
+    //                        {
+    //                        label: ['Collection Amount'],
+    //                            data: data.totalCollection,
+    //                            backgroundColor: "rgb(89, 116, 119)",
+    //                            borderColor: "rgb(89, 116, 119)",
+    //                            borderWidth: 1
+
+    //                        }
+    //                        ]
+    //                    },
+    //                    options: {
+
+    //                    scales: {
+    //                        yAxes: [{
+    //                            ticks: {
+    //                                beginAtZero: true
+    //                                                }
+    //                            }]
+    //                        }
+    //                    }
+    //                });
+    //            }
+    //        });
+
+
+
+    //    $.ajax({
+    //        url: '@Url.Action("GetAcData", "Home")',
+    //        contentType: "application/json;charset=utf-8",
+    //        type: 'GET',
+    //        dataType: 'json',
+    //        success: function (data) {
+    //                var ac = new Chart(document.getElementById("pieChartAcComp"), {
+    //                "type": "pie",
+    //                "data": {
+    //                    "labels": data.Name,
+    //                    "datasets": [{
+    //                        "label": "",
+    //                        "data": data.amount,
+    //                        "backgroundColor": data.Color
+    //                    }]
+    //                }
+    //            });
+    //        }
+    //        });
+    //              $.ajax({
+    //url: '@Url.Action("DepotWiseExpense", "Home")',
+    //        contentType: "application/json;charset=utf-8",
+    //        type: 'GET',
+    //        dataType: 'json',
+    //        success: function (data) {
+    //        var ac = new Chart(document.getElementById("DepotWiseExpense"), {
+    //                "type": "pie",
+    //                "data": {
+    //            "labels": data.branchName,
+    //                    "datasets": [{
+    //                        "label": "",
+    //                        "data": data.totalSales,
+    //                        "backgroundColor": data.color
+    //                    }]
+    //                }
+    //            });
+    //        }
+    //        });
+
+
+    //          $.ajax({
+    //url: '@Url.Action("GetChartData", "Home")',
+    //        contentType: "application/json;charset=utf-8",
+    //        type: 'GET',
+    //        dataType: 'json',
+    //        success: function (data) {
+    //        var pichart=new Chart(document.getElementById("pieChartAriaWiseSales"), {
+    //                "type": "pie",
+    //                "data": {
+    //            "labels": data.branchName,
+    //                    "datasets": [{
+    //                        "label": "area wise sales",
+    //                        "data": data.totalSales,
+    //                        "backgroundColor": data.color
+    //                    }]
+    //                }
+    //            });
+    //        }
+    //    });
+
+
+    @*}
+
+
+
+        </script>*@
+}
+
+@*}*@
+@*else
+    {
+
+    }*@
+
+@*}*@
+

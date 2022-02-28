@@ -1,0 +1,818 @@
+﻿@model BEEERP.Models.ViewModel.GeneralStore.GSInventoryIssueVModel
+@using BEEERP.Models.CommonInformation
+
+@{
+    ViewBag.Title = "GSInventoryIssueView";
+}
+
+<style>
+    h3 {
+        background: #F1C40F;
+        border-radius: 8px;
+    }
+
+    .btn {
+        background-color: #2980B9;
+        border: 2px solid groove;
+        color: white;
+        border-radius: 8px;
+        min-width: 80px
+    }
+
+        .btn:hover {
+            background-color: #82E0AA;
+            color: #02110E;
+        }
+
+    .select2-selection--single:focus {
+        background-color: aqua !important;
+    }
+</style>
+<h3 style="text-align:center"> General Store Material Issue(IGSM) Entry</h3>
+<div class="content">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box ">
+                            <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                <h4 class="box-title" style="text-align:center">GSMI Details </h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.GSIIssueNo, "GSMI No", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px;">
+                                            @Html.TextBoxFor(m => m.GSIIssueNo, new { @class = "form-control", @Value = ViewBag.Id })
+                                            @Html.ValidationMessageFor(m => m.GSIIssueNo, "", new { @style = "color: red" })
+                                            <div class="input-group-btn">
+                                                <input type="button" name="search" id="search" value="Search" class="btn btn-primary" style="min-width: 50px" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.GSIssueDate, "Date", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8 input-group" style="padding-left:15px; padding-right:15px">
+                                            @Html.TextBoxFor(m => m.GSIssueDate, new { @class = "form-control date", @Value = DateTime.Now.ToString("dd-MM-yyyy") })
+                                            @Html.ValidationMessageFor(m => m.GSIssueDate, "", new { @style = "color: red" })
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ReferenceNo, "Reference No", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.ReferenceNo, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.ReferenceNo, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.CompanyID, "Company", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.CompanyID, (IEnumerable<SelectListItem>)ViewBag.Company, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.CompanyID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.StoreID, "Store", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.StoreID, (IEnumerable<SelectListItem>)ViewBag.Store, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.StoreID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.GSIssueDescription, "Description", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.GSIssueDescription, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.GSIssueDescription, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group" id="grq">
+                                        @Html.LabelFor(m => m.TotalQty, "Total Qty", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.TotalQty, new { @class = "form-control digit" })
+                                            @Html.ValidationMessageFor(m => m.TotalQty, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.TotalValue, "Total Value", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.TotalValue, new { @class = "form-control", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.TotalValue)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.DepartmentID, "Issue To Department", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.DepartmentID, (IEnumerable<SelectListItem>)ViewBag.DepartmentID, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.DepartmentID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box ">
+                            <div class="box-body">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.GroupID, "Item Group", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.GroupID, (IEnumerable<SelectListItem>)ViewBag.Group, new { @class = "form-control select2", @Value = ViewBag.Id })
+                                            @Html.ValidationMessageFor(m => m.GroupID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ItemID, "Item", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.ItemID, (IEnumerable<SelectListItem>)ViewBag.Item, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(m => m.ItemID, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.UOMName, "UoM", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.UOMName, new { @class = "form-control", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.UOMName, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group" id="costRate">
+                                        @Html.LabelFor(m => m.ItemRate, "Rate", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.ItemRate, new { @class = "form-control", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.ItemRate, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.BalanceQty, "Balance Qty", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.BalanceQty, new { @class = "form-control", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.BalanceQty, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ItemQty, "Issue Quantity", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.ItemQty, new { @class = "form-control digit" })
+                                            @Html.ValidationMessageFor(m => m.ItemQty, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ItemValue, "Item Value", new { @class = "col-md-4 control-label" })
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(m => m.ItemValue, new { @class = "form-control", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.ItemValue, "", new { @style = "color: red" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="box" style="border:none">
+                                    <div class="box-body">
+
+                                        <div class="form-group" style="text-align:center;padding-top:10px;">
+                                            <button type="button" id="addToGrid" name="addToGrid" style="height:33px; font-size:13px;" class="btn btn-primary">Add To Grid</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="box ">
+                                    <div class="box-header with-border box-head-back" style="background: #82E0AA; text-align: left;">
+                                        <h4 class="box-title">GSII Line Items</h4>
+                                    </div>
+                                    <div class="box-body">
+                                        <table class="table table-responsive" id="InventoryList">
+                                            <thead>
+                                                <tr>
+                                                    <th>Group Name</th>
+                                                    <th>Item Name</th>
+                                                    <th>Item Qty</th>
+                                                    <th>Item Rate</th>
+                                                    <th>Item Value</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="box">
+                                    <div class="box-footer">
+                                        <div class="form-group" style="text-align:center">
+                                            @if (User.IsInRole("StoreRMOperator"))
+                                            {
+                                                <input type="button" value="Save" id="save" class="btn btn-primary" style="padding-left:20px;" />
+                                                <input type="button" name="update" id="update" value="Update" class="btn btn-primary" disabled />
+                                                <input type="button" name="delete" id="delete" value="Delete" class="btn btn-primary" disabled />
+                                                <input type="button" name="clear" id="clear" value="Clear" class="btn btn-primary" />
+                                                <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                                <input type="button" name="print" id="print" value="Print" class="btn btn-primary" />
+                                            }
+                                            else
+                                            {
+                                                <input type="button" value="Save" id="save" class="btn btn-primary" style="padding-left:20px;" />
+                                                <input type="button" name="update" id="update" value="Update" class="btn btn-primary" />
+                                                <input type="button" name="delete" id="delete" value="Delete" class="btn btn-primary" />
+                                                <input type="button" name="clear" id="clear" value="Clear" class="btn btn-primary" />
+                                                <input type="button" name="refresh" id="refresh" value="Refresh" class="btn btn-primary" />
+                                                <input type="button" name="print" id="print" value="Print" class="btn btn-primary" />
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/StoreRM/IRMInputFocus.js"></script>
+    <script>
+        var table = $('#InventoryList').DataTable({
+            'paging': false,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+
+        EnterPress();
+        var addedItems = [];
+        var gii = { GSIIssueNo: 0, GSIssueDate: "", StoreID: 0, CompanyID: 0, DepartmentID:0, ReferenceNo: "", GSIssueDescription: "", ItemID: 0, GroupID: 0, ItemQty: 0, ItemRate: 0, ItemValue: 0, UomID: 0, BalanceQty: 0, TotalQty: 0, TotalValue: 0 }
+        var itemId = "";
+        var uomId = "";
+        $('.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+
+
+        $(".select2").select2();
+
+        $(document).ready(function () {
+            $("#update").hide();
+            $("#delete").hide();
+            $("#clear").hide();
+            $("#ItemID").prop('disabled', true);
+            $("#print").prop('disabled', true);
+            var isValid = true;
+            $("#clmGRQNO").focus();
+            $("#UomID").prop('disabled', true);
+            $("#IRMDate").focus();
+        });
+        var itemId;
+        //group change reaction
+        $(document).on('change', "#GroupID", function () {
+            $("#ItemID").prop('disabled', false);
+            var id = { id: parseInt( $(this).val()) };
+            if (id.id != "") {
+                $.ajax({
+                    url: '@Url.Action("GetItemByBatchID", "GSInventoryIssue")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+
+                        $("#ItemID").empty();
+                        $("#ItemID").prop("disabled", false);
+                        $.each(datas, function (index, value) {
+                            $("#ItemID").append($('<option />', {
+                                value: value.Value,
+                                text: value.Text
+                            })).trigger('change');
+                        });
+                        $("#ItemID").focus();
+                        if (itemId != "") {
+                            $("#ItemID").val(itemId).change();
+                            itemId = "";
+                        }
+                    }
+                });
+            }
+                    else {
+                        $("#ItemID").val("").change();
+                        $("#ItemID").prop("disabled", true);
+                }
+        });
+
+
+
+         //item change reaction
+        $(document).on('change', "#ItemID", function () {
+            var id = { itemId: $(this).val(), storeId: $("#StoreID").val(), companyId: $("#CompanyID").val(), issueDate: $("#GSIssueDate").val() };
+
+            if (id.itemId != "" && id.storeId != "" && id.companyId!= "") {
+                    $.ajax({
+                        url: '@Url.Action("GetItemRemainQty", "GSInventoryIssue")',
+                        contentType: "application/json;charset=utf-8",
+                        data: id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (datas) {
+
+
+                            $("#ItemRate").val(datas.Rate);
+                            $("#UOMName").val(datas.uom);
+                            $("#BalanceQty").val(datas.RemQty);
+
+                        }
+                    });
+                }
+        });
+
+        // ItemValueCalculation
+
+        $(document).on('change', "#ItemQty", function () {
+            calculateitemvalue();
+        });
+        $(document).on('change', "#ItemRate", function () {
+            calculateitemvalue();
+        });
+
+        function calculateitemvalue() {
+            var ItemQty = $("#ItemQty").val() == "" ? 0 : parseFloat($("#ItemQty").val());
+            var ItemRate = $("#ItemRate").val() == "" ? 0 : parseFloat($("#ItemRate").val());
+
+            $("#ItemValue").val(ItemQty * ItemRate);
+        }
+
+        //issue qty set reaction
+        $(document).on('focusout', '#Qty', function () {
+            var isuuQty = $("#Qty").val();
+            var avalQty = $("#StockQty").val();
+
+            if (parseFloat(isuuQty) > parseFloat(avalQty)) {
+                setError("Qty", "Issue Qty Can not be grater than Available Qty");
+                $("#Qty").val("");
+                $("#BalanceQty").val("");
+            }
+            else if (parseFloat(isuuQty) == 0) {
+                setError("Qty", "Issue Qty can not be zero");
+                $("#Qty").val("");
+                $("#BalanceQty").val("");
+            }
+            else {
+                var balQty = avalQty - isuuQty;
+                $("#BalanceQty").val(balQty);
+            }
+        });
+
+        //refresh Click
+        $(document).on('click', '#refresh', function () {
+            location.reload();
+        });
+
+        //clear click
+        $(document).on('click', '#clear', function () {
+            location.reload();
+        });
+
+        //add to grid Code
+
+        $(document).on('click', '#addToGrid', function () {
+           // RemoveError();
+            ValidateAddToGrid();
+            if (isValid == true) {
+                var item = { GSIIssueNo: 0, GSIssueDate: "", StoreID: 0, CompanyID: 0, DepartmentID:0, ReferenceNo: "", GSIssueDescription: "", ItemID: 0,ItemName: 0, GroupID: 0,GroupName:'', ItemQty: 0, ItemRate: 0, ItemValue: 0, UomID: 0, BalanceQty: 0, TotalQty: 0, TotalValue: 0 }
+
+                item.GSIIssueNo = 0;
+                item.GSIssueDate = $("#GSIssueDate").val();
+                item.StoreID = $("#StoreID").val();
+                item.CompanyID = $("#CompanyID").val();
+                item.DepartmentID = $("#DepartmentID").val();
+                item.ItemID = $("#ItemID").val();
+                item.ItemName = $("#ItemID option:selected").text();
+                item.GroupID = $("#GroupID").val();
+                item.GroupName = $("#GroupID option:selected").text();
+                item.ItemQty = $("#ItemQty").val();
+                item.ItemRate = $("#ItemRate").val();
+                item.ItemValue = $("#ItemValue").val();
+                item.UomID = $("#UomID").val();
+                item.BalanceQty = $("#BalanceQty").val();
+                item.TotalQty = $("#TotalQty").val();
+                item.TotalValue = $("#TotalValue").val();
+                item.ReferenceNo = $("#ReferenceNo").val();
+                item.GSIssueDescription = $("#GSIssueDescription").val();
+                addedItems.push(item);
+                ClearOnAddGrid();
+                ShowOnTable();
+            }
+
+        });
+
+        function ShowOnTable() {
+            table.clear().draw();
+            var totQty = 0;
+            var totValue = 0;
+            $.each(addedItems, function (index, value) {
+                table.row.add([value.GroupName, value.ItemName, value.ItemQty, value.ItemRate, value.ItemValue, '<a href="#"><i class="fa fa-edit" name="editRow" value="' + value.ItemID + '"></i></a> &ensp;&ensp;&ensp;<a href="#"><i class="fa fa-trash" name="deleteRow" value="' + value.ItemID + '"></i></a>']).draw();
+                totQty += parseFloat(value.ItemQty);
+                totValue += parseFloat(value.ItemValue);
+
+            });
+            $("#TotalQty").val(totQty);
+            $("#TotalValue").val(totValue);
+        }
+
+        //Gii Save code
+        $(document).on('click', "#save", function () {
+            RemoveError();
+            Setsgii();
+            if (addedItems.length <= 0) {
+                alert("At least One Item should be added for save.");
+            }
+            else {
+                Validategii();
+                if (isValid == true) {
+                    if (confirm('Do you want to save')) {
+                        $.ajax({
+                            url: '@Url.Action("SaveGSInventory", "GSInventoryIssue")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ gii: gii, gsiiLineItems: addedItems }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                alert("Sucessfully Saved.");
+                                $("#save").prop('disabled', true);
+                                $("#print").prop('disabled', false);
+                                $("#GSIIssueNo").val(datas.Id);
+                                $("#GSIIssueNo").prop('disabled', true);
+
+
+                            }
+                        });
+                    }
+                    else {
+                        $("#save").show();
+                    }
+                }
+            }
+        });
+
+        //search GSII By Id
+        $(document).on('click', '#search', function () {
+            RemoveError();
+            var id = { id: $("#GSIIssueNo").val() };
+            ClearOnSearch();
+            $.ajax({
+                    url: '@Url.Action("GetGSInventoryById", "GSInventoryIssue")',
+                    contentType: "application/json;charset=utf-8",
+                    data: id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+
+                        if (datas == 0) {
+                            alert("Your entered GSIIID No. Doesn't exist");
+                        }
+                        else {
+                            $("#save").hide();
+                            $("#print").prop('disabled', false);
+                            $("#update").show();
+                            $("#delete").show();
+                            $("#GSIIssueNo").val(datas.gsDetails.GSIIssueNo);
+                            $("#GSIssueDate").val((moment(datas.gsDetails.GSIssueDate).format("DD-MM-YYYY")));
+                            $("#CompanyID").val(datas.gsDetails.CompanyID).change();
+                            $("#DepartmentID").val(datas.gsDetails.DepartmentID).change();
+                            $("#StoreID").val(datas.gsDetails.StoreID).change();
+                            $("#ReferenceNo").val(datas.gsDetails.ReferenceNo);
+                            $("#GSIssueDescription").val(datas.gsDetails.GSIssueDescription);
+                            addedItems = [];
+                            $.each(datas.gsiiLineItems, function (index, value) {
+                                var item = { ItemID: 0, ItemName: 0, GroupID: 0, GroupName: '', ItemQty: 0, ItemRate: 0, ItemValue: 0, UOMName: "", BalanceQty: 0, TotalQty: 0, TotalValue: 0 }
+                                item.ItemName = value.ItemName;
+                                item.GroupName = value.GroupName;
+                                item.GroupID = value.GroupID;
+                                item.ItemID = value.ItemID;
+                                item.ItemQty = value.ItemQty;
+                                item.ItemRate = value.ItemRate;
+                                item.ItemValue = value.ItemValue;
+                                item.UOMName = value.UOMName;
+                                item.BalanceQty = value.BalanceQty;
+                                item.TotalQty = value.TotalQty;
+                                item.TotalValue = value.TotalValue;
+                                addedItems.push(item);
+                            });
+                            ShowOnTable();
+                        }
+                },
+                error: function () {
+                    alert("Please check your internet connection first. If this doesn't solve your problem, then Contact With Paankouri Software & Services")
+
+                }
+            });
+        });
+        var Qty = 0.0;
+        //show grid row in textbox by edit row click
+        $(document).on('click', '[name="editRow"]', function () {
+            var item = $(this).attr("value");
+            var newItem = [];
+            $.each(addedItems, function (index, value) {
+                if (value.ItemID == item) {
+
+                    $("#GroupID").val(value.GroupID).change();
+                    $("#ItemID").val(item).change();
+                    $("#ItemRate").val(value.ItemRate);
+                    $("#ItemQty").val(value.ItemQty);
+                    $("#ItemValue").val(value.ItemValue);
+                    $("#UOMName").val(value.UOMName);
+                    $("#BalanceQty").val(value.BalanceQty);
+                    Qty = parseFloat(value.Qty);
+                    //$("#Qty").val(Qty);
+
+                    itemId = value.ItemID;
+                }
+                else {
+                    newItem.push(value);
+                }
+
+            });
+            addedItems = newItem;
+            ShowOnTable();
+        });
+
+        //delete row by clicking Delete row
+        $(document).on('click', '[name="deleteRow"]', function () {
+            var item = $(this).attr("value");
+            var newItem = [];
+            if (confirm('Are you sure you want to delete this from Grid ?')) {
+                $.each(addedItems, function (index, value) {
+                    if (value.ItemID == item) {
+
+                    }
+                    else {
+                        newItem.push(value);
+                    }
+
+                });
+                addedItems = newItem;
+                ShowOnTable();
+            }
+        });
+
+        //update GSII by clicking update button
+        $(document).on('click', '#update', function () {
+            RemoveError();
+            $("#update").prop('disabled', true);
+             Setsgii();
+            if (addedItems.length <= 0) {
+                alert("At least One Item should be added for save.");
+            }
+            else {
+                Validategii();
+                if (isValid == true) {
+                    if (confirm('Do you want to Update')) {
+                        $.ajax({
+                            url: '@Url.Action("UpdateGSInventory", "GSInventoryIssue")',
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({ gii: gii, gsiiLineItems: addedItems }),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (datas) {
+                                if (datas == 0) {
+                                    alert("Sucessfully Updated.");
+                                    $("#save").prop('disabled', true);
+                                    $("#print").prop('disabled', false);
+
+                                }
+                                else {
+                                    alert("Failed To Update.");
+
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        $("#save").show();
+                    }
+                }
+            }
+        });
+
+        //delete GSInventory by clicking delete button
+        $(document).on('click', '#delete', function () {
+            $("#update").prop('disabled', true);
+            $("#delete").prop('disabled', true);
+            var id = $("#GSIIssueNo").val();
+            if (confirm('Are you sure you want to delete this from the database?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteGSInventoryByid", "GSInventoryIssue")',
+                    contentType: "application/json;charset=utf-8",
+                    data: { id: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        if (datas == 0) {
+                            alert("Delete Successfull");
+
+                            $("#delete").prop('disabled', true);
+                            $("#update").prop('disabled', false);
+                        }
+                        else {
+                             alert("Delete failed.");
+                            //location.reload();
+                        }
+                    }
+                });
+            }
+        });
+
+
+        $(document).on('click', '#print', function () {
+            if ($("#IRMID").val() != "") {
+                window.open("/IRM/Print?IRMNo=" + $("#IRMID").val(), "_blank");
+            }
+            else {
+                alert("IRMP number is required");
+            }
+        });
+
+        //grid view
+
+
+        //grid validation
+        function ValidateAddToGrid() {
+            isValid = true;
+            var a = parseFloat($("#BalanceQty").val());
+            var b = parseFloat($("#ItemQty").val());
+            if ($("#GroupID").val() == "") {
+                setError("GroupID", "Group is required field");
+                isValid = false;
+            }
+            if ($("#ItemID").val() == "") {
+                setError("ItemID", "Item is required field");
+                isValid = false;
+            }
+            if ($("#ItemQty").val() == "") {
+                setError("ItemQty", "Quantity is required field");
+                isValid = false;
+            }
+            if (b > a) {
+                alert("Issue Quantity Can not be grater than Balance Quantity");
+                isValid = false;
+            }
+
+            $.each(addedItems, function (index, value) {
+                if (value.ItemID == $("#ItemID").val()) {
+                    setError("ItemID", "This Item Already Added.");
+                    isValid = false;
+                }
+            });
+        }
+
+        function ValidateSave() {
+        //    isValid = true;
+
+        //    if ($("#ItemId").val() == "") {
+        //        setError("ItemId", "Item is required field");
+        //        isValid = false;
+        //    }
+        //    if ($("#ItemQty").val() == "") {
+        //        setError("ItemQty", "Quantity is required field");
+        //        isValid = false;
+        //    }
+        //    if ($("#ItemRate").val() == "") {
+        //        setError("ItemRate", "Rate is required field");
+        //        isValid = false;
+        //    }
+        //    if ($("#StoreID").val() == "") {
+        //        setError("StoreID", "Store is required field");
+        //        isValid = false;
+        //    }
+        //    if ($("#CompanyID").val() == "") {
+        //        setError("CompanyID", "Company is required field");
+        //        isValid = false;
+        //    }
+
+
+        }
+
+        //value set for GSInventory object From textbox
+        function Setsgii() {
+            gii.GSIIssueNo = $("#GSIIssueNo").val();
+            gii.GSIssueDate = $("#GSIssueDate").val();
+            gii.StoreID = parseInt($("#StoreID").val());
+            gii.CompanyID = parseInt( $("#CompanyID").val());
+            gii.DepartmentID = parseInt($("#DepartmentID").val());
+            gii.ReferenceNo = $("#ReferenceNo").val();
+            gii.GSIssueDescription = $("#GSIssueDescription").val();
+            gii.ItemID = $("#ItemID").val();
+            gii.GroupID = $("#GroupID").val();
+            gii.ItemQty = $("#ItemQty").val();
+            gii.ItemRate = $("#ItemRate").val();
+            gii.ItemValue = $("#ItemValue").val();
+            gii.UomID = $("#UomID").val();
+            gii.BalanceQty = $("#BalanceQty").val();
+            gii.TotalQty = $("#TotalQty").val();
+            gii.TotalValue = $("#TotalValue").val();
+
+        }
+
+        //validate save button click
+        function Validategii() {
+            isValid = true;
+            if (gii.IRMDate == "") {
+                setError("IRMDate", "Date is required field");
+                isValid = false;
+            }
+
+
+            if ($("#DepartmentID").val() == "") {
+                setError("DepartmentID", "Please select a Department");
+                isValid = false;
+            }
+
+
+            if ($("#CompanyID").val() == "") {
+                setError("CompanyID", "Please select a Company");
+                isValid = false;
+            }
+
+            StoreID
+
+            if ($("#StoreID").val() == "") {
+                setError("StoreID", "Please select a Store");
+                isValid = false;
+            }
+            //$.each(addedItems, function (index, value) {
+            //    if (value.ItemID == $("#ItemID").val()) {
+            //        setError("ItemID", "This Item Already Added.");
+            //        isValid = false;
+            //    }
+            //});
+        }
+
+        //clear textbox
+        function clearsIRM() {
+            $("#Refno").val("");
+            $("#IssueFrom").val("").change();
+            $("#IssueTo").val("").change();
+            $("#IRMTotal").val("");
+            $("#Description").val("");
+            $("#GRQNO").val("");
+            table.clear().draw();
+        }
+
+        //clear grid related textbox after click addtogrid
+        function ClearOnSearch() {
+            $("#StoreID").val("").change();
+            $("#CompanyID").val("").change();
+            $("#DepartmentID").val("").change();
+            $("#GroupID").val("").change();
+            $("#ItemID").val("").change();
+            $("#ItemQty").val("");
+            $("#ItemRate").val("");
+            $("#ItemValue").val("");
+            $("#ShiftPCsQty").val("");
+            $("#BalanceQty").val("");
+            itemId = "";
+        }
+        function ClearOnAddGrid() {
+            //$("#StoreID").val("").change();
+            //$("#CompanyID").val("").change();
+            $("#GroupID").val("").change();
+            $("#ItemID").val("").change();
+            $("#ItemQty").val("");
+            $("#ItemRate").val("");
+            $("#ItemValue").val("");
+            $("#ShiftPCsQty").val("");
+            $("#BalanceQty").val("");
+            itemId = "";
+        }
+
+    </script>
+}
+
