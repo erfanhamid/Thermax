@@ -14,7 +14,7 @@ namespace BEEERP.Controllers.SpareParts
         // GET: InventoryTransfer
         public ActionResult InventoryTransfer()
         {
-            var a = 0;
+            
             return View();
         }
     }
